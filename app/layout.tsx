@@ -54,6 +54,7 @@ import { Toaster } from "sonner";
 import { UTMTracker } from "@/components/UTMTracker";
 import PageViewTracker from "@/components/PageViewTracker";
 import { CookieBanner } from "@/components/CookieBanner";
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 export default function RootLayout({
   children,
@@ -138,6 +139,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <CookieBanner />
           </CartProvider>
         </CurrencyProvider>
+        <SpeedInsights />
       </body>
     </html>
   );
