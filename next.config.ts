@@ -69,6 +69,23 @@ const nextConfig: NextConfig = {
         destination: '/membership?utm_source=instagram&utm_medium=bio&utm_content=membership',
         permanent: false,
       },
+
+      // Facebook Bio Short Links
+      {
+        source: '/6wc-fb-bio',
+        destination: '/6wc?utm_source=facebook&utm_medium=bio&utm_content=challenge',
+        permanent: false,
+      },
+      {
+        source: '/course-fb-bio',
+        destination: '/courses/bundle?utm_source=facebook&utm_medium=bio&utm_content=course',
+        permanent: false,
+      },
+      {
+        source: '/membership-fb-bio',
+        destination: '/membership?utm_source=facebook&utm_medium=bio&utm_content=membership',
+        permanent: false,
+      },
     ];
   },
 };
