@@ -223,6 +223,21 @@ export function Header() {
                 </span>
               </Link>
 
+              {/* Divider */}
+              <div className="border-t border-gray-700"></div>
+
+              {/* Apparel Waitlist */}
+              <Link
+                href="/wait/apparel"
+                onClick={closeSidebar}
+                className="text-base sm:text-xl font-bold py-2 sm:py-3 px-3 sm:px-4 text-white relative group uppercase"
+              >
+                <span className="relative">
+                  APPAREL
+                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-yellow-200 transition-all duration-300 group-hover:w-full"></span>
+                </span>
+              </Link>
+
               {/* Newsletter */}
               <Link
                 href="/#newsletter"
