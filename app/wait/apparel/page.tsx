@@ -108,7 +108,7 @@ export default function ApparelWaitlistPage() {
               <div>
                 <div className="relative overflow-hidden">
                   <img
-                    src="https://media.oracleboxing.com/Website/tracksuitmafia.png"
+                    src="https://media.oracleboxing.com/Website/trackymafia.png"
                     alt="Oracle Boxing Tracksuit"
                     className="w-full h-auto object-contain"
                   />

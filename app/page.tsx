@@ -7,6 +7,7 @@ import { CourseCard } from '@/components/CourseCard'
 import { TestimonialSection } from '@/components/TestimonialSection'
 import { NotifyMeModal } from '@/components/NotifyMeModal'
 import { AdaptivePrice } from '@/components/AdaptivePrice'
+import { ApparelBanner } from '@/components/ApparelBanner'
 import { getCourses } from '@/lib/products'
 import { getRandomTestimonials, globalTestimonials } from '@/lib/testimonials'
 import { useAnalytics } from '@/hooks/useAnalytics'
@@ -293,6 +294,9 @@ Best for dedicated students ready to transform their boxing.`,
           </div>
         </div>
       </section>
+
+      {/* Apparel Banner */}
+      <ApparelBanner />
 
       {/* Testimonials Section */}
       <TestimonialSection testimonials={testimonials} />
