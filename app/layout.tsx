@@ -55,6 +55,7 @@ import { UTMTracker } from "@/components/UTMTracker";
 import PageViewTracker from "@/components/PageViewTracker";
 import { CookieBanner } from "@/components/CookieBanner";
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { Analytics } from '@vercel/analytics/react';
 
 export default function RootLayout({
   children,
@@ -140,6 +141,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           </CartProvider>
         </CurrencyProvider>
         <SpeedInsights />
+        <Analytics />
       </body>
     </html>
   );
