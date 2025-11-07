@@ -134,16 +134,17 @@ export function hasTrackingConsent(): boolean {
 }
 
 /**
- * Get or initialize tracking data (only if consent given)
- * Returns minimal data if no consent, full tracking if consent given
+ * Get or initialize tracking data
+ * ALWAYS returns UTM/attribution data (it's from user's URL)
+ * Session/event IDs only initialized after consent
  */
 export function getOrInitTrackingData(): TrackingData {
   // Check for existing tracking data
   let trackingData = getCookie('ob_track') || {};
 
-  // If no consent, return empty object (don't initialize anything)
+  // If no consent, return existing data (may contain UTM params) but don't initialize new session
   if (!hasTrackingConsent()) {
-    return {};
+    return trackingData;
   }
 
   // Initialize session and event ID if new (after consent)
@@ -298,8 +299,9 @@ export function isDuplicatePurchase(): boolean {
 
 /**
  * Capture UTM parameters and referrer attribution
- * Tracks immediately but only saves to cookies if consent given
- * Returns captured data for use even without consent
+ * ALWAYS saves UTM params immediately (they're from the URL, not generated tracking)
+ * Session/event IDs still require consent
+ * Returns captured data
  */
 export function captureUTMParameters(): Partial<TrackingData> | null {
   if (typeof window === 'undefined') return null;
@@ -315,14 +317,10 @@ export function captureUTMParameters(): Partial<TrackingData> | null {
   const utmTerm = urlParams.get('utm_term');
   const fbclid = urlParams.get('fbclid');
 
-  // Only save to cookies if consent given
-  if (!hasTrackingConsent()) {
-    console.log('📊 UTM captured but not saved to cookies (no consent)');
-    return null;
-  }
+  // IMPORTANT: Always get existing data even without consent
+  // We need to check if UTM params are already saved
+  let existingData = getCookie('ob_track') || {};
 
-  // Get existing tracking data to check for first touch
-  const existingData = getOrInitTrackingData();
   const updates: Partial<TrackingData> = {};
 
   // Check if this is truly a new session by comparing timestamps
@@ -429,10 +427,17 @@ export function captureUTMParameters(): Partial<TrackingData> | null {
     updates.fbclid = fbclid;
   }
 
-  // Save updates if any
+  // CRITICAL: Save UTM/referrer updates IMMEDIATELY (even without consent)
+  // UTM params are from the URL the user clicked, not generated tracking data
+  // This ensures we don't lose attribution when they navigate before accepting cookies
   if (Object.keys(updates).length > 0) {
     console.log('📊 Saving attribution updates to cookies:', updates);
-    updateTrackingData(updates);
+
+    // Merge updates with existing data and save directly
+    const updatedData = { ...existingData, ...updates };
+    setCookie('ob_track', updatedData, 30);
+
+    console.log('✅ Attribution saved successfully (consent not required for UTM params)');
   }
 
   return updates;
