@@ -12,6 +12,13 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      // Short Link to Home
+      {
+        source: '/s',
+        destination: '/',
+        permanent: false,
+      },
+
       // YouTube Bio Short Links
       {
         source: '/6wc-yt-bio',
