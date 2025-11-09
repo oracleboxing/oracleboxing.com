@@ -5,8 +5,13 @@ import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { EpicCTAButton } from '@/components/EpicCTAButton'
 import { detectUserCurrency, formatPrice, getProductPrice, type Currency } from '@/lib/currency'
+import { fbInitiateCheckout } from '@/lib/fbpixel'
+import { getOrInitTrackingData, generateEventId } from '@/lib/tracking-cookies'
+import { useAnalytics } from '@/hooks/useAnalytics'
+import { track } from '@vercel/analytics'
 
 export default function BlackFridayChallengePage() {
+  const { trackInitiateCheckout } = useAnalytics()
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
@@ -158,6 +163,46 @@ export default function BlackFridayChallengePage() {
     if (pricingSection) {
       pricingSection.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }
+  }
+
+  // Track InitiateCheckout for button clicks
+  const handleCTAClick = (buttonLocation: string, productId: string) => {
+    // Map product ID to currency lookup key (bfc-vip -> bfc_vip)
+    const currencyKey = productId === 'bfc-vip' ? 'bfc_vip' : productId
+    const price = getProductPrice(currencyKey, currency) || (productId === 'bfc-vip' ? 397 : 97)
+    const eventId = generateEventId()
+    const trackingData = getOrInitTrackingData()
+
+    // Facebook Pixel InitiateCheckout
+    fbInitiateCheckout(price, currency, 1, buttonLocation, {
+      eventID: eventId,
+      ...trackingData
+    })
+
+    // Vercel Analytics
+    track('initiate_checkout', {
+      button_location: buttonLocation,
+      product_id: productId,
+      value: price,
+      currency: currency
+    })
+
+    // GA4 via useAnalytics
+    trackInitiateCheckout({
+      value: price,
+      currency: currency,
+      item_name: productId === 'bfc-vip' ? 'Black Friday Challenge VIP' : 'Black Friday Challenge',
+      button_text: 'JOIN NOW',
+      button_location: buttonLocation as any
+    })
+
+    console.log('InitiateCheckout tracked:', {
+      eventId,
+      buttonLocation,
+      productId,
+      price,
+      currency
+    })
   }
 
   const faqs = [
@@ -788,6 +833,7 @@ export default function BlackFridayChallengePage() {
 
               <a
                 href="/checkout?product=bfc&source=bfc-page"
+                onClick={() => handleCTAClick('pricing-main', 'bfc')}
                 className="w-full py-4 sm:py-5 px-6 sm:px-8 bg-yellow-100 text-black font-black text-xl sm:text-2xl rounded-xl uppercase tracking-wide shadow-lg hover:bg-white transition-all duration-200 flex items-center justify-center gap-2"
                 style={{ fontFamily: 'Satoshi' }}
               >
@@ -841,7 +887,8 @@ export default function BlackFridayChallengePage() {
               </div>
 
               <a
-                href="/checkout?product=bfc&source=bfc-vip"
+                href="/checkout?product=bfc-vip&source=bfc-vip"
+                onClick={() => handleCTAClick('pricing-vip', 'bfc-vip')}
                 className="w-full py-4 sm:py-5 px-6 sm:px-8 bg-yellow-100 text-black font-black text-xl sm:text-2xl rounded-xl uppercase tracking-wide shadow-lg hover:bg-white transition-all duration-200 flex items-center justify-center gap-2 mb-3"
                 style={{ fontFamily: 'Satoshi' }}
               >
@@ -923,6 +970,7 @@ export default function BlackFridayChallengePage() {
 
           <a
             href="/checkout?product=bfc&source=bfc-page"
+            onClick={() => handleCTAClick('urgency-section', 'bfc')}
             className="inline-block w-full sm:w-auto px-8 py-4 bg-yellow-100 text-black font-black text-xl rounded-xl uppercase tracking-wide shadow-lg hover:bg-white transition-all duration-200"
             style={{ fontFamily: 'Satoshi' }}
           >
@@ -967,6 +1015,7 @@ export default function BlackFridayChallengePage() {
 
           <a
             href="/checkout?product=bfc&source=bfc-page"
+            onClick={() => handleCTAClick('final-call', 'bfc')}
             className="inline-block w-full sm:w-auto px-8 py-4 bg-yellow-100 text-black font-black text-xl rounded-xl uppercase tracking-wide shadow-lg hover:bg-white transition-all duration-200 mb-8"
             style={{ fontFamily: 'Satoshi' }}
           >
