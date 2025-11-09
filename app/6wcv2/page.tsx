@@ -539,60 +539,89 @@ export default function BlackFridayChallengePage() {
       {/* 6-Week Skill Schedule */}
       <section className="py-12 sm:py-16 lg:py-20 bg-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center mb-4 sm:mb-6" style={{ fontFamily: 'Satoshi' }}>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-3 sm:mb-4 lg:mb-6 leading-tight" style={{ fontFamily: 'Satoshi' }}>
             The 6-Week Skill Schedule
           </h2>
 
-          <p className="text-base sm:text-lg text-gray-700 text-center max-w-3xl mx-auto mb-10 sm:mb-12">
+          <p className="text-sm sm:text-base lg:text-lg text-gray-700 text-center max-w-3xl mx-auto mb-6 sm:mb-8 lg:mb-12 px-2">
             Every week, you'll build a new layer of skill.
             By the end, you'll be transformed.
           </p>
 
-          <div className="overflow-x-auto">
+          {/* Mobile: Card Layout */}
+          <div className="block lg:hidden space-y-3 mb-6">
+            {[
+              { week: 1, focus: "Stance & Shape", benefit: "Build your frame and balance" },
+              { week: 2, focus: "Footwork & Rhythm", benefit: "Control distance and timing" },
+              { week: 3, focus: "Kinetic Linkage", benefit: "Connect hands, hips, and feet for real power" },
+              { week: 4, focus: "Power Development", benefit: "Learn to hit hard without tension" },
+              { week: 5, focus: "Biomechanics", benefit: "Move efficiently, conserve energy" },
+              { week: 6, focus: "Flow of Boxing", benefit: "Bring it all together, full confidence" }
+            ].map((item) => (
+              <div key={item.week} className="bg-white border-2 border-black rounded-lg p-4 shadow-md">
+                <div className="flex items-start gap-3 mb-2">
+                  <div className="flex-shrink-0 w-8 h-8 bg-black text-white rounded-full flex items-center justify-center font-bold text-sm">
+                    {item.week}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-bold text-base sm:text-lg mb-1 text-black" style={{ fontFamily: 'Satoshi' }}>
+                      {item.focus}
+                    </h3>
+                    <p className="text-sm text-gray-700 leading-relaxed">
+                      {item.benefit}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Desktop: Table Layout */}
+          <div className="hidden lg:block overflow-x-auto">
             <table className="w-full border-collapse bg-white shadow-lg rounded-xl overflow-hidden">
               <thead>
                 <tr className="bg-black text-white">
-                  <th className="px-4 sm:px-6 py-4 text-left font-bold text-sm sm:text-base">Week</th>
-                  <th className="px-4 sm:px-6 py-4 text-left font-bold text-sm sm:text-base">Focus</th>
-                  <th className="px-4 sm:px-6 py-4 text-left font-bold text-sm sm:text-base">What You'll Get</th>
+                  <th className="px-6 py-4 text-left font-bold text-base">Week</th>
+                  <th className="px-6 py-4 text-left font-bold text-base">Focus</th>
+                  <th className="px-6 py-4 text-left font-bold text-base">What You'll Get</th>
                 </tr>
               </thead>
               <tbody>
                 <tr className="border-b border-gray-200">
-                  <td className="px-4 sm:px-6 py-4 font-bold">1</td>
-                  <td className="px-4 sm:px-6 py-4 font-bold">Stance & Shape</td>
-                  <td className="px-4 sm:px-6 py-4 text-gray-700">Build your frame and balance</td>
+                  <td className="px-6 py-4 font-bold">1</td>
+                  <td className="px-6 py-4 font-bold">Stance & Shape</td>
+                  <td className="px-6 py-4 text-gray-700">Build your frame and balance</td>
                 </tr>
                 <tr className="border-b border-gray-200 bg-gray-50">
-                  <td className="px-4 sm:px-6 py-4 font-bold">2</td>
-                  <td className="px-4 sm:px-6 py-4 font-bold">Footwork & Rhythm</td>
-                  <td className="px-4 sm:px-6 py-4 text-gray-700">Control distance and timing</td>
+                  <td className="px-6 py-4 font-bold">2</td>
+                  <td className="px-6 py-4 font-bold">Footwork & Rhythm</td>
+                  <td className="px-6 py-4 text-gray-700">Control distance and timing</td>
                 </tr>
                 <tr className="border-b border-gray-200">
-                  <td className="px-4 sm:px-6 py-4 font-bold">3</td>
-                  <td className="px-4 sm:px-6 py-4 font-bold">Kinetic Linkage</td>
-                  <td className="px-4 sm:px-6 py-4 text-gray-700">Connect hands, hips, and feet for real power</td>
+                  <td className="px-6 py-4 font-bold">3</td>
+                  <td className="px-6 py-4 font-bold">Kinetic Linkage</td>
+                  <td className="px-6 py-4 text-gray-700">Connect hands, hips, and feet for real power</td>
                 </tr>
                 <tr className="border-b border-gray-200 bg-gray-50">
-                  <td className="px-4 sm:px-6 py-4 font-bold">4</td>
-                  <td className="px-4 sm:px-6 py-4 font-bold">Power Development</td>
-                  <td className="px-4 sm:px-6 py-4 text-gray-700">Learn to hit hard without tension</td>
+                  <td className="px-6 py-4 font-bold">4</td>
+                  <td className="px-6 py-4 font-bold">Power Development</td>
+                  <td className="px-6 py-4 text-gray-700">Learn to hit hard without tension</td>
                 </tr>
                 <tr className="border-b border-gray-200">
-                  <td className="px-4 sm:px-6 py-4 font-bold">5</td>
-                  <td className="px-4 sm:px-6 py-4 font-bold">Biomechanics</td>
-                  <td className="px-4 sm:px-6 py-4 text-gray-700">Move efficiently, conserve energy</td>
+                  <td className="px-6 py-4 font-bold">5</td>
+                  <td className="px-6 py-4 font-bold">Biomechanics</td>
+                  <td className="px-6 py-4 text-gray-700">Move efficiently, conserve energy</td>
                 </tr>
                 <tr className="bg-gray-50">
-                  <td className="px-4 sm:px-6 py-4 font-bold">6</td>
-                  <td className="px-4 sm:px-6 py-4 font-bold">Flow of Boxing</td>
-                  <td className="px-4 sm:px-6 py-4 text-gray-700">Bring it all together, full confidence</td>
+                  <td className="px-6 py-4 font-bold">6</td>
+                  <td className="px-6 py-4 font-bold">Flow of Boxing</td>
+                  <td className="px-6 py-4 text-gray-700">Bring it all together, full confidence</td>
                 </tr>
               </tbody>
             </table>
           </div>
 
-          <p className="text-xl sm:text-2xl font-bold text-center mt-8 sm:mt-10" style={{ fontFamily: 'Satoshi' }}>
+          <p className="text-lg sm:text-xl lg:text-2xl font-bold text-center mt-6 sm:mt-8 lg:mt-10 px-2" style={{ fontFamily: 'Satoshi' }}>
             Simple structure, real change.
           </p>
         </div>
@@ -720,56 +749,56 @@ export default function BlackFridayChallengePage() {
       {/* How the Refund Works */}
       <section className="py-12 sm:py-16 lg:py-20 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center mb-6 sm:mb-8" style={{ fontFamily: 'Satoshi' }}>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-4 sm:mb-6 lg:mb-8 leading-tight px-2" style={{ fontFamily: 'Satoshi' }}>
             Finish it, get your money back.
           </h2>
 
-          <div className="prose prose-lg max-w-3xl mx-auto mb-8">
-            <p className="text-base sm:text-lg text-gray-700 leading-relaxed text-center mb-8">
+          <div className="prose prose-lg max-w-3xl mx-auto mb-6 sm:mb-8">
+            <p className="text-sm sm:text-base lg:text-lg text-gray-700 leading-relaxed text-center mb-6 sm:mb-8 px-2">
               This challenge isn't easy, but it's simple.
               If you show up, do the work, and complete the checklist, you'll earn your {isLoadingCurrency ? '$97' : formatPrice(getProductPrice('bfc', currency) || 97, currency)} back at the end.
             </p>
           </div>
 
-          <div className="bg-white rounded-2xl p-6 sm:p-8 lg:p-10 shadow-lg mb-6">
-            <h3 className="text-xl sm:text-2xl font-bold mb-6" style={{ fontFamily: 'Satoshi' }}>Checklist:</h3>
-            <div className="space-y-4">
-              <div className="flex items-start gap-3">
-                <div className="w-6 h-6 flex-shrink-0 border-2 border-gray-400 rounded mt-0.5 flex items-center justify-center">
-                  <svg className="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+          <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-10 shadow-lg mb-4 sm:mb-6 border-2 border-gray-100">
+            <h3 className="text-lg sm:text-xl lg:text-2xl font-bold mb-4 sm:mb-6" style={{ fontFamily: 'Satoshi' }}>Checklist:</h3>
+            <div className="space-y-3 sm:space-y-4">
+              <div className="flex items-start gap-2.5 sm:gap-3">
+                <div className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0 border-2 border-gray-400 rounded mt-0.5 flex items-center justify-center">
+                  <svg className="w-3 h-3 sm:w-4 sm:h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                   </svg>
                 </div>
-                <span className="text-base sm:text-lg font-medium">Join two coaching calls each week.</span>
+                <span className="text-sm sm:text-base lg:text-lg font-medium leading-snug">Join two coaching calls each week.</span>
               </div>
-              <div className="flex items-start gap-3">
-                <div className="w-6 h-6 flex-shrink-0 border-2 border-gray-400 rounded mt-0.5 flex items-center justify-center">
-                  <svg className="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+              <div className="flex items-start gap-2.5 sm:gap-3">
+                <div className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0 border-2 border-gray-400 rounded mt-0.5 flex items-center justify-center">
+                  <svg className="w-3 h-3 sm:w-4 sm:h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                   </svg>
                 </div>
-                <span className="text-base sm:text-lg font-medium">Post one feedback video each week.</span>
+                <span className="text-sm sm:text-base lg:text-lg font-medium leading-snug">Post one feedback video each week.</span>
               </div>
-              <div className="flex items-start gap-3">
-                <div className="w-6 h-6 flex-shrink-0 border-2 border-gray-400 rounded mt-0.5 flex items-center justify-center">
-                  <svg className="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+              <div className="flex items-start gap-2.5 sm:gap-3">
+                <div className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0 border-2 border-gray-400 rounded mt-0.5 flex items-center justify-center">
+                  <svg className="w-3 h-3 sm:w-4 sm:h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                   </svg>
                 </div>
-                <span className="text-base sm:text-lg font-medium">Finish the Boxing Masterclass.</span>
+                <span className="text-sm sm:text-base lg:text-lg font-medium leading-snug">Finish the Boxing Masterclass.</span>
               </div>
-              <div className="flex items-start gap-3">
-                <div className="w-6 h-6 flex-shrink-0 border-2 border-gray-400 rounded mt-0.5 flex items-center justify-center">
-                  <svg className="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+              <div className="flex items-start gap-2.5 sm:gap-3">
+                <div className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0 border-2 border-gray-400 rounded mt-0.5 flex items-center justify-center">
+                  <svg className="w-3 h-3 sm:w-4 sm:h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                   </svg>
                 </div>
-                <span className="text-base sm:text-lg font-medium">Attend the mid-challenge and graduation calls.</span>
+                <span className="text-sm sm:text-base lg:text-lg font-medium leading-snug">Attend the mid-challenge and graduation calls.</span>
               </div>
             </div>
           </div>
 
-          <p className="text-xl sm:text-2xl font-bold text-center" style={{ fontFamily: 'Satoshi' }}>
+          <p className="text-lg sm:text-xl lg:text-2xl font-bold text-center px-2" style={{ fontFamily: 'Satoshi' }}>
             Discipline pays. Literally.
           </p>
         </div>
@@ -910,68 +939,68 @@ export default function BlackFridayChallengePage() {
       {/* Urgency Section */}
       <section className="py-12 sm:py-16 lg:py-20 bg-black text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6" style={{ fontFamily: 'Satoshi' }}>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 leading-tight px-2" style={{ fontFamily: 'Satoshi' }}>
             Doors close December 2nd at 10 PM UK.
           </h2>
 
-          <div className="mb-8">
-            <div className="inline-flex items-center gap-4 bg-white text-black px-8 py-6 rounded-2xl">
-              <span className="relative flex h-4 w-4">
+          <div className="mb-6 sm:mb-8">
+            <div className="inline-flex items-center gap-3 sm:gap-4 bg-white text-black px-5 py-4 sm:px-8 sm:py-6 rounded-xl sm:rounded-2xl">
+              <span className="relative flex h-3 w-3 sm:h-4 sm:w-4">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-4 w-4 bg-red-500"></span>
+                <span className="relative inline-flex rounded-full h-3 w-3 sm:h-4 sm:w-4 bg-red-500"></span>
               </span>
               <div className="text-left">
-                <div className="text-sm font-bold uppercase tracking-wide opacity-80">Spots Remaining</div>
-                <div className="text-5xl sm:text-6xl font-black" style={{ fontFamily: 'Satoshi' }}>{spotsRemaining}</div>
+                <div className="text-xs sm:text-sm font-bold uppercase tracking-wide opacity-80">Spots Remaining</div>
+                <div className="text-4xl sm:text-5xl lg:text-6xl font-black" style={{ fontFamily: 'Satoshi' }}>{spotsRemaining}</div>
               </div>
             </div>
           </div>
 
-          <p className="text-base sm:text-lg mb-8">
+          <p className="text-sm sm:text-base lg:text-lg mb-6 sm:mb-8 px-2 leading-relaxed">
             Only 30 spots are available. Once it's full, it's full.
             When everyone else hits pause, we hit play.
           </p>
 
-          <div className="bg-white text-black rounded-2xl p-6 sm:p-8 mb-8">
-            <div className="text-sm sm:text-base font-bold uppercase tracking-wide mb-4">
+          <div className="bg-white text-black rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8 mb-6 sm:mb-8">
+            <div className="text-xs sm:text-sm lg:text-base font-bold uppercase tracking-wide mb-3 sm:mb-4">
               TIME REMAINING:
             </div>
-            <div className="grid grid-cols-4 gap-2 sm:gap-4">
+            <div className="grid grid-cols-4 gap-1.5 sm:gap-2 lg:gap-4">
               <div className="text-center">
-                <div className="text-3xl sm:text-4xl lg:text-5xl font-black mb-1">
+                <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black mb-0.5 sm:mb-1">
                   {String(timeLeft.days).padStart(2, '0')}
                 </div>
-                <div className="text-xs sm:text-sm uppercase opacity-60">Days</div>
+                <div className="text-[10px] sm:text-xs lg:text-sm uppercase opacity-60 font-medium">Days</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl sm:text-4xl lg:text-5xl font-black mb-1">
+                <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black mb-0.5 sm:mb-1">
                   {String(timeLeft.hours).padStart(2, '0')}
                 </div>
-                <div className="text-xs sm:text-sm uppercase opacity-60">Hours</div>
+                <div className="text-[10px] sm:text-xs lg:text-sm uppercase opacity-60 font-medium">Hours</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl sm:text-4xl lg:text-5xl font-black mb-1">
+                <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black mb-0.5 sm:mb-1">
                   {String(timeLeft.minutes).padStart(2, '0')}
                 </div>
-                <div className="text-xs sm:text-sm uppercase opacity-60">Minutes</div>
+                <div className="text-[10px] sm:text-xs lg:text-sm uppercase opacity-60 font-medium">Minutes</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl sm:text-4xl lg:text-5xl font-black mb-1">
+                <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black mb-0.5 sm:mb-1">
                   {String(timeLeft.seconds).padStart(2, '0')}
                 </div>
-                <div className="text-xs sm:text-sm uppercase opacity-60">Seconds</div>
+                <div className="text-[10px] sm:text-xs lg:text-sm uppercase opacity-60 font-medium">Seconds</div>
               </div>
             </div>
           </div>
 
-          <p className="text-lg sm:text-xl mb-8">
+          <p className="text-base sm:text-lg lg:text-xl mb-6 sm:mb-8 px-2">
             This is your window to step up and set the tone for 2026.
           </p>
 
           <a
             href="/checkout?product=bfc&source=bfc-page"
             onClick={() => handleCTAClick('urgency-section', 'bfc')}
-            className="inline-block w-full sm:w-auto px-8 py-4 bg-yellow-100 text-black font-black text-xl rounded-xl uppercase tracking-wide shadow-lg hover:bg-white transition-all duration-200"
+            className="inline-block w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 bg-yellow-100 text-black font-black text-lg sm:text-xl rounded-xl uppercase tracking-wide shadow-lg hover:bg-white transition-all duration-200"
             style={{ fontFamily: 'Satoshi' }}
           >
             JOIN THE CHALLENGE →
@@ -982,17 +1011,17 @@ export default function BlackFridayChallengePage() {
       {/* FAQs */}
       <section className="py-12 sm:py-16 lg:py-20 bg-gray-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center mb-10 sm:mb-12" style={{ fontFamily: 'Satoshi' }}>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-6 sm:mb-8 lg:mb-12 leading-tight px-2" style={{ fontFamily: 'Satoshi' }}>
             Frequently Asked Questions
           </h2>
 
-          <div className="space-y-6">
+          <div className="space-y-3 sm:space-y-4 lg:space-y-6">
             {faqs.map((faq, index) => (
-              <div key={index} className="bg-white rounded-xl p-6 shadow-sm">
-                <h3 className="text-lg sm:text-xl font-bold mb-3" style={{ fontFamily: 'Satoshi' }}>
+              <div key={index} className="bg-white rounded-lg sm:rounded-xl p-4 sm:p-5 lg:p-6 shadow-sm border border-gray-100">
+                <h3 className="text-base sm:text-lg lg:text-xl font-bold mb-2 sm:mb-3 leading-snug" style={{ fontFamily: 'Satoshi' }}>
                   {faq.question}
                 </h3>
-                <p className="text-gray-700">
+                <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
                   {faq.answer}
                 </p>
               </div>
@@ -1004,25 +1033,25 @@ export default function BlackFridayChallengePage() {
       {/* Final Call */}
       <section className="py-12 sm:py-16 lg:py-20 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6" style={{ fontFamily: 'Satoshi' }}>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 leading-tight px-2" style={{ fontFamily: 'Satoshi' }}>
             Be the one who doesn't quit in December.
           </h2>
 
-          <p className="text-xl sm:text-2xl mb-8 text-gray-700">
-            6 weeks. {isLoadingCurrency ? '$97' : formatPrice(getProductPrice('bfc', currency) || 97, currency)}. Money back if you finish.<br/>
-            Starts December 2nd. Ends 2026 strong.
+          <p className="text-base sm:text-lg md:text-xl lg:text-2xl mb-6 sm:mb-8 text-gray-700 leading-relaxed px-2">
+            6 weeks. {isLoadingCurrency ? '$97' : formatPrice(getProductPrice('bfc', currency) || 97, currency)}. Money back if you finish.<br className="hidden sm:block"/>
+            <span className="block sm:inline"> </span>Starts December 2nd. Ends 2026 strong.
           </p>
 
           <a
             href="/checkout?product=bfc&source=bfc-page"
             onClick={() => handleCTAClick('final-call', 'bfc')}
-            className="inline-block w-full sm:w-auto px-8 py-4 bg-yellow-100 text-black font-black text-xl rounded-xl uppercase tracking-wide shadow-lg hover:bg-white transition-all duration-200 mb-8"
+            className="inline-block w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 bg-yellow-100 text-black font-black text-lg sm:text-xl rounded-xl uppercase tracking-wide shadow-lg hover:bg-white transition-all duration-200 mb-6 sm:mb-8"
             style={{ fontFamily: 'Satoshi' }}
           >
             JOIN THE CHALLENGE →
           </a>
 
-          <p className="text-base sm:text-lg font-bold text-gray-600" style={{ fontFamily: 'Satoshi' }}>
+          <p className="text-sm sm:text-base lg:text-lg font-bold text-gray-600 px-2" style={{ fontFamily: 'Satoshi' }}>
             While everyone else slows down, we rise up.
           </p>
         </div>
