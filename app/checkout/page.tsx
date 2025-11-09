@@ -133,8 +133,84 @@ export default function CheckoutPage() {
       // 1. Order bumps page (for 6wc and courses)
       // 2. When creating Stripe session (for bundle/membership direct-to-Stripe)
 
-      // BFC → BFC Upgrade page
-      if (['bfc', 'bfc-vip'].includes(productParam)) {
+      // BFC-VIP → Direct to Stripe (user already chose VIP, skip upgrade page)
+      if (productParam === 'bfc-vip') {
+        console.log('→ Routing BFC-VIP direct to Stripe')
+
+        const product = getProductById('bfc-vip')
+        if (!product) {
+          throw new Error('BFC-VIP product not found')
+        }
+
+        // Track InitiateCheckout for VIP direct purchase
+        const priceInUserCurrency = getProductPrice('bfc_vip', currency) || product.price || 397
+
+        trackInitiateCheckout(
+          fullName,
+          email,
+          priceInUserCurrency,
+          ['bfc-vip'],
+          '/checkout',
+          trackingParams.referrer || 'direct',
+          {
+            funnel: 'bfc',
+            currency: currency,
+            source: sourceParam || 'direct-vip-checkout',
+          }
+        )
+
+        // Get full cookie data
+        const cookieData = getCookie('ob_track')
+
+        // Create checkout session for VIP
+        const response = await fetch('/api/checkout/session', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            items: [{
+              product: product,
+              quantity: 1,
+              price_id: product.stripe_price_id,
+            }],
+            currency: currency,
+            customerInfo: {
+              firstName: fullName,
+              lastName: fullName,
+              email: email,
+              phone: '',
+              address: {
+                line1: '',
+                line2: '',
+                city: '',
+                state: '',
+                postal_code: '',
+                country: 'US',
+              },
+            },
+            trackingParams: trackingParams,
+            cookieData: cookieData,
+          }),
+        })
+
+        const data = await response.json()
+
+        if (!response.ok) {
+          throw new Error(data.error || 'Failed to create checkout session')
+        }
+
+        if (!data.url) {
+          throw new Error('No checkout URL returned')
+        }
+
+        // Redirect to Stripe
+        window.location.href = data.url
+        return
+      }
+
+      // BFC (Standard) → BFC Upgrade page (show option to upgrade to VIP)
+      if (productParam === 'bfc') {
         console.log('→ Routing to BFC upgrade page')
         const upgradeUrl = new URL('/checkout/bfc-upgrade', window.location.origin)
         upgradeUrl.searchParams.set('email', email)
