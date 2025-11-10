@@ -104,7 +104,14 @@ export async function POST(req: NextRequest) {
 
     // Send initiated checkout webhook to Make.com for abandoned cart automation
     // This runs asynchronously and won't block the checkout flow
+    console.log('🔍 ABANDONED CART CHECK: customerInfo exists?', !!customerInfo);
+    console.log('🔍 ABANDONED CART CHECK: customerInfo.email?', customerInfo?.email);
+    console.log('🔍 ABANDONED CART CHECK: customerInfo.firstName?', customerInfo?.firstName);
+    console.log('🔍 ABANDONED CART CHECK: Full customerInfo:', JSON.stringify(customerInfo, null, 2));
+
     if (customerInfo?.email) {
+      console.log('✅ ABANDONED CART: Condition passed - customerInfo.email exists, proceeding to send webhook');
+
       // Calculate total amount from cart items (use server-side items)
       const totalAmount = serverSideItems.reduce((sum, item) => {
         return sum + (item.product.price * item.quantity);
@@ -114,6 +121,11 @@ export async function POST(req: NextRequest) {
       const nameParts = customerInfo.firstName?.trim().split(' ') || [];
       const firstName = nameParts[0] || '';
       const lastName = nameParts.slice(1).join(' ') || nameParts[0] || '';
+
+      console.log('🔍 ABANDONED CART: Calculated firstName:', firstName);
+      console.log('🔍 ABANDONED CART: Calculated lastName:', lastName);
+      console.log('🔍 ABANDONED CART: Total amount:', totalAmount);
+      console.log('🔍 ABANDONED CART: About to call sendInitiatedCheckout...');
 
       // Send webhook with all data (non-blocking, use server-side items)
       sendInitiatedCheckout({
@@ -151,8 +163,14 @@ export async function POST(req: NextRequest) {
         } : undefined,
       }).catch(err => {
         // Log but don't fail checkout if webhook fails
-        console.error('Failed to send initiated checkout webhook:', err);
+        console.error('❌ ABANDONED CART: Failed to send initiated checkout webhook:', err);
+        console.error('❌ ABANDONED CART: Error stack:', err?.stack);
       });
+
+      console.log('✅ ABANDONED CART: sendInitiatedCheckout call completed (async)');
+    } else {
+      console.error('❌ ABANDONED CART: Webhook NOT sent - customerInfo.email is missing!');
+      console.error('❌ ABANDONED CART: customerInfo value:', customerInfo);
     }
 
     return NextResponse.json({ url: session.url })
