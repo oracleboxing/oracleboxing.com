@@ -147,25 +147,45 @@ export async function sendInitiatedCheckout(data: InitiatedCheckoutData): Promis
 
     console.log('📤 ABANDONED CART: Full payload being sent:', JSON.stringify(payload, null, 2));
 
-    const response = await fetch(INITIATED_CHECKOUT_WEBHOOK_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload)
-    });
+    console.log('📤 ABANDONED CART: Starting fetch to Make.com...');
 
-    console.log('📤 ABANDONED CART: Webhook response status:', response.status);
-    console.log('📤 ABANDONED CART: Webhook response OK:', response.ok);
+    // Add timeout to prevent hanging
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
 
-    if (response.ok) {
-      const responseText = await response.text();
-      console.log('✅ ABANDONED CART: Initiated checkout sent successfully to Make.com');
-      console.log('✅ ABANDONED CART: Response body:', responseText);
-    } else {
-      console.error('❌ ABANDONED CART: Webhook responded with error:', response.status);
-      const responseText = await response.text();
-      console.error('❌ ABANDONED CART: Error response:', responseText);
+    try {
+      const response = await fetch(INITIATED_CHECKOUT_WEBHOOK_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+        signal: controller.signal
+      });
+
+      clearTimeout(timeoutId);
+      console.log('📤 ABANDONED CART: Fetch completed!');
+      console.log('📤 ABANDONED CART: Webhook response status:', response.status);
+      console.log('📤 ABANDONED CART: Webhook response OK:', response.ok);
+      console.log('📤 ABANDONED CART: Webhook response headers:', JSON.stringify([...response.headers.entries()]));
+
+      if (response.ok) {
+        const responseText = await response.text();
+        console.log('✅ ABANDONED CART: Initiated checkout sent successfully to Make.com');
+        console.log('✅ ABANDONED CART: Response body:', responseText);
+      } else {
+        console.error('❌ ABANDONED CART: Webhook responded with error:', response.status);
+        const responseText = await response.text();
+        console.error('❌ ABANDONED CART: Error response:', responseText);
+      }
+    } catch (fetchError) {
+      clearTimeout(timeoutId);
+      if (fetchError instanceof Error && fetchError.name === 'AbortError') {
+        console.error('❌ ABANDONED CART: Webhook request timed out after 10 seconds');
+      } else {
+        console.error('❌ ABANDONED CART: Fetch error:', fetchError);
+        console.error('❌ ABANDONED CART: Fetch error details:', fetchError instanceof Error ? fetchError.message : String(fetchError));
+      }
     }
   } catch (error) {
     console.error('❌ ABANDONED CART: Failed to send initiated checkout to webhook:', error);
