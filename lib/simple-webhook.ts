@@ -86,12 +86,15 @@ export async function sendChallengeSignup(data: ChallengeSignupData): Promise<vo
  */
 export async function sendInitiatedCheckout(data: InitiatedCheckoutData): Promise<void> {
   try {
-    console.log('📤 Sending initiated checkout to webhook:', {
-      sessionId: data.sessionId,
-      email: data.customer.email,
-      itemCount: data.cart.items.length,
-      totalAmount: data.cart.totalAmount
-    });
+    console.log('📤 ABANDONED CART: Preparing to send initiated checkout to webhook');
+    console.log('📤 ABANDONED CART: Webhook URL:', INITIATED_CHECKOUT_WEBHOOK_URL);
+    console.log('📤 ABANDONED CART: Customer Email:', data.customer.email);
+    console.log('📤 ABANDONED CART: Customer First Name:', data.customer.firstName);
+    console.log('📤 ABANDONED CART: Customer Last Name:', data.customer.lastName);
+    console.log('📤 ABANDONED CART: Checkout URL:', data.checkoutUrl);
+    console.log('📤 ABANDONED CART: Session ID:', data.sessionId);
+    console.log('📤 ABANDONED CART: Cart Items:', data.cart.items.length);
+    console.log('📤 ABANDONED CART: Total Amount:', data.cart.totalAmount);
 
     const payload = {
       event_type: 'checkout_initiated',
@@ -142,6 +145,8 @@ export async function sendInitiatedCheckout(data: InitiatedCheckoutData): Promis
       } : undefined,
     };
 
+    console.log('📤 ABANDONED CART: Full payload being sent:', JSON.stringify(payload, null, 2));
+
     const response = await fetch(INITIATED_CHECKOUT_WEBHOOK_URL, {
       method: 'POST',
       headers: {
@@ -150,15 +155,22 @@ export async function sendInitiatedCheckout(data: InitiatedCheckoutData): Promis
       body: JSON.stringify(payload)
     });
 
+    console.log('📤 ABANDONED CART: Webhook response status:', response.status);
+    console.log('📤 ABANDONED CART: Webhook response OK:', response.ok);
+
     if (response.ok) {
-      console.log('✅ Initiated checkout sent successfully to Make.com');
-    } else {
-      console.error('❌ Initiated checkout webhook responded with error:', response.status);
       const responseText = await response.text();
-      console.error('Response:', responseText);
+      console.log('✅ ABANDONED CART: Initiated checkout sent successfully to Make.com');
+      console.log('✅ ABANDONED CART: Response body:', responseText);
+    } else {
+      console.error('❌ ABANDONED CART: Webhook responded with error:', response.status);
+      const responseText = await response.text();
+      console.error('❌ ABANDONED CART: Error response:', responseText);
     }
   } catch (error) {
-    console.error('❌ Failed to send initiated checkout to webhook:', error);
+    console.error('❌ ABANDONED CART: Failed to send initiated checkout to webhook:', error);
+    console.error('❌ ABANDONED CART: Error details:', error instanceof Error ? error.message : String(error));
+    console.error('❌ ABANDONED CART: Error stack:', error instanceof Error ? error.stack : 'No stack trace');
     // Don't throw - allow checkout to continue even if webhook fails
   }
 }
