@@ -288,31 +288,13 @@ export default function BlackFridayChallengePage() {
           {[...Array(3)].map((_, i) => (
             <span key={i} className="inline-block">
               <span className="mx-8 font-bold text-sm sm:text-base">
-                Normally $197
-              </span>
-              <span className="mx-8 font-bold text-sm sm:text-base">
-                •
-              </span>
-              <span className="mx-8 font-bold text-sm sm:text-base">
                 50% off for Black Friday
               </span>
               <span className="mx-8 font-bold text-sm sm:text-base">
                 •
               </span>
               <span className="mx-8 font-bold text-sm sm:text-base">
-                Now just $97
-              </span>
-              <span className="mx-8 font-bold text-sm sm:text-base">
-                •
-              </span>
-              <span className="mx-8 font-bold text-sm sm:text-base">
                 Only {spotsRemaining} spots remaining
-              </span>
-              <span className="mx-8 font-bold text-sm sm:text-base">
-                •
-              </span>
-              <span className="mx-8 font-bold text-sm sm:text-base">
-                Act fast!
               </span>
               <span className="mx-8 font-bold text-sm sm:text-base">
                 •
