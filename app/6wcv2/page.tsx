@@ -281,6 +281,53 @@ export default function BlackFridayChallengePage() {
 
       <Header />
 
+      {/* Sticky Scrolling Banner */}
+      <div className="sticky top-0 z-50 bg-black text-white py-3 overflow-hidden">
+        <div className="animate-marquee whitespace-nowrap">
+          {/* Repeat the text multiple times for continuous scroll */}
+          {[...Array(3)].map((_, i) => (
+            <span key={i} className="inline-block">
+              <span className="mx-8 font-bold text-sm sm:text-base">
+                Normally $197
+              </span>
+              <span className="mx-8 font-bold text-sm sm:text-base">
+                •
+              </span>
+              <span className="mx-8 font-bold text-sm sm:text-base">
+                50% off for Black Friday
+              </span>
+              <span className="mx-8 font-bold text-sm sm:text-base">
+                •
+              </span>
+              <span className="mx-8 font-bold text-sm sm:text-base">
+                Now just $97
+              </span>
+              <span className="mx-8 font-bold text-sm sm:text-base">
+                •
+              </span>
+              <span className="mx-8 font-bold text-sm sm:text-base">
+                Only {spotsRemaining} spots remaining
+              </span>
+              <span className="mx-8 font-bold text-sm sm:text-base">
+                •
+              </span>
+              <span className="mx-8 font-bold text-sm sm:text-base">
+                Act fast!
+              </span>
+              <span className="mx-8 font-bold text-sm sm:text-base">
+                •
+              </span>
+              <span className="mx-8 font-bold text-sm sm:text-base">
+                Get lifetime access to all course content with the VIP
+              </span>
+              <span className="mx-8 font-bold text-sm sm:text-base">
+                •
+              </span>
+            </span>
+          ))}
+        </div>
+      </div>
+
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-white">
         <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8 lg:pt-10 pb-12 sm:pb-16 lg:pb-20">
@@ -734,7 +781,7 @@ export default function BlackFridayChallengePage() {
           </div>
         </div>
 
-        {/* Hide scrollbar */}
+        {/* Hide scrollbar and marquee animation */}
         <style jsx global>{`
           .scrollbar-hide::-webkit-scrollbar {
             display: none;
@@ -742,6 +789,24 @@ export default function BlackFridayChallengePage() {
           .scrollbar-hide {
             -ms-overflow-style: none;
             scrollbar-width: none;
+          }
+
+          @keyframes marquee {
+            0% {
+              transform: translateX(0);
+            }
+            100% {
+              transform: translateX(-33.333%);
+            }
+          }
+
+          .animate-marquee {
+            display: inline-block;
+            animation: marquee 30s linear infinite;
+          }
+
+          .animate-marquee:hover {
+            animation-play-state: paused;
           }
         `}</style>
       </section>
