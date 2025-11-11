@@ -1,7 +1,7 @@
 // Simple webhook utility for sending name and email to Make.com
 
 const WEBHOOK_URL = 'https://hook.eu2.make.com/ghdk1p8eqseejtkt2fynaoe0d2vj6v1l';
-const INITIATED_CHECKOUT_WEBHOOK_URL = 'https://hook.eu2.make.com/rmssfwgpgrbkihnly4ocxd2cf6kmfbo3';
+const INITIATED_CHECKOUT_WEBHOOK_URL = 'https://hook.eu2.make.com/ax6yp1vji6pig8mdl4nh1562pnooye99';
 
 interface ChallengeSignupData {
   firstName: string;
