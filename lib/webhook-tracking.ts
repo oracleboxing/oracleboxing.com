@@ -169,6 +169,42 @@ function getFbclid(): string | null {
   return cookies['fbclid'] || null;
 }
 
+/**
+ * Get Facebook Browser ID (_fbp) from cookies
+ * Set by Facebook Pixel automatically
+ */
+function getFbp(): string | null {
+  if (typeof document === 'undefined') {
+    return null;
+  }
+
+  const cookies = document.cookie.split(';').reduce((acc, cookie) => {
+    const [key, value] = cookie.trim().split('=');
+    acc[key] = decodeURIComponent(value);
+    return acc;
+  }, {} as Record<string, string>);
+
+  return cookies['_fbp'] || null;
+}
+
+/**
+ * Get Facebook Click (_fbc) from cookies
+ * Created from fbclid parameter
+ */
+function getFbc(): string | null {
+  if (typeof document === 'undefined') {
+    return null;
+  }
+
+  const cookies = document.cookie.split(';').reduce((acc, cookie) => {
+    const [key, value] = cookie.trim().split('=');
+    acc[key] = decodeURIComponent(value);
+    return acc;
+  }, {} as Record<string, string>);
+
+  return cookies['_fbc'] || null;
+}
+
 
 /**
  * Get client IP address (browser user agent as fallback)
@@ -300,11 +336,14 @@ export async function trackPageView(page: string, referrer: string): Promise<voi
     // Send to Facebook Conversions API (server-side) via API route
     // Use the same event_id for deduplication
     const fbclid = getFbclid();
+    const fbp = getFbp();
+    const fbc = getFbc();
 
     // Send entire cookie data object (not stringified)
     const pageViewCookieData = typeof sessionId === 'object' ? sessionId : { session_id: sessionId };
 
     console.log('📤 Sending to server API with event_id:', pageViewEventId);
+    console.log('📊 Facebook cookies for PageView:', { fbp, fbc, fbclid });
 
     fetch('/api/facebook-pageview', {
       method: 'POST',
@@ -316,6 +355,8 @@ export async function trackPageView(page: string, referrer: string): Promise<voi
         cookie_data: pageViewCookieData,
         page_url: `https://oracleboxing.com${page}`,
         fbclid: fbclid,
+        fbp: fbp, // Facebook Browser ID
+        fbc: fbc, // Facebook Click ID
       }),
       keepalive: true,
     }).catch((error) => {

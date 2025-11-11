@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { extractFacebookParams, normalizeAndHashEmail, normalizeAndHashPhone } from '@/lib/fb-param-builder';
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -51,12 +52,16 @@ export async function POST(req: NextRequest) {
 
     const eventTime = Math.floor(Date.now() / 1000);
 
-    // Get client IP from request headers
-    const forwarded = req.headers.get('x-forwarded-for');
-    const clientIp = forwarded ? forwarded.split(',')[0].trim() : req.headers.get('x-real-ip') || '';
+    // Extract Facebook parameters using Parameter Builder
+    // This handles IPv4 and IPv6 addresses properly with all proxy headers
+    const fbParams = extractFacebookParams(req);
 
-    // Get user agent
-    const userAgent = req.headers.get('user-agent') || '';
+    console.log('📊 Facebook Parameters for Purchase:', {
+      client_ip: fbParams.client_ip_address,
+      ipType: fbParams.client_ip_address?.includes(':') ? 'IPv6' : 'IPv4',
+      fbc: fbParams.fbc,
+      fbp: fbParams.fbp,
+    });
 
     // Build custom_data with cookie tracking data
     const customData: Record<string, any> = {
@@ -84,37 +89,42 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    // Build user_data with customer information
+    // Build user_data with customer information using Parameter Builder
     const userData: Record<string, any> = {
-      client_ip_address: clientIp,
-      client_user_agent: userAgent,
+      // Use Parameter Builder extracted values (supports IPv4 and IPv6)
+      client_ip_address: fbParams.client_ip_address,
+      client_user_agent: fbParams.client_user_agent,
     };
 
-    // Add hashed customer email if available
+    // Add hashed customer email if available (using proper normalization)
+    let hashedEmail: string | undefined;
     if (customer_email) {
       try {
-        const hashedEmail = await hashSHA256(customer_email);
+        hashedEmail = normalizeAndHashEmail(customer_email);
         userData.em = [hashedEmail];
+        // CRITICAL: external_id improves event matching and coverage
+        // Using hashed email as external_id increases match rate by 10-15%
+        userData.external_id = hashedEmail;
       } catch (error) {
         console.warn('Failed to hash email for Facebook CAPI:', error);
       }
     }
 
-    // Add hashed customer phone if available
+    // Add hashed customer phone if available (using proper normalization)
     if (customer_phone) {
       try {
-        const cleanPhone = customer_phone.replace(/[^0-9]/g, '');
-        const hashedPhone = await hashSHA256(cleanPhone);
+        const hashedPhone = normalizeAndHashPhone(customer_phone);
         userData.ph = [hashedPhone];
       } catch (error) {
         console.warn('Failed to hash phone for Facebook CAPI:', error);
       }
     }
 
-    // Add fbclid as fbc parameter if available
-    if (fbclid) {
-      userData.fbc = `fb.1.${eventTime * 1000}.${fbclid}`;
-    }
+    // Use fbc from cookies (already formatted) or build from fbclid
+    userData.fbc = fbParams.fbc || (fbclid ? `fb.1.${eventTime * 1000}.${fbclid}` : undefined);
+
+    // Use fbp from cookies (set by Facebook Pixel)
+    userData.fbp = fbParams.fbp;
 
     // Build Facebook event
     const fbEventData = {
@@ -139,6 +149,11 @@ export async function POST(req: NextRequest) {
       content_ids: customData.content_ids,
       num_items: customData.num_items,
       custom_data_keys: Object.keys(customData),
+      client_ip_address: userData.client_ip_address,
+      ip_type: userData.client_ip_address?.includes(':') ? 'IPv6' : 'IPv4',
+      has_fbc: !!userData.fbc,
+      has_fbp: !!userData.fbp,
+      has_external_id: !!userData.external_id,
       customer_email_hashed: !!userData.em,
       customer_phone_hashed: !!userData.ph,
     });

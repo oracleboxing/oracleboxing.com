@@ -4,16 +4,26 @@ import { CartItem } from '@/lib/types'
 import { Currency } from '@/lib/currency'
 import { sendInitiatedCheckout } from '@/lib/simple-webhook'
 import { getProductById } from '@/lib/products'
+import { extractFacebookParams } from '@/lib/fb-param-builder'
 
 export async function POST(req: NextRequest) {
   try {
     console.log('🚀 ABANDONED CART: /api/checkout/session endpoint HIT at', new Date().toISOString());
 
+    // Extract Facebook parameters using Parameter Builder
+    const fbParams = extractFacebookParams(req)
+    console.log('📊 Facebook Parameters extracted:', {
+      hasFbc: !!fbParams.fbc,
+      hasFbp: !!fbParams.fbp,
+      hasIp: !!fbParams.client_ip_address,
+      fbclid: fbParams.fbclid,
+    })
+
     const body = await req.json()
 
     console.log('🚀 ABANDONED CART: Request body received, parsing...');
 
-    const { items, customerInfo, currency, trackingParams, cookieData }: {
+    const { items, customerInfo, currency, trackingParams, cookieData, pageUrl }: {
       items: CartItem[],
       customerInfo?: any,
       currency?: Currency,
@@ -38,7 +48,8 @@ export async function POST(req: NextRequest) {
         session_id?: string
         event_id?: string
       },
-      cookieData?: any
+      cookieData?: any,
+      pageUrl?: string
     } = body
 
     // Debug logging
@@ -95,6 +106,7 @@ export async function POST(req: NextRequest) {
       currency: currency || 'USD',
       trackingParams,
       cookieData,
+      fbParams, // Facebook Conversions API parameters
     })
 
     console.log('🔍 DEBUG: Session created:', {
@@ -132,10 +144,12 @@ export async function POST(req: NextRequest) {
       console.log('🔍 ABANDONED CART: Total amount:', totalAmount);
       console.log('🔍 ABANDONED CART: About to call sendInitiatedCheckout...');
 
-      // Send webhook with all data (non-blocking, use server-side items)
+      // Send webhook with all data (fire-and-forget, don't block checkout)
+      // Don't await - let it run in background
       sendInitiatedCheckout({
         sessionId: session.id,
-        checkoutUrl: session.url,
+        checkoutUrl: session.url || pageUrl || 'https://oracleboxing.com',
+        pageUrl: pageUrl,
         customer: {
           firstName,
           lastName,
@@ -166,10 +180,13 @@ export async function POST(req: NextRequest) {
           utmCampaign: trackingParams.last_utm_campaign,
           fbclid: trackingParams.fbclid,
         } : undefined,
+      }).then(() => {
+        console.log('✅ ABANDONED CART: Webhook call initiated successfully');
       }).catch(err => {
         // Log but don't fail checkout if webhook fails
         console.error('❌ ABANDONED CART: Failed to send initiated checkout webhook:', err);
         console.error('❌ ABANDONED CART: Error stack:', err?.stack);
+        console.error('❌ ABANDONED CART: This usually means the Make.com scenario is turned OFF or the webhook URL is incorrect');
       });
 
       console.log('✅ ABANDONED CART: sendInitiatedCheckout call completed (async)');

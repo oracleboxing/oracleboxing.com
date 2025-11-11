@@ -47,6 +47,13 @@ interface CreateCheckoutSessionParams {
     event_id?: string
   }
   cookieData?: any
+  fbParams?: {
+    fbc?: string
+    fbp?: string
+    client_ip_address?: string
+    client_user_agent?: string
+    fbclid?: string
+  }
 }
 
 // Helper function to flatten cookie data into individual Stripe metadata fields
@@ -76,6 +83,7 @@ export async function createCheckoutSession({
   currency = 'USD',
   trackingParams,
   cookieData,
+  fbParams,
 }: CreateCheckoutSessionParams): Promise<Stripe.Checkout.Session> {
   // Convert cart items to Stripe line items, using correct price ID for currency
   const line_items: Stripe.Checkout.SessionCreateParams.LineItem[] = items.map(item => {
@@ -237,9 +245,15 @@ export async function createCheckoutSession({
     last_referrer_time: trackingParams?.last_referrer_time || '',
 
     // Additional tracking
-    fbclid: trackingParams?.fbclid || '',
+    fbclid: trackingParams?.fbclid || fbParams?.fbclid || '',
     session_id: trackingParams?.session_id || '',
     event_id: trackingParams?.event_id || '',
+
+    // Facebook Conversions API parameters (from Parameter Builder)
+    fb_fbc: fbParams?.fbc || '',
+    fb_fbp: fbParams?.fbp || '',
+    fb_client_ip: fbParams?.client_ip_address || '',
+    fb_user_agent: fbParams?.client_user_agent || '',
 
     // Cookie tracking data - each field as separate metadata
     ...prepareCookieDataForStripe(cookieData),

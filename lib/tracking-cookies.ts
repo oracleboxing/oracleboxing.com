@@ -33,6 +33,9 @@ export interface TrackingData {
 
   // Facebook Attribution
   fbclid?: string;
+  _fbc?: string; // Facebook Click ID cookie
+  _fbp?: string; // Facebook Browser ID cookie (set by pixel)
+  _fbi?: string; // Facebook IPv6 cookie (set by param builder)
 
   // Location / Currency
   country_code?: string;
@@ -528,4 +531,114 @@ export function getTrackingParams(): {
     country_code: trackingData.country_code,
     currency: trackingData.currency,
   };
+}
+
+/**
+ * Get or set Facebook _fbc cookie (Facebook Click ID)
+ * Used for Facebook Conversions API attribution
+ */
+export function getFacebookFbc(): string | undefined {
+  // Try to get from standard _fbc cookie first
+  const fbcCookie = getCookie('_fbc');
+  if (fbcCookie) return fbcCookie;
+
+  // Try to get from ob_track cookie
+  const trackingData = getCookie('ob_track');
+  return trackingData?._fbc;
+}
+
+export function setFacebookFbc(fbc: string): void {
+  // Set standard _fbc cookie
+  setCookie('_fbc', fbc, 90); // 90 days as per Facebook spec
+
+  // Also store in ob_track for consolidation
+  const trackingData = getOrInitTrackingData();
+  trackingData._fbc = fbc;
+  setCookie('ob_track', trackingData, 30);
+}
+
+/**
+ * Get or set Facebook _fbp cookie (Facebook Browser ID)
+ * Typically set by Facebook Pixel, but we read it here
+ */
+export function getFacebookFbp(): string | undefined {
+  // Try to get from standard _fbp cookie first
+  const fbpCookie = getCookie('_fbp');
+  if (fbpCookie) return fbpCookie;
+
+  // Try to get from ob_track cookie
+  const trackingData = getCookie('ob_track');
+  return trackingData?._fbp;
+}
+
+export function setFacebookFbp(fbp: string): void {
+  // Set standard _fbp cookie
+  setCookie('_fbp', fbp, 90); // 90 days as per Facebook spec
+
+  // Also store in ob_track for consolidation
+  const trackingData = getOrInitTrackingData();
+  trackingData._fbp = fbp;
+  setCookie('ob_track', trackingData, 30);
+}
+
+/**
+ * Get or set Facebook _fbi cookie (IPv6 address from param builder)
+ * Used by Facebook Parameter Builder for client IP collection
+ */
+export function getFacebookFbi(): string | undefined {
+  // Try to get from standard _fbi cookie first
+  const fbiCookie = getCookie('_fbi');
+  if (fbiCookie) return fbiCookie;
+
+  // Try to get from ob_track cookie
+  const trackingData = getCookie('ob_track');
+  return trackingData?._fbi;
+}
+
+export function setFacebookFbi(fbi: string): void {
+  // Set standard _fbi cookie
+  setCookie('_fbi', fbi, 90); // 90 days as per Facebook spec
+
+  // Also store in ob_track for consolidation
+  const trackingData = getOrInitTrackingData();
+  trackingData._fbi = fbi;
+  setCookie('ob_track', trackingData, 30);
+}
+
+/**
+ * Build _fbc cookie from fbclid parameter
+ * Format: fb.{subdomainIndex}.{timestamp}.{fbclid}
+ */
+export function buildFbcFromFbclid(fbclid: string): string {
+  const timestamp = Date.now();
+  return `fb.1.${timestamp}.${fbclid}`;
+}
+
+/**
+ * Sync Facebook cookies from URL parameters
+ * Should be called when page loads with fbclid parameter
+ */
+export function syncFacebookCookies(): void {
+  if (typeof window === 'undefined') return;
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const fbclid = urlParams.get('fbclid');
+
+  // If fbclid is present and we don't have _fbc cookie, create it
+  if (fbclid && !getFacebookFbc()) {
+    const fbc = buildFbcFromFbclid(fbclid);
+    setFacebookFbc(fbc);
+    console.log('📊 Facebook _fbc cookie created from fbclid:', fbc);
+  }
+
+  // Read _fbp cookie set by Facebook Pixel and sync to ob_track
+  const fbp = getCookie('_fbp');
+  if (fbp) {
+    const trackingData = getOrInitTrackingData();
+    if (!trackingData._fbp) {
+      trackingData._fbp = fbp;
+      setCookie('ob_track', trackingData, 30);
+      console.log('📊 Facebook _fbp cookie synced to tracking data');
+    }
+  }
 }

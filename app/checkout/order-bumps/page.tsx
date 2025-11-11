@@ -252,6 +252,7 @@ function OrderBumpsContent() {
           },
           trackingParams: trackingParams,
           cookieData: cookieData,
+          pageUrl: window.location.href,
         }),
       })
 

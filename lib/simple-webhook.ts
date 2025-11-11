@@ -1,7 +1,7 @@
 // Simple webhook utility for sending name and email to Make.com
 
 const WEBHOOK_URL = 'https://hook.eu2.make.com/ghdk1p8eqseejtkt2fynaoe0d2vj6v1l';
-const INITIATED_CHECKOUT_WEBHOOK_URL = 'https://hook.eu2.make.com/ax6yp1vji6pig8mdl4nh1562pnooye99';
+const INITIATED_CHECKOUT_WEBHOOK_URL = 'https://hook.eu2.make.com/rmssfwgpgrbkihnly4ocxd2cf6kmfbo3';
 
 interface ChallengeSignupData {
   firstName: string;
@@ -12,6 +12,7 @@ interface ChallengeSignupData {
 interface InitiatedCheckoutData {
   sessionId: string;
   checkoutUrl: string;
+  pageUrl?: string;
   customer: {
     firstName: string;
     lastName: string;
@@ -97,52 +98,43 @@ export async function sendInitiatedCheckout(data: InitiatedCheckoutData): Promis
     console.log('📤 ABANDONED CART: Total Amount:', data.cart.totalAmount);
 
     const payload = {
+      // Customer name (required by Make.com)
+      name: `${data.customer.firstName} ${data.customer.lastName}`.trim(),
+      first_name: data.customer.firstName,
+      last_name: data.customer.lastName,
+      email: data.customer.email,
+
+      // Checkout URL (or page URL as fallback)
+      checkout_url: data.checkoutUrl,
+      page_url: data.pageUrl || data.checkoutUrl,
+
       event_type: 'checkout_initiated',
       timestamp: new Date().toISOString(),
-
-      // Checkout session info
       session_id: data.sessionId,
-      checkout_url: data.checkoutUrl,
-
-      // Customer info
-      customer: {
-        first_name: data.customer.firstName,
-        last_name: data.customer.lastName,
-        full_name: `${data.customer.firstName} ${data.customer.lastName}`,
-        email: data.customer.email,
-        phone: data.customer.phone || '',
-      },
+      phone: data.customer.phone || '',
 
       // Location & Currency
-      location: {
-        country_code: data.location.countryCode || 'Unknown',
-        currency: data.location.currency,
-      },
+      country_code: data.location.countryCode || 'Unknown',
+      currency: data.location.currency,
 
       // Cart details
-      cart: {
-        items: data.cart.items.map(item => ({
-          product_name: item.productName,
-          product_id: item.productId,
-          metadata: item.metadata || item.productId,
-          quantity: item.quantity,
-          price: item.price,
-          currency: item.currency,
-        })),
-        total_amount: data.cart.totalAmount,
-        currency: data.cart.currency,
-        item_count: data.cart.items.length,
-      },
+      cart_items: data.cart.items.map(item => ({
+        product_name: item.productName,
+        product_id: item.productId,
+        metadata: item.metadata || item.productId,
+        quantity: item.quantity,
+        price: item.price,
+        currency: item.currency,
+      })),
+      total_amount: data.cart.totalAmount,
+      cart_currency: data.cart.currency,
+      item_count: data.cart.items.length,
 
       // Tracking data (optional)
-      tracking: data.tracking ? {
-        session_id: data.tracking.sessionId,
-        event_id: data.tracking.eventId,
-        utm_source: data.tracking.utmSource || '',
-        utm_medium: data.tracking.utmMedium || '',
-        utm_campaign: data.tracking.utmCampaign || '',
-        fbclid: data.tracking.fbclid || '',
-      } : undefined,
+      utm_source: data.tracking?.utmSource || '',
+      utm_medium: data.tracking?.utmMedium || '',
+      utm_campaign: data.tracking?.utmCampaign || '',
+      fbclid: data.tracking?.fbclid || '',
     };
 
     console.log('📤 ABANDONED CART: Full payload being sent:', JSON.stringify(payload, null, 2));

@@ -191,6 +191,7 @@ export default function CheckoutPage() {
             },
             trackingParams: trackingParams,
             cookieData: cookieData,
+            pageUrl: window.location.href,
           }),
         })
 
@@ -382,6 +383,7 @@ export default function CheckoutPage() {
             },
             trackingParams: trackingParams,
             cookieData: cookieData,
+            pageUrl: window.location.href,
           }),
         })
 

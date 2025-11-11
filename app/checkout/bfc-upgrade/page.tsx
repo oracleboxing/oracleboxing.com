@@ -158,6 +158,7 @@ function BFCUpgradeContent() {
           },
           trackingParams: trackingParams,
           cookieData: cookieData,
+          pageUrl: window.location.href,
         }),
       })
 
