@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { MembershipTestimonials } from '@/components/MembershipTestimonials'
@@ -8,7 +8,7 @@ import { MembershipPricingPopup } from '@/components/MembershipPricingPopup'
 import { getMemberships } from '@/lib/products'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
-import { Video, Users, Clock, BookOpen, Award, Target, TrendingUp, Heart, CheckCircle, CreditCard, Smartphone, TrendingUp as Progress, ChevronDown, Square, Check } from 'lucide-react'
+import { Video, Users, Clock, BookOpen, Award, Target, TrendingUp, Heart, CheckCircle, CreditCard, Smartphone, TrendingUp as Progress, ChevronDown } from 'lucide-react'
 import { AdaptivePrice, AdaptivePricePerMonth } from '@/components/AdaptivePrice'
 
 export const dynamic = 'force-dynamic'
@@ -19,6 +19,45 @@ export default function MembershipsPage() {
   const [selectedPlan, setSelectedPlan] = useState('membership-annual')
   const [openFaq, setOpenFaq] = useState<number | null>(null)
   const [isPricingPopupOpen, setIsPricingPopupOpen] = useState(false)
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([])
+  const [videosLoaded, setVideosLoaded] = useState(false)
+
+  // Video autoplay on scroll for transformation videos
+  useEffect(() => {
+    if (!videosLoaded) return
+
+    const observers: IntersectionObserver[] = []
+
+    videoRefs.current.forEach((video) => {
+      if (!video) return
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            const target = entry.target as HTMLVideoElement
+            if (entry.isIntersecting && entry.intersectionRatio > 0.75) {
+              target.play().catch((err) => {
+                console.log('Video play prevented:', err)
+              })
+            } else {
+              target.pause()
+            }
+          })
+        },
+        {
+          threshold: [0, 0.25, 0.5, 0.75, 1],
+          rootMargin: '0px'
+        }
+      )
+
+      observer.observe(video)
+      observers.push(observer)
+    })
+
+    return () => {
+      observers.forEach(observer => observer.disconnect())
+    }
+  }, [videosLoaded])
 
   // Membership testimonials with profile pictures
   const testimonials = [
@@ -217,12 +256,12 @@ export default function MembershipsPage() {
 
       {/* Hero Section - Two Column */}
       <section className="pt-12 sm:pt-16 lg:pt-24 pb-8 sm:pb-12 lg:pb-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center">
+        <div className="w-full px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center mx-auto lg:max-w-[80%]">
             {/* Left Column - Text & CTA */}
             <div>
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-3 sm:mb-4 lg:mb-6">
-                Old School Boxing, New Way to Learn
+                Join Our Community and Get Live Coaching with Full Access to All Courses
               </h1>
               <p className="text-base sm:text-lg lg:text-xl text-gray-600 mb-3 sm:mb-4 lg:mb-5 leading-relaxed">
                 Learn the basics of boxing with modern coaching, smart training methods, and a helpful community from around the world.
@@ -236,7 +275,7 @@ export default function MembershipsPage() {
               {/* CTA Button */}
               <button
                 onClick={() => setIsPricingPopupOpen(true)}
-                className="inline-block py-3 sm:py-4 lg:py-5 px-8 sm:px-10 lg:px-12 bg-yellow-100 text-black border-4 border-black font-black text-base sm:text-lg lg:text-xl rounded-lg uppercase tracking-wide cursor-pointer animate-bounce-subtle hover:bg-black hover:text-white transition-colors duration-300 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]"
+                className="inline-block py-3 sm:py-4 lg:py-5 px-8 sm:px-10 lg:px-12 bg-yellow-100 text-black border-4 border-black font-black text-base sm:text-lg lg:text-xl rounded-lg uppercase tracking-wide cursor-pointer animate-bounce-subtle hover:bg-black hover:text-white transition-colors duration-300"
               >
                 ENROLL NOW
               </button>
@@ -244,7 +283,7 @@ export default function MembershipsPage() {
 
             {/* Right Column - Video */}
             <div className="flex justify-center lg:justify-end">
-              <div className="relative w-full max-w-[300px] aspect-[9/16] rounded-3xl overflow-hidden">
+              <div className="relative w-full max-w-[400px] aspect-[9/16] overflow-hidden">
                 <video
                   autoPlay
                   loop
@@ -261,23 +300,35 @@ export default function MembershipsPage() {
         </div>
       </section>
 
-      {/* Results Section */}
-      <section className="py-8 sm:py-12 lg:py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-2 sm:mb-3 lg:mb-4 text-center">
-            4 out of 5 members see amazing progress
-          </h2>
+      {/* Transformations Section */}
+      <section className="py-8 sm:py-12 lg:py-16 bg-gray-50">
+        <div className="w-full px-4 sm:px-6 lg:px-8 lg:max-w-[80%] mx-auto">
+          <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-2 sm:mb-3 text-center">
+            Does 16 transformations prove that this works?
+          </h3>
           <p className="text-sm sm:text-base lg:text-xl text-gray-600 text-center max-w-3xl mx-auto mb-6 sm:mb-8 lg:mb-12">
-            Real changes from members who did the work
+            See what happens when you show up and do the work
           </p>
 
-          {/* Desktop: Grid layout */}
-          <div className="hidden lg:grid lg:grid-cols-4 gap-6">
+          {/* Desktop: 4x4 Grid layout */}
+          <div className="hidden lg:grid lg:grid-cols-4 gap-4">
             {[
-              { video: 'a_andre.webm', poster: 'a_andre-frame.jpg' },
-              { video: 'a_shalyn.webm', poster: 'a_shalyn-frame.jpg' },
-              { video: 'a_keli.webm', poster: 'a_keli-frame.jpg' },
-              { video: 'a_charlie.webm', poster: 'a_charlie-frame.jpg' }
+              { video: 'andre.webm', poster: 'andre_poster.webp' },
+              { video: 'sha-lyn.webm', poster: 'sha-lyn_poster.webp' },
+              { video: 'jordan.webm', poster: 'jordan_poster.webp' },
+              { video: 'charlie.webm', poster: 'charlie_poster.webp' },
+              { video: 'Niclas.webm', poster: 'Niclas_poster.webp' },
+              { video: 'rod.webm', poster: 'rod_poster.webp' },
+              { video: 'nico.webm', poster: 'nico_poster.webp' },
+              { video: 'keli.webm', poster: 'keli_poster.webp' },
+              { video: 'balal.webm', poster: 'balal_poster.webp' },
+              { video: 'Beat.webm', poster: 'Beat_poster.webp' },
+              { video: 'Bruno.webm', poster: 'Bruno_poster.webp' },
+              { video: 'daniel.webm', poster: 'daniel_poster.webp' },
+              { video: 'David.webm', poster: 'David_poster.webp' },
+              { video: 'iilya.webm', poster: 'iilya_poster.webp' },
+              { video: 'kris.webm', poster: 'kris_poster.webp' },
+              { video: 'Maria.webm', poster: 'Maria_poster.webp' }
             ].map((item, index) => (
               <div key={index} className="relative aspect-[9/16] rounded-xl overflow-hidden">
                 <video
@@ -285,34 +336,53 @@ export default function MembershipsPage() {
                   loop
                   muted
                   playsInline
-                  poster={`https://media.oracleboxing.com/Website/${item.poster}`}
+                  poster={`https://media.oracleboxing.com/Website/transfo/${item.poster}`}
                   className="w-full h-full object-cover"
                 >
-                  <source src={`https://media.oracleboxing.com/Website/${item.video}`} type="video/webm" />
+                  <source src={`https://media.oracleboxing.com/Website/transfo/${item.video}`} type="video/webm" />
                 </video>
               </div>
             ))}
           </div>
 
           {/* Mobile: Scrollable carousel */}
-          <div className="lg:hidden overflow-x-auto scrollbar-hide -mx-4 px-4">
+          <div className="lg:hidden overflow-x-auto scrollbar-hide snap-x snap-mandatory -mx-4 px-4">
             <div className="flex gap-4 pb-4">
               {[
-                { video: 'a_andre.webm', poster: 'a_andre-frame.jpg' },
-                { video: 'a_shalyn.webm', poster: 'a_shalyn-frame.jpg' },
-                { video: 'a_keli.webm', poster: 'a_keli-frame.jpg' },
-                { video: 'a_charlie.webm', poster: 'a_charlie-frame.jpg' }
+                { video: 'andre.webm', poster: 'andre_poster.webp' },
+                { video: 'sha-lyn.webm', poster: 'sha-lyn_poster.webp' },
+                { video: 'jordan.webm', poster: 'jordan_poster.webp' },
+                { video: 'charlie.webm', poster: 'charlie_poster.webp' },
+                { video: 'Niclas.webm', poster: 'Niclas_poster.webp' },
+                { video: 'rod.webm', poster: 'rod_poster.webp' },
+                { video: 'nico.webm', poster: 'nico_poster.webp' },
+                { video: 'keli.webm', poster: 'keli_poster.webp' },
+                { video: 'balal.webm', poster: 'balal_poster.webp' },
+                { video: 'Beat.webm', poster: 'Beat_poster.webp' },
+                { video: 'Bruno.webm', poster: 'Bruno_poster.webp' },
+                { video: 'daniel.webm', poster: 'daniel_poster.webp' },
+                { video: 'David.webm', poster: 'David_poster.webp' },
+                { video: 'iilya.webm', poster: 'iilya_poster.webp' },
+                { video: 'kris.webm', poster: 'kris_poster.webp' },
+                { video: 'Maria.webm', poster: 'Maria_poster.webp' },
+                { video: 'zyginta.webm', poster: 'zyginta_poster.webp' }
               ].map((item, index) => (
-                <div key={index} className="relative flex-shrink-0 w-[280px] aspect-[9/16] rounded-xl overflow-hidden">
+                <div key={index} className="relative flex-shrink-0 w-[70vw] sm:w-[320px] aspect-[9/16] rounded-xl overflow-hidden snap-center">
                   <video
-                    autoPlay
+                    ref={(el) => {
+                      videoRefs.current[index] = el
+                      if (el && !videosLoaded) {
+                        setVideosLoaded(true)
+                      }
+                    }}
                     loop
                     muted
                     playsInline
-                    poster={`https://media.oracleboxing.com/Website/${item.poster}`}
+                    poster={`https://media.oracleboxing.com/Website/transfo/${item.poster}`}
                     className="w-full h-full object-cover"
+                    preload="metadata"
                   >
-                    <source src={`https://media.oracleboxing.com/Website/${item.video}`} type="video/webm" />
+                    <source src={`https://media.oracleboxing.com/Website/transfo/${item.video}`} type="video/webm" />
                   </video>
                 </div>
               ))}
@@ -322,138 +392,128 @@ export default function MembershipsPage() {
       </section>
 
       {/* Learn the Right Way Section */}
-      <section className="w-full pt-12 pb-24 sm:py-28 lg:py-36 bg-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="w-full py-12 sm:py-16 lg:py-20 bg-white">
+        <div className="w-full px-4 sm:px-6 lg:px-8 lg:max-w-[80%] mx-auto">
           {/* Main Headline */}
-          <div className="text-center mb-8 sm:mb-12 lg:mb-16">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900" style={{ fontFamily: 'Satoshi, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
-              <span className="bg-yellow-200/80 text-black px-2 py-[2px]">Learn the right way</span>
+          <div className="text-center mb-12 sm:mb-16 lg:mb-20">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+              Three ways to learn
             </h2>
+            <p className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-2xl mx-auto">
+              Structured courses, live coaching, and community support all in one place
+            </p>
           </div>
 
-          {/* Niclas Testimonial - Course */}
-          <div className="grid grid-cols-1 gap-8 items-center lg:grid-cols-2 mb-12 sm:mb-16 lg:mb-12">
-            <div className="flex gap-8 flex-col">
-              <div className="bg-white rounded-xl p-4 sm:p-6">
-                <div className="space-y-2 sm:space-y-4">
-                  <div className="flex items-center gap-2 sm:gap-4 mb-2 sm:mb-4">
-                    <img
-                      src="https://media.oracleboxing.com/webp/Website/niclas.webp"
-                      alt="Niclas Laux"
-                      className="w-12 h-12 sm:w-16 sm:h-16 rounded-full object-cover"
-                    />
-                    <div>
-                      <h4 className="text-gray-900 font-semibold text-sm sm:text-base">Niclas Laux</h4>
-                      <p className="text-gray-600 text-xs sm:text-sm">
-                        Founder of Samurai Movement Academy, BJJ Purple Belt, Self-Defense Instructor
-                      </p>
-                      <p className="text-gray-500 text-xs mt-0.5 sm:mt-1 italic">
-                        Boxing Masterclass Course
-                      </p>
-                    </div>
-                  </div>
-                  <blockquote className="text-sm sm:text-base md:text-lg text-gray-700 leading-relaxed">
-                    This is THE source of our kinetic energy potential. Can't thank you enough for the changes I've made thanks to your dedication with First Principles! It was the best choice of my martial arts life - the aha-moments are incredible!
-                  </blockquote>
+          {/* Three Features Grid */}
+          <div className="space-y-8 lg:space-y-0 lg:grid lg:grid-cols-3 lg:gap-12 mb-16 sm:mb-20">
+            {/* Feature 1 - Courses */}
+            <div className="text-center lg:text-center">
+              <div className="mb-4 lg:mb-6">
+                <div className="inline-flex items-center justify-center w-14 h-14 lg:w-16 lg:h-16 rounded-full bg-black text-white text-xl lg:text-2xl font-bold">
+                  1
                 </div>
               </div>
+              <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 mb-2 lg:mb-3">
+                Structured Courses
+              </h3>
+              <p className="text-sm sm:text-base text-gray-600 leading-relaxed max-w-md mx-auto">
+                Complete video courses that break down every fundamental, from stance to power generation
+              </p>
             </div>
-            <div className="relative rounded-xl overflow-hidden lg:max-w-md lg:mx-auto" style={{ aspectRatio: '16/9' }}>
-              <img
-                src="https://media.oracleboxing.com/webp/Website/laptop_mockup.webp"
-                alt="Boxing Masterclass Course"
-                className="w-full h-full object-contain"
-              />
-            </div>
-          </div>
 
-          {/* Torey Testimonial - Live Coaching */}
-          <div className="grid grid-cols-1 gap-8 items-center lg:grid-cols-2 mb-12 sm:mb-16 lg:mb-12">
-            <div className="relative aspect-video rounded-xl overflow-hidden order-2 lg:order-1 lg:max-w-md lg:mx-auto">
-              <video
-                className="w-full h-full object-cover"
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="auto"
-                poster="https://media.oracleboxing.com/Website/obcoachingcall-frame.jpg"
-              >
-                <source src="https://media.oracleboxing.com/Website/optimized/videos/obcoachingcall-optimized.webm" type="video/webm" />
-              </video>
-            </div>
-            <div className="flex gap-8 flex-col order-1 lg:order-2">
-              <div className="lg:pl-6">
-                <div className="bg-white rounded-xl p-4 sm:p-6">
-                  <div className="space-y-2 sm:space-y-4">
-                    <div className="flex items-center gap-2 sm:gap-4 mb-2 sm:mb-4">
-                      <img
-                        src="https://media.oracleboxing.com/webp/Website/torey.webp"
-                        alt="Torey Goodall"
-                        className="w-12 h-12 sm:w-16 sm:h-16 rounded-full object-cover"
-                      />
-                      <div>
-                        <h4 className="text-gray-900 font-semibold text-sm sm:text-base">Torey Goodall</h4>
-                        <p className="text-gray-600 text-xs sm:text-sm">
-                          Community Member & Boxing Enthusiast
-                        </p>
-                      </div>
-                    </div>
-                    <blockquote className="text-sm sm:text-base md:text-lg text-gray-700 leading-relaxed">
-                      I decided to recommit to this community and I already feel like I made breakthroughs on Toni and Ollie's zoom calls. I've gotta tip my hat to how effective you guys are at coaching in this format. I feel like I gain a significantly better understanding of technique every time I make a call.
-                    </blockquote>
-                  </div>
+            {/* Feature 2 - Live Coaching */}
+            <div className="text-center lg:text-center">
+              <div className="mb-4 lg:mb-6">
+                <div className="inline-flex items-center justify-center w-14 h-14 lg:w-16 lg:h-16 rounded-full bg-black text-white text-xl lg:text-2xl font-bold">
+                  2
                 </div>
               </div>
+              <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 mb-2 lg:mb-3">
+                Live Coaching Calls
+              </h3>
+              <p className="text-sm sm:text-base text-gray-600 leading-relaxed max-w-md mx-auto">
+                Join daily sessions with expert coaches who give real-time feedback and answer your questions
+              </p>
+            </div>
+
+            {/* Feature 3 - Community */}
+            <div className="text-center lg:text-center">
+              <div className="mb-4 lg:mb-6">
+                <div className="inline-flex items-center justify-center w-14 h-14 lg:w-16 lg:h-16 rounded-full bg-black text-white text-xl lg:text-2xl font-bold">
+                  3
+                </div>
+              </div>
+              <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 mb-2 lg:mb-3">
+                Active Community
+              </h3>
+              <p className="text-sm sm:text-base text-gray-600 leading-relaxed max-w-md mx-auto">
+                Train alongside 300+ members who share progress, ask questions, and push each other forward
+              </p>
             </div>
           </div>
 
-          {/* Balal Testimonial - Community */}
-          <div className="grid grid-cols-1 gap-8 items-center lg:grid-cols-2 mb-12">
-            <div className="flex gap-8 flex-col">
-              <div className="lg:pl-6">
-                <div className="bg-white rounded-xl p-4 sm:p-6">
-                  <div className="space-y-2 sm:space-y-4">
-                    <div className="flex items-center gap-2 sm:gap-4 mb-2 sm:mb-4">
-                      <img
-                        src="https://media.oracleboxing.com/webp/Website/balal.webp"
-                        alt="Balal Hanif"
-                        className="w-12 h-12 sm:w-16 sm:h-16 rounded-full object-cover"
-                      />
-                      <div>
-                        <h4 className="text-gray-900 font-semibold text-sm sm:text-base">Balal Hanif</h4>
-                        <p className="text-gray-600 text-xs sm:text-sm">
-                          Community Member & Boxing Enthusiast
-                        </p>
-                      </div>
-                    </div>
-                    <blockquote className="text-sm sm:text-base md:text-lg text-gray-700 leading-relaxed">
-                      Being part of this community has been an incredibly transformative experience. Joining the live Zoom calls almost every day has helped me lose weight, improve my technique, and significantly boost my confidence. The guidance, encouragement, and camaraderie have made a real difference in my development as a boxer.
-                    </blockquote>
-                  </div>
+          {/* Social Proof - Three Testimonials */}
+          <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
+            {/* Niclas Testimonial */}
+            <div className="bg-gray-50 rounded-2xl p-6 sm:p-8 border border-gray-200">
+              <div className="flex items-start gap-4 mb-4">
+                <img
+                  src="https://media.oracleboxing.com/webp/Website/niclas.webp"
+                  alt="Niclas Laux"
+                  className="w-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover flex-shrink-0"
+                />
+                <div>
+                  <div className="font-bold text-gray-900 text-sm sm:text-base">Niclas Laux</div>
+                  <div className="text-gray-600 text-xs sm:text-sm">Martial Arts Instructor</div>
                 </div>
               </div>
+              <blockquote className="text-base sm:text-lg text-gray-900 leading-relaxed">
+                "This is THE source of our kinetic energy potential. Can't thank you enough for the changes I've made thanks to your dedication with First Principles! It was the best choice of my martial arts life - the aha-moments are incredible!"
+              </blockquote>
             </div>
-            <div className="relative aspect-video rounded-xl overflow-hidden lg:max-w-md lg:mx-auto">
-              <video
-                className="w-full h-full object-cover"
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="auto"
-                poster="https://media.oracleboxing.com/Website/online_rating-frame.jpg"
-              >
-                <source src="https://media.oracleboxing.com/Website/optimized/videos/online_rating-optimized.webm" type="video/webm" />
-              </video>
+
+            {/* Torey Testimonial */}
+            <div className="bg-gray-50 rounded-2xl p-6 sm:p-8 border border-gray-200">
+              <div className="flex items-start gap-4 mb-4">
+                <img
+                  src="https://media.oracleboxing.com/webp/Website/torey.webp"
+                  alt="Torey Goodall"
+                  className="w-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover flex-shrink-0"
+                />
+                <div>
+                  <div className="font-bold text-gray-900 text-sm sm:text-base">Torey Goodall</div>
+                  <div className="text-gray-600 text-xs sm:text-sm">Community Member</div>
+                </div>
+              </div>
+              <blockquote className="text-base sm:text-lg text-gray-900 leading-relaxed">
+                "I decided to recommit to this community and I already feel like I made breakthroughs on Toni and Ollie's zoom calls. I've gotta tip my hat to how effective you guys are at coaching in this format. I feel like I gain a significantly better understanding of technique every time I make a call."
+              </blockquote>
+            </div>
+
+            {/* Balal Testimonial */}
+            <div className="bg-gray-50 rounded-2xl p-6 sm:p-8 border border-gray-200">
+              <div className="flex items-start gap-4 mb-4">
+                <img
+                  src="https://media.oracleboxing.com/webp/Website/balal.webp"
+                  alt="Balal Hanif"
+                  className="w-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover flex-shrink-0"
+                />
+                <div>
+                  <div className="font-bold text-gray-900 text-sm sm:text-base">Balal Hanif</div>
+                  <div className="text-gray-600 text-xs sm:text-sm">Community Member</div>
+                </div>
+              </div>
+              <blockquote className="text-base sm:text-lg text-gray-900 leading-relaxed">
+                "Being part of this community has been an incredibly transformative experience. Joining the live Zoom calls almost every day has helped me lose weight, improve my technique, and significantly boost my confidence."
+              </blockquote>
             </div>
           </div>
         </div>
       </section>
 
       {/* See Inside The Platform Section */}
-      <section className="py-12 sm:py-16 lg:py-20 bg-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-12 sm:py-16 lg:py-20 bg-gray-50">
+        <div className="w-full px-4 sm:px-6 lg:px-8 lg:max-w-[80%] mx-auto">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 sm:mb-4 text-center">
             See Inside The Platform
           </h2>
@@ -461,91 +521,196 @@ export default function MembershipsPage() {
             Everything you need to learn boxing, all in one place
           </p>
 
-          {/* Scrollable Carousel */}
-          <div className="overflow-x-auto -mx-4 px-4 mb-8 sm:mb-12">
-            <div
-              className="flex gap-6 pb-4 overflow-x-auto snap-x snap-mandatory scrollbar-hide"
-              style={{ minWidth: 'max-content' }}
-            >
-              {[
-                {
-                  image: 'https://media.oracleboxing.com/Website/optimized/screenshots/inside1.webp',
-                  title: 'All Your Courses in One Place',
-                  subtitle: 'Access all three courses from a single organized dashboard'
-                },
-                {
-                  image: 'https://media.oracleboxing.com/Website/optimized/screenshots/inside2.webp',
-                  title: 'Full Video Lessons',
-                  subtitle: 'Follow clear lessons with detailed video shows and learning'
-                },
-                {
-                  image: 'https://media.oracleboxing.com/Website/optimized/screenshots/inside3.webp',
-                  title: 'Follow-Along Workouts',
-                  subtitle: 'Train with step-by-step drills and clear workout plans'
-                },
-                {
-                  image: 'https://media.oracleboxing.com/Website/optimized/screenshots/inside4.webp',
-                  title: 'Strong Search Feature',
-                  subtitle: 'Find any move, idea, or drill quickly across all courses'
-                },
-                {
-                  image: 'https://media.oracleboxing.com/Website/optimized/screenshots/phone_mockup1.webp',
-                  title: 'Train Anywhere, Anytime',
-                  subtitle: 'Full mobile access means you can learn and train from any device'
-                }
-              ].map((screenshot, index) => (
-                <div
-                  key={index}
-                  className="snap-center w-[85vw] md:w-[500px] lg:w-[600px]"
-                >
-                  <div className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-lg flex flex-col h-full">
-                    <div className="relative w-full aspect-video overflow-hidden bg-gray-100">
-                      <Image
-                        src={screenshot.image}
-                        alt={screenshot.title}
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 768px) 360px, (max-width: 1024px) 500px, 600px"
-                      />
-                    </div>
-                    <div className="p-5">
-                      <h3 className="text-xl font-bold text-gray-900 mb-2">
-                        {screenshot.title}
-                      </h3>
-                      <p className="text-sm text-gray-600">
-                        {screenshot.subtitle}
-                      </p>
-                    </div>
-                  </div>
+          {/* Desktop: 2-column grid */}
+          <div className="hidden lg:grid lg:grid-cols-2 gap-6 lg:gap-8">
+            {[
+              {
+                image: 'https://media.oracleboxing.com/Website/optimized/screenshots/inside1.webp',
+                title: 'All Your Courses in One Place',
+                subtitle: 'Access all three courses from a single organized dashboard'
+              },
+              {
+                image: 'https://media.oracleboxing.com/Website/optimized/screenshots/inside2.webp',
+                title: 'Full Video Lessons',
+                subtitle: 'Follow clear lessons with detailed video shows and learning'
+              },
+              {
+                image: 'https://media.oracleboxing.com/Website/optimized/screenshots/inside3.webp',
+                title: 'Follow-Along Workouts',
+                subtitle: 'Train with step-by-step drills and clear workout plans'
+              },
+              {
+                image: 'https://media.oracleboxing.com/Website/optimized/screenshots/inside4.webp',
+                title: 'Strong Search Feature',
+                subtitle: 'Find any move, idea, or drill quickly across all courses'
+              }
+            ].map((screenshot, index) => (
+              <div key={index} className="bg-white rounded-2xl overflow-hidden shadow-sm">
+                <div className="p-6 lg:p-8 text-center">
+                  <h3 className="text-xl lg:text-2xl font-bold text-gray-900 mb-3">
+                    {screenshot.title}
+                  </h3>
+                  <p className="text-base lg:text-lg text-gray-600 leading-relaxed mb-4">
+                    {screenshot.subtitle}
+                  </p>
                 </div>
-              ))}
-            </div>
+                <div className="relative w-full aspect-video overflow-hidden bg-gray-100">
+                  <Image
+                    src={screenshot.image}
+                    alt={screenshot.title}
+                    fill
+                    className="object-contain"
+                    sizes="(min-width: 1024px) 50vw, 100vw"
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Mobile: Vertical stacked cards */}
+          <div className="lg:hidden space-y-6">
+            {[
+              {
+                image: 'https://media.oracleboxing.com/Website/optimized/screenshots/inside1.webp',
+                title: 'All Your Courses in One Place',
+                subtitle: 'Access all three courses from a single organized dashboard'
+              },
+              {
+                image: 'https://media.oracleboxing.com/Website/optimized/screenshots/inside2.webp',
+                title: 'Full Video Lessons',
+                subtitle: 'Follow clear lessons with detailed video shows and learning'
+              },
+              {
+                image: 'https://media.oracleboxing.com/Website/optimized/screenshots/inside3.webp',
+                title: 'Follow-Along Workouts',
+                subtitle: 'Train with step-by-step drills and clear workout plans'
+              },
+              {
+                image: 'https://media.oracleboxing.com/Website/optimized/screenshots/inside4.webp',
+                title: 'Strong Search Feature',
+                subtitle: 'Find any move, idea, or drill quickly across all courses'
+              }
+            ].map((screenshot, index) => (
+              <div key={index} className="bg-white rounded-xl overflow-hidden">
+                <div className="p-6 text-center">
+                  <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3">
+                    {screenshot.title}
+                  </h3>
+                  <p className="text-base text-gray-600 leading-relaxed mb-4">
+                    {screenshot.subtitle}
+                  </p>
+                </div>
+                <div className="relative w-full aspect-video overflow-hidden bg-gray-100">
+                  <Image
+                    src={screenshot.image}
+                    alt={screenshot.title}
+                    fill
+                    className="object-contain"
+                    sizes="100vw"
+                  />
+                </div>
+              </div>
+            ))}
           </div>
         </div>
-
-        {/* Hide scrollbar */}
-        <style jsx global>{`
-          .scrollbar-hide::-webkit-scrollbar {
-            display: none;
-          }
-          .scrollbar-hide {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-          }
-        `}</style>
       </section>
 
-      {/* Testimonials Section */}
-      <MembershipTestimonials testimonials={testimonials} />
+      {/* Testimonials Section - Full Width */}
+      <section className="py-12 sm:py-16 bg-white">
+        <div className="w-full px-4 sm:px-6 lg:px-8 lg:max-w-[80%] mx-auto">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-12 text-center">
+            Engineered for results
+          </h2>
+
+          {/* Mobile: Horizontal scrolling carousel */}
+          <div
+            className="lg:hidden flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-4"
+            style={{ scrollBehavior: 'smooth', WebkitOverflowScrolling: 'touch' }}
+          >
+            {testimonials.map((testimonial, index) => (
+              <div
+                key={index}
+                className="bg-white border-4 border-black rounded-xl px-4 sm:px-5 py-3 sm:py-4 flex-shrink-0 w-[85vw] snap-center shadow-md"
+              >
+                {/* 5-star rating */}
+                <div className="flex gap-0.5 sm:gap-1 mb-2 sm:mb-3">
+                  {[...Array(5)].map((_, i) => (
+                    <svg key={i} className="w-4 h-4 sm:w-5 sm:h-5 text-black fill-black" viewBox="0 0 24 24" strokeWidth={2}>
+                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                    </svg>
+                  ))}
+                </div>
+
+                {/* Content */}
+                <p className="text-sm sm:text-base text-black font-bold mb-3 leading-relaxed">
+                  "{testimonial.content}"
+                </p>
+
+                {/* Profile Picture */}
+                <div className="flex items-center gap-3">
+                  <div className="relative w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden bg-gray-200 flex-shrink-0">
+                    <img
+                      src={testimonial.image}
+                      alt={testimonial.name}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div>
+                    <div className="font-bold text-black text-sm sm:text-base">{testimonial.name}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Desktop: 2-column grid */}
+          <div className="hidden lg:grid lg:grid-cols-2 gap-5">
+            {testimonials.map((testimonial, index) => (
+              <div
+                key={index}
+                className="bg-white border-4 border-black rounded-xl px-5 py-4 shadow-md"
+              >
+                {/* 5-star rating */}
+                <div className="flex gap-1 mb-3">
+                  {[...Array(5)].map((_, i) => (
+                    <svg key={i} className="w-5 h-5 text-black fill-black" viewBox="0 0 24 24" strokeWidth={2}>
+                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                    </svg>
+                  ))}
+                </div>
+
+                {/* Content */}
+                <p className="text-base text-black font-bold mb-3 leading-relaxed">
+                  "{testimonial.content}"
+                </p>
+
+                {/* Profile */}
+                <div className="flex items-center gap-3">
+                  <div className="relative w-12 h-12 rounded-full overflow-hidden bg-gray-200 flex-shrink-0">
+                    <img
+                      src={testimonial.image}
+                      alt={testimonial.name}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div>
+                    <div className="font-bold text-black text-base">{testimonial.name}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* Inline Membership Pricing Section */}
-      <section id="pricing" className="py-12 sm:py-16 lg:py-20 bg-white">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section id="pricing" className="py-12 sm:py-16 lg:py-20 bg-black">
+        <div className="w-full px-4 sm:px-6 lg:px-8 lg:max-w-[80%] mx-auto">
           {/* Title */}
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-2 sm:mb-3 text-center">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-2 sm:mb-3 text-center">
             Join Oracle Boxing for as little as <AdaptivePricePerMonth usdAmount={897} months={12} metadata="mema" className="inline" /> per month!
           </h2>
-          <p className="text-sm sm:text-base lg:text-lg text-gray-600 text-center max-w-3xl mx-auto mb-6 sm:mb-8">
+          <p className="text-sm sm:text-base lg:text-lg text-gray-300 text-center max-w-3xl mx-auto mb-6 sm:mb-8">
             Choose the plan that fits your commitment level
           </p>
 
@@ -554,7 +719,7 @@ export default function MembershipsPage() {
             {/* Annual - Left */}
             <div className="relative">
               {/* Best Value Badge */}
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 px-4 py-1.5 bg-[#000000] text-white text-xs font-black uppercase rounded-full z-10 whitespace-nowrap shadow-md">
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 px-4 py-1.5 bg-[#FFF8DC] text-black text-xs font-black uppercase rounded-full z-10 whitespace-nowrap border-2 border-black">
                 Best Value
               </div>
 
@@ -562,37 +727,37 @@ export default function MembershipsPage() {
                 onClick={() => setSelectedPlan('membership-annual')}
                 className={`cursor-pointer rounded-xl border-2 transition-all ${
                   selectedPlan === 'membership-annual'
-                    ? 'border-[#000000] shadow-lg'
-                    : 'border-gray-300 hover:border-gray-400'
+                    ? 'border-[#FFF8DC] bg-gray-900'
+                    : 'border-gray-700 hover:border-gray-600 bg-gray-900'
                 }`}
               >
                 <div className="p-4 sm:p-5">
                   <div className="flex items-center justify-between mb-3">
                     <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
-                      selectedPlan === 'membership-annual' ? 'border-[#000000] bg-[#000000]' : 'border-gray-300 bg-white'
+                      selectedPlan === 'membership-annual' ? 'border-[#FFF8DC] bg-[#FFF8DC]' : 'border-gray-600 bg-gray-900'
                     }`}>
                       {selectedPlan === 'membership-annual' && (
-                        <div className="w-2.5 h-2.5 bg-white rounded-full"></div>
+                        <div className="w-2.5 h-2.5 bg-black rounded-full"></div>
                       )}
                     </div>
                   </div>
 
                   <div className="flex items-baseline justify-between gap-3 mb-2">
-                    <h3 className="text-xl sm:text-2xl font-bold text-gray-900">Annual</h3>
-                    <div className="text-3xl sm:text-4xl font-black text-gray-900">
+                    <h3 className="text-xl sm:text-2xl font-bold text-white">Annual</h3>
+                    <div className="text-3xl sm:text-4xl font-black text-white">
                       <AdaptivePrice usdAmount={897} metadata="mema" />
                     </div>
                   </div>
-                  <div className="text-sm text-gray-600 mb-3">Billed every year</div>
-                  <div className="w-full bg-white border border-gray-200 rounded-lg px-3 py-1.5 text-center">
+                  <div className="text-sm text-gray-400 mb-3">Billed every year</div>
+                  <div className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-1.5 text-center">
                     <div className="flex items-baseline justify-center gap-1">
-                      <div className="text-xl sm:text-2xl font-bold text-gray-900">
+                      <div className="text-xl sm:text-2xl font-bold text-white">
                         <AdaptivePricePerMonth usdAmount={897} months={12} metadata="mema" />
                       </div>
-                      <div className="text-xs text-gray-600">/ month</div>
+                      <div className="text-xs text-gray-400">/ month</div>
                     </div>
                   </div>
-                  <div className="text-xs text-gray-600 mt-2 text-center">incl. all taxes</div>
+                  <div className="text-xs text-gray-400 mt-2 text-center">incl. all taxes</div>
                 </div>
               </div>
             </div>
@@ -603,37 +768,37 @@ export default function MembershipsPage() {
                 onClick={() => setSelectedPlan('membership-6month')}
                 className={`cursor-pointer rounded-xl border-2 transition-all ${
                   selectedPlan === 'membership-6month'
-                    ? 'border-[#000000] shadow-lg'
-                    : 'border-gray-300 hover:border-gray-400'
+                    ? 'border-[#FFF8DC] bg-gray-900'
+                    : 'border-gray-700 hover:border-gray-600 bg-gray-900'
                 }`}
               >
                 <div className="p-4 sm:p-5">
                   <div className="flex items-center justify-between mb-3">
                     <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
-                      selectedPlan === 'membership-6month' ? 'border-[#000000] bg-[#000000]' : 'border-gray-300 bg-white'
+                      selectedPlan === 'membership-6month' ? 'border-[#FFF8DC] bg-[#FFF8DC]' : 'border-gray-600 bg-gray-900'
                     }`}>
                       {selectedPlan === 'membership-6month' && (
-                        <div className="w-2.5 h-2.5 bg-white rounded-full"></div>
+                        <div className="w-2.5 h-2.5 bg-black rounded-full"></div>
                       )}
                     </div>
                   </div>
 
                   <div className="flex items-baseline justify-between gap-3 mb-2">
-                    <h3 className="text-xl sm:text-2xl font-bold text-gray-900">Bi-Annual</h3>
-                    <div className="text-3xl sm:text-4xl font-black text-gray-900">
+                    <h3 className="text-xl sm:text-2xl font-bold text-white">Bi-Annual</h3>
+                    <div className="text-3xl sm:text-4xl font-black text-white">
                       <AdaptivePrice usdAmount={497} metadata="mem6" />
                     </div>
                   </div>
-                  <div className="text-sm text-gray-600 mb-3">Billed every 6 months</div>
-                  <div className="w-full bg-white border border-gray-200 rounded-lg px-3 py-1.5 text-center">
+                  <div className="text-sm text-gray-400 mb-3">Billed every 6 months</div>
+                  <div className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-1.5 text-center">
                     <div className="flex items-baseline justify-center gap-1">
-                      <div className="text-xl sm:text-2xl font-bold text-gray-900">
+                      <div className="text-xl sm:text-2xl font-bold text-white">
                         <AdaptivePricePerMonth usdAmount={497} months={6} metadata="mem6" />
                       </div>
-                      <div className="text-xs text-gray-600">/ month</div>
+                      <div className="text-xs text-gray-400">/ month</div>
                     </div>
                   </div>
-                  <div className="text-xs text-gray-600 mt-2 text-center">incl. all taxes</div>
+                  <div className="text-xs text-gray-400 mt-2 text-center">incl. all taxes</div>
                 </div>
               </div>
             </div>
@@ -644,37 +809,37 @@ export default function MembershipsPage() {
                 onClick={() => setSelectedPlan('membership-monthly')}
                 className={`cursor-pointer rounded-xl border-2 transition-all ${
                   selectedPlan === 'membership-monthly'
-                    ? 'border-[#000000] shadow-lg'
-                    : 'border-gray-300 hover:border-gray-400'
+                    ? 'border-[#FFF8DC] bg-gray-900'
+                    : 'border-gray-700 hover:border-gray-600 bg-gray-900'
                 }`}
               >
                 <div className="p-4 sm:p-5">
                   <div className="flex items-center justify-between mb-3">
                     <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
-                      selectedPlan === 'membership-monthly' ? 'border-[#000000] bg-[#000000]' : 'border-gray-300 bg-white'
+                      selectedPlan === 'membership-monthly' ? 'border-[#FFF8DC] bg-[#FFF8DC]' : 'border-gray-600 bg-gray-900'
                     }`}>
                       {selectedPlan === 'membership-monthly' && (
-                        <div className="w-2.5 h-2.5 bg-white rounded-full"></div>
+                        <div className="w-2.5 h-2.5 bg-black rounded-full"></div>
                       )}
                     </div>
                   </div>
 
                   <div className="flex items-baseline justify-between gap-3 mb-2">
-                    <h3 className="text-xl sm:text-2xl font-bold text-gray-900">Quarterly</h3>
-                    <div className="text-3xl sm:text-4xl font-black text-gray-900">
+                    <h3 className="text-xl sm:text-2xl font-bold text-white">Quarterly</h3>
+                    <div className="text-3xl sm:text-4xl font-black text-white">
                       <AdaptivePrice usdAmount={297} metadata="memq" />
                     </div>
                   </div>
-                  <div className="text-sm text-gray-600 mb-3">Billed every 3 months</div>
-                  <div className="w-full bg-white border border-gray-200 rounded-lg px-3 py-1.5 text-center">
+                  <div className="text-sm text-gray-400 mb-3">Billed every 3 months</div>
+                  <div className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-1.5 text-center">
                     <div className="flex items-baseline justify-center gap-1">
-                      <div className="text-xl sm:text-2xl font-bold text-gray-900">
+                      <div className="text-xl sm:text-2xl font-bold text-white">
                         <AdaptivePricePerMonth usdAmount={297} months={3} metadata="memq" />
                       </div>
-                      <div className="text-xs text-gray-600">/ month</div>
+                      <div className="text-xs text-gray-400">/ month</div>
                     </div>
                   </div>
-                  <div className="text-xs text-gray-600 mt-2 text-center">incl. all taxes</div>
+                  <div className="text-xs text-gray-400 mt-2 text-center">incl. all taxes</div>
                 </div>
               </div>
             </div>
@@ -684,7 +849,7 @@ export default function MembershipsPage() {
           <div className="text-center mb-3 sm:mb-4">
             <button
               onClick={() => router.push(`/checkout?product=${selectedPlan}&source=membership-page`)}
-              className="py-4 sm:py-5 lg:py-6 px-10 sm:px-12 lg:px-14 bg-yellow-100 text-black font-black text-xl sm:text-2xl md:text-3xl rounded-xl uppercase tracking-wide transition-colors cursor-pointer hover:bg-yellow-200 flex items-center justify-center gap-2 mx-auto border-4 border-black shadow-lg"
+              className="py-4 sm:py-5 lg:py-6 px-10 sm:px-12 lg:px-14 bg-[#FFF8DC] text-black font-black text-xl sm:text-2xl md:text-3xl rounded-xl uppercase tracking-wide transition-colors cursor-pointer hover:bg-white flex items-center justify-center gap-2 mx-auto border-4 border-black"
             >
               CHECKOUT
               <span className="text-2xl sm:text-3xl">→</span>
@@ -692,7 +857,7 @@ export default function MembershipsPage() {
           </div>
 
           {/* Monthly billing note */}
-          <p className="text-center text-gray-600 text-xs sm:text-sm mb-4 sm:mb-6">
+          <p className="text-center text-gray-400 text-xs sm:text-sm mb-4 sm:mb-6">
             You can switch to monthly billing at <AdaptivePrice usdAmount={97} metadata="mem_monthly" className="inline" />/month after purchase
           </p>
 
@@ -724,104 +889,110 @@ export default function MembershipsPage() {
             />
           </div>
 
-          {/* Benefits List */}
-          <div className="space-y-3 sm:space-y-4 mb-6 sm:mb-8 max-w-3xl mx-auto">
-            <div className="flex items-start gap-3">
-              <svg className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0 text-green-600 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-              </svg>
-              <span className="text-sm sm:text-base md:text-lg font-medium leading-relaxed text-gray-900">
-                <strong className="font-bold">Unlimited access</strong> to all Oracle Boxing courses and replays
-              </span>
-            </div>
-            <div className="flex items-start gap-3">
-              <svg className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0 text-green-600 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-              </svg>
-              <span className="text-sm sm:text-base md:text-lg font-medium leading-relaxed text-gray-900">
-                <strong className="font-bold">Daily live coaching calls</strong> and community training sessions
-              </span>
-            </div>
-            <div className="flex items-start gap-3">
-              <svg className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0 text-green-600 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-              </svg>
-              <span className="text-sm sm:text-base md:text-lg font-medium leading-relaxed text-gray-900">
-                <strong className="font-bold">Personal feedback</strong> on your training videos from real coaches
-              </span>
-            </div>
-            <div className="flex items-start gap-3">
-              <svg className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0 text-green-600 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-              </svg>
-              <span className="text-sm sm:text-base md:text-lg font-medium leading-relaxed text-gray-900">
-                <strong className="font-bold">Access to the full Boxing Masterclass and Boxing Roadmap</strong>
-              </span>
-            </div>
-            <div className="flex items-start gap-3">
-              <svg className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0 text-green-600 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-              </svg>
-              <span className="text-sm sm:text-base md:text-lg font-medium leading-relaxed text-gray-900">
-                <strong className="font-bold">Entry to the private Skool coaching community</strong>
-              </span>
-            </div>
-            <div className="flex items-start gap-3">
-              <svg className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0 text-green-600 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-              </svg>
-              <span className="text-sm sm:text-base md:text-lg font-medium leading-relaxed text-gray-900">
-                <strong className="font-bold">Leaderboards, accountability, and live competitions</strong>
-              </span>
-            </div>
-            <div className="flex items-start gap-3">
-              <svg className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0 text-green-600 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-              </svg>
-              <span className="text-sm sm:text-base md:text-lg font-medium leading-relaxed text-gray-900">
-                <strong className="font-bold">Exclusive workshops, mentorship calls, and bonus drops</strong>
-              </span>
-            </div>
-            <div className="flex items-start gap-3">
-              <svg className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0 text-green-600 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-              </svg>
-              <span className="text-sm sm:text-base md:text-lg font-medium leading-relaxed text-gray-900">
-                <strong className="font-bold">Free access</strong> to all future courses and system updates
-              </span>
+          {/* Benefits List - 2 Column Grid */}
+          <div className="mb-6 sm:mb-8 w-full">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3 sm:gap-y-4">
+              {/* Left Column */}
+              <div className="flex items-start gap-3">
+                <svg className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0 text-[#FFF8DC] mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                </svg>
+                <span className="text-sm sm:text-base md:text-lg font-medium leading-relaxed text-white">
+                  <strong className="font-bold">Unlimited access</strong> to all Oracle Boxing courses and replays
+                </span>
+              </div>
+              <div className="flex items-start gap-3">
+                <svg className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0 text-[#FFF8DC] mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                </svg>
+                <span className="text-sm sm:text-base md:text-lg font-medium leading-relaxed text-white">
+                  <strong className="font-bold">Entry to the private Skool coaching community</strong>
+                </span>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <svg className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0 text-[#FFF8DC] mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                </svg>
+                <span className="text-sm sm:text-base md:text-lg font-medium leading-relaxed text-white">
+                  <strong className="font-bold">Daily live coaching calls</strong> and community training sessions
+                </span>
+              </div>
+              <div className="flex items-start gap-3">
+                <svg className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0 text-[#FFF8DC] mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                </svg>
+                <span className="text-sm sm:text-base md:text-lg font-medium leading-relaxed text-white">
+                  <strong className="font-bold">Leaderboards, accountability, and live competitions</strong>
+                </span>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <svg className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0 text-[#FFF8DC] mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                </svg>
+                <span className="text-sm sm:text-base md:text-lg font-medium leading-relaxed text-white">
+                  <strong className="font-bold">Personal feedback</strong> on your training videos from real coaches
+                </span>
+              </div>
+              <div className="flex items-start gap-3">
+                <svg className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0 text-[#FFF8DC] mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                </svg>
+                <span className="text-sm sm:text-base md:text-lg font-medium leading-relaxed text-white">
+                  <strong className="font-bold">Exclusive workshops, mentorship calls, and bonus drops</strong>
+                </span>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <svg className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0 text-[#FFF8DC] mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                </svg>
+                <span className="text-sm sm:text-base md:text-lg font-medium leading-relaxed text-white">
+                  <strong className="font-bold">Access to the full Boxing Masterclass and Boxing Roadmap</strong>
+                </span>
+              </div>
+              <div className="flex items-start gap-3">
+                <svg className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0 text-[#FFF8DC] mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                </svg>
+                <span className="text-sm sm:text-base md:text-lg font-medium leading-relaxed text-white">
+                  <strong className="font-bold">Free access</strong> to all future courses and system updates
+                </span>
+              </div>
             </div>
           </div>
 
           {/* How it works */}
-          <div className="border-t border-gray-200 pt-6 sm:pt-8">
-            <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 mb-4 sm:mb-6 text-center">
+          <div className="border-t border-gray-700 pt-6 sm:pt-8">
+            <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-white mb-4 sm:mb-6 text-center">
               How it works
             </h3>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
               <div className="flex items-start gap-3">
                 <div className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0">
-                  <CreditCard className="w-8 h-8 text-[#000000]" strokeWidth={1.5} />
+                  <CreditCard className="w-8 h-8 text-[#FFF8DC]" strokeWidth={1.5} />
                 </div>
-                <p className="text-sm text-gray-900 font-semibold">
+                <p className="text-sm text-white font-semibold">
                   Choose your plan and finish buying
                 </p>
               </div>
 
               <div className="flex items-start gap-3">
                 <div className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0">
-                  <Smartphone className="w-8 h-8 text-[#000000]" strokeWidth={1.5} />
+                  <Smartphone className="w-8 h-8 text-[#FFF8DC]" strokeWidth={1.5} />
                 </div>
-                <p className="text-sm text-gray-900 font-semibold">
+                <p className="text-sm text-white font-semibold">
                   Log in to the site and download the app
                 </p>
               </div>
 
               <div className="flex items-start gap-3">
                 <div className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0">
-                  <Progress className="w-8 h-8 text-[#000000]" strokeWidth={1.5} />
+                  <Progress className="w-8 h-8 text-[#FFF8DC]" strokeWidth={1.5} />
                 </div>
-                <p className="text-sm text-gray-900 font-semibold">
+                <p className="text-sm text-white font-semibold">
                   Start getting better faster than you thought
                 </p>
               </div>
@@ -830,84 +1001,9 @@ export default function MembershipsPage() {
         </div>
       </section>
 
-      {/* Comparison Section */}
-      <section className="relative py-12 sm:py-16 lg:py-20 overflow-hidden bg-white">
-        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Header */}
-          <div className="text-center mb-8 sm:mb-12">
-            <h2 className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 text-gray-900" style={{ fontFamily: 'Satoshi, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
-              It doesn't have to be one or the other, but if we're comparing...
-            </h2>
-          </div>
-
-          {/* Two Paths Comparison */}
-          <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 mb-8 sm:mb-12">
-            {/* Commercial Boxing Gyms */}
-            <div className="relative">
-              <div className="p-4 sm:p-6 lg:p-8 h-full">
-                <div className="mb-4 sm:mb-6">
-                  <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900">Commercial Boxing Gyms</h3>
-                </div>
-
-                <div className="space-y-2 sm:space-y-3 mb-4 sm:mb-6">
-                  <div className="flex gap-2 sm:gap-3 items-start">
-                    <Square className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0 mt-0.5 text-gray-400" />
-                    <p className="text-xs sm:text-sm md:text-base leading-relaxed text-gray-700">Drive an hour</p>
-                  </div>
-                  <div className="flex gap-2 sm:gap-3 items-start">
-                    <Square className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0 mt-0.5 text-gray-400" />
-                    <p className="text-xs sm:text-sm md:text-base leading-relaxed text-gray-700">Drill bad habits</p>
-                  </div>
-                  <div className="flex gap-2 sm:gap-3 items-start">
-                    <Square className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0 mt-0.5 text-gray-400" />
-                    <p className="text-xs sm:text-sm md:text-base leading-relaxed text-gray-700">Get hit a bit too hard</p>
-                  </div>
-                  <div className="flex gap-2 sm:gap-3 items-start">
-                    <Square className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0 mt-0.5 text-gray-400" />
-                    <p className="text-xs sm:text-sm md:text-base leading-relaxed text-gray-700">Hear "keep your hands up"</p>
-                  </div>
-                  <div className="flex gap-2 sm:gap-3 items-start">
-                    <Square className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0 mt-0.5 text-gray-400" />
-                    <p className="text-xs sm:text-sm md:text-base leading-relaxed text-gray-700">Leave with more questions than answers</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Real Coaching */}
-            <div className="relative">
-              <div className="p-4 sm:p-6 lg:p-8 h-full flex flex-col">
-                <div className="mb-4 sm:mb-6">
-                  <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900">Online Coaching</h3>
-                </div>
-
-                <div className="space-y-2 sm:space-y-3 mb-4 sm:mb-6">
-                  <div className="flex gap-2 sm:gap-3 items-start">
-                    <Check className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0 mt-0.5 text-green-600" />
-                    <p className="text-xs sm:text-sm md:text-base leading-relaxed text-gray-700">Learn correct technique</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Divider */}
-          <div className="text-center mb-4 sm:mb-6">
-            <div className="border-t border-gray-200"></div>
-          </div>
-
-          {/* Closing Statement */}
-          <div className="text-center">
-            <p className="text-base sm:text-xl md:text-2xl leading-relaxed max-w-2xl mx-auto text-gray-600 mb-8">
-              Less effort. Better results.
-            </p>
-          </div>
-        </div>
-      </section>
-
       {/* FAQ Section */}
       <section className="py-12 sm:py-16 lg:py-20 bg-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full px-4 sm:px-6 lg:px-8 lg:max-w-[80%] mx-auto">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 sm:mb-8 lg:mb-12 text-center">
             Frequently Asked Questions
           </h2>

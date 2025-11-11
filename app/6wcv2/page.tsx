@@ -24,34 +24,7 @@ export default function BlackFridayChallengePage() {
   const [isLoadingCurrency, setIsLoadingCurrency] = useState(true)
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([])
   const [videosLoaded, setVideosLoaded] = useState(false)
-  const [currentMessageIndex, setCurrentMessageIndex] = useState(0)
-  const [isAnimating, setIsAnimating] = useState(false)
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
-  const [isHeaderVisible, setIsHeaderVisible] = useState(true)
-  const [lastScrollY, setLastScrollY] = useState(0)
 
-  // Header visibility on scroll (syncs with main Header component)
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY
-
-      if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        // Scrolling down - hide header
-        setIsHeaderVisible(false)
-      } else if (currentScrollY < lastScrollY) {
-        // Scrolling up - show header
-        setIsHeaderVisible(true)
-      } else if (currentScrollY === 0) {
-        // At the very top - show header
-        setIsHeaderVisible(true)
-      }
-
-      setLastScrollY(currentScrollY)
-    }
-
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [lastScrollY])
 
   // Video autoplay on scroll
   useEffect(() => {
@@ -98,49 +71,6 @@ export default function BlackFridayChallengePage() {
       setIsLoadingCurrency(false)
     }
     loadCurrency()
-  }, [])
-
-  // Rotating header messages with emojis
-  const rotatingMessages = [
-    { emoji: '🔥', text: '50% OFF FOR BLACK FRIDAY' },
-    { emoji: '⚡', text: `ONLY ${spotsRemaining} SPOTS REMAINING` },
-    { emoji: '💎', text: 'GET LIFETIME ACCESS TO ALL COURSE CONTENT WITH VIP' },
-    { emoji: '⏰', text: 'DOORS CLOSE DECEMBER 2ND, 10PM UK TIME' }
-  ]
-
-  // Rotate messages every 3 seconds
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIsAnimating(true)
-      setTimeout(() => {
-        setCurrentMessageIndex((prev) => (prev + 1) % rotatingMessages.length)
-        setIsAnimating(false)
-      }, 500) // Half-second for the slide-up animation
-    }, 3000)
-
-    return () => clearInterval(interval)
-  }, [spotsRemaining])
-
-  // Detect sidebar open state by listening for hamburger menu clicks
-  useEffect(() => {
-    const handleClick = (e: MouseEvent) => {
-      const target = e.target as HTMLElement
-      // Check if click is on hamburger menu button or sidebar close button
-      const isMenuButton = target.closest('button[aria-label="Toggle menu"]') ||
-                          target.closest('button[aria-label="Close menu"]')
-      if (isMenuButton) {
-        setIsSidebarOpen(prev => !prev)
-      }
-      // Check if click is on overlay (closes sidebar)
-      const isOverlay = target.classList.contains('fixed') &&
-                       target.classList.contains('bg-black/50')
-      if (isOverlay) {
-        setIsSidebarOpen(false)
-      }
-    }
-
-    document.addEventListener('click', handleClick)
-    return () => document.removeEventListener('click', handleClick)
   }, [])
 
   // Quota meter - deterministic spot countdown
@@ -352,35 +282,9 @@ export default function BlackFridayChallengePage() {
 
       <Header />
 
-      {/* Rotating Text Header - Moves with main header */}
-      {!isSidebarOpen && (
-        <div
-          className={`fixed left-0 right-0 z-50 bg-black text-white py-2 sm:py-3 overflow-hidden transition-all duration-300 ${
-            isHeaderVisible ? 'top-16 sm:top-20' : 'top-0'
-          }`}
-        >
-          <div className="relative h-6 sm:h-7 flex items-center justify-center">
-            <div
-              className={`absolute inset-0 flex items-center justify-center transition-all duration-500 ${
-                isAnimating ? '-translate-y-full opacity-0' : 'translate-y-0 opacity-100'
-              }`}
-            >
-              <div className="flex items-center gap-2">
-                <span className="text-lg sm:text-xl">
-                  {rotatingMessages[currentMessageIndex].emoji}
-                </span>
-                <span className="font-black text-xs sm:text-sm tracking-wide">
-                  {rotatingMessages[currentMessageIndex].text}
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-white pt-28 sm:pt-36">
-        <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 pb-12 sm:pb-16 lg:pb-20">
+      <section className="relative overflow-hidden bg-white pt-6 sm:pt-8 lg:pt-12">
+        <div className="w-full lg:max-w-[80%] mx-auto px-4 sm:px-6 lg:px-8 pb-12 sm:pb-16 lg:pb-20">
           {/* Badge */}
           <div className="text-center mb-6">
             <span className="inline-flex items-center gap-3 px-4 py-2 bg-black text-white text-xs sm:text-sm font-bold uppercase tracking-wide rounded-full">
@@ -427,7 +331,7 @@ export default function BlackFridayChallengePage() {
             <div className="flex justify-center px-4 mt-8 mb-8">
               <button
                 onClick={scrollToPricing}
-                className="w-full sm:w-auto max-w-md sm:max-w-none px-8 py-4 bg-yellow-100 text-black font-black text-xl rounded-xl uppercase tracking-wide shadow-lg hover:bg-white transition-all duration-200"
+                className="w-full sm:w-auto max-w-md sm:max-w-none px-8 py-4 bg-yellow-100 text-black border-4 border-black font-black text-xl rounded-xl uppercase tracking-wide shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:bg-white transition-all duration-200"
                 style={{ fontFamily: 'Satoshi' }}
               >
                 JOIN THE CHALLENGE →
@@ -635,7 +539,7 @@ export default function BlackFridayChallengePage() {
 
       {/* 6-Week Skill Schedule */}
       <section className="py-12 sm:py-16 lg:py-20 bg-white">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full lg:max-w-[80%] mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-3 sm:mb-4 lg:mb-6 leading-tight" style={{ fontFamily: 'Satoshi' }}>
             The 6-Week Skill Schedule
           </h2>
@@ -726,7 +630,7 @@ export default function BlackFridayChallengePage() {
 
       {/* Community & Proof */}
       <section className="py-12 sm:py-16 lg:py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full lg:max-w-[80%] mx-auto px-4 sm:px-6 lg:px-8">
           {/* Transformation Carousel */}
           <div className="mb-10 sm:mb-12">
             <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-2 sm:mb-3 text-center">
@@ -823,7 +727,7 @@ export default function BlackFridayChallengePage() {
           <div className="flex justify-center">
             <button
               onClick={scrollToPricing}
-              className="w-full sm:w-auto max-w-md sm:max-w-none px-8 py-4 bg-yellow-100 text-black font-black text-xl rounded-xl uppercase tracking-wide shadow-lg hover:bg-white transition-all duration-200"
+              className="w-full sm:w-auto max-w-md sm:max-w-none px-8 py-4 bg-yellow-100 text-black border-4 border-black font-black text-xl rounded-xl uppercase tracking-wide shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:bg-white transition-all duration-200"
               style={{ fontFamily: 'Satoshi' }}
             >
               JOIN THE CHALLENGE →
@@ -845,7 +749,7 @@ export default function BlackFridayChallengePage() {
 
       {/* How the Refund Works */}
       <section className="py-12 sm:py-16 lg:py-20 bg-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full lg:max-w-[80%] mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-4 sm:mb-6 lg:mb-8 leading-tight px-2" style={{ fontFamily: 'Satoshi' }}>
             Finish it, get your money back.
           </h2>
@@ -903,7 +807,7 @@ export default function BlackFridayChallengePage() {
 
       {/* Pricing & Offer */}
       <section id="pricing" className="py-12 sm:py-16 lg:py-20 bg-white">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full lg:max-w-[80%] mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center mb-10 sm:mb-12" style={{ fontFamily: 'Satoshi' }}>
             Black Friday Entry — 6 Weeks for {formatPrice(getProductPrice('bfc', currency) || 97, currency)}
           </h2>
@@ -960,7 +864,7 @@ export default function BlackFridayChallengePage() {
               <a
                 href="/checkout?product=bfc&source=bfc-page"
                 onClick={() => handleCTAClick('pricing-main', 'bfc')}
-                className="w-full py-4 sm:py-5 px-6 sm:px-8 bg-yellow-100 text-black font-black text-xl sm:text-2xl rounded-xl uppercase tracking-wide shadow-lg hover:bg-white transition-all duration-200 flex items-center justify-center gap-2"
+                className="w-full py-4 sm:py-5 px-6 sm:px-8 bg-yellow-100 text-black border-4 border-black font-black text-xl sm:text-2xl rounded-xl uppercase tracking-wide shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:bg-white transition-all duration-200 flex items-center justify-center gap-2"
                 style={{ fontFamily: 'Satoshi' }}
               >
                 JOIN NOW →
@@ -1015,7 +919,7 @@ export default function BlackFridayChallengePage() {
               <a
                 href="/checkout?product=bfc-vip&source=bfc-vip"
                 onClick={() => handleCTAClick('pricing-vip', 'bfc-vip')}
-                className="w-full py-4 sm:py-5 px-6 sm:px-8 bg-yellow-100 text-black font-black text-xl sm:text-2xl rounded-xl uppercase tracking-wide shadow-lg hover:bg-white transition-all duration-200 flex items-center justify-center gap-2 mb-3"
+                className="w-full py-4 sm:py-5 px-6 sm:px-8 bg-yellow-100 text-black border-4 border-black font-black text-xl sm:text-2xl rounded-xl uppercase tracking-wide shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:bg-white transition-all duration-200 flex items-center justify-center gap-2 mb-3"
                 style={{ fontFamily: 'Satoshi' }}
               >
                 JOIN VIP NOW →
@@ -1035,7 +939,7 @@ export default function BlackFridayChallengePage() {
 
       {/* Urgency Section */}
       <section className="py-12 sm:py-16 lg:py-20 bg-black text-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div className="w-full lg:max-w-[80%] mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 leading-tight px-2" style={{ fontFamily: 'Satoshi' }}>
             Doors close December 2nd at 10 PM UK.
           </h2>
@@ -1097,7 +1001,7 @@ export default function BlackFridayChallengePage() {
           <a
             href="/checkout?product=bfc&source=bfc-page"
             onClick={() => handleCTAClick('urgency-section', 'bfc')}
-            className="inline-block w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 bg-yellow-100 text-black font-black text-lg sm:text-xl rounded-xl uppercase tracking-wide shadow-lg hover:bg-white transition-all duration-200"
+            className="inline-block w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 bg-yellow-100 text-black border-4 border-black font-black text-lg sm:text-xl rounded-xl uppercase tracking-wide shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:bg-white transition-all duration-200"
             style={{ fontFamily: 'Satoshi' }}
           >
             JOIN THE CHALLENGE →
@@ -1107,7 +1011,7 @@ export default function BlackFridayChallengePage() {
 
       {/* FAQs */}
       <section className="py-12 sm:py-16 lg:py-20 bg-gray-50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full lg:max-w-[80%] mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-6 sm:mb-8 lg:mb-12 leading-tight px-2" style={{ fontFamily: 'Satoshi' }}>
             Frequently Asked Questions
           </h2>
@@ -1129,7 +1033,7 @@ export default function BlackFridayChallengePage() {
 
       {/* Final Call */}
       <section className="py-12 sm:py-16 lg:py-20 bg-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div className="w-full lg:max-w-[80%] mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 leading-tight px-2" style={{ fontFamily: 'Satoshi' }}>
             Be the one who doesn't quit in December.
           </h2>
@@ -1142,7 +1046,7 @@ export default function BlackFridayChallengePage() {
           <a
             href="/checkout?product=bfc&source=bfc-page"
             onClick={() => handleCTAClick('final-call', 'bfc')}
-            className="inline-block w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 bg-yellow-100 text-black font-black text-lg sm:text-xl rounded-xl uppercase tracking-wide shadow-lg hover:bg-white transition-all duration-200 mb-6 sm:mb-8"
+            className="inline-block w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 bg-yellow-100 text-black border-4 border-black font-black text-lg sm:text-xl rounded-xl uppercase tracking-wide shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:bg-white transition-all duration-200 mb-6 sm:mb-8"
             style={{ fontFamily: 'Satoshi' }}
           >
             JOIN THE CHALLENGE →
