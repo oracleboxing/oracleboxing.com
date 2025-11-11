@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
-import HeroSection from '@/components/HeroSection'
+import WistiaVideo from '@/components/WistiaVideo'
 import { sendChallengeSignup } from '@/lib/simple-webhook'
 
 export default function ChallengeComingSoonPage() {
@@ -86,6 +86,24 @@ export default function ChallengeComingSoonPage() {
       role: "Community Member & Boxing Enthusiast",
       image: "https://media.oracleboxing.com/webp/Website/balal.webp",
       quote: "Being part of this community has changed my life. Joining the live Zoom calls almost every day has helped me lose weight, box better, and feel more confident. The help, support, and friendship here have made a real difference in how I box."
+    },
+    {
+      name: "Bruno Martins",
+      role: "Community Member",
+      image: "https://media.oracleboxing.com/webp/Website/bruno.webp",
+      quote: "The value that the coaches bring is WAY BEYOND what I ever expected when I joined this challenge. I can genuinely SEE and FEEL the shift happening."
+    },
+    {
+      name: "Daniel Ramirez",
+      role: "Community Member",
+      image: "https://media.oracleboxing.com/webp/Website/daniel.webp",
+      quote: "The Boxing Masterclass course was a huge rewiring of my thinking. You could be training here and learning new things for months, maybe years!"
+    },
+    {
+      name: "Illya",
+      role: "Community Member",
+      image: "https://media.oracleboxing.com/webp/Website/illya.webp",
+      quote: "I am truly humbled by the passion, dedication and depth of analysis exemplified by our coaches here. You have every asset necessary to become a real boxer and change your life forever."
     }
   ]
 
@@ -93,69 +111,73 @@ export default function ChallengeComingSoonPage() {
     <>
       <Header />
 
-      {/* Hero with VSL */}
-      <HeroSection
-        onOpenPricing={() => {}}
-      />
+      {/* Consolidated Hero Section with VSL and Signup */}
+      <section className="relative overflow-hidden bg-white pt-6 sm:pt-8 lg:pt-12 pb-12 sm:pb-16 lg:pb-20">
+        <div className="w-full lg:max-w-[80%] mx-auto px-4 sm:px-6 lg:px-8">
 
-      {/* Reopening Notice with Countdown */}
-      <section className="py-12 sm:py-16 lg:py-20 bg-black text-white">
-        <div className="w-full lg:max-w-[80%] mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6" style={{ fontFamily: 'Satoshi' }}>
-            Temporarily Closed Due to High Demand
-          </h2>
+          {/* VSL Video */}
+          <div className="mb-8 sm:mb-12">
+            <WistiaVideo />
+          </div>
 
-          <p className="text-xl sm:text-2xl lg:text-3xl mb-8 sm:mb-12 text-yellow-100 font-bold" style={{ fontFamily: 'Satoshi' }}>
-            Reopening November 23rd for Guaranteed Access
-          </p>
+          {/* Reopening Notice with Countdown */}
+          <div className="bg-black text-white rounded-2xl p-8 sm:p-12 lg:p-16 mb-8 sm:mb-12">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 text-center" style={{ fontFamily: 'Satoshi' }}>
+              Six Week Challenge
+            </h2>
 
-          {/* Countdown Timer */}
-          <div className="max-w-2xl mx-auto mb-8">
-            <div className="bg-white text-black rounded-2xl p-6 sm:p-8">
-              <div className="text-sm sm:text-base font-bold uppercase tracking-wide mb-4">
-                OPENS IN:
-              </div>
-              <div className="grid grid-cols-4 gap-2 sm:gap-4">
-                <div className="text-center">
-                  <div className="text-3xl sm:text-4xl lg:text-5xl font-black mb-1">
-                    {String(timeLeft.days).padStart(2, '0')}
-                  </div>
-                  <div className="text-xs sm:text-sm uppercase opacity-80">Days</div>
+            <p className="text-xl sm:text-2xl lg:text-3xl mb-8 text-yellow-100 font-bold text-center" style={{ fontFamily: 'Satoshi' }}>
+              Temporarily Closed Due to High Demand
+            </p>
+
+            <p className="text-lg sm:text-xl text-white mb-8 text-center max-w-3xl mx-auto">
+              Reopening November 23rd
+            </p>
+
+            {/* Countdown Timer */}
+            <div className="max-w-2xl mx-auto">
+              <div className="bg-white text-black rounded-2xl p-6 sm:p-8">
+                <div className="text-sm sm:text-base font-bold uppercase tracking-wide mb-4 text-center">
+                  OPENS IN:
                 </div>
-                <div className="text-center">
-                  <div className="text-3xl sm:text-4xl lg:text-5xl font-black mb-1">
-                    {String(timeLeft.hours).padStart(2, '0')}
+                <div className="grid grid-cols-4 gap-2 sm:gap-4">
+                  <div className="text-center">
+                    <div className="text-3xl sm:text-4xl lg:text-5xl font-black mb-1">
+                      {String(timeLeft.days).padStart(2, '0')}
+                    </div>
+                    <div className="text-xs sm:text-sm uppercase opacity-80">Days</div>
                   </div>
-                  <div className="text-xs sm:text-sm uppercase opacity-80">Hours</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl sm:text-4xl lg:text-5xl font-black mb-1">
-                    {String(timeLeft.minutes).padStart(2, '0')}
+                  <div className="text-center">
+                    <div className="text-3xl sm:text-4xl lg:text-5xl font-black mb-1">
+                      {String(timeLeft.hours).padStart(2, '0')}
+                    </div>
+                    <div className="text-xs sm:text-sm uppercase opacity-80">Hours</div>
                   </div>
-                  <div className="text-xs sm:text-sm uppercase opacity-80">Minutes</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl sm:text-4xl lg:text-5xl font-black mb-1">
-                    {String(timeLeft.seconds).padStart(2, '0')}
+                  <div className="text-center">
+                    <div className="text-3xl sm:text-4xl lg:text-5xl font-black mb-1">
+                      {String(timeLeft.minutes).padStart(2, '0')}
+                    </div>
+                    <div className="text-xs sm:text-sm uppercase opacity-80">Minutes</div>
                   </div>
-                  <div className="text-xs sm:text-sm uppercase opacity-80">Seconds</div>
+                  <div className="text-center">
+                    <div className="text-3xl sm:text-4xl lg:text-5xl font-black mb-1">
+                      {String(timeLeft.seconds).padStart(2, '0')}
+                    </div>
+                    <div className="text-xs sm:text-sm uppercase opacity-80">Seconds</div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* Email Signup Form */}
-      <section className="py-12 sm:py-16 lg:py-20 bg-white">
-        <div className="w-full lg:max-w-[80%] mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Email Signup Form */}
           <div className="max-w-2xl mx-auto">
             <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-center mb-4 sm:mb-6" style={{ fontFamily: 'Satoshi' }}>
-              Get Notified When We Reopen
+              For Guaranteed Access
             </h3>
 
             <p className="text-base sm:text-lg text-gray-700 text-center mb-8">
-              Sign up here to receive an email notification when the Six Week Challenge reopens on November 23rd
+              Please enter your details below and we'll send you an email with an invitation before November 23rd
             </p>
 
             {!submitSuccess ? (
@@ -228,7 +250,7 @@ export default function ChallengeComingSoonPage() {
                   You're on the list!
                 </h4>
                 <p className="text-base sm:text-lg text-green-800">
-                  We'll email you when the challenge opens on November 23rd
+                  We'll email you an invitation before November 23rd
                 </p>
               </div>
             )}
