@@ -51,7 +51,11 @@ export default function ChallengeComingSoonPage() {
     setSubmitError('')
 
     try {
-      await sendChallengeSignup(firstName, lastName, email)
+      await sendChallengeSignup({
+        firstName,
+        lastName,
+        email
+      })
       setSubmitSuccess(true)
       setFirstName('')
       setLastName('')
@@ -92,8 +96,6 @@ export default function ChallengeComingSoonPage() {
       {/* Hero with VSL */}
       <HeroSection
         onOpenPricing={() => {}}
-        challengePrice={97}
-        currency="USD"
       />
 
       {/* Reopening Notice with Countdown */}
