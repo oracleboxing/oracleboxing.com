@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import {
   Dialog,
   DialogContent,
@@ -7,77 +8,71 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import { tracksuitConfig } from '@/lib/tracksuit-config'
-import { Ruler } from 'lucide-react'
+import { Ruler, ChevronLeft, ChevronRight } from 'lucide-react'
+import Image from 'next/image'
 
 export function SizeGuideModal() {
+  const [currentGuide, setCurrentGuide] = useState<'hoodie' | 'joggers'>('hoodie')
+
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <button className="text-sm text-gray-400 hover:text-white transition-colors flex items-center gap-1.5">
+        <button className="text-sm text-gray-400 hover:text-black transition-colors flex items-center gap-1.5">
           <Ruler className="w-4 h-4" />
           Size Guide
         </button>
       </DialogTrigger>
-      <DialogContent className="max-w-2xl bg-gray-900 border-gray-800">
+      <DialogContent className="max-w-4xl bg-white border-0">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold text-white">Size Guide</DialogTitle>
+          <DialogTitle className="text-2xl font-bold text-black">
+            SIZE GUIDE
+          </DialogTitle>
         </DialogHeader>
-        <div className="space-y-6">
-          {/* Size chart */}
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-gray-800">
-                  <th className="text-left py-3 px-4 text-gray-400 font-medium">Size</th>
-                  <th className="text-left py-3 px-4 text-gray-400 font-medium">Chest (cm)</th>
-                  <th className="text-left py-3 px-4 text-gray-400 font-medium">Waist (cm)</th>
-                  <th className="text-left py-3 px-4 text-gray-400 font-medium">Hips (cm)</th>
-                  <th className="text-left py-3 px-4 text-gray-400 font-medium">Inseam (cm)</th>
-                </tr>
-              </thead>
-              <tbody>
-                {Object.entries(tracksuitConfig.sizeGuide).map(([size, measurements]) => (
-                  <tr key={size} className="border-b border-gray-800 hover:bg-gray-800/50 transition-colors">
-                    <td className="py-3 px-4 font-semibold text-white">{size}</td>
-                    <td className="py-3 px-4 text-gray-300">{measurements.chest}</td>
-                    <td className="py-3 px-4 text-gray-300">{measurements.waist}</td>
-                    <td className="py-3 px-4 text-gray-300">{measurements.hips}</td>
-                    <td className="py-3 px-4 text-gray-300">{measurements.inseam}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+
+        <div className="space-y-4">
+          {/* Navigation buttons */}
+          <div className="flex items-center justify-center gap-4">
+            <button
+              onClick={() => setCurrentGuide('hoodie')}
+              className={`px-4 py-2 rounded-lg transition-colors ${
+                currentGuide === 'hoodie'
+                  ? 'bg-black text-white'
+                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+              }`}
+            >
+              Hoodie
+            </button>
+            <button
+              onClick={() => setCurrentGuide('joggers')}
+              className={`px-4 py-2 rounded-lg transition-colors ${
+                currentGuide === 'joggers'
+                  ? 'bg-black text-white'
+                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+              }`}
+            >
+              Joggers
+            </button>
           </div>
 
-          {/* Fit notes */}
-          <div className="space-y-3 bg-gray-800/50 p-4 rounded-lg">
-            <h3 className="font-semibold text-white">Fit Notes</h3>
-            <ul className="space-y-2 text-sm text-gray-300">
-              <li>• {tracksuitConfig.fit}</li>
-              <li>• Heavyweight 100% cotton with relaxed athletic silhouette</li>
-              <li>• If between sizes, size up for a more relaxed fit</li>
-              <li>• Model is 6'0" (183cm), 165 lbs (75kg) wearing size M</li>
-            </ul>
-          </div>
-
-          {/* How to measure */}
-          <div className="space-y-3">
-            <h3 className="font-semibold text-white">How to Measure</h3>
-            <div className="grid grid-cols-2 gap-4 text-sm text-gray-300">
-              <div>
-                <strong className="text-white">Chest:</strong> Measure around the fullest part of your chest
-              </div>
-              <div>
-                <strong className="text-white">Waist:</strong> Measure around your natural waistline
-              </div>
-              <div>
-                <strong className="text-white">Hips:</strong> Measure around the fullest part of your hips
-              </div>
-              <div>
-                <strong className="text-white">Inseam:</strong> Measure from crotch to ankle
-              </div>
-            </div>
+          {/* SVG Display */}
+          <div className="w-full overflow-auto max-h-[70vh]">
+            {currentGuide === 'hoodie' ? (
+              <Image
+                src="https://media.oracleboxing.com/tracksuit/oracle_boxing_hoodie_size_guide.svg"
+                alt="Oracle Boxing Hoodie Size Guide"
+                width={1200}
+                height={800}
+                className="w-full h-auto"
+              />
+            ) : (
+              <Image
+                src="https://media.oracleboxing.com/tracksuit/oracle_boxing_jogger_size_guide.svg"
+                alt="Oracle Boxing Joggers Size Guide"
+                width={1200}
+                height={800}
+                className="w-full h-auto"
+              />
+            )}
           </div>
         </div>
       </DialogContent>

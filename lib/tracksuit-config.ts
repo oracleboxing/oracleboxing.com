@@ -10,25 +10,21 @@ export const tracksuitConfig = {
 
   // Colors with hex codes for UI
   colors: {
+    Forest: {
+      name: 'Forest',
+      hex: '#637C73',
+    },
+    Hazel: {
+      name: 'Hazel',
+      hex: '#836F6C',
+    },
+    Steel: {
+      name: 'Steel',
+      hex: '#9FA4B3',
+    },
     Black: {
       name: 'Black',
-      hex: '#1a1a1a',
-      darkHex: '#0a0a0a',
-    },
-    Blue: {
-      name: 'Blue',
-      hex: '#2c3e50',
-      darkHex: '#1a252f',
-    },
-    Green: {
-      name: 'Green',
-      hex: '#2d5016',
-      darkHex: '#1a2f0d',
-    },
-    Brown: {
-      name: 'Brown',
-      hex: '#5c4033',
-      darkHex: '#3d2a22',
+      hex: '#0A0A0A',
     },
   } as const,
 

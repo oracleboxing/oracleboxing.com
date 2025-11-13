@@ -87,9 +87,61 @@ export async function createCheckoutSession({
 }: CreateCheckoutSessionParams): Promise<Stripe.Checkout.Session> {
   // Convert cart items to Stripe line items, using correct price ID for currency
   const line_items: Stripe.Checkout.SessionCreateParams.LineItem[] = items.map(item => {
-    // Get the correct Stripe price ID based on currency
-    const priceId = getStripePriceId(item.product, currency);
+    // Build description with size and color for merchandise items
+    let description: string | undefined = undefined
+    let colorSpecificImage: string | undefined = undefined
 
+    if (item.product.type === 'merch' && item.metadata) {
+      const parts: string[] = []
+
+      // Add color
+      const color = item.metadata.tracksuit_color || item.metadata.hoodie_color
+      if (color) parts.push(`Color: ${color}`)
+
+      // Add sizes
+      if (item.metadata.hoodie_size && item.metadata.joggers_size) {
+        parts.push(`Hoodie: ${item.metadata.hoodie_size}`)
+        parts.push(`Joggers: ${item.metadata.joggers_size}`)
+      } else if (item.metadata.hoodie_size) {
+        parts.push(`Size: ${item.metadata.hoodie_size}`)
+      }
+
+      if (parts.length > 0) {
+        description = parts.join(' | ')
+      }
+
+      // Generate color-specific image URL
+      if (color) {
+        const colorMap: Record<string, string> = {
+          Forest: 'green',
+          Hazel: 'brown',
+          Steel: 'blue',
+          Black: 'black',
+        }
+        const colorCode = colorMap[color] || 'brown'
+        const productType = item.product.id === 'tracksuit' ? 'hoodie' : 'hoodie'
+        colorSpecificImage = `https://media.oracleboxing.com/tracksuit/${productType}_${colorCode}_front.png`
+      }
+    }
+
+    // For merchandise with size/color, use price_data to add description and color-specific image
+    if (description) {
+      return {
+        price_data: {
+          currency: currency.toLowerCase(),
+          unit_amount: Math.round(item.product.price * 100),
+          product_data: {
+            name: item.product.title,
+            description: description,
+            images: colorSpecificImage ? [colorSpecificImage] : (item.product.image ? [item.product.image] : undefined),
+          },
+        },
+        quantity: item.quantity,
+      };
+    }
+
+    // For non-merchandise, use the price ID
+    const priceId = getStripePriceId(item.product, currency);
     return {
       price: priceId,
       quantity: item.quantity,
@@ -109,8 +161,8 @@ export async function createCheckoutSession({
     const firstName = nameParts[0] || ''
     const lastName = nameParts.slice(1).join(' ') || nameParts[0] || '' // Use first name as fallback if no last name
 
-    // Create a Stripe Customer for off-session charges (upsells)
-    const customer = await stripe.customers.create({
+    // Prepare customer data
+    const customerData: Stripe.CustomerCreateParams = {
       email: customerInfo.email,
       name: customerInfo.firstName.trim(),
       phone: customerInfo.phone || undefined,
@@ -118,10 +170,35 @@ export async function createCheckoutSession({
         first_name: firstName,
         last_name: lastName,
       },
-    })
+    }
+
+    // Add shipping and billing address if provided
+    if (customerInfo.address) {
+      const addressData = {
+        line1: customerInfo.address.line1,
+        line2: customerInfo.address.line2 || undefined,
+        city: customerInfo.address.city,
+        state: customerInfo.address.state,
+        postal_code: customerInfo.address.postal_code,
+        country: customerInfo.address.country,
+      }
+
+      // Set shipping address
+      customerData.shipping = {
+        name: customerInfo.firstName.trim(),
+        phone: customerInfo.phone || undefined,
+        address: addressData,
+      }
+
+      // Set billing address (same as shipping)
+      customerData.address = addressData
+    }
+
+    // Create a Stripe Customer for off-session charges (upsells)
+    const customer = await stripe.customers.create(customerData)
 
     customerId = customer.id
-    console.log('✅ Created Stripe Customer:', customerId)
+    console.log('✅ Created Stripe Customer:', customerId, 'with shipping address:', !!customerData.shipping)
   }
 
   // ===================================================================
@@ -144,10 +221,14 @@ export async function createCheckoutSession({
     phone_number_collection: {
       enabled: true, // Require phone number collection
     },
-    customer_update: {
+  }
+
+  // Only add customer_update if customer exists
+  if (customerId) {
+    sessionParams.customer_update = {
       address: 'auto', // Save billing address to customer
       shipping: 'never', // Don't update shipping address from checkout
-    },
+    }
   }
 
   // Enable automatic tax if configured in Stripe
@@ -202,9 +283,9 @@ export async function createCheckoutSession({
   const metadataFirstName = nameParts[0] || ''
   const metadataLastName = nameParts.slice(1).join(' ') || nameParts[0] || ''
 
-  // Collect tracksuit metadata if tracksuit in cart
-  const tracksuitItem = items.find(item => item.product.id === 'tracksuit')
-  const tracksuitMetadata = tracksuitItem?.metadata || {}
+  // Collect merchandise metadata (tracksuit or hoodie)
+  const merchItem = items.find(item => item.product.type === 'merch')
+  const merchMetadata = merchItem?.metadata || {}
 
   sessionParams.metadata = {
     // Customer info
@@ -229,8 +310,8 @@ export async function createCheckoutSession({
       price: i.product.price,
     }))),
 
-    // Tracksuit-specific metadata (size, color, SKU, cohort)
-    ...tracksuitMetadata,
+    // Merchandise-specific metadata (size, color, SKU, cohort)
+    ...merchMetadata,
 
     // Tracking params (referrer and UTM)
     referrer: trackingParams?.referrer || 'direct',
@@ -292,31 +373,56 @@ export async function createCheckoutSession({
 
   // Add shipping for physical items (only in payment mode)
   if (hasPhysicalItems && mode === 'payment') {
-    sessionParams.shipping_address_collection = {
-      allowed_countries: ['GB', 'US', 'CA', 'AU', 'DE', 'FR', 'ES', 'IT', 'NL', 'SE', 'NO', 'DK', 'FI'],
+    // Define country groups for shipping zones
+    const ukCountries = ['GB']
+    const europeCountries = ['AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'GR', 'HU', 'IE', 'IT', 'LV', 'LT', 'LU', 'MT', 'NL', 'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE', 'CH', 'NO', 'IS']
+    const usCanadaCountries = ['US', 'CA']
+    const allAllowedCountries = [...ukCountries, ...europeCountries, ...usCanadaCountries, 'AU', 'NZ', 'JP', 'SG', 'AE', 'ZA', 'MX', 'BR', 'AR', 'IN', 'KR', 'TH', 'MY', 'PH', 'ID', 'VN']
+
+    // Get shipping rates from the merchandise product
+    const merchProduct = items.find(item => item.product.type === 'merch')?.product
+    const shippingRates = merchProduct?.shippingRates
+
+    // If customer info provided with address, auto-select shipping rate
+    if (customerInfo?.address?.country && shippingRates) {
+      const country = customerInfo.address.country
+
+      // Determine which shipping rate to use based on country
+      let selectedShippingRate: string | undefined
+      if (ukCountries.includes(country)) {
+        selectedShippingRate = shippingRates.uk?.id
+      } else if (europeCountries.includes(country)) {
+        selectedShippingRate = shippingRates.europe?.id
+      } else if (usCanadaCountries.includes(country)) {
+        selectedShippingRate = shippingRates.us_canada?.id
+      } else {
+        selectedShippingRate = shippingRates.rest_of_world?.id
+      }
+
+      // Apply the selected shipping rate automatically
+      if (selectedShippingRate) {
+        sessionParams.shipping_options = [{ shipping_rate: selectedShippingRate }]
+        console.log('✅ Auto-selected shipping rate for country:', country, 'Rate ID:', selectedShippingRate)
+      }
+    } else {
+      // No customer address provided, allow customer to select country and show all options
+      sessionParams.shipping_address_collection = {
+        allowed_countries: allAllowedCountries as any,
+      }
+
+      if (shippingRates) {
+        // Show all shipping options (Stripe will filter based on country)
+        const options = []
+        if (shippingRates.uk?.id) options.push({ shipping_rate: shippingRates.uk.id })
+        if (shippingRates.europe?.id) options.push({ shipping_rate: shippingRates.europe.id })
+        if (shippingRates.us_canada?.id) options.push({ shipping_rate: shippingRates.us_canada.id })
+        if (shippingRates.rest_of_world?.id) options.push({ shipping_rate: shippingRates.rest_of_world.id })
+
+        if (options.length > 0) {
+          sessionParams.shipping_options = options
+        }
+      }
     }
-    sessionParams.shipping_options = [
-      {
-        shipping_rate_data: {
-          type: 'fixed_amount',
-          fixed_amount: {
-            amount: 0, // Free shipping
-            currency: 'usd',
-          },
-          display_name: 'Free Shipping',
-          delivery_estimate: {
-            minimum: {
-              unit: 'business_day',
-              value: 5,
-            },
-            maximum: {
-              unit: 'business_day',
-              value: 10,
-            },
-          },
-        },
-      },
-    ]
   }
 
   // Add payment intent data for off-session charges (upsells)

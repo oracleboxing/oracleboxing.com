@@ -170,37 +170,67 @@ Best value for serious boxers committed to long-term excellence.`,
   {
     id: 'tracksuit',
     title: 'Oracle Boxing Tracksuit',
-    price: 115,
+    price: 125,
     type: 'merch',
     metadata: 'ts',
     stripe_product_id: 'prod_TPWkJTEN5gr9BR',
-    stripe_price_id: 'prod_TPWkJTEN5gr9BR', // Single product ID, metadata handles variants
-    image: 'https://media.oracleboxing.com/Website/tracksuit-placeholder.png',
-    prices: {
-      gbp: 115,
-      usd: 145,
-      eur: 135,
-      aud: 215,
-      cad: 195,
+    stripe_price_id: 'price_1SSzL2QNEdHwdojXnFN8YlRd',
+    image: 'https://media.oracleboxing.com/tracksuit/hoodie_brown_front.png',
+    requiresShipping: true,
+    shippingRates: {
+      uk: { id: 'shr_1SSzCRQNEdHwdojXu4YcUsiN', price: 4.95, deliveryDays: '1-2 days' },
+      europe: { id: 'shr_1SSzDqQNEdHwdojXhSNDihsW', price: 9.95, deliveryDays: '4-7 days' },
+      us_canada: { id: 'shr_1SSzJcQNEdHwdojX0OojC6Yh', price: 14.95, deliveryDays: '7-14 days' },
+      rest_of_world: { id: 'shr_1SSzKMQNEdHwdojXX00aA7mY', price: 19.95, deliveryDays: '7-14 days' },
     },
     description: `**Oracle Boxing Tracksuit — Built as Armour**
 
-Heavyweight 100% cotton tracksuit designed for boxers who move with quiet confidence.
+Heavyweight 100% cotton tracksuit. Built as armour, for those who live by the discipline of boxing.
 
 **Details:**
-• 100% cotton, 470-500 gsm garment-dyed fleece
-• Relaxed athletic fit — true to size
-• Breathable, structured, built to last
-• Ships before Christmas
-• Limited to 50 units worldwide
+• 100% cotton
+• Garment dyed
+• Fit: Relaxed fit, true to size
+• Pre-order ships before Christmas
+• Limited stock
 
 **What's Included:**
 • Premium heavyweight hoodie
 • Matching joggers
-• Subtle branding — unmistakably boxer
 
-The way people treat you changes when they know you can fight. This tracksuit was designed so that from the front or back, people know — without you saying a word.`,
+Available in Forest, Hazel, Steel, and Black.`,
     shortDescription: 'Heavyweight tracksuit built as armour for boxers',
+    perfectFor: 'Boxers who carry themselves with quiet certainty',
+  },
+  {
+    id: 'hoodie',
+    title: 'Oracle Boxing Hoodie',
+    price: 80,
+    type: 'merch',
+    metadata: 'hd',
+    stripe_product_id: 'prod_TPozq4rWDVvHeq',
+    stripe_price_id: 'price_1SSzLrQNEdHwdojXYTyl1kzK',
+    image: 'https://media.oracleboxing.com/tracksuit/hoodie_brown_front.png',
+    requiresShipping: true,
+    shippingRates: {
+      uk: { id: 'shr_1SSzCRQNEdHwdojXu4YcUsiN', price: 4.95, deliveryDays: '1-2 days' },
+      europe: { id: 'shr_1SSzDqQNEdHwdojXhSNDihsW', price: 9.95, deliveryDays: '4-7 days' },
+      us_canada: { id: 'shr_1SSzJcQNEdHwdojX0OojC6Yh', price: 14.95, deliveryDays: '7-14 days' },
+      rest_of_world: { id: 'shr_1SSzKMQNEdHwdojXX00aA7mY', price: 19.95, deliveryDays: '7-14 days' },
+    },
+    description: `**Oracle Boxing Hoodie — Built as Armour**
+
+Heavyweight 100% cotton hoodie. Built as armour, for those who live by the discipline of boxing.
+
+**Details:**
+• 100% cotton
+• Garment dyed
+• Fit: Relaxed fit, true to size
+• Pre-order ships before Christmas
+• Limited stock
+
+Available in Forest, Hazel, Steel, and Black.`,
+    shortDescription: 'Heavyweight hoodie built as armour for boxers',
     perfectFor: 'Boxers who carry themselves with quiet certainty',
   },
 ]

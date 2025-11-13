@@ -49,11 +49,13 @@ export const metadata: Metadata = {
 };
 
 import { CartProvider } from "@/contexts/CartContext";
+import { MerchCartProvider } from "@/contexts/MerchCartContext";
 import { CurrencyProvider } from "@/contexts/CurrencyContext";
 import { Toaster } from "sonner";
 import { UTMTracker } from "@/components/UTMTracker";
 import PageViewTracker from "@/components/PageViewTracker";
 import { CookieBanner } from "@/components/CookieBanner";
+import { MerchCartSidebar } from "@/components/MerchCartSidebar";
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Analytics } from '@vercel/analytics/react';
 
@@ -135,9 +137,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <PageViewTracker />
         <CurrencyProvider>
           <CartProvider>
-            {children}
-            <Toaster position="top-center" />
-            <CookieBanner />
+            <MerchCartProvider>
+              {children}
+              <Toaster position="top-center" />
+              <CookieBanner />
+              <MerchCartSidebar />
+            </MerchCartProvider>
           </CartProvider>
         </CurrencyProvider>
         <SpeedInsights />

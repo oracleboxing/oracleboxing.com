@@ -59,6 +59,14 @@ export interface Product {
   hasCommunity?: boolean
   hasVideoFeedback?: boolean
   coursesIncluded?: string[]
+  // Physical product metadata
+  requiresShipping?: boolean
+  shippingRates?: {
+    uk?: { id: string; price: number; deliveryDays: string }
+    europe?: { id: string; price: number; deliveryDays: string }
+    us_canada?: { id: string; price: number; deliveryDays: string }
+    rest_of_world?: { id: string; price: number; deliveryDays: string }
+  }
 }
 
 export interface CartItem {

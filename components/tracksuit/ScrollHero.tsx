@@ -11,11 +11,10 @@ export function ScrollHero() {
     offset: ['start start', 'end start'],
   })
 
-  // Parallax effects with more spacing - each text gets ~25% of scroll
-  const textOpacity1 = useTransform(scrollYProgress, [0, 0.15, 0.25], [1, 1, 0])
-  const textOpacity2 = useTransform(scrollYProgress, [0.25, 0.35, 0.5], [0, 1, 0])
-  const textOpacity3 = useTransform(scrollYProgress, [0.5, 0.6, 0.75], [0, 1, 0])
-  const textOpacity4 = useTransform(scrollYProgress, [0.75, 0.85, 1], [0, 1, 1])
+  // Parallax effects: fast fade, extra long hold - 3 text sequences
+  const textOpacity1 = useTransform(scrollYProgress, [0, 0.28, 0.33], [1, 1, 0])
+  const textOpacity2 = useTransform(scrollYProgress, [0.33, 0.61, 0.66], [0, 1, 0])
+  const textOpacity3 = useTransform(scrollYProgress, [0.66, 0.7, 1], [0, 1, 1])
 
   const imageScale = useTransform(scrollYProgress, [0, 1], [1, 1.2])
   const imageOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.3, 0.6, 1])
@@ -44,7 +43,7 @@ export function ScrollHero() {
                 Oracle Boxing Tracksuit
               </h1>
               <p className="text-xl md:text-2xl text-gray-300 max-w-2xl mx-auto">
-                Built as armour — for those who live by the discipline of boxing.
+                Built as armour, for those who live by the discipline of boxing.
               </p>
             </motion.div>
 
@@ -58,23 +57,8 @@ export function ScrollHero() {
             {/* Text sequence 3 */}
             <motion.div style={{ opacity: textOpacity3 }} className="absolute inset-0 flex items-center justify-center px-8">
               <p className="text-2xl md:text-3xl text-gray-200 max-w-3xl leading-relaxed">
-                This tracksuit was designed so that from the front or back, people know — without you saying a word.
+                This tracksuit was designed so that from the front or back, people know, without you saying a word.
               </p>
-            </motion.div>
-
-            {/* Text sequence 4 */}
-            <motion.div style={{ opacity: textOpacity4 }} className="absolute inset-0 flex items-center justify-center px-8">
-              <div className="space-y-6 text-center">
-                <p className="text-3xl md:text-4xl text-white font-light">
-                  Subtle. Humble. <span className="font-semibold">Unmistakably boxer.</span>
-                </p>
-                <p className="text-xl text-gray-300">
-                  Heavyweight 100% cotton — durable, breathable, built to last a lifetime.
-                </p>
-                <p className="text-lg text-gray-400 font-medium">
-                  Only 50 will ever be made. Ships before Christmas.
-                </p>
-              </div>
             </motion.div>
           </div>
         </div>

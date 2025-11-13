@@ -5,10 +5,10 @@ import { MerchHeader } from '@/components/MerchHeader'
 import { Footer } from '@/components/Footer'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { ScrollHero } from '@/components/tracksuit/ScrollHero'
+import { HoodieScrollHero } from '@/components/tracksuit/HoodieScrollHero'
 import { ImageGallery } from '@/components/tracksuit/ImageGallery'
 import { ColorSelector } from '@/components/tracksuit/ColorSelector'
-import { DualSizeSelector } from '@/components/tracksuit/DualSizeSelector'
+import { SizeSelector } from '@/components/tracksuit/SizeSelector'
 import { SizeGuideModal } from '@/components/tracksuit/SizeGuideModal'
 import { ProductAccordion } from '@/components/tracksuit/ProductAccordion'
 import { getProductById } from '@/lib/products'
@@ -17,13 +17,12 @@ import { useMerchCart } from '@/contexts/MerchCartContext'
 import { ShoppingCart, Check, Truck, Shield, Package } from 'lucide-react'
 import { fbTrack } from '@/lib/fbpixel'
 
-export default function TracksuitPage() {
+export default function HoodiePage() {
   const { addItem } = useMerchCart()
   const [selectedColor, setSelectedColor] = useState<TracksuitColor>('Hazel')
-  const [hoodieSize, setHoodieSize] = useState<TracksuitSize>('M')
-  const [joggersSize, setJoggersSize] = useState<TracksuitSize>('M')
+  const [selectedSize, setSelectedSize] = useState<TracksuitSize>('M')
 
-  const product = getProductById('tracksuit')!
+  const product = getProductById('hoodie')!
   const remainingStock = getRemainingStock()
 
   const handleAddToCart = () => {
@@ -38,10 +37,9 @@ export default function TracksuitPage() {
 
     // Add to cart with metadata - this will open the cart sidebar
     addItem(product, {
-      tracksuit_color: selectedColor,
-      hoodie_size: hoodieSize,
-      joggers_size: joggersSize,
-      tracksuit_sku: `ORA-TS-${selectedColor.substring(0, 3).toUpperCase()}-HD${hoodieSize}-JG${joggersSize}`,
+      hoodie_color: selectedColor,
+      hoodie_size: selectedSize,
+      hoodie_sku: `ORA-HD-${selectedColor.substring(0, 3).toUpperCase()}-${selectedSize}`,
       presale_cohort: 'Presale-2025',
     })
   }
@@ -49,8 +47,11 @@ export default function TracksuitPage() {
   return (
     <>
       <MerchHeader />
+      {/* Hero Section with Scroll Animations */}
+      <HoodieScrollHero />
+
       {/* Product Selection Section */}
-      <section className="py-20 bg-gray-50">
+      <section id="product" className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
             {/* Left: Image Gallery */}
@@ -60,33 +61,28 @@ export default function TracksuitPage() {
             <div className="space-y-8">
               <div>
                 <h1 className="text-4xl md:text-5xl font-bold text-black mb-4">
-                  Oracle Boxing Tracksuit
+                  Oracle Boxing Hoodie
                 </h1>
-                <p className="text-2xl text-black mb-6">£125</p>
+                <p className="text-2xl text-black mb-6">£80</p>
 
                 <p className="text-black leading-relaxed mb-4">
-                  Heavyweight 100% cotton tracksuit.
+                  Heavyweight 100% cotton hoodie.
                   Built as armour, for those who live by the discipline of boxing.
                 </p>
 
                 <a
-                  href="/hoodie#product"
+                  href="/tracksuit"
                   className="text-sm text-black font-bold underline bg-yellow-100 px-2 py-1 cursor-pointer inline-block"
                 >
-                  Want just the hoodie? →
+                  Want the full tracksuit? →
                 </a>
               </div>
 
               {/* Color Selector */}
               <ColorSelector selectedColor={selectedColor} onColorChange={setSelectedColor} />
 
-              {/* Dual Size Selector */}
-              <DualSizeSelector
-                hoodieSize={hoodieSize}
-                joggersSize={joggersSize}
-                onHoodieSizeChange={setHoodieSize}
-                onJoggersSizeChange={setJoggersSize}
-              />
+              {/* Size Selector */}
+              <SizeSelector selectedSize={selectedSize} onSizeChange={setSelectedSize} />
 
               {/* Size Guide */}
               <SizeGuideModal />
@@ -157,7 +153,7 @@ export default function TracksuitPage() {
               <div className="space-y-4 text-black leading-relaxed">
                 <p>
                   Boxing changes how you move, and how the world responds to you.
-                  The Oracle Boxing tracksuit was built to reflect that energy: confidence without arrogance.
+                  The Oracle Boxing hoodie was built to reflect that energy: confidence without arrogance.
                 </p>
                 <p>
                   The silhouette is clean, the branding subtle, the fabric uncompromising.
