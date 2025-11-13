@@ -264,19 +264,6 @@ export function MerchCartSidebar() {
                         className="text-sm h-9 focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-gray-400"
                       />
                     </div>
-                    <div>
-                      <label htmlFor="phone" className="block text-xs font-medium text-gray-700 mb-1">
-                        Phone
-                      </label>
-                      <Input
-                        id="phone"
-                        type="tel"
-                        placeholder="+44 7700 900000"
-                        value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
-                        className="text-sm h-9 focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-gray-400"
-                      />
-                    </div>
                   </div>
                 </div>
 

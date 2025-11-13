@@ -106,6 +106,15 @@ export async function createCheckoutSession({
         parts.push(`Size: ${item.metadata.hoodie_size}`)
       }
 
+      // Add shipping address if available
+      if (customerInfo?.address) {
+        parts.push('---')
+        parts.push(`Ship to: ${customerInfo.firstName}`)
+        parts.push(`${customerInfo.address.line1}${customerInfo.address.line2 ? ', ' + customerInfo.address.line2 : ''}`)
+        parts.push(`${customerInfo.address.city}, ${customerInfo.address.state} ${customerInfo.address.postal_code}`)
+        parts.push(`${customerInfo.address.country}`)
+      }
+
       if (parts.length > 0) {
         description = parts.join(' | ')
       }
@@ -217,18 +226,6 @@ export async function createCheckoutSession({
     allow_promotion_codes: true,
     customer: customerId, // Attach customer to session
     customer_creation: customerId ? undefined : 'always', // Create customer if not provided
-    billing_address_collection: 'required', // Collect billing address for tax purposes
-    phone_number_collection: {
-      enabled: true, // Require phone number collection
-    },
-  }
-
-  // Only add customer_update if customer exists
-  if (customerId) {
-    sessionParams.customer_update = {
-      address: 'auto', // Save billing address to customer
-      shipping: 'never', // Don't update shipping address from checkout
-    }
   }
 
   // Enable automatic tax if configured in Stripe
@@ -270,7 +267,9 @@ export async function createCheckoutSession({
 
   // Determine the purchase type based on main product
   let purchaseType = 'course' // Default
-  if (mainProduct?.id === '6wc') {
+  if (mainProduct?.type === 'merch') {
+    purchaseType = 'merch'
+  } else if (mainProduct?.id === '6wc') {
     purchaseType = '6wc'
   } else if (mainProduct?.type === 'membership') {
     purchaseType = 'membership'
@@ -292,10 +291,19 @@ export async function createCheckoutSession({
     customer_first_name: metadataFirstName,
     customer_last_name: metadataLastName,
     customer_phone: customerInfo?.phone || '',
+    customer_email: customerInfo?.email || '',
+
+    // Shipping address
+    shipping_line1: customerInfo?.address?.line1 || '',
+    shipping_line2: customerInfo?.address?.line2 || '',
+    shipping_city: customerInfo?.address?.city || '',
+    shipping_state: customerInfo?.address?.state || '',
+    shipping_postal_code: customerInfo?.address?.postal_code || '',
+    shipping_country: customerInfo?.address?.country || '',
 
     // Funnel tracking
     funnel_type: funnelType,
-    type: purchaseType, // Add type metadata: course, membership, 6wc
+    type: purchaseType, // Add type metadata: course, membership, 6wc, merch
     entry_product: mainProduct?.metadata || mainProduct?.id || '',
     add_ons_included: addOns,
 
