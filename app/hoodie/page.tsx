@@ -61,7 +61,12 @@ export default function HoodiePage() {
             <h1 className="text-4xl md:text-5xl font-bold text-black mb-4" style={{ fontFamily: 'Zodiak, serif' }}>
               HOODIE
             </h1>
-            <p className="text-2xl text-black mb-6" style={{ fontFamily: 'Zodiak, serif' }}>£80</p>
+            <div className="mb-6">
+              <p className="text-2xl text-black mb-2" style={{ fontFamily: 'Zodiak, serif' }}>£80</p>
+              <p className="text-sm text-gray-600" style={{ fontFamily: 'Zodiak, serif' }}>
+                Buy 2+ items and get 10% off your entire order
+              </p>
+            </div>
 
             <p className="text-black leading-relaxed mb-4" style={{ fontFamily: 'Zodiak, serif' }}>
               Heavyweight 100% cotton hoodie.
