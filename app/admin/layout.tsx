@@ -5,6 +5,17 @@ export const metadata: Metadata = {
     index: false,
     follow: false,
   },
+  openGraph: {
+    title: '',
+    description: '',
+    images: [],
+  },
+  twitter: {
+    card: 'summary',
+    title: '',
+    description: '',
+    images: [],
+  },
 }
 
 export default function AdminLayout({
