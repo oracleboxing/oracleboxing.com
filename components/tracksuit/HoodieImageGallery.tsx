@@ -63,13 +63,20 @@ export function HoodieImageGallery({ selectedColor, children }: HoodieImageGalle
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Touch handlers for mobile swipe
+  // Touch handlers for mobile swipe with scroll lock
   const handleTouchStart = (e: React.TouchEvent) => {
     setTouchStart(e.targetTouches[0].clientX)
+    setTouchEnd(e.targetTouches[0].clientX)
   }
 
   const handleTouchMove = (e: React.TouchEvent) => {
     setTouchEnd(e.targetTouches[0].clientX)
+
+    // Prevent vertical scroll during horizontal swipe
+    const distance = Math.abs(touchStart - e.targetTouches[0].clientX)
+    if (distance > 10) {
+      e.preventDefault()
+    }
   }
 
   const handleTouchEnd = () => {
@@ -88,6 +95,23 @@ export function HoodieImageGallery({ selectedColor, children }: HoodieImageGalle
 
     setTouchStart(0)
     setTouchEnd(0)
+  }
+
+  // Tap to navigate
+  const handleTap = (e: React.MouseEvent | React.TouchEvent) => {
+    const target = e.currentTarget as HTMLElement
+    const rect = target.getBoundingClientRect()
+    const clickX = 'clientX' in e ? e.clientX : e.changedTouches[0].clientX
+    const relativeX = clickX - rect.left
+    const halfWidth = rect.width / 2
+
+    if (relativeX < halfWidth) {
+      // Left half - previous image
+      setMobileImageIndex((prev) => (prev - 1 + imageConfigs.length) % imageConfigs.length)
+    } else {
+      // Right half - next image
+      setMobileImageIndex((prev) => (prev + 1) % imageConfigs.length)
+    }
   }
 
   return (
@@ -138,16 +162,18 @@ export function HoodieImageGallery({ selectedColor, children }: HoodieImageGalle
       <div className="lg:hidden">
         {/* Image Carousel */}
         <div
-          className="relative bg-white overflow-hidden"
+          className="relative bg-white overflow-hidden touch-pan-y"
           style={{ height: '60vh' }}
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
+          onClick={handleTap}
         >
           <div
             className="h-full transition-transform duration-300 ease-out flex"
             style={{
               transform: `translateX(-${mobileImageIndex * 100}%)`,
+              touchAction: 'pan-y',
             }}
           >
             {imageConfigs.map((config, index) => {
