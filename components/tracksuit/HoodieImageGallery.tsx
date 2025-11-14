@@ -93,7 +93,7 @@ export function HoodieImageGallery({ selectedColor, children }: HoodieImageGalle
   return (
     <>
       {/* Desktop Layout */}
-      <div ref={sectionRef} className="hidden lg:block" style={{ height: '300vh' }}>
+      <div ref={sectionRef} className="hidden lg:block" style={{ height: '500vh' }}>
         <div className="sticky top-0 h-screen">
           <div className="grid grid-cols-[60%_40%] h-full">
             {/* Left: Image Gallery - 60% width */}
