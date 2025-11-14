@@ -142,7 +142,7 @@ export function MerchCartSidebar() {
                   }
                   const colorCode = colorMap[colorName] || 'brown'
                   const productType = item.product.id === 'tracksuit' ? 'hoodie' : 'hoodie'
-                  const imageUrl = `https://media.oracleboxing.com/tracksuit/${productType}_${colorCode}_front.png`
+                  const imageUrl = `https://media.oracleboxing.com/tracksuit/${productType}_${colorCode}_front.webp`
 
                   // Format the variant text
                   const color = item.metadata?.tracksuit_color || item.metadata?.hoodie_color || ''

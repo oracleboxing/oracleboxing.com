@@ -139,7 +139,7 @@ export async function createCheckoutSession({
         }
         const colorCode = colorMap[color] || 'brown'
         const productType = item.product.id === 'tracksuit' ? 'hoodie' : 'hoodie'
-        colorSpecificImage = `https://media.oracleboxing.com/tracksuit/${productType}_${colorCode}_front.png`
+        colorSpecificImage = `https://media.oracleboxing.com/tracksuit/${productType}_${colorCode}_front.webp`
       }
     }
 

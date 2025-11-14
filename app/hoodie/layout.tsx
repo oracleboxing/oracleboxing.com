@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://media.oracleboxing.com/tracksuit/hoodie_brown_front.png',
+        url: 'https://media.oracleboxing.com/tracksuit/hoodie_brown_front.webp',
         width: 1200,
         height: 1200,
         alt: 'Oracle Boxing Premium Heavyweight Hoodie',
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Oracle Boxing Hoodie | Premium Heavyweight Cotton',
     description: 'Heavyweight 100% cotton hoodie built as armour for boxers. Buy 2+ and save 10%.',
-    images: ['https://media.oracleboxing.com/tracksuit/hoodie_brown_front.png'],
+    images: ['https://media.oracleboxing.com/tracksuit/hoodie_brown_front.webp'],
   },
 }
 

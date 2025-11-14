@@ -29,7 +29,7 @@ export function ImageGallery({ selectedColor }: ImageGalleryProps) {
   const colorName = colorNameMap[selectedColor]
 
   const currentImage = imageConfigs[selectedImageIndex]
-  const imageUrl = `https://media.oracleboxing.com/tracksuit/${currentImage.prefix}_${colorName}_${currentImage.angle}.png`
+  const imageUrl = `https://media.oracleboxing.com/tracksuit/${currentImage.prefix}_${colorName}_${currentImage.angle}.webp`
 
   return (
     <div className="space-y-4">
@@ -52,7 +52,7 @@ export function ImageGallery({ selectedColor }: ImageGalleryProps) {
       {/* Thumbnail Grid */}
       <div className="grid grid-cols-4 gap-3">
         {imageConfigs.map((config, index) => {
-          const thumbUrl = `https://media.oracleboxing.com/tracksuit/${config.prefix}_${colorName}_${config.angle}.png`
+          const thumbUrl = `https://media.oracleboxing.com/tracksuit/${config.prefix}_${colorName}_${config.angle}.webp`
           return (
             <button
               key={index}

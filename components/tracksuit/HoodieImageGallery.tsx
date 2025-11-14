@@ -105,8 +105,8 @@ export function HoodieImageGallery({ selectedColor, children }: HoodieImageGalle
               <div className="grid grid-cols-2 gap-0">
                 {imageConfigs.map((config, index) => {
                   const imageUrl = config.type
-                    ? `https://media.oracleboxing.com/tracksuit/${config.prefix}_${colorName}_${config.angle}_${config.type}.png`
-                    : `https://media.oracleboxing.com/tracksuit/${config.prefix}_${colorName}_${config.angle}.png`
+                    ? `https://media.oracleboxing.com/tracksuit/${config.prefix}_${colorName}_${config.angle}_${config.type}.webp`
+                    : `https://media.oracleboxing.com/tracksuit/${config.prefix}_${colorName}_${config.angle}.webp`
                   return (
                     <div key={index} className="aspect-[3/4] overflow-hidden bg-gray-100">
                       <Image
@@ -152,8 +152,8 @@ export function HoodieImageGallery({ selectedColor, children }: HoodieImageGalle
           >
             {imageConfigs.map((config, index) => {
               const imageUrl = config.type
-                ? `https://media.oracleboxing.com/tracksuit/${config.prefix}_${colorName}_${config.angle}_${config.type}.png`
-                : `https://media.oracleboxing.com/tracksuit/${config.prefix}_${colorName}_${config.angle}.png`
+                ? `https://media.oracleboxing.com/tracksuit/${config.prefix}_${colorName}_${config.angle}_${config.type}.webp`
+                : `https://media.oracleboxing.com/tracksuit/${config.prefix}_${colorName}_${config.angle}.webp`
               return (
                 <div key={index} className="flex-shrink-0 w-full h-full">
                   <Image
