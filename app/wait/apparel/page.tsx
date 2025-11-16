@@ -1,13 +1,20 @@
 'use client'
 
-import { useState } from 'react'
-import { Header } from '@/components/Header'
-import { Footer } from '@/components/Footer'
-import { Input } from '@/components/ui/input'
-import { toast } from 'sonner'
-import Image from 'next/image'
+import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 
 export default function ApparelWaitlistPage() {
+  const router = useRouter()
+
+  useEffect(() => {
+    router.push('/tracksuit')
+  }, [router])
+
+  return null
+}
+
+// Old waitlist page - now redirects to /tracksuit
+function OldApparelWaitlistPage() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',

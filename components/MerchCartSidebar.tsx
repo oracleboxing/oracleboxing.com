@@ -127,7 +127,16 @@ export function MerchCartSidebar() {
 
           {/* Cart Items */}
           {items.length === 0 ? (
-            <p className="text-gray-600 text-center py-8" style={{ fontFamily: 'Zodiak, serif' }}>Your cart is empty</p>
+            <div className="text-center py-8">
+              <p className="text-gray-600 mb-4" style={{ fontFamily: 'Zodiak, serif' }}>Your cart is empty</p>
+              <a
+                href="/tracksuit"
+                className="inline-block px-6 py-3 bg-black text-white font-bold rounded-lg hover:bg-gray-800 transition"
+                style={{ fontFamily: 'Zodiak, serif' }}
+              >
+                Browse Products
+              </a>
+            </div>
           ) : (
             <>
               <div className="px-6 space-y-4 mb-4">

@@ -8,7 +8,7 @@ export function ApparelBanner() {
     trackButtonClick({
       button_location: 'homepage-apparel-banner',
       button_type: 'apparel-cta',
-      destination: '/wait/apparel',
+      destination: '/tracksuit',
     })
   }
 
@@ -19,7 +19,7 @@ export function ApparelBanner() {
           {/* Left Side - Content */}
           <div className="text-center lg:text-left">
             <div className="inline-block mb-4 px-4 py-2 bg-yellow-100 text-black border border-gray-800 rounded-lg font-black text-sm uppercase tracking-wider">
-              Coming Soon
+              Pre-Order Now
             </div>
 
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6">
@@ -27,24 +27,29 @@ export function ApparelBanner() {
             </h2>
 
             <p className="text-lg sm:text-xl md:text-2xl text-gray-300 mb-6 sm:mb-8 leading-relaxed">
-              Premium boxing apparel designed for champions. Be the first to know when we launch.
+              Premium boxing apparel designed for champions. Pre-order now, ships before Christmas.
             </p>
 
             <Link
-              href="/wait/apparel"
+              href="/tracksuit"
               onClick={handleCTAClick}
               className="inline-block px-8 sm:px-12 py-4 sm:py-5 bg-white text-black border-4 border-white rounded-xl shadow-lg font-black text-base sm:text-lg md:text-xl uppercase tracking-wide hover:bg-black hover:text-white hover:border-white transition-all"
             >
-              Join Waitlist
+              Pre-Order
             </Link>
           </div>
 
-          {/* Right Side - Image */}
+          {/* Right Side - Images (Hoodie Back + Jogger Front) */}
           <div className="order-first lg:order-last">
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+            <div className="grid grid-cols-2 gap-0">
               <img
-                src="https://media.oracleboxing.com/Website/tracky_green.png"
-                alt="Oracle Boxing Apparel"
+                src="https://media.oracleboxing.com/tracksuit/hoodie_green_back.webp"
+                alt="Oracle Boxing Hoodie - Back"
+                className="w-full h-auto object-cover"
+              />
+              <img
+                src="https://media.oracleboxing.com/tracksuit/jogger_green_front.webp"
+                alt="Oracle Boxing Joggers - Front"
                 className="w-full h-auto object-cover"
               />
             </div>
