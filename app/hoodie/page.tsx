@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { MerchHeader } from '@/components/MerchHeader'
 import { Footer } from '@/components/Footer'
 import { Button } from '@/components/ui/button'
@@ -23,35 +23,6 @@ export default function HoodiePage() {
 
   const product = getProductById('hoodie')!
   const remainingStock = getRemainingStock()
-
-  // Preload all hoodie and tracksuit images on mount
-  useEffect(() => {
-    const colors = ['green', 'brown', 'blue', 'black']
-    const hoodieImages = ['hoodie_front', 'hoodie_back', 'hoodie_front_model', 'hoodie_back_model']
-    const tracksuitImages = ['jogger_front', 'jogger_back', 'jogger_front_model', 'jogger_back_model']
-
-    // Preload all hoodie images (current page)
-    colors.forEach(color => {
-      hoodieImages.forEach(image => {
-        const link = document.createElement('link')
-        link.rel = 'preload'
-        link.as = 'image'
-        link.href = `/images/${image}_${color}.webp`
-        document.head.appendChild(link)
-      })
-    })
-
-    // Preload all tracksuit images (other page)
-    colors.forEach(color => {
-      tracksuitImages.forEach(image => {
-        const link = document.createElement('link')
-        link.rel = 'preload'
-        link.as = 'image'
-        link.href = `/images/${image}_${color}.webp`
-        document.head.appendChild(link)
-      })
-    })
-  }, [])
 
   const handleAddToCart = () => {
     // Track AddToCart event
