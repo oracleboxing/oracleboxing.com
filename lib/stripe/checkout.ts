@@ -56,24 +56,6 @@ interface CreateCheckoutSessionParams {
   }
 }
 
-// Helper function to flatten cookie data into individual Stripe metadata fields
-// Each cookie field becomes a separate metadata field with "cookie_" prefix
-function prepareCookieDataForStripe(cookieData: any): Record<string, string> {
-  if (!cookieData) return {};
-
-  const flattenedCookieData: Record<string, string> = {};
-
-  // Flatten all cookie data fields with "cookie_" prefix
-  for (const [key, value] of Object.entries(cookieData)) {
-    if (value !== null && value !== undefined) {
-      // Convert value to string and prefix with "cookie_"
-      flattenedCookieData[`cookie_${key}`] = String(value);
-    }
-  }
-
-  return flattenedCookieData;
-}
-
 export async function createCheckoutSession({
   items,
   hasPhysicalItems,
@@ -410,8 +392,8 @@ export async function createCheckoutSession({
     fb_client_ip: fbParams?.client_ip_address || '',
     fb_user_agent: fbParams?.client_user_agent || '',
 
-    // Cookie tracking data - each field as separate metadata
-    ...prepareCookieDataForStripe(cookieData),
+    // Cookie tracking data - store as single JSON string to save metadata keys
+    cookie_data: cookieData ? JSON.stringify(cookieData) : '',
   }
 
   // Add cross-sell recommendations using Stripe's adjustable quantity feature
