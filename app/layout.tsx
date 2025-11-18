@@ -126,6 +126,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         }} />
 
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+
+        {/* Favicons - explicit links for Safari compatibility */}
+        <link rel="icon" type="image/x-icon" href="https://media.oracleboxing.com/Website/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="16x16" href="https://media.oracleboxing.com/Website/favicon-16x16.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="https://media.oracleboxing.com/Website/favicon-32x32.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="https://media.oracleboxing.com/Website/apple-touch-icon.png" />
+
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet" />
