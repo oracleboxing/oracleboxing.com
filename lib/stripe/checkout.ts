@@ -446,7 +446,8 @@ export async function createCheckoutSession({
     const ukCountries = ['GB']
     const europeCountries = ['AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'GR', 'HU', 'IE', 'IT', 'LV', 'LT', 'LU', 'MT', 'NL', 'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE', 'CH', 'NO', 'IS']
     const usCanadaCountries = ['US', 'CA']
-    const allAllowedCountries = [...ukCountries, ...europeCountries, ...usCanadaCountries, 'AU', 'NZ', 'JP', 'SG', 'AE', 'ZA', 'MX', 'BR', 'AR', 'IN', 'KR', 'TH', 'MY', 'PH', 'ID', 'VN']
+    const restOfWorldCountries = ['AU', 'NZ', 'JP', 'SG', 'AE', 'ZA', 'MX', 'BR', 'AR', 'IN', 'KR', 'TH', 'MY', 'PH', 'ID', 'VN']
+    const allAllowedCountries = [...ukCountries, ...europeCountries, ...usCanadaCountries, ...restOfWorldCountries]
 
     // Get shipping rates from the merchandise product
     const merchProduct = items.find(item => item.product.type === 'merch')?.product
