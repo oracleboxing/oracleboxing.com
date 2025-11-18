@@ -241,12 +241,10 @@ export async function createCheckoutSession({
     customer_creation: customerId ? undefined : 'always', // Create customer if not provided
   }
 
-  // Enable automatic tax if configured in Stripe
+  // Enable automatic tax calculation
   // Note: Requires origin address setup at https://dashboard.stripe.com/settings/tax
-  if (process.env.STRIPE_AUTO_TAX_ENABLED === 'true') {
-    sessionParams.automatic_tax = {
-      enabled: true,
-    }
+  sessionParams.automatic_tax = {
+    enabled: true,
   }
 
   // ===================================================================
