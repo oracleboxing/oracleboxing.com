@@ -79,31 +79,12 @@ export async function POST(req: NextRequest) {
         original_session_id: originalSessionId || '',
         is_membership_upsell: isMembership.toString(),
 
-        // Tracking params (referrer and UTM)
-        referrer: trackingParams?.referrer || 'direct',
-
-        // First Touch Attribution
-        first_utm_source: trackingParams?.first_utm_source || '',
-        first_utm_medium: trackingParams?.first_utm_medium || '',
-        first_utm_campaign: trackingParams?.first_utm_campaign || '',
-        first_utm_term: trackingParams?.first_utm_term || '',
-        first_utm_content: trackingParams?.first_utm_content || '',
-        first_referrer_time: trackingParams?.first_referrer_time || '',
-
-        // Last Touch Attribution
-        last_utm_source: trackingParams?.last_utm_source || '',
-        last_utm_medium: trackingParams?.last_utm_medium || '',
-        last_utm_campaign: trackingParams?.last_utm_campaign || '',
-        last_utm_term: trackingParams?.last_utm_term || '',
-        last_utm_content: trackingParams?.last_utm_content || '',
-        last_referrer_time: trackingParams?.last_referrer_time || '',
-
         // Additional tracking
         fbclid: trackingParams?.fbclid || '',
         session_id: trackingParams?.session_id || '',
         event_id: trackingParams?.event_id || '',
 
-        // Cookie tracking data - each field as separate metadata
+        // Cookie tracking data - each field as separate metadata (includes all UTM and attribution data)
         ...prepareCookieDataForStripe(cookieData),
       },
       payment_intent_data: {
@@ -128,31 +109,12 @@ export async function POST(req: NextRequest) {
           original_session_id: originalSessionId || '',
           is_membership_upsell: isMembership.toString(),
 
-          // Tracking params (referrer and UTM)
-          referrer: trackingParams?.referrer || 'direct',
-
-          // First Touch Attribution
-          first_utm_source: trackingParams?.first_utm_source || '',
-          first_utm_medium: trackingParams?.first_utm_medium || '',
-          first_utm_campaign: trackingParams?.first_utm_campaign || '',
-          first_utm_term: trackingParams?.first_utm_term || '',
-          first_utm_content: trackingParams?.first_utm_content || '',
-          first_referrer_time: trackingParams?.first_referrer_time || '',
-
-          // Last Touch Attribution
-          last_utm_source: trackingParams?.last_utm_source || '',
-          last_utm_medium: trackingParams?.last_utm_medium || '',
-          last_utm_campaign: trackingParams?.last_utm_campaign || '',
-          last_utm_term: trackingParams?.last_utm_term || '',
-          last_utm_content: trackingParams?.last_utm_content || '',
-          last_referrer_time: trackingParams?.last_referrer_time || '',
-
           // Additional tracking
           fbclid: trackingParams?.fbclid || '',
           session_id: trackingParams?.session_id || '',
           event_id: trackingParams?.event_id || '',
 
-          // Cookie tracking data - each field as separate metadata
+          // Cookie tracking data - each field as separate metadata (includes all UTM and attribution data)
           ...prepareCookieDataForStripe(cookieData),
         },
       },
