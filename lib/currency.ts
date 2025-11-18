@@ -57,7 +57,7 @@ export const PRODUCT_PRICES: Record<string, Record<Currency, number>> = {
   mem_monthly: { USD: 97, GBP: 77, EUR: 90, AUD: 146, CAD: 131, AED: 357 },
   // Black Friday Challenge products
   bfc: { USD: 97, GBP: 78, EUR: 89, AUD: 146, CAD: 132, AED: 358 },
-  bfc_vip: { USD: 397, GBP: 317, EUR: 365, AUD: 595, CAD: 538, AED: 1465 },
+  bfc_vip: { USD: 497, GBP: 397, EUR: 457, AUD: 745, CAD: 674, AED: 1834 },
 };
 
 // Membership products - now support multi-currency

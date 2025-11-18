@@ -168,7 +168,8 @@ export async function POST(req: NextRequest) {
           items: serverSideItems.map(item => ({
             productName: item.product.title,
             productId: item.product.id,
-            metadata: item.product.metadata,
+            productMetadata: item.product.metadata, // Generic product type (e.g., "tracksuit", "hoodie")
+            variantMetadata: item.metadata, // Variant-specific details (color, size, SKU, cohort)
             quantity: item.quantity,
             price: item.product.price,
             currency: currency || 'USD',

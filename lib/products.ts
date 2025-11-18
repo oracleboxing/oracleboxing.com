@@ -489,13 +489,13 @@ Perfect for beginners or boxers who want rapid improvement with accountability.`
   {
     id: 'bfc-vip',
     title: 'Black Friday Challenge VIP',
-    price: 397,
+    price: 497,
     type: 'course',
     metadata: 'bfc_vip',
     stripe_product_id: 'prod_TNwYt9qDOIofyA',
-    stripe_price_id: 'price_1SRAfeKPvH4Ddlg1CfFDPDFN',
+    stripe_price_id: 'price_1SUj2tKPvH4Ddlg13pfNOJ3P',
     price_ids: {
-      multicurrency: 'price_1SRAfeKPvH4Ddlg1CfFDPDFN',
+      multicurrency: 'price_1SUj2tKPvH4Ddlg13pfNOJ3P',
     },
     image: 'https://media.oracleboxing.com/Website/6wc_tn.png',
     description: `**Black Friday Challenge VIP — $397**

@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef, useCallback } from 'react'
+import Image from 'next/image'
 import { BlackFridayChallengeHeader } from '@/components/BlackFridayChallengeHeader'
 import { Footer } from '@/components/Footer'
 import { EpicCTAButton } from '@/components/EpicCTAButton'
@@ -704,69 +705,349 @@ export default function BlackFridayChallengePage() {
         `}</style>
       </section>
 
+      {/* See Inside The Platform Section */}
+      <section className="py-12 sm:py-16 lg:py-20 bg-gray-50">
+        <div className="w-full px-4 sm:px-6 lg:px-8 lg:max-w-[80%] mx-auto">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 sm:mb-4 text-center" style={{ fontFamily: 'Satoshi' }}>
+            See Inside The Platform
+          </h2>
+          <p className="text-base sm:text-lg lg:text-xl text-gray-600 mb-8 sm:mb-12 text-center max-w-3xl mx-auto">
+            Everything you need to learn boxing, all in one place
+          </p>
+
+          {/* Desktop: 2-column grid with smaller images */}
+          <div className="hidden lg:grid lg:grid-cols-2 gap-6 lg:gap-8 max-w-5xl mx-auto">
+            {[
+              {
+                image: 'https://media.oracleboxing.com/Website/optimized/screenshots/inside1.webp',
+                title: 'All Your Courses in One Place',
+                subtitle: 'Access all three courses from a single organized dashboard'
+              },
+              {
+                image: 'https://media.oracleboxing.com/Website/optimized/screenshots/inside2.webp',
+                title: 'Full Video Lessons',
+                subtitle: 'Follow clear lessons with detailed video shows and learning'
+              },
+              {
+                image: 'https://media.oracleboxing.com/Website/optimized/screenshots/inside3.webp',
+                title: 'Follow-Along Workouts',
+                subtitle: 'Train with step-by-step drills and clear workout plans'
+              },
+              {
+                image: 'https://media.oracleboxing.com/Website/optimized/screenshots/inside4.webp',
+                title: 'Strong Search Feature',
+                subtitle: 'Find any move, idea, or drill quickly across all courses'
+              }
+            ].map((screenshot, index) => (
+              <div key={index} className="bg-white rounded-2xl overflow-hidden shadow-sm">
+                <div className="p-5 lg:p-6 text-center">
+                  <h3 className="text-lg lg:text-xl font-bold text-gray-900 mb-2">
+                    {screenshot.title}
+                  </h3>
+                  <p className="text-sm lg:text-base text-gray-600 leading-relaxed mb-3">
+                    {screenshot.subtitle}
+                  </p>
+                </div>
+                <div className="relative w-full aspect-video overflow-hidden bg-gray-100">
+                  <Image
+                    src={screenshot.image}
+                    alt={screenshot.title}
+                    fill
+                    className="object-contain"
+                    sizes="(min-width: 1024px) 40vw, 100vw"
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Mobile: Vertical stacked cards with smaller images */}
+          <div className="lg:hidden space-y-6 max-w-lg mx-auto">
+            {[
+              {
+                image: 'https://media.oracleboxing.com/Website/optimized/screenshots/inside1.webp',
+                title: 'All Your Courses in One Place',
+                subtitle: 'Access all three courses from a single organized dashboard'
+              },
+              {
+                image: 'https://media.oracleboxing.com/Website/optimized/screenshots/inside2.webp',
+                title: 'Full Video Lessons',
+                subtitle: 'Follow clear lessons with detailed video shows and learning'
+              },
+              {
+                image: 'https://media.oracleboxing.com/Website/optimized/screenshots/inside3.webp',
+                title: 'Follow-Along Workouts',
+                subtitle: 'Train with step-by-step drills and clear workout plans'
+              },
+              {
+                image: 'https://media.oracleboxing.com/Website/optimized/screenshots/inside4.webp',
+                title: 'Strong Search Feature',
+                subtitle: 'Find any move, idea, or drill quickly across all courses'
+              }
+            ].map((screenshot, index) => (
+              <div key={index} className="bg-white rounded-xl overflow-hidden shadow-sm">
+                <div className="p-5 text-center">
+                  <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2">
+                    {screenshot.title}
+                  </h3>
+                  <p className="text-sm text-gray-600 leading-relaxed mb-3">
+                    {screenshot.subtitle}
+                  </p>
+                </div>
+                <div className="relative w-full aspect-video overflow-hidden bg-gray-100">
+                  <Image
+                    src={screenshot.image}
+                    alt={screenshot.title}
+                    fill
+                    className="object-contain"
+                    sizes="90vw"
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* How the Refund Works */}
       <section className="py-12 sm:py-16 lg:py-20 bg-white">
         <div className="w-full lg:max-w-[80%] mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-4 sm:mb-6 lg:mb-8 leading-tight px-2" style={{ fontFamily: 'Satoshi' }}>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-6 sm:mb-8 lg:mb-12 leading-tight px-2" style={{ fontFamily: 'Satoshi' }}>
             Finish it, get your money back.
           </h2>
 
-          <div className="prose prose-lg max-w-3xl mx-auto mb-6 sm:mb-8">
-            <p className="text-sm sm:text-base lg:text-lg text-gray-700 leading-relaxed text-center mb-6 sm:mb-8 px-2">
-              This challenge isn't easy, but it's simple.
-              If you show up, do the work, and complete the checklist, you'll earn your {isLoadingCurrency ? '$97' : formatPrice(getProductPrice('bfc', currency) || 97, currency)} back at the end.
-            </p>
-          </div>
+          {/* Desktop: 2-column layout */}
+          <div className="hidden lg:grid lg:grid-cols-2 gap-8 items-center mb-8">
+            {/* Left Column - Description */}
+            <div>
+              <p className="text-lg lg:text-xl text-gray-700 leading-relaxed mb-6">
+                This challenge isn't easy, but it's simple.
+              </p>
+              <p className="text-lg lg:text-xl text-gray-700 leading-relaxed mb-6">
+                If you show up, do the work, and complete the checklist, you'll earn your {isLoadingCurrency ? '$97' : formatPrice(getProductPrice('bfc', currency) || 97, currency)} back at the end.
+              </p>
+              <p className="text-xl lg:text-2xl font-bold" style={{ fontFamily: 'Satoshi' }}>
+                Discipline pays. Literally.
+              </p>
+            </div>
 
-          <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-10 shadow-lg mb-4 sm:mb-6 border-2 border-gray-100">
-            <h3 className="text-lg sm:text-xl lg:text-2xl font-bold mb-4 sm:mb-6" style={{ fontFamily: 'Satoshi' }}>Checklist:</h3>
-            <div className="space-y-3 sm:space-y-4">
-              <div className="flex items-start gap-2.5 sm:gap-3">
-                <div className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0 border-2 border-gray-400 rounded mt-0.5 flex items-center justify-center">
-                  <svg className="w-3 h-3 sm:w-4 sm:h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
+            {/* Right Column - Checklist */}
+            <div className="bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-100">
+              <h3 className="text-xl lg:text-2xl font-bold mb-6" style={{ fontFamily: 'Satoshi' }}>Checklist:</h3>
+              <div className="space-y-4">
+                <div className="flex items-start gap-3">
+                  <div className="w-6 h-6 flex-shrink-0 border-2 border-gray-400 rounded mt-0.5 flex items-center justify-center">
+                    <svg className="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  <span className="text-base lg:text-lg font-medium leading-snug">Join two coaching calls each week.</span>
                 </div>
-                <span className="text-sm sm:text-base lg:text-lg font-medium leading-snug">Join two coaching calls each week.</span>
-              </div>
-              <div className="flex items-start gap-2.5 sm:gap-3">
-                <div className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0 border-2 border-gray-400 rounded mt-0.5 flex items-center justify-center">
-                  <svg className="w-3 h-3 sm:w-4 sm:h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
+                <div className="flex items-start gap-3">
+                  <div className="w-6 h-6 flex-shrink-0 border-2 border-gray-400 rounded mt-0.5 flex items-center justify-center">
+                    <svg className="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  <span className="text-base lg:text-lg font-medium leading-snug">Post one feedback video each week.</span>
                 </div>
-                <span className="text-sm sm:text-base lg:text-lg font-medium leading-snug">Post one feedback video each week.</span>
-              </div>
-              <div className="flex items-start gap-2.5 sm:gap-3">
-                <div className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0 border-2 border-gray-400 rounded mt-0.5 flex items-center justify-center">
-                  <svg className="w-3 h-3 sm:w-4 sm:h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
+                <div className="flex items-start gap-3">
+                  <div className="w-6 h-6 flex-shrink-0 border-2 border-gray-400 rounded mt-0.5 flex items-center justify-center">
+                    <svg className="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  <span className="text-base lg:text-lg font-medium leading-snug">Finish the Boxing Masterclass.</span>
                 </div>
-                <span className="text-sm sm:text-base lg:text-lg font-medium leading-snug">Finish the Boxing Masterclass.</span>
-              </div>
-              <div className="flex items-start gap-2.5 sm:gap-3">
-                <div className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0 border-2 border-gray-400 rounded mt-0.5 flex items-center justify-center">
-                  <svg className="w-3 h-3 sm:w-4 sm:h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
+                <div className="flex items-start gap-3">
+                  <div className="w-6 h-6 flex-shrink-0 border-2 border-gray-400 rounded mt-0.5 flex items-center justify-center">
+                    <svg className="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  <span className="text-base lg:text-lg font-medium leading-snug">Attend the mid-challenge and graduation calls.</span>
                 </div>
-                <span className="text-sm sm:text-base lg:text-lg font-medium leading-snug">Attend the mid-challenge and graduation calls.</span>
               </div>
             </div>
           </div>
 
-          <p className="text-lg sm:text-xl lg:text-2xl font-bold text-center px-2" style={{ fontFamily: 'Satoshi' }}>
-            Discipline pays. Literally.
-          </p>
+          {/* Mobile: Stacked layout */}
+          <div className="lg:hidden">
+            <div className="prose prose-lg max-w-3xl mx-auto mb-6 sm:mb-8">
+              <p className="text-sm sm:text-base text-gray-700 leading-relaxed text-center mb-6 sm:mb-8 px-2">
+                This challenge isn't easy, but it's simple.
+                If you show up, do the work, and complete the checklist, you'll earn your {isLoadingCurrency ? '$97' : formatPrice(getProductPrice('bfc', currency) || 97, currency)} back at the end.
+              </p>
+            </div>
+
+            <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg mb-4 sm:mb-6 border-2 border-gray-100">
+              <h3 className="text-lg sm:text-xl font-bold mb-4 sm:mb-6" style={{ fontFamily: 'Satoshi' }}>Checklist:</h3>
+              <div className="space-y-3 sm:space-y-4">
+                <div className="flex items-start gap-2.5 sm:gap-3">
+                  <div className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0 border-2 border-gray-400 rounded mt-0.5 flex items-center justify-center">
+                    <svg className="w-3 h-3 sm:w-4 sm:h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  <span className="text-sm sm:text-base font-medium leading-snug">Join two coaching calls each week.</span>
+                </div>
+                <div className="flex items-start gap-2.5 sm:gap-3">
+                  <div className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0 border-2 border-gray-400 rounded mt-0.5 flex items-center justify-center">
+                    <svg className="w-3 h-3 sm:w-4 sm:h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  <span className="text-sm sm:text-base font-medium leading-snug">Post one feedback video each week.</span>
+                </div>
+                <div className="flex items-start gap-2.5 sm:gap-3">
+                  <div className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0 border-2 border-gray-400 rounded mt-0.5 flex items-center justify-center">
+                    <svg className="w-3 h-3 sm:w-4 sm:h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  <span className="text-sm sm:text-base font-medium leading-snug">Finish the Boxing Masterclass.</span>
+                </div>
+                <div className="flex items-start gap-2.5 sm:gap-3">
+                  <div className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0 border-2 border-gray-400 rounded mt-0.5 flex items-center justify-center">
+                    <svg className="w-3 h-3 sm:w-4 sm:h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  <span className="text-sm sm:text-base font-medium leading-snug">Attend the mid-challenge and graduation calls.</span>
+                </div>
+              </div>
+            </div>
+
+            <p className="text-lg sm:text-xl font-bold text-center px-2" style={{ fontFamily: 'Satoshi' }}>
+              Discipline pays. Literally.
+            </p>
+          </div>
         </div>
       </section>
+
+      {/* Go VIP Section */}
+      <section className="py-12 sm:py-16 lg:py-20 bg-gray-50">
+        <div className="w-full lg:max-w-[80%] mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center mb-3 sm:mb-4" style={{ fontFamily: 'Satoshi' }}>
+            Go VIP and get a free Oracle Boxing Tracksuit
+          </h2>
+          <p className="text-xl sm:text-2xl text-center text-gray-700 mb-12 sm:mb-16">
+            Worth {formatPrice(164, currency)} - yours free when you upgrade
+          </p>
+
+          <div className="max-w-[700px] mx-auto">
+            {/* Tracksuit Slideshow */}
+            <div className="text-center">
+              {/* Automatic Slideshow */}
+              <div className="relative aspect-[16/9] w-full mx-auto mb-6 overflow-hidden rounded-xl">
+                <div className="slideshow-container">
+                  {/* Green Tracksuit */}
+                  <div className="slideshow-image absolute inset-0 grid grid-cols-2 gap-0">
+                    <div className="w-full h-full">
+                      <img
+                        src="https://media.oracleboxing.com/tracksuit/hoodie_green_back.webp"
+                        alt="Green Hoodie"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div className="w-full h-full">
+                      <img
+                        src="https://media.oracleboxing.com/tracksuit/jogger_green_front.webp"
+                        alt="Green Joggers"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Blue Tracksuit */}
+                  <div className="slideshow-image absolute inset-0 grid grid-cols-2 gap-0">
+                    <div className="w-full h-full">
+                      <img
+                        src="https://media.oracleboxing.com/tracksuit/hoodie_blue_back.webp"
+                        alt="Blue Hoodie"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div className="w-full h-full">
+                      <img
+                        src="https://media.oracleboxing.com/tracksuit/jogger_blue_front.webp"
+                        alt="Blue Joggers"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Brown Tracksuit */}
+                  <div className="slideshow-image absolute inset-0 grid grid-cols-2 gap-0">
+                    <div className="w-full h-full">
+                      <img
+                        src="https://media.oracleboxing.com/tracksuit/hoodie_brown_back.webp"
+                        alt="Brown Hoodie"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div className="w-full h-full">
+                      <img
+                        src="https://media.oracleboxing.com/tracksuit/jogger_brown_front.webp"
+                        alt="Brown Joggers"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Black Tracksuit */}
+                  <div className="slideshow-image absolute inset-0 grid grid-cols-2 gap-0">
+                    <div className="w-full h-full">
+                      <img
+                        src="https://media.oracleboxing.com/tracksuit/hoodie_black_back.webp"
+                        alt="Black Hoodie"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div className="w-full h-full">
+                      <img
+                        src="https://media.oracleboxing.com/tracksuit/jogger_black_front.webp"
+                        alt="Black Joggers"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <p className="text-sm text-gray-600 max-w-2xl mx-auto">
+                Choose your color and size after checkout - we'll contact you for shipping details
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Slideshow Animation */}
+      <style dangerouslySetInnerHTML={{__html: `
+        .slideshow-image {
+          opacity: 0;
+          animation: slideshow 12s infinite;
+        }
+        .slideshow-image:nth-child(1) { animation-delay: 0s; }
+        .slideshow-image:nth-child(2) { animation-delay: 3s; }
+        .slideshow-image:nth-child(3) { animation-delay: 6s; }
+        .slideshow-image:nth-child(4) { animation-delay: 9s; }
+
+        @keyframes slideshow {
+          0% { opacity: 0; }
+          5% { opacity: 1; }
+          25% { opacity: 1; }
+          30% { opacity: 0; }
+          100% { opacity: 0; }
+        }
+      `}} />
 
       {/* Pricing & Offer */}
       <section id="pricing" className="py-12 sm:py-16 lg:py-20 bg-white">
         <div className="w-full lg:max-w-[80%] mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center mb-10 sm:mb-12" style={{ fontFamily: 'Satoshi' }}>
-            Black Friday Entry — 6 Weeks for {formatPrice(getProductPrice('bfc', currency) || 97, currency)}
+            <span className="bg-black text-white px-4 py-2 inline-block">Black Friday Challenge</span> Entry
           </h2>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
@@ -785,6 +1066,12 @@ export default function BlackFridayChallengePage() {
               </h3>
 
               <div className="text-center mb-6">
+                <div className="inline-block bg-yellow-100 text-black px-4 py-1.5 rounded-lg text-sm font-black uppercase mb-3">
+                  50% OFF
+                </div>
+                <div className="text-lg text-white/60 line-through mb-2">
+                  {isLoadingCurrency ? '$197' : formatPrice(197, currency)}
+                </div>
                 <div className="text-5xl sm:text-6xl font-black mb-2">
                   {isLoadingCurrency ? '$97' : formatPrice(getProductPrice('bfc', currency) || 97, currency)}
                 </div>
@@ -844,10 +1131,10 @@ export default function BlackFridayChallengePage() {
 
               <div className="text-center mb-8">
                 <div className="text-lg text-gray-500 line-through mb-1">
-                  {isLoadingCurrency ? '$638 value' : `${formatPrice((getProductPrice('bfc', currency) || 97) + 541, currency)} value`}
+                  {isLoadingCurrency ? '$802 value' : `${formatPrice(97 + 147 + 297 + 97 + 164, currency)} value`}
                 </div>
                 <div className="text-5xl sm:text-6xl font-black mb-2">
-                  {isLoadingCurrency ? '$397' : formatPrice(getProductPrice('bfc_vip', currency) || 397, currency)}
+                  {isLoadingCurrency ? '$497' : formatPrice(getProductPrice('bfc_vip', currency) || 497, currency)}
                 </div>
                 <div className="text-sm text-gray-600">one-time payment</div>
               </div>
@@ -863,19 +1150,31 @@ export default function BlackFridayChallengePage() {
                   <svg className="w-5 h-5 flex-shrink-0 text-black mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                   </svg>
-                  <span className="text-sm sm:text-base font-medium">Lifetime Access to All Course Content</span>
+                  <span className="text-sm sm:text-base font-medium"><strong>Boxing Masterclass</strong> - Lifetime Access (normally {formatPrice(297, currency)})</span>
                 </div>
                 <div className="flex items-start gap-3">
                   <svg className="w-5 h-5 flex-shrink-0 text-black mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                   </svg>
-                  <span className="text-sm sm:text-base font-medium">Full Recordings Vault (Every Coaching Call Ever)</span>
+                  <span className="text-sm sm:text-base font-medium"><strong>Boxing Roadmap</strong> - Lifetime Access (normally {formatPrice(147, currency)})</span>
                 </div>
                 <div className="flex items-start gap-3">
                   <svg className="w-5 h-5 flex-shrink-0 text-black mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                   </svg>
-                  <span className="text-sm sm:text-base font-medium">Priority Onboarding Call (Instant Access)</span>
+                  <span className="text-sm sm:text-base font-medium"><strong>Full Recordings Vault</strong> - Every Coaching Call (normally {formatPrice(97, currency)})</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <svg className="w-5 h-5 flex-shrink-0 text-black mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                  </svg>
+                  <span className="text-sm sm:text-base font-medium"><strong>Free Oracle Boxing Tracksuit</strong> (normally {formatPrice(164, currency)})</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <svg className="w-5 h-5 flex-shrink-0 text-black mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                  </svg>
+                  <span className="text-sm sm:text-base font-medium">Priority Onboarding Call</span>
                 </div>
               </div>
 
@@ -902,75 +1201,136 @@ export default function BlackFridayChallengePage() {
 
       {/* Urgency Section */}
       <section className="py-12 sm:py-16 lg:py-20 bg-black text-white">
-        <div className="w-full lg:max-w-[80%] mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 leading-tight px-2" style={{ fontFamily: 'Satoshi' }}>
-            Doors close December 2nd at 10 PM UK.
+        <div className="w-full lg:max-w-[80%] mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-8 sm:mb-12 leading-tight" style={{ fontFamily: 'Satoshi' }}>
+            Doors close December 2nd at 10 PM UK
           </h2>
 
-          <div className="mb-6 sm:mb-8">
-            <div className="inline-flex items-center gap-3 sm:gap-4 bg-white text-black px-5 py-4 sm:px-8 sm:py-6 rounded-xl sm:rounded-2xl">
-              <span className="relative flex h-3 w-3 sm:h-4 sm:w-4">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-3 w-3 sm:h-4 sm:w-4 bg-red-500"></span>
-              </span>
-              <div className="text-left">
-                <div className="text-xs sm:text-sm font-bold uppercase tracking-wide opacity-80">Spots Remaining</div>
-                <div className="text-4xl sm:text-5xl lg:text-6xl font-black" style={{ fontFamily: 'Satoshi' }}>
-                  {spotsRemaining}<span className="text-2xl sm:text-3xl lg:text-4xl opacity-60">/30</span>
+          {/* Desktop: 2 Column Layout */}
+          <div className="hidden lg:grid lg:grid-cols-2 gap-8 mb-8">
+            {/* Left Column - Spots */}
+            <div className="flex flex-col items-center justify-center">
+              <div className="inline-flex items-center gap-4 bg-white text-black px-8 py-6 rounded-2xl mb-6">
+                <span className="relative flex h-4 w-4">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-4 w-4 bg-red-500"></span>
+                </span>
+                <div className="text-left">
+                  <div className="text-sm font-bold uppercase tracking-wide opacity-80">Spots Remaining</div>
+                  <div className="text-6xl font-black" style={{ fontFamily: 'Satoshi' }}>
+                    {spotsRemaining}<span className="text-4xl opacity-60">/30</span>
+                  </div>
+                </div>
+              </div>
+              <p className="text-base text-center leading-relaxed max-w-sm">
+                Only 30 spots available. Once it's full, it's full. When everyone else hits pause, we hit play.
+              </p>
+            </div>
+
+            {/* Right Column - Countdown */}
+            <div className="flex flex-col items-center justify-center">
+              <div className="bg-white text-black rounded-2xl p-8 w-full">
+                <div className="text-sm font-bold uppercase tracking-wide mb-4 text-center">
+                  TIME REMAINING:
+                </div>
+                <div className="grid grid-cols-4 gap-4">
+                  <div className="text-center">
+                    <div className="text-5xl font-black mb-1">
+                      {String(timeLeft.days).padStart(2, '0')}
+                    </div>
+                    <div className="text-sm uppercase opacity-60 font-medium">Days</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-5xl font-black mb-1">
+                      {String(timeLeft.hours).padStart(2, '0')}
+                    </div>
+                    <div className="text-sm uppercase opacity-60 font-medium">Hours</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-5xl font-black mb-1">
+                      {String(timeLeft.minutes).padStart(2, '0')}
+                    </div>
+                    <div className="text-sm uppercase opacity-60 font-medium">Minutes</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-5xl font-black mb-1">
+                      {String(timeLeft.seconds).padStart(2, '0')}
+                    </div>
+                    <div className="text-sm uppercase opacity-60 font-medium">Seconds</div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
-          <p className="text-sm sm:text-base lg:text-lg mb-6 sm:mb-8 px-2 leading-relaxed">
-            Only 30 spots are available. Once it's full, it's full.
-            When everyone else hits pause, we hit play.
-          </p>
-
-          <div className="bg-white text-black rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8 mb-6 sm:mb-8">
-            <div className="text-xs sm:text-sm lg:text-base font-bold uppercase tracking-wide mb-3 sm:mb-4">
-              TIME REMAINING:
+          {/* Mobile: Stacked Layout */}
+          <div className="lg:hidden text-center">
+            <div className="mb-6">
+              <div className="inline-flex items-center gap-3 bg-white text-black px-5 py-4 rounded-xl">
+                <span className="relative flex h-3 w-3">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+                </span>
+                <div className="text-left">
+                  <div className="text-xs font-bold uppercase tracking-wide opacity-80">Spots Remaining</div>
+                  <div className="text-4xl font-black" style={{ fontFamily: 'Satoshi' }}>
+                    {spotsRemaining}<span className="text-2xl opacity-60">/30</span>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className="grid grid-cols-4 gap-1.5 sm:gap-2 lg:gap-4">
-              <div className="text-center">
-                <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black mb-0.5 sm:mb-1">
-                  {String(timeLeft.days).padStart(2, '0')}
-                </div>
-                <div className="text-[10px] sm:text-xs lg:text-sm uppercase opacity-60 font-medium">Days</div>
+
+            <p className="text-sm mb-6 px-2 leading-relaxed">
+              Only 30 spots available. Once it's full, it's full. When everyone else hits pause, we hit play.
+            </p>
+
+            <div className="bg-white text-black rounded-xl p-4 mb-6">
+              <div className="text-xs font-bold uppercase tracking-wide mb-3">
+                TIME REMAINING:
               </div>
-              <div className="text-center">
-                <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black mb-0.5 sm:mb-1">
-                  {String(timeLeft.hours).padStart(2, '0')}
+              <div className="grid grid-cols-4 gap-1.5">
+                <div className="text-center">
+                  <div className="text-2xl font-black mb-0.5">
+                    {String(timeLeft.days).padStart(2, '0')}
+                  </div>
+                  <div className="text-[10px] uppercase opacity-60 font-medium">Days</div>
                 </div>
-                <div className="text-[10px] sm:text-xs lg:text-sm uppercase opacity-60 font-medium">Hours</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black mb-0.5 sm:mb-1">
-                  {String(timeLeft.minutes).padStart(2, '0')}
+                <div className="text-center">
+                  <div className="text-2xl font-black mb-0.5">
+                    {String(timeLeft.hours).padStart(2, '0')}
+                  </div>
+                  <div className="text-[10px] uppercase opacity-60 font-medium">Hours</div>
                 </div>
-                <div className="text-[10px] sm:text-xs lg:text-sm uppercase opacity-60 font-medium">Minutes</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black mb-0.5 sm:mb-1">
-                  {String(timeLeft.seconds).padStart(2, '0')}
+                <div className="text-center">
+                  <div className="text-2xl font-black mb-0.5">
+                    {String(timeLeft.minutes).padStart(2, '0')}
+                  </div>
+                  <div className="text-[10px] uppercase opacity-60 font-medium">Minutes</div>
                 </div>
-                <div className="text-[10px] sm:text-xs lg:text-sm uppercase opacity-60 font-medium">Seconds</div>
+                <div className="text-center">
+                  <div className="text-2xl font-black mb-0.5">
+                    {String(timeLeft.seconds).padStart(2, '0')}
+                  </div>
+                  <div className="text-[10px] uppercase opacity-60 font-medium">Seconds</div>
+                </div>
               </div>
             </div>
           </div>
 
-          <p className="text-base sm:text-lg lg:text-xl mb-6 sm:mb-8 px-2">
+          <p className="text-base sm:text-lg lg:text-xl text-center mb-6 sm:mb-8">
             This is your window to step up and set the tone for 2026.
           </p>
 
-          <a
-            href="/checkout?product=bfc&source=bfc-page"
-            onClick={() => handleCTAClick('urgency-section', 'bfc')}
-            className="inline-block w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 bg-yellow-100 text-black border-4 border-black font-black text-lg sm:text-xl rounded-xl uppercase tracking-wide shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:bg-white transition-all duration-200"
-            style={{ fontFamily: 'Satoshi' }}
-          >
-            JOIN THE CHALLENGE →
-          </a>
+          <div className="flex justify-center">
+            <a
+              href="/checkout?product=bfc&source=bfc-page"
+              onClick={() => handleCTAClick('urgency-section', 'bfc')}
+              className="inline-block w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 bg-yellow-100 text-black border-4 border-black font-black text-lg sm:text-xl rounded-xl uppercase tracking-wide shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:bg-white transition-all duration-200"
+              style={{ fontFamily: 'Satoshi' }}
+            >
+              JOIN THE CHALLENGE →
+            </a>
+          </div>
         </div>
       </section>
 

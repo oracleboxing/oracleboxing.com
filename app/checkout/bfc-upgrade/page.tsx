@@ -27,7 +27,7 @@ function BFCUpgradeContent() {
   const [email, setEmail] = useState('')
   const [name, setName] = useState('')
   const [isVIPSelected, setIsVIPSelected] = useState(false)
-  const [isExpanded, setIsExpanded] = useState(false)
+  const [isExpanded, setIsExpanded] = useState(true)
   const [isProcessing, setIsProcessing] = useState(false)
   const [trackingParams, setTrackingParams] = useState<{
     referrer: string
@@ -182,7 +182,7 @@ function BFCUpgradeContent() {
   }
 
   const bfcPrice = getProductPrice('bfc', currency) || 97
-  const vipPrice = getProductPrice('bfc_vip', currency) || 397
+  const vipPrice = getProductPrice('bfc_vip', currency) || 497
   const upgradePrice = vipPrice - bfcPrice
 
   const vipProduct = getProductById('bfc-vip')
@@ -233,16 +233,6 @@ function BFCUpgradeContent() {
                 animation: 'fadeIn 0.3s ease-in-out'
               }}
             >
-              {/* VIP Badge */}
-              {isVIPSelected && (
-                <div className="flex justify-center mb-4">
-                  <div className="inline-flex items-center gap-2 bg-black text-yellow-100 px-4 py-1.5 rounded-full">
-                    <Crown className="w-4 h-4" />
-                    <span className="font-black text-xs uppercase tracking-wide">VIP SELECTED</span>
-                  </div>
-                </div>
-              )}
-
               {/* Product Header */}
               <div className="flex items-start gap-4">
                 {/* Image */}
@@ -283,43 +273,81 @@ function BFCUpgradeContent() {
                       />
                     </button>
                   </div>
+                </div>
+              </div>
+
+              {isExpanded && (
+                <div className="mt-6 pt-6 border-t border-gray-200">
+                  {/* Black Friday Deal Badge */}
+                  <div className="flex justify-center mb-6">
+                    <div className="inline-block bg-black text-white px-6 py-2 rounded-full">
+                      <span className="font-black text-xs uppercase tracking-wide">Black Friday Deal Only</span>
+                    </div>
+                  </div>
+
+                  {/* Total Value */}
+                  <div className="text-center mb-6">
+                    <p className="text-sm uppercase tracking-wide text-black mb-1">Total Value</p>
+                    <p className="text-3xl font-black text-black">{formatPrice(97 + 147 + 297 + 97 + 164, currency)}</p>
+                  </div>
+
+                  {/* Features List */}
+                  <div className="space-y-3 text-sm">
+                    <div className="flex items-start gap-3">
+                      <div className="flex-shrink-0 w-5 h-5 bg-black rounded-full flex items-center justify-center mt-0.5">
+                        <span className="text-white text-xs font-bold">✓</span>
+                      </div>
+                      <p className="font-bold text-black">Everything in the Challenge</p>
+                    </div>
+
+                    <div className="flex items-start gap-3">
+                      <div className="flex-shrink-0 w-5 h-5 bg-black rounded-full flex items-center justify-center mt-0.5">
+                        <span className="text-white text-xs font-bold">✓</span>
+                      </div>
+                      <p className="font-bold text-black">Boxing Masterclass - Lifetime Access (normally {formatPrice(297, currency)})</p>
+                    </div>
+
+                    <div className="flex items-start gap-3">
+                      <div className="flex-shrink-0 w-5 h-5 bg-black rounded-full flex items-center justify-center mt-0.5">
+                        <span className="text-white text-xs font-bold">✓</span>
+                      </div>
+                      <p className="font-bold text-black">Boxing Roadmap - Lifetime Access (normally {formatPrice(147, currency)})</p>
+                    </div>
+
+                    <div className="flex items-start gap-3">
+                      <div className="flex-shrink-0 w-5 h-5 bg-black rounded-full flex items-center justify-center mt-0.5">
+                        <span className="text-white text-xs font-bold">✓</span>
+                      </div>
+                      <p className="font-bold text-black">Full Recordings Vault - Every Coaching Call (normally {formatPrice(97, currency)})</p>
+                    </div>
+
+                    <div className="flex items-start gap-3">
+                      <div className="flex-shrink-0 w-5 h-5 bg-yellow-400 rounded-full flex items-center justify-center mt-0.5">
+                        <Crown className="w-3 h-3 text-black" />
+                      </div>
+                      <p className="font-bold text-black">Free Oracle Boxing Tracksuit (normally {formatPrice(164, currency)})</p>
+                    </div>
+
+                    <div className="flex items-start gap-3">
+                      <div className="flex-shrink-0 w-5 h-5 bg-black rounded-full flex items-center justify-center mt-0.5">
+                        <span className="text-white text-xs font-bold">✓</span>
+                      </div>
+                      <p className="font-bold text-black">Priority Onboarding Call</p>
+                    </div>
+                  </div>
 
                   {/* Upgrade Button */}
                   <button
                     onClick={() => setIsVIPSelected(!isVIPSelected)}
-                    className={`mt-3 py-2 px-6 font-bold text-sm rounded-lg transition-all duration-200 ${
+                    className={`w-full mt-6 py-3 px-6 font-bold text-base rounded-lg transition-all duration-200 ${
                       isVIPSelected
                         ? 'bg-[#000000] text-white hover:bg-[#1a1a1a]'
                         : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
                     }`}
                     style={{ cursor: 'pointer' }}
                   >
-                    {isVIPSelected ? '✓ Upgraded' : 'Upgrade to VIP'}
+                    {isVIPSelected ? '✓ Upgraded to VIP' : 'Upgrade to VIP'}
                   </button>
-                </div>
-              </div>
-
-              {isExpanded && (
-                <div className="mt-4 text-sm text-gray-700 space-y-2">
-                  <div className="flex items-start gap-2">
-                    <span className="text-gray-900 font-bold">✓</span>
-                    <span className="font-bold">Lifetime Access to All Course Content</span>
-                  </div>
-
-                  <div className="flex items-start gap-2">
-                    <span className="text-gray-900 font-bold">✓</span>
-                    <span className="font-bold">Priority Onboarding Call</span>
-                  </div>
-
-                  <div className="flex items-start gap-2">
-                    <span className="text-gray-900 font-bold">✓</span>
-                    <span className="font-bold">Exclusive Early Access to Oracle Boxing Apparel</span>
-                  </div>
-
-                  <div className="flex items-start gap-2">
-                    <span className="text-gray-900 font-bold">✓</span>
-                    <span className="font-bold">Everything in Standard Challenge</span>
-                  </div>
                 </div>
               )}
             </div>

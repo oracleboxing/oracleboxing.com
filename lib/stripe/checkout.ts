@@ -298,9 +298,45 @@ export async function createCheckoutSession({
   const metadataFirstName = nameParts[0] || ''
   const metadataLastName = nameParts.slice(1).join(' ') || nameParts[0] || ''
 
-  // Collect merchandise metadata (tracksuit or hoodie)
-  const merchItem = items.find(item => item.product.type === 'merch')
-  const merchMetadata = merchItem?.metadata || {}
+  // Collect ALL merchandise items' metadata (not just first one)
+  const merchItems = items.filter(item => item.product.type === 'merch')
+
+  // Build individual merch item metadata fields (merch_item_1_color, merch_item_1_hoodie_size, etc.)
+  const merchMetadata: Record<string, string> = {}
+  const merchVariantsSummary: Array<{
+    productId: string
+    productName: string
+    quantity: number
+    color?: string
+    hoodie_size?: string
+    joggers_size?: string
+    sku?: string
+    cohort?: string
+  }> = []
+
+  merchItems.forEach((item, index) => {
+    const itemNum = index + 1
+    const prefix = `merch_item_${itemNum}_`
+
+    // Add individual metadata fields for each merch item
+    if (item.metadata) {
+      Object.entries(item.metadata).forEach(([key, value]) => {
+        merchMetadata[`${prefix}${key}`] = value
+      })
+    }
+
+    // Build summary object for this item
+    merchVariantsSummary.push({
+      productId: item.product.id,
+      productName: item.product.title,
+      quantity: item.quantity,
+      color: item.metadata?.tracksuit_color || item.metadata?.hoodie_color,
+      hoodie_size: item.metadata?.hoodie_size,
+      joggers_size: item.metadata?.joggers_size,
+      sku: item.metadata?.tracksuit_sku || item.metadata?.hoodie_sku,
+      cohort: item.metadata?.presale_cohort,
+    })
+  })
 
   sessionParams.metadata = {
     // Customer info
@@ -326,18 +362,25 @@ export async function createCheckoutSession({
     // Cross-sell tracking
     recommended_products: recommendedProducts.join(','),
 
-    // Cart summary
+    // Cart summary (now includes item-level metadata)
     cart_items: JSON.stringify(items.map(i => ({
       id: i.product.id,
       title: i.product.title,
       metadata: i.product.metadata,
       quantity: i.quantity,
       price: i.product.price,
+      variant_metadata: i.metadata, // Add variant-specific metadata (color, size, SKU)
     }))),
     product_name: mainProduct?.title || mainProduct?.id || '',
 
-    // Merchandise-specific metadata (size, color, SKU, cohort)
+    // Merchandise-specific metadata (individual fields for each merch item)
     ...merchMetadata,
+
+    // Aggregated merchandise variants summary (JSON string)
+    ...(merchVariantsSummary.length > 0 ? {
+      merch_variants_summary: JSON.stringify(merchVariantsSummary),
+      merch_items_count: merchVariantsSummary.length.toString(),
+    } : {}),
 
     // Tracking params (referrer and UTM)
     referrer: trackingParams?.referrer || 'direct',
@@ -472,8 +515,22 @@ export async function createCheckoutSession({
         product_name: mainProduct?.title || '',
         product_id: mainProduct?.id || '',
 
-        // Cart summary
-        cart_items: JSON.stringify(items.map(i => ({ id: i.product.id, qty: i.quantity }))),
+        // Cart summary (with variant metadata)
+        cart_items: JSON.stringify(items.map(i => ({
+          id: i.product.id,
+          title: i.product.title,
+          qty: i.quantity,
+          variant_metadata: i.metadata, // Include variant-specific metadata
+        }))),
+
+        // Merchandise-specific metadata (all items)
+        ...merchMetadata,
+
+        // Aggregated merchandise variants summary
+        ...(merchVariantsSummary.length > 0 ? {
+          merch_variants_summary: JSON.stringify(merchVariantsSummary),
+          merch_items_count: merchVariantsSummary.length.toString(),
+        } : {}),
 
         // Tracking params (referrer and UTM)
         referrer: trackingParams?.referrer || 'direct',
