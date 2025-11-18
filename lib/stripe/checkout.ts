@@ -555,7 +555,7 @@ export async function createCheckoutSession({
 
   // Check for long values
   Object.entries(sessionParams.metadata || {}).forEach(([key, value]) => {
-    if (value && value.length > 100) {
+    if (value && typeof value === 'string' && value.length > 100) {
       console.log(`⚠️ Long metadata value: ${key} = ${value.length} chars`)
     }
   })
