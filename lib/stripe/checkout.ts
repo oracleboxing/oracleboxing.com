@@ -57,30 +57,17 @@ interface CreateCheckoutSessionParams {
 }
 
 // Helper function to flatten cookie data into individual Stripe metadata fields
-// Only includes ESSENTIAL fields to stay under Stripe's 50-key metadata limit
+// Each cookie field becomes a separate metadata field with "cookie_" prefix
 function prepareCookieDataForStripe(cookieData: any): Record<string, string> {
   if (!cookieData) return {};
 
   const flattenedCookieData: Record<string, string> = {};
 
-  // Only include essential tracking fields (stay under 50-key limit)
-  // Reduced to 10 most important fields for attribution and analysis
-  const essentialFields = [
-    'session_id',
-    'event_id',
-    'first_utm_source',
-    'first_utm_medium',
-    'first_utm_campaign',
-    'last_utm_source',
-    'last_utm_medium',
-    'last_utm_campaign',
-    'country_code',
-    'device_type',
-  ];
-
-  for (const field of essentialFields) {
-    if (cookieData[field] !== null && cookieData[field] !== undefined) {
-      flattenedCookieData[`cookie_${field}`] = String(cookieData[field]);
+  // Flatten all cookie data fields with "cookie_" prefix
+  for (const [key, value] of Object.entries(cookieData)) {
+    if (value !== null && value !== undefined) {
+      // Convert value to string and prefix with "cookie_"
+      flattenedCookieData[`cookie_${key}`] = String(value);
     }
   }
 
