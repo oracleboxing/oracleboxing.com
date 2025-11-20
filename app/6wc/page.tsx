@@ -1077,7 +1077,7 @@ export default function BlackFridayChallengePage() {
                 <div className="inline-block bg-yellow-100 text-black px-4 py-1.5 rounded-lg text-sm font-black uppercase mb-3">
                   50% OFF
                 </div>
-                <div className="text-lg text-white/60 line-through mb-2">
+                <div className="text-2xl sm:text-3xl text-white line-through mb-2">
                   {isLoadingCurrency ? '$197' : formatPrice(197, currency)}
                 </div>
                 <div className="text-5xl sm:text-6xl font-black mb-2">
@@ -1138,8 +1138,8 @@ export default function BlackFridayChallengePage() {
               </h3>
 
               <div className="text-center mb-8">
-                <div className="text-lg text-gray-500 line-through mb-1">
-                  {isLoadingCurrency ? '$802 value' : `${formatPrice(97 + 147 + 297 + 97 + 164, currency)} value`}
+                <div className="text-2xl sm:text-3xl text-black line-through mb-1">
+                  {isLoadingCurrency ? '$802' : formatPrice(97 + 147 + 297 + 97 + 164, currency)}
                 </div>
                 <div className="text-5xl sm:text-6xl font-black mb-2">
                   {isLoadingCurrency ? '$497' : formatPrice(getProductPrice('bfc_vip', currency) || 497, currency)}

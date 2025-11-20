@@ -6,7 +6,11 @@ import { usePathname } from 'next/navigation'
 import { ShoppingCart } from 'lucide-react'
 import { useMerchCart } from '@/contexts/MerchCartContext'
 
-export function MerchHeader() {
+interface MerchHeaderProps {
+  showCart?: boolean
+}
+
+export function MerchHeader({ showCart = true }: MerchHeaderProps) {
   const pathname = usePathname()
   const [isScrolled, setIsScrolled] = useState(false)
   const [isVisible, setIsVisible] = useState(true)
@@ -69,18 +73,20 @@ export function MerchHeader() {
           </Link>
 
           {/* Right Cart Icon */}
-          <button
-            onClick={openCart}
-            className="ml-auto text-white p-2 rounded-md hover:bg-gray-900 transition-colors relative"
-            aria-label="Open cart"
-          >
-            <ShoppingCart className="w-6 h-6" />
-            {items.length > 0 && (
-              <span className="absolute -top-1 -right-1 bg-yellow-100 text-black text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
-                {items.length}
-              </span>
-            )}
-          </button>
+          {showCart && (
+            <button
+              onClick={openCart}
+              className="ml-auto text-white p-2 rounded-md hover:bg-gray-900 transition-colors relative"
+              aria-label="Open cart"
+            >
+              <ShoppingCart className="w-6 h-6" />
+              {items.length > 0 && (
+                <span className="absolute -top-1 -right-1 bg-yellow-100 text-black text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                  {items.length}
+                </span>
+              )}
+            </button>
+          )}
         </div>
       </div>
     </header>
