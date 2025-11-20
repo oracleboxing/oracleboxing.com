@@ -12,6 +12,7 @@ import { TestimonialSection } from '@/components/TestimonialSection'
 import { CoursePriceCard } from '@/components/CoursePriceCard'
 import { CourseFAQ } from '@/components/CourseFAQ'
 import { CoursePricingPopup } from '@/components/CoursePricingPopup'
+import { BlackFridayChallengePopup } from '@/components/BlackFridayChallengePopup'
 import { getProductById } from '@/lib/products'
 import { getBffpTestimonials, bffpTestimonials } from '@/lib/testimonials'
 
@@ -304,6 +305,9 @@ export default function BFFPPage() {
       <CourseFAQ />
 
       <Footer />
+
+      {/* Black Friday Challenge Popup */}
+      <BlackFridayChallengePopup />
     </div>
     </>
   )

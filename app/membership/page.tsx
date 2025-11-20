@@ -5,6 +5,7 @@ import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { MembershipTestimonials } from '@/components/MembershipTestimonials'
 import { MembershipPricingPopup } from '@/components/MembershipPricingPopup'
+import { BlackFridayChallengePopup } from '@/components/BlackFridayChallengePopup'
 import { getMemberships } from '@/lib/products'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
@@ -957,6 +958,9 @@ export default function MembershipsPage() {
       />
 
       <Footer />
+
+      {/* Black Friday Challenge Popup */}
+      <BlackFridayChallengePopup />
     </div>
     </>
   )

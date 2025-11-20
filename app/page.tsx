@@ -165,7 +165,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Limited 6-Week Challenge Section */}
+      {/* Black Friday Challenge Section */}
       <section className="pt-6 sm:pt-8 lg:pt-12 pb-6 sm:pb-8 lg:pb-12 bg-white border-b border-gray-200">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center">
@@ -174,7 +174,7 @@ export default function HomePage() {
               <div className="relative rounded-2xl overflow-hidden shadow-xl">
                 <img
                   src="https://media.oracleboxing.com/Website/skool_art.webp"
-                  alt="6-Week Challenge"
+                  alt="Black Friday Challenge"
                   className="w-full h-auto object-cover"
                 />
               </div>
@@ -183,43 +183,55 @@ export default function HomePage() {
             {/* Right Side - Content */}
             <div className="order-1 lg:order-2 text-center lg:text-left">
               {/* Badge */}
-              <div className="inline-block mb-4 sm:mb-6 px-3 sm:px-4 py-1.5 sm:py-2 bg-yellow-100 text-black border border-gray-300 rounded-lg font-black text-xs sm:text-sm uppercase tracking-wider">
-                Limited Spots Available
+              <div className="inline-block mb-4 sm:mb-6 px-3 sm:px-4 py-1.5 sm:py-2 bg-yellow-100 text-black border-2 border-black rounded-lg font-black text-xs sm:text-sm uppercase tracking-wider">
+                Limited 30 Spots
               </div>
 
               {/* Headline */}
               <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 sm:mb-4" style={{ fontFamily: 'Satoshi, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
-                Join The 6-Week Challenge
+                The Black Friday Challenge
               </h2>
+
+              {/* Subheadline */}
+              <p className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 mb-4 sm:mb-6">
+                Learn Boxing Fundamentals In Under 48 Days
+              </p>
 
               {/* Description */}
               <div className="space-y-3 sm:space-y-4 mb-6 sm:mb-8">
-                <p className="text-base sm:text-lg md:text-xl text-gray-700 leading-relaxed">
-                  Pay <AdaptivePrice usdAmount={197} metadata="6wc" className="font-black text-gray-900" showCode={true} /> today. Do the work for 6 weeks. Get better at boxing.
+                <p className="text-base sm:text-lg text-gray-700 leading-relaxed">
+                  A structured 6-week challenge for beginners, late starters, and frustrated sparrers. Train from home, follow the weekly plan, get coached over the holidays.
                 </p>
-                <p className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900">
-                  We give you all your money back at the end.
-                </p>
-                <p className="text-sm sm:text-base text-gray-600 italic">
-                  Train with us for 6 weeks. Finish the tasks. We give you 100% of your money back. It's that easy.
-                </p>
+                <div className="flex items-center justify-center lg:justify-start gap-3">
+                  <span className="text-lg text-gray-500 line-through">
+                    <AdaptivePrice usdAmount={197} metadata="6wc" className="text-gray-500" showCode={false} />
+                  </span>
+                  <span className="text-3xl sm:text-4xl font-black text-gray-900">
+                    <AdaptivePrice usdAmount={97} metadata="bfc" className="font-black text-gray-900" showCode={true} />
+                  </span>
+                  <span className="inline-block bg-yellow-100 text-black px-3 py-1 rounded-lg text-sm font-black uppercase">
+                    50% OFF
+                  </span>
+                </div>
               </div>
 
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                 <Link
                   href="/6wc"
-                  onClick={() => handleButtonClick('homepage-hero', 'secondary-cta', '6wc', undefined, '/6wc')}
+                  onClick={() => handleButtonClick('homepage-6wc', 'secondary-cta', 'bfc', undefined, '/6wc')}
                   className="inline-block w-full sm:w-auto px-8 sm:px-12 py-4 sm:py-5 bg-white text-black border-4 border-black rounded-xl shadow-lg font-black text-base sm:text-lg md:text-xl uppercase tracking-wide hover:bg-black hover:text-white transition-all text-center"
+                  style={{ fontFamily: 'Satoshi' }}
                 >
                   Learn More
                 </Link>
                 <Link
-                  href="/checkout?product=6wc&source=homepage-hero"
-                  onClick={() => handleButtonClick('homepage-hero', 'buy-now', '6wc', 197, '/checkout?product=6wc&source=homepage-hero')}
+                  href="/checkout?product=bfc&source=homepage-6wc"
+                  onClick={() => handleButtonClick('homepage-6wc', 'buy-now', 'bfc', 97, '/checkout?product=bfc&source=homepage-6wc')}
                   className="inline-block w-full sm:w-auto px-8 sm:px-12 py-4 sm:py-5 bg-yellow-100 text-black border-4 border-black rounded-xl shadow-lg font-black text-base sm:text-lg md:text-xl uppercase tracking-wide hover:bg-black hover:text-yellow-100 transition-all text-center"
+                  style={{ fontFamily: 'Satoshi' }}
                 >
-                  Buy Now
+                  Buy Now →
                 </Link>
               </div>
             </div>

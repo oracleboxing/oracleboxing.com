@@ -13,6 +13,7 @@ import { CoursePricingPopup } from '@/components/CoursePricingPopup'
 import { BundleCourseCarousel } from '@/components/BundleCourseCarousel'
 import { BundleTimelineProcess } from '@/components/BundleTimelineProcess'
 import { PlatformScreenshotsCarousel } from '@/components/PlatformScreenshotsCarousel'
+import { BlackFridayChallengePopup } from '@/components/BlackFridayChallengePopup'
 import { getProductById } from '@/lib/products'
 import { getBundleTestimonials, bundleTestimonials } from '@/lib/testimonials'
 import { useCurrency } from '@/contexts/CurrencyContext'
@@ -224,6 +225,9 @@ export default function BundlePage() {
       <CourseFAQ courseType="bundle" />
 
       <Footer />
+
+      {/* Black Friday Challenge Popup */}
+      <BlackFridayChallengePopup />
     </div>
     </>
   )

@@ -323,8 +323,8 @@ export default function BlackFridayChallengePage() {
                 <video
                   controls
                   poster="https://media.oracleboxing.com/Website/6wcv2-main-vsl_poster.webp"
-                  className="absolute inset-0 w-full h-full object-cover brightness-100"
-                  style={{ filter: 'none' }}
+                  className="absolute inset-0 w-full h-full object-cover"
+                  style={{ filter: 'none', opacity: 1 }}
                 >
                   <source src="https://media.oracleboxing.com/Website/6wcv2-main-vsl.webm" type="video/webm" />
                   Your browser does not support the video tag.

@@ -12,6 +12,7 @@ import { TestimonialSection } from '@/components/TestimonialSection'
 import { CoursePriceCard } from '@/components/CoursePriceCard'
 import { CourseFAQ } from '@/components/CourseFAQ'
 import { CoursePricingPopup } from '@/components/CoursePricingPopup'
+import { BlackFridayChallengePopup } from '@/components/BlackFridayChallengePopup'
 import { getProductById } from '@/lib/products'
 import { getRoadmapTestimonials, roadmapTestimonials } from '@/lib/testimonials'
 
@@ -310,6 +311,9 @@ export default function RoadmapPage() {
       <CourseFAQ courseType="roadmap" />
 
       <Footer />
+
+      {/* Black Friday Challenge Popup */}
+      <BlackFridayChallengePopup />
     </div>
     </>
   )
