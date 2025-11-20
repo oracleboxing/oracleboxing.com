@@ -319,16 +319,15 @@ export default function BlackFridayChallengePage() {
 
             {/* Right Column - VSL Video */}
             <div className="lg:order-last">
-              <div className="relative w-full mb-6" style={{ paddingBottom: '56.25%' }}>
-                <div className="absolute inset-0 bg-gray-900 rounded-2xl flex items-center justify-center">
-                  <div className="text-center">
-                    <svg className="w-20 h-20 mx-auto mb-4 text-white opacity-50" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" />
-                    </svg>
-                    <p className="text-white text-lg font-medium">Video Sales Letter</p>
-                    <p className="text-gray-400 text-sm mt-2">(Placeholder - Add your VSL here)</p>
-                  </div>
-                </div>
+              <div className="relative w-full mb-6 rounded-2xl overflow-hidden" style={{ paddingBottom: '56.25%' }}>
+                <video
+                  controls
+                  poster="https://media.oracleboxing.com/Website/6wcv2-main-vsl_poster.webp"
+                  className="absolute inset-0 w-full h-full object-cover"
+                >
+                  <source src="https://media.oracleboxing.com/Website/6wcv2-main-vsl.webm" type="video/webm" />
+                  Your browser does not support the video tag.
+                </video>
               </div>
             </div>
           </div>
@@ -450,10 +449,11 @@ export default function BlackFridayChallengePage() {
           loop
           muted
           playsInline
+          poster="https://media.oracleboxing.com/Website/6wcv2_obvid_poster.webp"
           className="absolute inset-0 w-full h-full object-cover"
           style={{ objectPosition: 'center 30%' }}
         >
-          <source src="https://media.oracleboxing.com/Website/6wcv2_obvid.mp4" type="video/mp4" />
+          <source src="https://media.oracleboxing.com/Website/6wcv2_obvid.webm" type="video/webm" />
         </video>
 
         {/* Dark Overlay */}
