@@ -119,9 +119,8 @@ export async function POST(req: NextRequest) {
     description += `\nTotal: ${formatPrice(calculation.finalPrice)}`
     description += `\nMonthly Equivalent: ${formatPrice(calculation.monthlyEquivalent)}/mo`
 
-    // Determine mode based on tier
-    const isRecurring = tier === 'monthly'
-    const mode = isRecurring ? 'subscription' : 'payment'
+    // All community memberships are recurring subscriptions
+    const mode = 'subscription'
 
     // Create Stripe checkout session
     const sessionParams: any = {
@@ -150,15 +149,9 @@ export async function POST(req: NextRequest) {
       ]
     }
 
-    // Add subscription data if recurring
-    if (isRecurring) {
-      sessionParams.subscription_data = {
-        metadata: fullMetadata,
-      }
-    } else {
-      sessionParams.payment_intent_data = {
-        metadata: fullMetadata,
-      }
+    // Add subscription metadata (all community memberships are subscriptions)
+    sessionParams.subscription_data = {
+      metadata: fullMetadata,
     }
 
     const session = await stripe.checkout.sessions.create(sessionParams)
