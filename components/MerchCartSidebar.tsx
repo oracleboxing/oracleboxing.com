@@ -347,6 +347,7 @@ export function MerchCartSidebar() {
                           <option value="JP">Japan</option>
                           <option value="SG">Singapore</option>
                           <option value="AE">United Arab Emirates</option>
+                          <option value="SA">Saudi Arabia</option>
                           <option value="ZA">South Africa</option>
                           <option value="MX">Mexico</option>
                           <option value="BR">Brazil</option>
