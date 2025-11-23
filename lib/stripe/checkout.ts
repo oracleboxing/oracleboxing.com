@@ -268,15 +268,15 @@ export async function createCheckoutSession({
     funnelType = 'merch'
     successPath = '/success/merch'
   } else if (has6WC) {
-    // 6WC uses membership success page (same as BFC - shows coaching upsell)
+    // 6WC uses 6wc success page
     funnelType = '6wc'
-    successPath = '/success/membership'
+    successPath = '/success/6wc'
   } else if (hasBFC) {
     funnelType = 'bfc'
-    successPath = '/success/membership' // BFC uses membership success (coaching upsell)
+    successPath = '/success/6wc' // BFC uses 6wc success page
   } else if (hasBFCVIP) {
     funnelType = 'bfc-vip'
-    successPath = '/success/membership' // BFC VIP uses membership success (coaching upsell)
+    successPath = '/success/6wc' // BFC VIP uses 6wc success page
   } else if (mainProduct?.id === 'bundle') {
     funnelType = 'bundle'
     successPath = '/success/course' // Bundle uses course success
