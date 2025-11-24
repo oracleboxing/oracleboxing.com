@@ -2,9 +2,10 @@ import { NextRequest, NextResponse } from 'next/server';
 import { stripe } from '@/lib/stripe/client';
 
 export async function GET(req: NextRequest) {
+  const { searchParams } = new URL(req.url);
+  const sessionId = searchParams.get('session_id');
+
   try {
-    const { searchParams } = new URL(req.url);
-    const sessionId = searchParams.get('session_id');
 
     if (!sessionId) {
       return NextResponse.json(
