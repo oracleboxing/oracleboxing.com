@@ -86,6 +86,29 @@ export async function GET(req: NextRequest) {
     });
   } catch (error: any) {
     console.error('Session retrieval error:', error);
+
+    // If session doesn't exist, return fallback data with homepage URL
+    if (error.type === 'StripeInvalidRequestError' && error.code === 'resource_missing') {
+      console.log('Session not found, using fallback checkout URL');
+      return NextResponse.json({
+        customerName: 'Customer',
+        customerEmail: '',
+        amountPaid: '$0',
+        productPurchased: 'Product',
+        currency: 'USD',
+        funnelType: 'course',
+        sessionId: searchParams.get('session_id') || '',
+        productMetadata: { funnel: 'course' },
+        trackingParams: { referrer: 'direct' },
+        metadata: {},
+        amount_total: 0,
+        customer_details: null,
+        customer_email: '',
+        line_items: null,
+        checkout_url: 'https://oracleboxing.com',
+      });
+    }
+
     return NextResponse.json(
       { error: error.message || 'Failed to retrieve session' },
       { status: 500 }

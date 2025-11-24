@@ -164,9 +164,9 @@ export async function sendInitiatedCheckout(data: InitiatedCheckoutData): Promis
 
       console.log('📤 ABANDONED CART: Starting fetch to Make.com...');
 
-      // Reduce timeout to 10 seconds since this is background processing
+      // Allow 100 seconds for Make.com webhook processing
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+      const timeoutId = setTimeout(() => controller.abort(), 100000); // 100 second timeout
 
       try {
         const response = await fetch(INITIATED_CHECKOUT_WEBHOOK_URL, {
@@ -195,7 +195,7 @@ export async function sendInitiatedCheckout(data: InitiatedCheckoutData): Promis
       } catch (fetchError) {
         clearTimeout(timeoutId);
         if (fetchError instanceof Error && fetchError.name === 'AbortError') {
-          console.error('❌ ABANDONED CART: Webhook request timed out after 10 seconds');
+          console.error('❌ ABANDONED CART: Webhook request timed out after 100 seconds');
           console.error('❌ ABANDONED CART: This usually means Make.com scenario is turned OFF or not responding');
           console.error('⚠️ ABANDONED CART: Please verify Make.com scenario is active');
         } else {

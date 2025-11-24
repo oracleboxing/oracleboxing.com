@@ -126,12 +126,16 @@ export async function POST(req: NextRequest) {
 
     // Send initiated checkout webhook to Make.com for abandoned cart automation
     // This runs asynchronously and won't block the checkout flow
+    // Skip for merchandise orders (type: 'merch')
+    const isMerchandiseOrder = serverSideItems.every(item => item.product.type === 'merch');
+
     console.log('🔍 ABANDONED CART CHECK: customerInfo exists?', !!customerInfo);
     console.log('🔍 ABANDONED CART CHECK: customerInfo.email?', customerInfo?.email);
     console.log('🔍 ABANDONED CART CHECK: customerInfo.firstName?', customerInfo?.firstName);
+    console.log('🔍 ABANDONED CART CHECK: isMerchandiseOrder?', isMerchandiseOrder);
     console.log('🔍 ABANDONED CART CHECK: Full customerInfo:', JSON.stringify(customerInfo, null, 2));
 
-    if (customerInfo?.email) {
+    if (customerInfo?.email && !isMerchandiseOrder) {
       console.log('✅ ABANDONED CART: Condition passed - customerInfo.email exists, proceeding to send webhook');
 
       // Calculate total amount from cart items (use server-side items)
@@ -191,8 +195,12 @@ export async function POST(req: NextRequest) {
 
       console.log('✅ ABANDONED CART: sendInitiatedCheckout queued for background processing');
     } else {
-      console.error('❌ ABANDONED CART: Webhook NOT sent - customerInfo.email is missing!');
-      console.error('❌ ABANDONED CART: customerInfo value:', customerInfo);
+      if (isMerchandiseOrder) {
+        console.log('⏭️ ABANDONED CART: Webhook NOT sent - merchandise order (excluded from abandoned cart)');
+      } else {
+        console.error('❌ ABANDONED CART: Webhook NOT sent - customerInfo.email is missing!');
+        console.error('❌ ABANDONED CART: customerInfo value:', customerInfo);
+      }
     }
 
     return NextResponse.json({ url: session.url })
