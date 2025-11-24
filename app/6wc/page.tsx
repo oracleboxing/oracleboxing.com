@@ -972,24 +972,6 @@ export default function BlackFridayChallengePage() {
                     </div>
                   </div>
 
-                  {/* Blue Tracksuit */}
-                  <div className="slideshow-image absolute inset-0 grid grid-cols-2 gap-0">
-                    <div className="w-full h-full">
-                      <img
-                        src="https://media.oracleboxing.com/tracksuit/hoodie_blue_back.webp"
-                        alt="Blue Hoodie"
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    <div className="w-full h-full">
-                      <img
-                        src="https://media.oracleboxing.com/tracksuit/jogger_blue_front.webp"
-                        alt="Blue Joggers"
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  </div>
-
                   {/* Brown Tracksuit */}
                   <div className="slideshow-image absolute inset-0 grid grid-cols-2 gap-0">
                     <div className="w-full h-full">
@@ -1028,8 +1010,11 @@ export default function BlackFridayChallengePage() {
                 </div>
               </div>
 
-              <p className="text-sm text-gray-600 max-w-2xl mx-auto">
+              <p className="text-sm text-gray-600 max-w-2xl mx-auto mb-3">
                 Choose your color and size after checkout - we'll contact you for shipping details
+              </p>
+              <p className="text-xs font-bold text-red-600 max-w-2xl mx-auto">
+                One colour already sold out!!!
               </p>
             </div>
           </div>
@@ -1040,18 +1025,17 @@ export default function BlackFridayChallengePage() {
       <style dangerouslySetInnerHTML={{__html: `
         .slideshow-image {
           opacity: 0;
-          animation: slideshow 12s infinite;
+          animation: slideshow 9s infinite;
         }
         .slideshow-image:nth-child(1) { animation-delay: 0s; }
         .slideshow-image:nth-child(2) { animation-delay: 3s; }
         .slideshow-image:nth-child(3) { animation-delay: 6s; }
-        .slideshow-image:nth-child(4) { animation-delay: 9s; }
 
         @keyframes slideshow {
           0% { opacity: 0; }
           5% { opacity: 1; }
-          25% { opacity: 1; }
-          30% { opacity: 0; }
+          30% { opacity: 1; }
+          35% { opacity: 0; }
           100% { opacity: 0; }
         }
       `}} />

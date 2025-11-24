@@ -13,18 +13,22 @@ export const tracksuitConfig = {
     Forest: {
       name: 'Forest',
       hex: '#637C73',
+      soldOut: false,
     },
     Hazel: {
       name: 'Hazel',
       hex: '#836F6C',
+      soldOut: false,
     },
     Steel: {
       name: 'Steel',
       hex: '#9FA4B3',
+      soldOut: true,
     },
     Black: {
       name: 'Black',
       hex: '#0A0A0A',
+      soldOut: false,
     },
   } as const,
 
