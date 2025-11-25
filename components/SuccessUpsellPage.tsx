@@ -253,10 +253,10 @@ export const SuccessUpsellPage: React.FC<SuccessUpsellPageProps> = ({ isMembersh
       ));
 
     if (hasCommunityAccess) {
-      // Has community access - show Skool invitation page
-      router.push(`/success/thankyou?session_id=${sessionId}`);
+      // Has community access (6WC, membership, challenge) - show personal onboarding call booking
+      router.push(`/success/challenge-only?session_id=${sessionId}`);
     } else {
-      // Course-only purchase - show booking page
+      // Course-only purchase - show course onboarding call booking
       router.push(`/success/course-only?session_id=${sessionId}`);
     }
   };
