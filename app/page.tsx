@@ -161,22 +161,6 @@ export default function HomePage() {
                 Learn boxing step-by-step with videos, coaching, and a team of boxers like you.
               </p>
 
-              {/* Spot Counter */}
-              <div className="inline-flex items-center gap-3 bg-white text-black px-4 py-3 rounded-lg border-2 border-black shadow-lg">
-                <span className="relative flex h-3 w-3">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
-                </span>
-                <div className="text-left">
-                  <div className="text-xs font-bold uppercase tracking-wide opacity-80">Challenge Spots</div>
-                  <div className="text-2xl font-black" style={{ fontFamily: 'Satoshi' }}>
-                    20<span className="text-lg opacity-60">/30</span>
-                  </div>
-                </div>
-              </div>
-              <p className="text-xs text-white font-bold mt-2 drop-shadow-md">
-                One colour already sold out!!!
-              </p>
             </div>
           </div>
         </div>
@@ -230,23 +214,6 @@ export default function HomePage() {
                     50% OFF
                   </span>
                 </div>
-                <div className="flex items-center justify-center lg:justify-start gap-3 mt-4">
-                  <div className="inline-flex items-center gap-3 bg-white text-black px-4 py-2 rounded-lg border-2 border-black shadow-md">
-                    <span className="relative flex h-3 w-3">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
-                    </span>
-                    <div className="text-left">
-                      <div className="text-xs font-bold uppercase tracking-wide opacity-80">Spots Remaining</div>
-                      <div className="text-2xl font-black" style={{ fontFamily: 'Satoshi' }}>
-                        20<span className="text-lg opacity-60">/30</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <p className="text-xs text-gray-600 text-center lg:text-left mt-2 font-bold">
-                  One colour already sold out!!!
-                </p>
               </div>
 
               {/* CTA Buttons */}
