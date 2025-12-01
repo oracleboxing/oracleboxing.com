@@ -1,4 +1,5 @@
-import Link from 'next/link'
+'use client'
+
 import { useAnalytics } from '@/hooks/useAnalytics'
 
 export function ApparelBanner() {
@@ -8,7 +9,7 @@ export function ApparelBanner() {
     trackButtonClick({
       button_location: 'homepage-apparel-banner',
       button_type: 'apparel-cta',
-      destination: '/tracksuit',
+      destination: 'https://shop.oracleboxing.com/collections/all',
     })
   }
 
@@ -19,7 +20,7 @@ export function ApparelBanner() {
           {/* Left Side - Content */}
           <div className="text-center lg:text-left">
             <div className="inline-block mb-4 px-4 py-2 bg-yellow-100 text-black border border-gray-800 rounded-lg font-black text-sm uppercase tracking-wider">
-              Pre-Order Now
+              Shop Now
             </div>
 
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6">
@@ -27,16 +28,18 @@ export function ApparelBanner() {
             </h2>
 
             <p className="text-lg sm:text-xl md:text-2xl text-gray-300 mb-6 sm:mb-8 leading-relaxed">
-              Premium boxing apparel designed for champions. Pre-order now, ships before Christmas.
+              Premium boxing apparel designed for champions.
             </p>
 
-            <Link
-              href="/tracksuit"
+            <a
+              href="https://shop.oracleboxing.com/collections/all"
+              target="_blank"
+              rel="noopener noreferrer"
               onClick={handleCTAClick}
               className="inline-block px-8 sm:px-12 py-4 sm:py-5 bg-white text-black border-4 border-white rounded-xl shadow-lg font-black text-base sm:text-lg md:text-xl uppercase tracking-wide hover:bg-black hover:text-white hover:border-white transition-all"
             >
-              Pre-Order
-            </Link>
+              Shop Now
+            </a>
           </div>
 
           {/* Right Side - Images (Hoodie Back + Jogger Front) */}
