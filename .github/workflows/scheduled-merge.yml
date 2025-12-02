@@ -1,0 +1,46 @@
+name: Scheduled Merge - New 6WC Page
+
+on:
+  schedule:
+    # Run at 22:00 UTC (10pm UK time) on December 2, 2025
+    - cron: '0 22 2 12 *'
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  merge-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure Git
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "actions@github.com"
+
+      - name: Merge new-6wc-evergreen into main
+        run: |
+          git checkout main
+          git pull origin main
+          git merge origin/new-6wc-evergreen --no-ff -m "Merge new evergreen 6-Week Challenge page
+
+          Scheduled deployment at 10pm UK time.
+
+          - Replace Black Friday VSL with original VSL2_2.webm
+          - Remove 6-week skill schedule section
+          - Remove Black Friday pricing popup
+          - Keep evergreen messaging and $197 pricing
+
+          Auto-merged by GitHub Actions."
+          git push origin main
+
+      - name: Notify on success
+        if: success()
+        run: echo "Successfully merged new-6wc-evergreen to main at $(date)"
+
+      - name: Notify on failure
+        if: failure()
+        run: echo "Failed to merge. Please merge manually."
