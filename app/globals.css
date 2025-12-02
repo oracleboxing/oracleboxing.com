@@ -228,3 +228,129 @@ p, span, a, label, li, td, th {
     height: 1.25rem;
   }
 }
+
+/* ========================================
+   Apple-Style CTA Button System
+   ======================================== */
+
+:root {
+  /* Yellow & Black CTA Colors */
+  --ob-cta-primary-bg: #000000;
+  --ob-cta-primary-text: #fef9c3;
+  --ob-cta-primary-border: #fef9c3;
+  --ob-cta-primary-hover-bg: #fef9c3;
+  --ob-cta-primary-hover-text: #000000;
+  --ob-cta-primary-hover-border: #000000;
+  --ob-cta-primary-focus-ring: rgba(254, 249, 195, 0.6);
+
+  /* Secondary CTA Colors (reversed) */
+  --ob-cta-secondary-bg: #fef9c3;
+  --ob-cta-secondary-text: #000000;
+  --ob-cta-secondary-border: #000000;
+  --ob-cta-secondary-hover-bg: #000000;
+  --ob-cta-secondary-hover-text: #fef9c3;
+  --ob-cta-secondary-hover-border: #fef9c3;
+
+  /* Body & UI Colors */
+  --ob-body-text: #1d1d1f;
+  --ob-muted-text: #86868b;
+  --ob-card-bg: #ffffff;
+  --ob-card-border-radius: 18px;
+}
+
+/* Base Button Class */
+.ob-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  font-family: 'Satoshi', system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  padding: 0.7rem 1.6rem;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+}
+
+.ob-btn:focus-visible {
+  outline: 2px solid var(--ob-cta-primary-focus-ring);
+  outline-offset: 2px;
+}
+
+/* Primary CTA (black background, white text) */
+.ob-btn-primary {
+  background-color: var(--ob-cta-primary-bg);
+  color: #ffffff;
+  border: 2px solid var(--ob-cta-primary-bg);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.ob-btn-primary:hover {
+  background-color: var(--ob-cta-primary-hover-bg);
+  color: var(--ob-cta-primary-hover-text);
+  border-color: var(--ob-cta-primary-hover-border);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+}
+
+.ob-btn-primary:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* Secondary CTA (black background, yellow text) */
+.ob-btn-secondary {
+  background-color: var(--ob-cta-secondary-bg);
+  color: var(--ob-cta-secondary-text);
+  border: 2px solid var(--ob-cta-secondary-border);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.ob-btn-secondary:hover {
+  background-color: #000000;
+  color: #ffffff;
+  border-color: #000000;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+}
+
+/* Small CTA variant */
+.ob-btn-small {
+  font-size: 0.875rem;
+  padding: 0.5rem 1.2rem;
+}
+
+/* Large CTA variant */
+.ob-btn-large {
+  font-size: 1.125rem;
+  padding: 0.9rem 2rem;
+}
+
+/* Card Styling */
+.ob-card {
+  background: var(--ob-card-bg);
+  border-radius: var(--ob-card-border-radius);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  padding: 1.8rem;
+}
+
+/* Badge Styling */
+.ob-badge {
+  display: inline-block;
+  padding: 0.3rem 0.8rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.ob-badge-primary {
+  background-color: var(--ob-cta-primary);
+  color: var(--ob-cta-text-on-primary);
+}
