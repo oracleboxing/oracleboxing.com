@@ -100,18 +100,6 @@ const nextConfig: NextConfig = {
         destination: '/membership?utm_source=facebook&utm_medium=bio&utm_content=membership',
         permanent: false,
       },
-
-      // Apparel Redirects to External Shop
-      {
-        source: '/tracksuit',
-        destination: 'https://shop.oracleboxing.com/collections/all',
-        permanent: false,
-      },
-      {
-        source: '/hoodie',
-        destination: 'https://shop.oracleboxing.com/collections/all',
-        permanent: false,
-      },
     ];
   },
 };
