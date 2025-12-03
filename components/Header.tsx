@@ -133,7 +133,7 @@ export function Header() {
                           onClick={() => handleNavClick('header_dropdown', course.href)}
                           className="group/item flex flex-col items-center text-center space-y-3 hover:bg-gray-900 p-4 rounded-lg transition-colors"
                         >
-                          <h3 className="text-white font-semibold text-sm uppercase tracking-wide group-hover/item:text-yellow-200 transition-colors">
+                          <h3 className="text-white font-semibold text-sm tracking-wide group-hover/item:text-yellow-200 transition-colors">
                             {course.name}
                           </h3>
                           <div className="w-full aspect-video relative overflow-hidden rounded-md">
@@ -164,7 +164,7 @@ export function Header() {
                         key={item.href}
                         href={item.href}
                         onClick={() => handleNavClick('header_dropdown', item.href)}
-                        className="block px-6 py-3 text-white font-medium text-sm uppercase tracking-wide hover:bg-gray-900 hover:text-yellow-200 transition-colors"
+                        className="block px-6 py-3 text-white font-medium text-sm tracking-wide hover:bg-gray-900 hover:text-yellow-200 transition-colors"
                       >
                         {item.name}
                       </Link>
@@ -298,7 +298,7 @@ export function Header() {
                       }}
                       className="flex flex-col space-y-3 p-4 hover:bg-gray-900 rounded-lg transition-colors"
                     >
-                      <h3 className="text-white font-semibold text-lg uppercase">
+                      <h3 className="text-white font-semibold text-lg">
                         {course.name}
                       </h3>
                       <div className="w-full aspect-video relative overflow-hidden rounded-md">
@@ -345,7 +345,7 @@ export function Header() {
                         handleNavClick('mobile_submenu', item.href)
                         closeMobileMenu()
                       }}
-                      className="text-white font-semibold text-lg uppercase py-4 px-4 hover:bg-gray-900 rounded-lg transition-colors block"
+                      className="text-white font-semibold text-lg py-4 px-4 hover:bg-gray-900 rounded-lg transition-colors block"
                     >
                       {item.name}
                     </Link>
