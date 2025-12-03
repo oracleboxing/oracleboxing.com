@@ -94,7 +94,7 @@ export function Header() {
         } ${
           isHomePage && !isScrolled && !isHovered
             ? 'bg-transparent'
-            : 'bg-black'
+            : 'bg-neutral-900'
         }`}
         onMouseEnter={() => isHomePage && setIsHovered(true)}
         onMouseLeave={() => isHomePage && setIsHovered(false)}
@@ -124,7 +124,7 @@ export function Header() {
 
                 {/* Courses Dropdown Menu */}
                 <div className="absolute left-1/2 transform -translate-x-1/2 top-full pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                  <div className="bg-black border border-gray-800 rounded-lg shadow-2xl p-6 min-w-[600px]">
+                  <div className="bg-neutral-900 border border-gray-800 rounded-lg shadow-2xl p-6 min-w-[600px]">
                     <div className="grid grid-cols-3 gap-6">
                       {courses.map((course) => (
                         <Link
@@ -158,7 +158,7 @@ export function Header() {
 
                 {/* Coaching Dropdown Menu */}
                 <div className="absolute left-1/2 transform -translate-x-1/2 top-full pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                  <div className="bg-black border border-gray-800 rounded-lg shadow-2xl py-3 min-w-[240px]">
+                  <div className="bg-neutral-900 border border-gray-800 rounded-lg shadow-2xl py-3 min-w-[240px]">
                     {coaching.map((item) => (
                       <Link
                         key={item.href}
@@ -214,7 +214,7 @@ export function Header() {
 
       {/* Mobile Menu */}
       <div
-        className={`fixed top-0 left-0 right-0 bottom-0 bg-black shadow-2xl z-50 md:hidden transform transition-all duration-300 ease-out ${
+        className={`fixed top-0 left-0 right-0 bottom-0 bg-neutral-900 shadow-2xl z-50 md:hidden transform transition-all duration-300 ease-out ${
           mobileMenuOpen ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
         }`}
       >
@@ -275,7 +275,7 @@ export function Header() {
 
           {/* Layer 2: Courses Submenu */}
           <div
-            className={`absolute inset-0 bg-black transition-transform duration-300 ease-out ${
+            className={`absolute inset-0 bg-neutral-900 transition-transform duration-300 ease-out ${
               mobileSubMenu === 'courses' ? 'translate-x-0' : 'translate-x-full'
             }`}
           >
@@ -325,7 +325,7 @@ export function Header() {
 
           {/* Layer 2: Coaching Submenu */}
           <div
-            className={`absolute inset-0 bg-black transition-transform duration-300 ease-out ${
+            className={`absolute inset-0 bg-neutral-900 transition-transform duration-300 ease-out ${
               mobileSubMenu === 'coaching' ? 'translate-x-0' : 'translate-x-full'
             }`}
           >
