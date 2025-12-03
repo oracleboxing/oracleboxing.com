@@ -349,8 +349,7 @@ export default function MerchCheckoutPage() {
                 type="submit"
                 disabled={isProcessing}
                 size="lg"
-                className="ob-btn ob-btn-gp-byg-p w-full disabled:opacity-50"
-                style={{ fontSize: 'clamp(1rem, 2.5vw, 1.125rem)', padding: 'clamp(0.75rem, 2vw, 1rem) clamp(1.5rem, 3vw, 2rem)' }}
+                className="w-full bg-yellow-100 text-black hover:bg-black hover:text-white border-2 border-black text-lg py-6 font-black uppercase tracking-wide"
               >
                 {isProcessing ? (
                   <>

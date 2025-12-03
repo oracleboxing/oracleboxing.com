@@ -461,8 +461,8 @@ function OrderBumpsContent() {
         {/* Continue Button */}
         <button
           onClick={handleContinue}
-          className="ob-btn ob-btn-gp-byg-p w-full"
-          style={{ cursor: 'pointer', fontSize: 'clamp(1rem, 2.5vw, 1.125rem)', padding: 'clamp(0.75rem, 2vw, 1rem) clamp(1.5rem, 3vw, 2rem)' }}
+          className="w-full py-3 px-6 bg-[#000000] text-white font-bold text-base rounded-full shadow-lg hover:bg-[#1a1a1a] transition-all duration-200"
+          style={{ cursor: 'pointer' }}
         >
           Continue to Payment
         </button>
