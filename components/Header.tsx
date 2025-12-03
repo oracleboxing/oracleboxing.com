@@ -133,7 +133,7 @@ export function Header() {
                           onClick={() => handleNavClick('header_dropdown', course.href)}
                           className="group/item flex flex-col items-center text-center space-y-3 hover:bg-neutral-800 p-4 rounded-lg transition-colors"
                         >
-                          <h3 className="text-white font-semibold text-sm tracking-wide group-hover/item:text-yellow-200 transition-colors">
+                          <h3 className="text-white font-semibold text-sm tracking-wide group-hover/item:font-bold transition-all">
                             {course.name}
                           </h3>
                           <div className="w-full aspect-video relative overflow-hidden rounded-md">
@@ -164,7 +164,7 @@ export function Header() {
                         key={item.href}
                         href={item.href}
                         onClick={() => handleNavClick('header_dropdown', item.href)}
-                        className="block px-6 py-3 text-white font-medium text-sm tracking-wide hover:bg-neutral-800 hover:text-yellow-200 transition-colors"
+                        className="block px-6 py-3 text-white font-medium text-sm tracking-wide hover:bg-neutral-800 hover:font-semibold transition-all"
                       >
                         {item.name}
                       </Link>
