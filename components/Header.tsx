@@ -279,7 +279,7 @@ export function Header() {
               mobileSubMenu === 'courses' ? 'translate-x-0' : 'translate-x-full'
             }`}
           >
-            <div className="flex flex-col h-full">
+            <div className="flex flex-col min-h-screen">
               {/* Submenu Header */}
               <div className="flex items-center p-4 border-b border-gray-800">
                 <button
@@ -329,7 +329,7 @@ export function Header() {
               mobileSubMenu === 'coaching' ? 'translate-x-0' : 'translate-x-full'
             }`}
           >
-            <div className="flex flex-col h-full">
+            <div className="flex flex-col min-h-screen">
               {/* Submenu Header */}
               <div className="flex items-center p-4 border-b border-gray-800">
                 <button
