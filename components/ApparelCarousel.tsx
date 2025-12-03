@@ -15,7 +15,7 @@ export function ApparelCarousel() {
 
     const scroll = () => {
       if (!isPaused && scrollContainer) {
-        scrollContainer.scrollLeft += 1.2
+        scrollContainer.scrollLeft += 1.38
 
         // Reset to beginning when reaching end
         if (scrollContainer.scrollLeft >= scrollContainer.scrollWidth / 2) {
@@ -76,7 +76,7 @@ export function ApparelCarousel() {
     <div className="w-full overflow-hidden py-4">
       <div
         ref={scrollRef}
-        className="flex gap-4 scrollbar-hide"
+        className="flex gap-0 scrollbar-hide"
         style={{
           display: 'flex',
           overflow: 'scroll',
@@ -89,7 +89,7 @@ export function ApparelCarousel() {
         {duplicatedImages.map((image, index) => (
           <div
             key={`${image.src}-${index}`}
-            className="flex-shrink-0 w-[200px] sm:w-[240px] lg:w-[280px] rounded-xl overflow-hidden shadow-lg"
+            className="flex-shrink-0 w-[200px] sm:w-[240px] lg:w-[280px] overflow-hidden"
             style={{ display: 'inline-block' }}
           >
             <Image

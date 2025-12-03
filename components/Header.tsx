@@ -3,23 +3,27 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { X, ChevronRight } from 'lucide-react'
+import { ChevronRight } from 'lucide-react'
 import { useAnalytics } from '@/hooks/useAnalytics'
 
 export function Header() {
   const pathname = usePathname()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [mobileSubMenu, setMobileSubMenu] = useState<'courses' | 'coaching' | null>(null)
-  const [isScrolled, setIsScrolled] = useState(false)
   const [isVisible, setIsVisible] = useState(true)
   const [lastScrollY, setLastScrollY] = useState(0)
-  const [isHovered, setIsHovered] = useState(false)
   const { trackButtonClick } = useAnalytics()
 
   const isHomePage = pathname === '/'
 
   useEffect(() => {
     const handleScroll = () => {
+      // Don't hide header when mobile menu is open
+      if (mobileMenuOpen) {
+        setIsVisible(true)
+        return
+      }
+
       const currentScrollY = window.scrollY
 
       if (currentScrollY > lastScrollY && currentScrollY > 100) {
@@ -33,14 +37,12 @@ export function Header() {
         setIsVisible(true)
       }
 
-      // Set scrolled state for background
-      setIsScrolled(currentScrollY > 50)
       setLastScrollY(currentScrollY)
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [lastScrollY])
+  }, [lastScrollY, mobileMenuOpen])
 
   const closeMobileMenu = () => {
     setMobileMenuOpen(false)
@@ -87,32 +89,42 @@ export function Header() {
   return (
     <>
       <header
-        className={`shadow-lg z-40 transition-all duration-300 ${
+        className={`z-50 transition-all duration-300 bg-neutral-900 ${
           isHomePage ? 'fixed top-0 left-0 right-0' : 'sticky top-0'
         } ${
           isVisible ? 'translate-y-0' : '-translate-y-full'
-        } ${
-          isHomePage && !isScrolled && !isHovered
-            ? 'bg-transparent'
-            : 'bg-neutral-900'
         }`}
-        onMouseEnter={() => isHomePage && setIsHovered(true)}
-        onMouseLeave={() => isHomePage && setIsHovered(false)}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-12 md:h-14">
-            {/* Logo - Left side */}
-            <Link
-              href="/"
-              className="flex-shrink-0 z-10"
-              onClick={() => handleNavClick('header', '/')}
-            >
-              <img
-                src="https://media.oracleboxing.com/Website/infinity_squared_white.svg"
-                alt="Oracle Boxing"
-                className="h-3 md:h-4 w-auto"
-              />
-            </Link>
+            {/* Logo and Back Button - Same position with fade transitions */}
+            <div className="flex-shrink-0 relative">
+              {/* Logo */}
+              <Link
+                href="/"
+                className={`z-10 transition-opacity duration-300 ${
+                  mobileMenuOpen || mobileSubMenu ? 'opacity-0 pointer-events-none' : 'opacity-100'
+                }`}
+                onClick={() => handleNavClick('header', '/')}
+              >
+                <img
+                  src="https://media.oracleboxing.com/Website/infinity_squared_white.svg"
+                  alt="Oracle Boxing"
+                  className="h-3 md:h-4 w-auto"
+                />
+              </Link>
+
+              {/* Back Button (when submenu is open) */}
+              <button
+                onClick={() => setMobileSubMenu(null)}
+                className={`md:hidden text-white p-2 rounded-md hover:bg-neutral-800 transition-opacity duration-300 absolute top-1/2 left-0 transform -translate-y-1/4 ${
+                  mobileSubMenu ? 'opacity-100' : 'opacity-0 pointer-events-none'
+                }`}
+                aria-label="Back"
+              >
+                <ChevronRight className="w-5 h-5 rotate-180" />
+              </button>
+            </div>
 
             {/* Desktop Navigation - Centered */}
             <nav className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 items-center space-x-8 lg:space-x-12">
@@ -188,17 +200,21 @@ export function Header() {
             {/* Mobile Hamburger Menu */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden text-white p-2 rounded-md hover:bg-neutral-800 transition-colors z-10"
+              className="md:hidden text-white p-2 rounded-md hover:bg-neutral-800 transition-colors relative z-50"
               aria-label="Toggle menu"
             >
-              {mobileMenuOpen ? (
-                <X className="w-6 h-6" />
-              ) : (
-                <div className="w-6 h-6 flex flex-col justify-center gap-1.5">
-                  <div className="w-full h-0.5 bg-white rounded-full"></div>
-                  <div className="w-full h-0.5 bg-white rounded-full"></div>
-                </div>
-              )}
+              <div className="w-5 h-5 flex flex-col justify-center items-center relative">
+                <div
+                  className={`absolute w-full h-0.5 bg-white rounded-full transition-all duration-300 ${
+                    mobileMenuOpen ? 'rotate-45' : '-translate-y-1'
+                  }`}
+                ></div>
+                <div
+                  className={`absolute w-full h-0.5 bg-white rounded-full transition-all duration-300 ${
+                    mobileMenuOpen ? '-rotate-45' : 'translate-y-1'
+                  }`}
+                ></div>
+              </div>
             </button>
           </div>
         </div>
@@ -207,53 +223,40 @@ export function Header() {
       {/* Mobile Menu Overlay */}
       {mobileMenuOpen && (
         <div
-          className="fixed inset-0 bg-black/50 z-40 md:hidden transition-opacity duration-300"
+          className="fixed inset-0 bg-black/50 z-30 md:hidden transition-opacity duration-300"
           onClick={closeMobileMenu}
         />
       )}
 
       {/* Mobile Menu */}
       <div
-        className={`fixed top-0 left-0 right-0 bottom-0 bg-neutral-900 shadow-2xl z-50 md:hidden transform transition-all duration-300 ease-out ${
-          mobileMenuOpen ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
+        className={`fixed left-0 right-0 bg-neutral-900 shadow-2xl z-40 md:hidden transition-all duration-300 ease-out origin-top ${
+          mobileMenuOpen ? 'top-0 bottom-0 opacity-100 pt-12' : 'top-0 bottom-full opacity-0'
         }`}
       >
-        <div className="h-full overflow-y-auto relative">
-          {/* Mobile Menu Header */}
-          <div className="flex items-center justify-end p-4 border-b border-gray-800">
-            <button
-              onClick={closeMobileMenu}
-              className="text-white p-2 rounded-md hover:bg-neutral-800 transition-colors"
-              aria-label="Close menu"
-            >
-              <X className="w-6 h-6" />
-            </button>
-          </div>
-
+        <div className="h-full overflow-hidden relative">
           {/* Layer 1: Main Menu */}
           <div
-            className={`min-h-screen transition-transform duration-300 ease-out ${
-              mobileSubMenu ? '-translate-x-full' : 'translate-x-0'
+            className={`h-full transition-all duration-300 ease-out ${
+              mobileSubMenu ? '-translate-x-8 opacity-0' : 'translate-x-0 opacity-100'
             }`}
           >
             <nav className="p-6">
-              <div className="flex flex-col space-y-2">
+              <div className="flex flex-col space-y-1">
                 {/* Courses Button */}
                 <button
                   onClick={() => setMobileSubMenu('courses')}
-                  className="flex items-center justify-between text-white font-bold text-xl py-4 px-4 hover:bg-neutral-800 rounded-lg transition-colors text-left"
+                  className="text-white font-bold text-xl py-4 px-5 hover:bg-neutral-800 rounded-lg transition-colors text-left"
                 >
-                  <span>Courses</span>
-                  <ChevronRight className="w-6 h-6" />
+                  Courses
                 </button>
 
                 {/* Coaching Button */}
                 <button
                   onClick={() => setMobileSubMenu('coaching')}
-                  className="flex items-center justify-between text-white font-bold text-xl py-4 px-4 hover:bg-neutral-800 rounded-lg transition-colors text-left"
+                  className="text-white font-bold text-xl py-4 px-5 hover:bg-neutral-800 rounded-lg transition-colors text-left"
                 >
-                  <span>Coaching</span>
-                  <ChevronRight className="w-6 h-6" />
+                  Coaching
                 </button>
 
                 {/* Clothing Link */}
@@ -265,7 +268,7 @@ export function Header() {
                     handleNavClick('mobile_menu', 'https://shop.oracleboxing.com')
                     closeMobileMenu()
                   }}
-                  className="text-white font-bold text-xl py-4 px-4 hover:bg-neutral-800 rounded-lg transition-colors text-left block"
+                  className="text-white font-bold text-xl py-4 px-5 hover:bg-neutral-800 rounded-lg transition-colors text-left block"
                 >
                   Clothing
                 </a>
@@ -275,27 +278,15 @@ export function Header() {
 
           {/* Layer 2: Courses Submenu */}
           <div
-            className={`absolute inset-0 bg-neutral-900 transition-transform duration-300 ease-out ${
-              mobileSubMenu === 'courses' ? 'translate-x-0' : 'translate-x-full'
+            className={`absolute inset-0 bg-neutral-900 transition-all duration-300 ease-out ${
+              mobileSubMenu === 'courses' ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0 pointer-events-none'
             }`}
           >
-            <div className="flex flex-col min-h-screen">
-              {/* Submenu Header */}
-              <div className="flex items-center p-4 border-b border-gray-800">
-                <button
-                  onClick={() => setMobileSubMenu(null)}
-                  className="text-white p-2 rounded-md hover:bg-neutral-800 transition-colors"
-                  aria-label="Back"
-                >
-                  <ChevronRight className="w-6 h-6 rotate-180" />
-                </button>
-                <span className="text-white font-bold text-lg ml-4">Courses</span>
-              </div>
-
-              {/* Courses List with Waterfall Animation */}
-              <nav className="flex-1 overflow-y-auto p-6">
-                <div className="flex flex-col space-y-4">
-                  {courses.map((course, index) => (
+            <div className="flex flex-col h-full">
+              {/* Courses List */}
+              <nav className="flex-1 p-6">
+                <div className="flex flex-col space-y-3">
+                  {courses.map((course) => (
                     <Link
                       key={course.href}
                       href={course.href}
@@ -303,13 +294,10 @@ export function Header() {
                         handleNavClick('mobile_submenu', course.href)
                         closeMobileMenu()
                       }}
-                      className="flex flex-col space-y-3 p-4 hover:bg-neutral-800 rounded-lg transition-colors"
-                      style={{
-                        animation: mobileSubMenu === 'courses' ? `slideIn 0.3s ease-out ${index * 0.1}s both` : 'none'
-                      }}
+                      className="flex flex-col space-y-2 p-3 hover:bg-neutral-800 rounded-lg transition-colors"
                     >
                       <h4 className="text-white font-semibold text-base">{course.name}</h4>
-                      <div className="w-full max-w-xs mx-auto aspect-video relative overflow-hidden rounded-md">
+                      <div className="w-full max-w-[200px] aspect-video relative overflow-hidden rounded-md">
                         <img
                           src={course.image}
                           alt={course.name}
@@ -325,27 +313,15 @@ export function Header() {
 
           {/* Layer 2: Coaching Submenu */}
           <div
-            className={`absolute inset-0 bg-neutral-900 transition-transform duration-300 ease-out ${
-              mobileSubMenu === 'coaching' ? 'translate-x-0' : 'translate-x-full'
+            className={`absolute inset-0 bg-neutral-900 transition-all duration-300 ease-out ${
+              mobileSubMenu === 'coaching' ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0 pointer-events-none'
             }`}
           >
-            <div className="flex flex-col min-h-screen">
-              {/* Submenu Header */}
-              <div className="flex items-center p-4 border-b border-gray-800">
-                <button
-                  onClick={() => setMobileSubMenu(null)}
-                  className="text-white p-2 rounded-md hover:bg-neutral-800 transition-colors"
-                  aria-label="Back"
-                >
-                  <ChevronRight className="w-6 h-6 rotate-180" />
-                </button>
-                <span className="text-white font-bold text-lg ml-4">Coaching</span>
-              </div>
-
-              {/* Coaching List with Waterfall Animation */}
-              <nav className="flex-1 overflow-y-auto p-6">
+            <div className="flex flex-col h-full">
+              {/* Coaching List */}
+              <nav className="flex-1 p-6">
                 <div className="flex flex-col space-y-2">
-                  {coaching.map((item, index) => (
+                  {coaching.map((item) => (
                     <Link
                       key={item.href}
                       href={item.href}
@@ -354,9 +330,6 @@ export function Header() {
                         closeMobileMenu()
                       }}
                       className="text-white font-semibold text-lg py-4 px-4 hover:bg-neutral-800 rounded-lg transition-colors block"
-                      style={{
-                        animation: mobileSubMenu === 'coaching' ? `slideIn 0.3s ease-out ${index * 0.1}s both` : 'none'
-                      }}
                     >
                       {item.name}
                     </Link>

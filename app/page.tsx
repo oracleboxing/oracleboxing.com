@@ -142,29 +142,24 @@ export default function HomePage() {
                 </p>
 
                 {/* CTAs */}
-                <div className="flex flex-row gap-3 sm:gap-4 justify-center lg:justify-start mb-6">
+                <div className="flex flex-row gap-3 sm:gap-4 justify-center lg:justify-start">
                   <Link
                     href="/6wc"
                     onClick={() => handleButtonClick('homepage-hero', 'primary-cta', '6wc', undefined, '/6wc')}
-                    className="ob-btn ob-btn-primary"
-                    style={{ border: '2px solid #fef9c3', fontSize: 'clamp(1rem, 2vw, 1.25rem)', padding: 'clamp(0.7rem, 1.5vw, 1rem) clamp(1.4rem, 3vw, 2.2rem)' }}
+                    className="ob-btn ob-btn-gp-try-p"
+                    style={{ fontSize: 'clamp(1rem, 2vw, 1.25rem)', padding: 'clamp(0.7rem, 1.5vw, 1rem) clamp(1.4rem, 3vw, 2.2rem)' }}
                   >
                     Get Coaching
                   </Link>
                   <Link
                     href="https://www.oracleboxing.com/courses/bundle"
                     onClick={() => handleButtonClick('homepage-hero', 'secondary-cta', 'bundle', undefined, '/courses/bundle')}
-                    className="ob-btn ob-btn-secondary"
+                    className="ob-btn ob-btn-gp-try-s"
                     style={{ fontSize: 'clamp(1rem, 2vw, 1.25rem)', padding: 'clamp(0.7rem, 1.5vw, 1rem) clamp(1.4rem, 3vw, 2.2rem)' }}
                   >
-                    Courses
+                    View Courses
                   </Link>
                 </div>
-
-                {/* Microcopy */}
-                <p className="text-sm text-white/90 text-center lg:text-left drop-shadow">
-                  300+ transformations • Money-back guarantee
-                </p>
               </div>
             </div>
           </div>
@@ -175,7 +170,7 @@ export default function HomePage() {
 
         {/* 6-Week Challenge Section */}
         <section className="py-16 sm:py-20 lg:py-24 bg-white">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
                 The 6-Week Challenge
@@ -185,37 +180,80 @@ export default function HomePage() {
               </p>
             </div>
 
-            {/* Week Timeline */}
-            <div className="grid grid-cols-2 gap-4 mb-10">
-              {[
-                { week: 1, focus: 'Stance & Shape' },
-                { week: 2, focus: 'Footwork & Rhythm' },
-                { week: 3, focus: 'Kinetic Linkage' },
-                { week: 4, focus: 'Power Development' },
-                { week: 5, focus: 'Biomechanics' },
-                { week: 6, focus: 'Flow of Boxing' }
-              ].map(({ week, focus }) => (
-                <div key={week} className="bg-gray-50 rounded-xl p-4 border border-gray-200 text-center">
-                  <div className="text-sm font-bold text-black mb-1">Week {week}</div>
-                  <div className="text-base font-semibold bg-yellow-100 text-gray-900 inline-block px-3 py-1 rounded-lg">{focus}</div>
+            {/* Two Column Layout: Week Schedule + Checklist */}
+            <div className="grid lg:grid-cols-2 gap-8 mb-10">
+              {/* Left: Week Schedule Table - Two Column Grid */}
+              <div className="bg-gray-50 rounded-xl p-6 border-2 border-gray-200">
+                <h3 className="text-xl font-bold text-gray-900 mb-4 text-center">
+                  <span className="bg-yellow-100 px-2 py-1 rounded">Weekly Training Schedule</span>
+                </h3>
+                <div className="grid grid-cols-2 gap-3">
+                  {[
+                    { week: 1, focus: 'Stance & Shape' },
+                    { week: 2, focus: 'Footwork & Rhythm' },
+                    { week: 3, focus: 'Kinetic Linkage' },
+                    { week: 4, focus: 'Power Development' },
+                    { week: 5, focus: 'Biomechanics' },
+                    { week: 6, focus: 'Flow of Boxing' }
+                  ].map(({ week, focus }) => (
+                    <div key={week} className="bg-white rounded-lg p-3 border border-gray-200 flex flex-col items-center text-center">
+                      <div className="text-sm font-medium text-gray-600 mb-2">Week {week}</div>
+                      <div className="text-base font-bold text-gray-900">{focus}</div>
+                    </div>
+                  ))}
                 </div>
-              ))}
+              </div>
+
+              {/* Right: Refund Checklist */}
+              <div className="bg-gray-50 rounded-xl p-6 border-2 border-gray-200">
+                <h3 className="text-xl font-bold text-gray-900 mb-4 text-center">
+                  <span className="bg-yellow-100 px-2 py-1 rounded">100% Money Back Checklist</span>
+                </h3>
+                <div className="space-y-4">
+                  <div className="flex items-start gap-3">
+                    <div className="w-6 h-6 flex-shrink-0 border-2 border-gray-400 rounded mt-0.5 flex items-center justify-center">
+                      <svg className="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                    <span className="text-base font-medium leading-snug">Join 2 live coaching calls every week (12 total).</span>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="w-6 h-6 flex-shrink-0 border-2 border-gray-400 rounded mt-0.5 flex items-center justify-center">
+                      <svg className="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                    <span className="text-base font-medium leading-snug">Post one training video for feedback.</span>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="w-6 h-6 flex-shrink-0 border-2 border-gray-400 rounded mt-0.5 flex items-center justify-center">
+                      <svg className="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                    <span className="text-base font-medium leading-snug">Finish the Boxing Masterclass.</span>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="w-6 h-6 flex-shrink-0 border-2 border-gray-400 rounded mt-0.5 flex items-center justify-center">
+                      <svg className="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                    <span className="text-base font-medium leading-snug">Attend the mid-challenge and graduation calls.</span>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            {/* CTAs */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Link
-                href="/checkout?product=6wc"
-                onClick={() => handleButtonClick('homepage-6wc-section', 'primary-cta', '6wc', undefined, '/checkout?product=6wc')}
-                className="ob-btn ob-btn-primary ob-btn-large"
-              >
-                Join the 6-Week Challenge
-              </Link>
+            {/* CTA */}
+            <div className="flex justify-center">
               <Link
                 href="/6wc"
-                className="text-black hover:underline text-sm sm:text-base"
+                onClick={() => handleButtonClick('homepage-6wc-section', 'primary-cta', '6wc', undefined, '/6wc')}
+                className="ob-btn ob-btn-gp-wbg-s ob-btn-large"
               >
-                See full challenge details →
+                See Full Challenge Details
               </Link>
             </div>
           </div>
@@ -245,7 +283,7 @@ export default function HomePage() {
                   />
                 </div>
                 <h3 className="text-xl sm:text-2xl font-bold mb-3">
-                  <span className="bg-yellow-100 text-gray-900 px-2 py-1 rounded-lg">Oracle Boxing Bundle</span>
+                  <span className="bg-yellow-100 text-gray-900 px-2 py-1 rounded-lg">Boxing Bundle</span>
                 </h3>
                 <p className="text-gray-600 mb-4 text-sm sm:text-base flex-grow">
                   Every course and system in one bundle. Learn faster with the complete curriculum.
@@ -253,10 +291,10 @@ export default function HomePage() {
                 <Link
                   href="/courses/bundle"
                   onClick={() => handleButtonClick('homepage-courses', 'course-card', 'bundle', undefined, '/courses/bundle')}
-                  className="ob-btn ob-btn-primary ob-btn-small w-full mt-auto"
+                  className="ob-btn ob-btn-gp-wbg-p ob-btn-small w-full mt-auto"
                   style={{ transition: 'none' }}
                 >
-                  Learn More
+                  View Course
                 </Link>
               </div>
 
@@ -283,10 +321,10 @@ export default function HomePage() {
                 <Link
                   href="/courses/bffp"
                   onClick={() => handleButtonClick('homepage-courses', 'course-card', 'bffp', undefined, '/courses/bffp')}
-                  className="ob-btn ob-btn-primary ob-btn-small w-full mt-auto"
+                  className="ob-btn ob-btn-gp-wbg-p ob-btn-small w-full mt-auto"
                   style={{ transition: 'none' }}
                 >
-                  Learn More
+                  View Course
                 </Link>
               </div>
 
@@ -313,10 +351,10 @@ export default function HomePage() {
                 <Link
                   href="/courses/roadmap"
                   onClick={() => handleButtonClick('homepage-courses', 'course-card', 'roadmap', undefined, '/courses/roadmap')}
-                  className="ob-btn ob-btn-primary ob-btn-small w-full mt-auto"
+                  className="ob-btn ob-btn-gp-wbg-p ob-btn-small w-full mt-auto"
                   style={{ transition: 'none' }}
                 >
-                  Learn More
+                  View Course
                 </Link>
               </div>
             </div>
@@ -351,7 +389,7 @@ export default function HomePage() {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
                       <span className="text-black text-base sm:text-lg">
-                        Unlimited access to all courses and replays
+                        <span className="bg-yellow-100 px-2 py-1 rounded">Unlimited access to all courses</span> and replays
                       </span>
                     </li>
                     <li className="flex items-start gap-3">
@@ -359,7 +397,7 @@ export default function HomePage() {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
                       <span className="text-black text-base sm:text-lg">
-                        Daily live calls with real-time feedback
+                        <span className="bg-yellow-100 px-2 py-1 rounded">Daily live calls</span> with real-time feedback
                       </span>
                     </li>
                     <li className="flex items-start gap-3">
@@ -367,7 +405,7 @@ export default function HomePage() {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
                       <span className="text-black text-base sm:text-lg">
-                        300+ members worldwide training together
+                        <span className="bg-yellow-100 px-2 py-1 rounded">200+ members worldwide</span> training together
                       </span>
                     </li>
                   </ul>
@@ -399,8 +437,8 @@ export default function HomePage() {
             </div>
 
             {/* Mobile: Scrollable carousel with snap */}
-            <div className="sm:hidden overflow-x-auto scrollbar-hide snap-x snap-mandatory -mx-4 px-4 mb-12">
-              <div className="flex gap-4 pb-4">
+            <div className="sm:hidden overflow-x-auto scrollbar-hide snap-x snap-mandatory mb-12">
+              <div className="flex gap-4 pb-4 px-[15vw]">
                 {[
                   { video: 'sha-lyn.webm', poster: 'sha-lyn_poster.webp' },
                   { video: 'nico.webm', poster: 'nico_poster.webp' },
@@ -427,9 +465,9 @@ export default function HomePage() {
               <Link
                 href="/membership"
                 onClick={() => handleButtonClick('homepage-membership', 'primary-cta', 'membership', undefined, '/membership')}
-                className="ob-btn ob-btn-primary ob-btn-large"
+                className="ob-btn ob-btn-gp-ybg-s ob-btn-large"
               >
-                Join Membership
+                View Community
               </Link>
               <p className="mt-3 text-sm">
                 <Link href="/membership#pricing" className="text-black hover:underline">
@@ -460,7 +498,7 @@ export default function HomePage() {
             <Link
               href="https://shop.oracleboxing.com/collections/all"
               onClick={() => handleButtonClick('homepage-apparel', 'primary-cta', undefined, undefined, 'https://shop.oracleboxing.com/collections/all')}
-              className="ob-btn ob-btn-primary ob-btn-large"
+              className="ob-btn ob-btn-gp-wbg-s ob-btn-large"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -491,7 +529,7 @@ export default function HomePage() {
                   type="submit"
                   disabled={newsletterLoading}
                   className="ob-btn ob-btn-secondary disabled:opacity-50 disabled:cursor-not-allowed"
-                  style={{ padding: '0.9rem 2rem' }}
+                  style={{ padding: 'clamp(0.6rem, 2vw, 0.9rem) clamp(1.2rem, 3vw, 2rem)' }}
                 >
                   {newsletterLoading ? 'Subscribing...' : 'Subscribe'}
                 </button>

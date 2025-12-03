@@ -19,7 +19,7 @@ export function TestimonialCarousel({ testimonials }: TestimonialCarouselProps) 
 
     const scroll = () => {
       if (!isPaused && scrollContainer) {
-        scrollContainer.scrollLeft += 0.5
+        scrollContainer.scrollLeft += 1.38
 
         // Reset to beginning when reaching end
         if (scrollContainer.scrollLeft >= scrollContainer.scrollWidth / 2) {
@@ -56,7 +56,7 @@ export function TestimonialCarousel({ testimonials }: TestimonialCarouselProps) 
   const duplicatedTestimonials = [...testimonials, ...testimonials]
 
   return (
-    <section className="w-full py-8 sm:py-12 bg-gray-50 border-y border-gray-100 overflow-hidden">
+    <section className="w-full py-4 sm:py-6 bg-gray-50 border-y border-gray-100 overflow-hidden">
       <div
         ref={scrollRef}
         className="flex gap-4 sm:gap-6 scrollbar-hide"
@@ -72,7 +72,7 @@ export function TestimonialCarousel({ testimonials }: TestimonialCarouselProps) 
         {duplicatedTestimonials.map((testimonial, index) => (
           <div
             key={`${testimonial.name}-${index}`}
-            className="flex-shrink-0 w-[280px] sm:w-[350px] bg-white rounded-2xl p-5 sm:p-6 shadow-sm border border-gray-100"
+            className="flex-shrink-0 w-[280px] sm:w-[350px] bg-gray-50 rounded-2xl p-5 sm:p-6"
             style={{ display: 'inline-block', whiteSpace: 'normal' }}
           >
             <div className="flex items-center gap-1 mb-3">

@@ -366,3 +366,168 @@ p, span, a, label, li, td, th {
   background-color: var(--ob-cta-primary);
   color: var(--ob-cta-text-on-primary);
 }
+
+/* ========================================
+   Glow Pulse Button Styles (All Variants)
+   ======================================== */
+
+/* GP-BYG-P: Black bg, Yellow text */
+.ob-btn-gp-byg-p {
+  background: #000000;
+  color: #fef9c3;
+  border: 2px solid #fef9c3;
+  box-shadow: 0 0 20px rgba(254, 249, 195, 0.4);
+  animation: pulse-glow-byg 2s ease-in-out infinite;
+}
+
+.ob-btn-gp-byg-p:hover {
+  background: #fef9c3;
+  color: #000000;
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(254, 249, 195, 0.6);
+}
+
+/* GP-BYG-S: Transparent bg, White text/border */
+.ob-btn-gp-byg-s {
+  background: transparent;
+  color: #ffffff;
+  border: 2px solid #ffffff;
+  animation: pulse-glow-white-byg 2s ease-in-out infinite;
+}
+
+.ob-btn-gp-byg-s:hover {
+  background: #ffffff;
+  color: #000000;
+  transform: scale(1.05);
+}
+
+@keyframes pulse-glow-byg {
+  0%, 100% { box-shadow: 0 0 20px rgba(254, 249, 195, 0.4); }
+  50% { box-shadow: 0 0 30px rgba(254, 249, 195, 0.7); }
+}
+
+@keyframes pulse-glow-white-byg {
+  0%, 100% { box-shadow: 0 0 20px rgba(255, 255, 255, 0.3); }
+  50% { box-shadow: 0 0 30px rgba(255, 255, 255, 0.5); }
+}
+
+/* GP-WBG-P: White bg, Black text */
+.ob-btn-gp-wbg-p {
+  background: #ffffff;
+  color: #000000;
+  border: 2px solid #000000;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  animation: pulse-glow-wbg 2s ease-in-out infinite;
+}
+
+.ob-btn-gp-wbg-p:hover {
+  background: #000000;
+  color: #ffffff;
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+}
+
+/* GP-WBG-S: Transparent bg, Black text/border */
+.ob-btn-gp-wbg-s {
+  background: transparent;
+  color: #000000;
+  border: 2px solid #000000;
+  animation: pulse-glow-black-wbg 2s ease-in-out infinite;
+}
+
+.ob-btn-gp-wbg-s:hover {
+  background: #000000;
+  color: #ffffff;
+  transform: scale(1.05);
+}
+
+@keyframes pulse-glow-wbg {
+  0%, 100% { box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); }
+  50% { box-shadow: 0 0 30px rgba(0, 0, 0, 0.5); }
+}
+
+@keyframes pulse-glow-black-wbg {
+  0%, 100% { box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); }
+  50% { box-shadow: 0 0 30px rgba(0, 0, 0, 0.4); }
+}
+
+/* GP-YBG-P: Yellow bg, Black text */
+.ob-btn-gp-ybg-p {
+  background: #fef9c3;
+  color: #000000;
+  border: 2px solid #000000;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  animation: pulse-glow-ybg 2s ease-in-out infinite;
+}
+
+.ob-btn-gp-ybg-p:hover {
+  background: #000000;
+  color: #fef9c3;
+  border-color: #fef9c3;
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(254, 249, 195, 0.6);
+}
+
+/* GP-YBG-S: Transparent bg, Black text/border */
+.ob-btn-gp-ybg-s {
+  background: transparent;
+  color: #000000;
+  border: 2px solid #000000;
+  animation: pulse-glow-black-ybg 2s ease-in-out infinite;
+}
+
+.ob-btn-gp-ybg-s:hover {
+  background: #000000;
+  color: #fef9c3;
+  transform: scale(1.05);
+}
+
+@keyframes pulse-glow-ybg {
+  0%, 100% { box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); }
+  50% { box-shadow: 0 0 30px rgba(0, 0, 0, 0.5); }
+}
+
+@keyframes pulse-glow-black-ybg {
+  0%, 100% { box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); }
+  50% { box-shadow: 0 0 30px rgba(0, 0, 0, 0.4); }
+}
+
+/* GP-TRY-P: Transparent bg, Yellow text/border */
+.ob-btn-gp-try-p {
+  background: transparent;
+  color: #fef9c3;
+  border: 2px solid #fef9c3;
+  box-shadow: 0 0 20px rgba(254, 249, 195, 0.4);
+  animation: pulse-glow-try 2s ease-in-out infinite;
+}
+
+.ob-btn-gp-try-p:hover {
+  background: #fef9c3;
+  color: #000000;
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(254, 249, 195, 0.6);
+}
+
+/* GP-TRY-S: Transparent bg, White text/border */
+.ob-btn-gp-try-s {
+  background: transparent;
+  color: #ffffff;
+  border: 2px solid #ffffff;
+  animation: pulse-glow-white-try 2s ease-in-out infinite;
+}
+
+.ob-btn-gp-try-s:hover {
+  background: #ffffff;
+  color: #000000;
+  transform: scale(1.05);
+}
+
+@keyframes pulse-glow-try {
+  0%, 100% { box-shadow: 0 0 20px rgba(254, 249, 195, 0.4); }
+  50% { box-shadow: 0 0 30px rgba(254, 249, 195, 0.7); }
+}
+
+@keyframes pulse-glow-white-try {
+  0%, 100% { box-shadow: 0 0 20px rgba(255, 255, 255, 0.3); }
+  50% { box-shadow: 0 0 30px rgba(255, 255, 255, 0.5); }
+}
