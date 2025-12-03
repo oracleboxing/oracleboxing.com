@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Menu, X, ChevronRight } from 'lucide-react'
+import { X, ChevronRight } from 'lucide-react'
 import { useAnalytics } from '@/hooks/useAnalytics'
 
 export function Header() {
@@ -191,7 +191,14 @@ export function Header() {
               className="md:hidden text-white p-2 rounded-md hover:bg-neutral-800 transition-colors z-10"
               aria-label="Toggle menu"
             >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {mobileMenuOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <div className="w-6 h-6 flex flex-col justify-center gap-1.5">
+                  <div className="w-full h-0.5 bg-white rounded-full"></div>
+                  <div className="w-full h-0.5 bg-white rounded-full"></div>
+                </div>
+              )}
             </button>
           </div>
         </div>
