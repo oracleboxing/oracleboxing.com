@@ -183,6 +183,18 @@ p, span, a, label, li, td, th {
   animation: bounce-subtle 2s ease-in-out infinite;
 }
 
+/* Mobile menu waterfall animation */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Payment icons styling */
 .payment_icons-group {
   display: flex;
