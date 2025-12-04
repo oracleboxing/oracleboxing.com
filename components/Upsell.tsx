@@ -152,9 +152,9 @@ export function Upsell({ product, sessionId }: UpsellProps) {
     return (
       <div className="w-full">
         {/* Title */}
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-2">
-            Would you like to redeem your 20% discount for an Oracle Boxing Tracksuit?
+        <div className="text-center mb-8 mt-12 px-4">
+          <h2 className="text-3xl font-bold text-gray-900">
+            Redeem your 20% discount on an Oracle Boxing Tracksuit
           </h2>
         </div>
 
