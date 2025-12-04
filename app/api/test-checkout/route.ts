@@ -9,7 +9,7 @@ export async function POST(req: NextRequest) {
   try {
     const { price_id, product_name } = await req.json()
 
-    // Create Stripe Checkout Session
+    // Create Stripe Checkout Session with customer creation and payment method save
     const session = await stripe.checkout.sessions.create({
       mode: 'payment',
       payment_method_types: ['card'],
@@ -19,6 +19,10 @@ export async function POST(req: NextRequest) {
           quantity: 1,
         },
       ],
+      customer_creation: 'always', // Always create a customer
+      payment_intent_data: {
+        setup_future_usage: 'off_session', // Save payment method for future use
+      },
       success_url: `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/test-checkout`,
       metadata: {
