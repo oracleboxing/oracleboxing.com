@@ -246,7 +246,7 @@ export function Upsell({ product, sessionId }: UpsellProps) {
                   {/* Shipping Notice */}
                   <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
                     <p className="text-sm text-gray-900 mb-2">
-                      <strong>Note:</strong> Price does not include shipping. Once purchased, you will be given a coupon to complete checkout for your tracksuit, which will require additional payment for shipping from the UK.
+                      <strong>Note:</strong> Prices do not include shipping. Once purchased, you will be redirected to add shipping info, select size and colour, and will require additional payment for shipping from the UK.
                     </p>
                     <button
                       onClick={() => setShowShippingInfo(!showShippingInfo)}
@@ -256,26 +256,13 @@ export function Upsell({ product, sessionId }: UpsellProps) {
                     </button>
                     {showShippingInfo && (
                       <div className="mt-3 text-sm text-gray-700 space-y-1">
-                        <p>• UK: £5-10</p>
-                        <p>• Europe: £15-25</p>
-                        <p>• USA/Canada: £20-35</p>
-                        <p>• Rest of World: £25-45</p>
+                        <p>• UK: £5.00</p>
+                        <p>• Europe: £9.95</p>
+                        <p>• US/Canada: £14.95</p>
+                        <p>• Rest of World: £19.95</p>
                       </div>
                     )}
                   </div>
-
-                  {/* No Thanks */}
-                  <button
-                    onClick={handleDecline}
-                    disabled={hasDeclined}
-                    className={`w-full text-center text-sm font-medium transition-colors ${
-                      hasDeclined
-                        ? 'text-gray-400 cursor-not-allowed'
-                        : 'text-gray-600 hover:text-gray-900'
-                    }`}
-                  >
-                    {hasDeclined ? 'Declined' : 'No thanks'}
-                  </button>
 
                   {/* Product Info */}
                   <div className="pt-6 border-t border-gray-200">
@@ -377,7 +364,7 @@ export function Upsell({ product, sessionId }: UpsellProps) {
             {/* Shipping Notice */}
             <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
               <p className="text-sm text-gray-900 mb-2">
-                <strong>Note:</strong> Price does not include shipping. Once purchased, you will be given a coupon to complete checkout for your tracksuit, which will require additional payment for shipping from the UK.
+                <strong>Note:</strong> Prices do not include shipping. Once purchased, you will be redirected to add shipping info, select size and colour, and will require additional payment for shipping from the UK.
               </p>
               <button
                 onClick={() => setShowShippingInfo(!showShippingInfo)}
@@ -387,26 +374,13 @@ export function Upsell({ product, sessionId }: UpsellProps) {
               </button>
               {showShippingInfo && (
                 <div className="mt-3 text-sm text-gray-700 space-y-1">
-                  <p>• UK: £5-10</p>
-                  <p>• Europe: £15-25</p>
-                  <p>• USA/Canada: £20-35</p>
-                  <p>• Rest of World: £25-45</p>
+                  <p>• UK: £5.00</p>
+                  <p>• Europe: £9.95</p>
+                  <p>• US/Canada: £14.95</p>
+                  <p>• Rest of World: £19.95</p>
                 </div>
               )}
             </div>
-
-            {/* No Thanks */}
-            <button
-              onClick={handleDecline}
-              disabled={hasDeclined}
-              className={`w-full text-center text-sm font-medium transition-colors ${
-                hasDeclined
-                  ? 'text-gray-400 cursor-not-allowed'
-                  : 'text-gray-600 hover:text-gray-900'
-              }`}
-            >
-              {hasDeclined ? 'Declined' : 'No thanks'}
-            </button>
 
             {/* Product Info */}
             <div className="pt-6 border-t border-gray-200">
