@@ -465,13 +465,13 @@ Everything in the Challenge plus lifetime access and VIP perks.
     id: 'tracksuit',
     title: 'Oracle Boxing Tracksuit',
     price: 161, // USD base price (20% discount applied)
-    currency_prices: {
-      USD: 161,
-      GBP: 128,
-      EUR: 150,
-      CAD: 219,
-      AUD: 241,
-      AED: 590,
+    prices: {
+      usd: 161,
+      gbp: 128,
+      eur: 150,
+      cad: 219,
+      aud: 241,
+      aed: 590,
     },
     type: 'course',
     metadata: 'tracksuit',
