@@ -4,8 +4,12 @@ import { Footer } from '@/components/Footer'
 import { SuccessContent } from '@/components/SuccessContent'
 
 export const metadata = {
-  title: 'Order Confirmed | Oracle Boxing Shop',
+  title: 'Order Successful',
   description: 'Your order has been confirmed',
+  robots: {
+    index: false,
+    follow: false,
+  },
 }
 
 export default async function SuccessPage({

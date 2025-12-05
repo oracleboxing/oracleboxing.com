@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Refund Policy | Oracle Boxing',
+  title: 'Refund Policy',
   description: 'Refund policy for Oracle Boxing courses and memberships. 30-day money-back guarantee on digital courses. No refunds on memberships.',
   alternates: {
     canonical: '/refund',

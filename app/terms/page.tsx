@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Terms of Service | Oracle Boxing',
+  title: 'Terms of Service',
   description: 'Terms of Service for Oracle Boxing digital courses, memberships, and coaching services. Read our policies on refunds, content usage, and user responsibilities.',
   alternates: {
     canonical: '/terms',

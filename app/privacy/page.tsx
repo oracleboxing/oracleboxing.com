@@ -1,7 +1,7 @@
 import type { Metadata} from 'next'
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy | Oracle Boxing',
+  title: 'Privacy Policy',
   description: 'Privacy Policy for Oracle Boxing. Learn how we collect, use, and protect your personal information, cookies, and data security practices.',
   alternates: {
     canonical: '/privacy',

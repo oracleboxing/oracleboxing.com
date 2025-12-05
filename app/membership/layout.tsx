@@ -1,14 +1,14 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Membership | Oracle Boxing',
+  title: 'Community',
   description: 'Join 300+ boxers training with daily live coaching calls, complete course access, community support, and personalized video feedback. Starting from just $75/month with annual membership.',
   keywords: 'boxing membership, online boxing coaching, boxing community, live coaching, boxing training membership, oracle boxing membership',
   alternates: {
     canonical: '/membership',
   },
   openGraph: {
-    title: 'Membership | Oracle Boxing',
+    title: 'Community',
     description: 'Join 300+ boxers training with daily live coaching calls, complete course access, community support, and personalized feedback.',
     url: 'https://oracleboxing.com/membership',
     siteName: 'Oracle Boxing',
@@ -16,18 +16,18 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://media.oracleboxing.com/Website/optimized/products/boxing_clinic-large.webp',
+        url: 'https://media.oracleboxing.com/Website/skool_art.webp',
         width: 1200,
         height: 630,
-        alt: 'Oracle Boxing Membership - Old School Boxing, New School System',
+        alt: 'Community',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Membership | Oracle Boxing',
+    title: 'Community',
     description: 'Join 300+ boxers training with daily live coaching calls, complete course access, and community support.',
-    images: ['https://media.oracleboxing.com/Website/optimized/products/boxing_clinic-large.webp'],
+    images: ['https://media.oracleboxing.com/Website/skool_art.webp'],
     creator: '@oracleboxing',
   },
 }
