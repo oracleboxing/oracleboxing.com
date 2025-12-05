@@ -3,7 +3,6 @@
 import React, { useMemo, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { fbInitiateCheckout } from "@/lib/fbpixel";
-import { initiateCheckout } from "@/lib/gtag";
 import { getCheckoutUrl } from "@/lib/checkout";
 import { getOrInitTrackingData, updateTrackingData, generateEventId } from "@/lib/tracking-cookies";
 import { useAnalytics } from "@/hooks/useAnalytics";

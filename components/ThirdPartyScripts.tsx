@@ -24,19 +24,6 @@ export function ThirdPartyScripts() {
 
   return (
     <>
-      {/* Google Tag Manager - Load after hydration */}
-      <Script
-        id="gtm-script"
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{
-          __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-NXKTDCT5');`
-        }}
-      />
-
       {/* Facebook Pixel - Load after hydration */}
       <Script
         id="fb-pixel"
@@ -54,24 +41,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         `
         }}
       />
-
-      {/* Google Analytics - Lazy load */}
-      <Script
-        src="https://www.googletagmanager.com/gtag/js?id=G-QL4S6JCWK7"
-        strategy="lazyOnload"
-      />
-      <Script
-        id="ga-init"
-        strategy="lazyOnload"
-        dangerouslySetInnerHTML={{
-          __html: `
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'G-QL4S6JCWK7');
-        `
-        }}
-      />
     </>
   )
 }
@@ -80,7 +49,5 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 declare global {
   interface Window {
     fbq: any
-    dataLayer: any
-    gtag: any
   }
 }

@@ -1,21 +1,36 @@
 @import "tailwindcss";
 
 @theme {
-  --color-background: #ffffff;
+  /* ========================================
+     Oracle Boxing Color Palette
+     ======================================== */
+
+  /* Primary Brand Colors */
+  --color-whitesmoke: #F5F5F5;
+  --color-cta-yellow: #fef9c3;
+  --color-header-footer: #171717; /* neutral-900 */
+
+  /* Create Tailwind-compatible color utilities */
+  --color-ob-whitesmoke: #F5F5F5;
+  --color-ob-yellow: #fef9c3;
+  --color-ob-dark: #171717;
+
+  /* Theme Colors (updated to use whitesmoke) */
+  --color-background: #F5F5F5;
   --color-foreground: #0e0e0e;
   --color-accent: #dc2626;
   --color-muted: #f3f4f6;
   --color-muted-foreground: #6b7280;
-  --color-card: #ffffff;
+  --color-card: #F5F5F5;
   --color-card-foreground: #0e0e0e;
-  --color-popover: #ffffff;
+  --color-popover: #F5F5F5;
   --color-popover-foreground: #0e0e0e;
   --color-primary: #0e0e0e;
-  --color-primary-foreground: #ffffff;
+  --color-primary-foreground: #F5F5F5;
   --color-secondary: #f3f4f6;
   --color-secondary-foreground: #0e0e0e;
   --color-destructive: #ef4444;
-  --color-destructive-foreground: #ffffff;
+  --color-destructive-foreground: #F5F5F5;
   --color-border: #e5e7eb;
   --color-input: #e5e7eb;
   --color-ring: #dc2626;
@@ -266,7 +281,7 @@ p, span, a, label, li, td, th {
   /* Body & UI Colors */
   --ob-body-text: #1d1d1f;
   --ob-muted-text: #86868b;
-  --ob-card-bg: #ffffff;
+  --ob-card-bg: #F5F5F5;
   --ob-card-border-radius: 18px;
 }
 
@@ -294,10 +309,10 @@ p, span, a, label, li, td, th {
   outline-offset: 2px;
 }
 
-/* Primary CTA (black background, white text) */
+/* Primary CTA (black background, whitesmoke text) */
 .ob-btn-primary {
   background-color: var(--ob-cta-primary-bg);
-  color: #ffffff;
+  color: #F5F5F5;
   border: 2px solid var(--ob-cta-primary-bg);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
@@ -325,7 +340,7 @@ p, span, a, label, li, td, th {
 
 .ob-btn-secondary:hover {
   background-color: #000000;
-  color: #ffffff;
+  color: #F5F5F5;
   border-color: #000000;
   transform: translateY(-1px);
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
@@ -387,16 +402,16 @@ p, span, a, label, li, td, th {
   box-shadow: 0 0 30px rgba(254, 249, 195, 0.6);
 }
 
-/* GP-BYG-S: Transparent bg, White text/border */
+/* GP-BYG-S: Transparent bg, Whitesmoke text/border */
 .ob-btn-gp-byg-s {
   background: transparent;
-  color: #ffffff;
-  border: 2px solid #ffffff;
+  color: #F5F5F5;
+  border: 2px solid #F5F5F5;
   animation: pulse-glow-white-byg 2s ease-in-out infinite;
 }
 
 .ob-btn-gp-byg-s:hover {
-  background: #ffffff;
+  background: #F5F5F5;
   color: #000000;
   transform: scale(1.05);
 }
@@ -411,9 +426,9 @@ p, span, a, label, li, td, th {
   50% { box-shadow: 0 0 30px rgba(255, 255, 255, 0.5); }
 }
 
-/* GP-WBG-P: White bg, Black text */
+/* GP-WBG-P: Whitesmoke bg, Black text */
 .ob-btn-gp-wbg-p {
-  background: #ffffff;
+  background: #F5F5F5;
   color: #000000;
   border: 2px solid #000000;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
@@ -422,7 +437,7 @@ p, span, a, label, li, td, th {
 
 .ob-btn-gp-wbg-p:hover {
   background: #000000;
-  color: #ffffff;
+  color: #F5F5F5;
   transform: scale(1.05);
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
 }
@@ -508,16 +523,16 @@ p, span, a, label, li, td, th {
   box-shadow: 0 0 30px rgba(254, 249, 195, 0.6);
 }
 
-/* GP-TRY-S: Transparent bg, White text/border */
+/* GP-TRY-S: Transparent bg, Whitesmoke text/border */
 .ob-btn-gp-try-s {
   background: transparent;
-  color: #ffffff;
-  border: 2px solid #ffffff;
+  color: #F5F5F5;
+  border: 2px solid #F5F5F5;
   animation: pulse-glow-white-try 2s ease-in-out infinite;
 }
 
 .ob-btn-gp-try-s:hover {
-  background: #ffffff;
+  background: #F5F5F5;
   color: #000000;
   transform: scale(1.05);
 }

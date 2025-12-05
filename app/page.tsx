@@ -552,12 +552,6 @@ export default function HomePage() {
         </section>
 
         <Footer />
-
-        {/* Notify Me Modal */}
-        <NotifyMeModal
-          isOpen={isNotifyModalOpen}
-          onClose={() => setIsNotifyModalOpen(false)}
-        />
       </div>
     </>
   )
