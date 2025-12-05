@@ -196,7 +196,7 @@ export function Header() {
 
               {/* Clothing Link */}
               <a
-                href="https://shop.oracleboxing.com/collections/all?utm_source=oracleboxing.com"
+                href="https://shop.oracleboxing.com/collections/catalog?utm_source=oracleboxing.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => handleNavClick('header', 'https://shop.oracleboxing.com')}
@@ -276,7 +276,7 @@ export function Header() {
 
                 {/* Clothing Link */}
                 <a
-                  href="https://shop.oracleboxing.com/collections/all?utm_source=oracleboxing.com"
+                  href="https://shop.oracleboxing.com/collections/catalog?utm_source=oracleboxing.com"
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => {

@@ -14,10 +14,8 @@ const Footer = dynamic(() => import('@/components/Footer').then(mod => ({ defaul
 })
 const TestimonialCarousel = dynamic(() => import('@/components/TestimonialCarousel').then(mod => ({ default: mod.TestimonialCarousel })))
 const ApparelCarousel = dynamic(() => import('@/components/ApparelCarousel').then(mod => ({ default: mod.ApparelCarousel })))
-const NotifyMeModal = dynamic(() => import('@/components/NotifyMeModal').then(mod => ({ default: mod.NotifyMeModal })))
 
 export default function HomePage() {
-  const [isNotifyModalOpen, setIsNotifyModalOpen] = useState(false)
   const [newsletterLoading, setNewsletterLoading] = useState(false)
   const [newsletterMessage, setNewsletterMessage] = useState('')
   const [newsletterSuccess, setNewsletterSuccess] = useState(false)
@@ -503,8 +501,8 @@ export default function HomePage() {
 
           <div className="text-center px-4">
             <Link
-              href="https://shop.oracleboxing.com/collections/all"
-              onClick={() => handleButtonClick('homepage-apparel', 'primary-cta', undefined, undefined, 'https://shop.oracleboxing.com/collections/all')}
+              href="https://shop.oracleboxing.com/collections/catalog?utm_source=oracleboxing.com"
+              onClick={() => handleButtonClick('homepage-apparel', 'primary-cta', undefined, undefined, 'https://shop.oracleboxing.com/collections/catalog?utm_source=oracleboxing.com')}
               className="ob-btn ob-btn-gp-wbg-s ob-btn-large"
               target="_blank"
               rel="noopener noreferrer"

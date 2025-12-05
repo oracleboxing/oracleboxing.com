@@ -96,7 +96,7 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  href="https://shop.oracleboxing.com"
+                  href="https://shop.oracleboxing.com/collections/catalog?utm_source=oracleboxing.com"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-gray-400 hover:text-[#F5F5F5] transition-colors text-sm"
