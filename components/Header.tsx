@@ -162,13 +162,13 @@ export function Header() {
                 </div>
               </div>
 
-              {/* Coaching Dropdown */}
+              {/* Community Dropdown */}
               <div className="group relative">
                 <button className="text-white font-semibold text-sm lg:text-base tracking-wide hover:text-gray-300 transition-colors py-2">
-                  Coaching
+                  Community
                 </button>
 
-                {/* Coaching Dropdown Menu */}
+                {/* Community Dropdown Menu */}
                 <div className="absolute left-1/2 transform -translate-x-1/2 top-full pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                   <div className="bg-neutral-900 border border-gray-800 rounded-lg shadow-2xl py-3 min-w-[240px]">
                     {coaching.map((item) => (
@@ -257,12 +257,12 @@ export function Header() {
                   Courses
                 </button>
 
-                {/* Coaching Button */}
+                {/* Community Button */}
                 <button
                   onClick={() => setMobileSubMenu('coaching')}
                   className="text-white font-bold text-xl py-4 px-5 hover:bg-neutral-800 rounded-lg transition-colors text-left"
                 >
-                  Coaching
+                  Community
                 </button>
 
                 {/* Clothing Link */}
@@ -317,14 +317,14 @@ export function Header() {
             </div>
           </div>
 
-          {/* Layer 2: Coaching Submenu */}
+          {/* Layer 2: Community Submenu */}
           <div
             className={`absolute inset-0 bg-neutral-900 transition-all duration-300 ease-out ${
               mobileSubMenu === 'coaching' ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0 pointer-events-none'
             }`}
           >
             <div className="flex flex-col h-full">
-              {/* Coaching List */}
+              {/* Community List */}
               <nav className="flex-1 p-6">
                 <div className="flex flex-col space-y-2">
                   {coaching.map((item) => (

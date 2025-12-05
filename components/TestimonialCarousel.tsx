@@ -19,7 +19,7 @@ export function TestimonialCarousel({ testimonials }: TestimonialCarouselProps) 
 
     const scroll = () => {
       if (!isPaused && scrollContainer) {
-        scrollContainer.scrollLeft += 1.38
+        scrollContainer.scrollLeft += 1.1
 
         // Reset to beginning when reaching end
         if (scrollContainer.scrollLeft >= scrollContainer.scrollWidth / 2) {
