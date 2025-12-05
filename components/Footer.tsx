@@ -4,7 +4,7 @@ import { ScrollToTopLink as Link } from "@/components/ScrollToTopLink";
 
 export function Footer() {
   return (
-    <footer className="bg-black text-white">
+    <footer className="bg-neutral-900 text-[#F5F5F5]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 mb-12">
@@ -26,7 +26,7 @@ export function Footer() {
                 href="https://www.instagram.com/oracle.boxing/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-colors"
+                className="text-gray-400 hover:text-[#F5F5F5] transition-colors"
                 aria-label="Instagram"
               >
                 <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -37,7 +37,7 @@ export function Footer() {
                 href="https://www.youtube.com/@oracle_boxing"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-colors"
+                className="text-gray-400 hover:text-[#F5F5F5] transition-colors"
                 aria-label="YouTube"
               >
                 <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -48,7 +48,7 @@ export function Footer() {
                 href="https://www.facebook.com/p/Oracle-Boxing-61559153466435/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-colors"
+                className="text-gray-400 hover:text-[#F5F5F5] transition-colors"
                 aria-label="Facebook"
               >
                 <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -60,20 +60,20 @@ export function Footer() {
 
           {/* Column 2: Courses */}
           <div className="text-center sm:text-left">
-            <h3 className="font-bold text-white mb-4 text-sm uppercase tracking-wider">Courses</h3>
+            <h3 className="font-bold text-[#F5F5F5] mb-4 text-sm uppercase tracking-wider">Courses</h3>
             <ul className="space-y-3">
               <li>
-                <Link to="/courses/bundle" className="text-gray-400 hover:text-white transition-colors text-sm">
+                <Link to="/courses/bundle" className="text-gray-400 hover:text-[#F5F5F5] transition-colors text-sm">
                   Oracle Boxing Bundle
                 </Link>
               </li>
               <li>
-                <Link to="/courses/bffp" className="text-gray-400 hover:text-white transition-colors text-sm">
+                <Link to="/courses/bffp" className="text-gray-400 hover:text-[#F5F5F5] transition-colors text-sm">
                   Boxing Masterclass
                 </Link>
               </li>
               <li>
-                <Link to="/courses/roadmap" className="text-gray-400 hover:text-white transition-colors text-sm">
+                <Link to="/courses/roadmap" className="text-gray-400 hover:text-[#F5F5F5] transition-colors text-sm">
                   Boxing Roadmap
                 </Link>
               </li>
@@ -82,21 +82,16 @@ export function Footer() {
 
           {/* Column 3: Community */}
           <div className="text-center sm:text-left">
-            <h3 className="font-bold text-white mb-4 text-sm uppercase tracking-wider">Community</h3>
+            <h3 className="font-bold text-[#F5F5F5] mb-4 text-sm uppercase tracking-wider">Community</h3>
             <ul className="space-y-3">
               <li>
-                <Link to="/membership" className="text-gray-400 hover:text-white transition-colors text-sm">
+                <Link to="/membership" className="text-gray-400 hover:text-[#F5F5F5] transition-colors text-sm">
                   Membership
                 </Link>
               </li>
               <li>
-                <Link to="/6wc" className="text-gray-400 hover:text-white transition-colors text-sm">
+                <Link to="/6wc" className="text-gray-400 hover:text-[#F5F5F5] transition-colors text-sm">
                   6-Week Challenge
-                </Link>
-              </li>
-              <li>
-                <Link to="/coaching" className="text-gray-400 hover:text-white transition-colors text-sm">
-                  1-on-1 Coaching
                 </Link>
               </li>
               <li>
@@ -104,7 +99,7 @@ export function Footer() {
                   href="https://shop.oracleboxing.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-400 hover:text-white transition-colors text-sm"
+                  className="text-gray-400 hover:text-[#F5F5F5] transition-colors text-sm"
                 >
                   Apparel Shop
                 </a>
@@ -114,25 +109,25 @@ export function Footer() {
 
           {/* Column 4: Company */}
           <div className="text-center sm:text-left">
-            <h3 className="font-bold text-white mb-4 text-sm uppercase tracking-wider">Company</h3>
+            <h3 className="font-bold text-[#F5F5F5] mb-4 text-sm uppercase tracking-wider">Company</h3>
             <ul className="space-y-3">
               <li>
-                <Link to="/terms" className="text-gray-400 hover:text-white transition-colors text-sm">
+                <Link to="/terms" className="text-gray-400 hover:text-[#F5F5F5] transition-colors text-sm">
                   Terms of Service
                 </Link>
               </li>
               <li>
-                <Link to="/privacy" className="text-gray-400 hover:text-white transition-colors text-sm">
+                <Link to="/privacy" className="text-gray-400 hover:text-[#F5F5F5] transition-colors text-sm">
                   Privacy Policy
                 </Link>
               </li>
               <li>
-                <Link to="/refund" className="text-gray-400 hover:text-white transition-colors text-sm">
+                <Link to="/refund" className="text-gray-400 hover:text-[#F5F5F5] transition-colors text-sm">
                   Refund Policy
                 </Link>
               </li>
               <li>
-                <Link to="/guarantee" className="text-gray-400 hover:text-white transition-colors text-sm">
+                <Link to="/guarantee" className="text-gray-400 hover:text-[#F5F5F5] transition-colors text-sm">
                   Money-Back Guarantee
                 </Link>
               </li>
