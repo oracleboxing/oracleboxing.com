@@ -20,6 +20,7 @@ export const metadata: Metadata = {
       { url: '/favicon.ico' },
       { url: '/favicons/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
       { url: '/favicons/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: 'https://media.oracleboxing.com/favicons/favicon.svg', type: 'image/svg+xml' },
     ],
     apple: [
       { url: '/apple-touch-icon.png', sizes: '180x180' },
@@ -28,6 +29,7 @@ export const metadata: Metadata = {
     other: [
       { rel: 'icon', url: '/favicons/favicon-192x192.png', sizes: '192x192', type: 'image/png' },
       { rel: 'icon', url: '/favicons/favicon-512x512.png', sizes: '512x512', type: 'image/png' },
+      { rel: 'mask-icon', url: 'https://media.oracleboxing.com/favicons/favicon.svg', color: '#D4AF37' },
     ],
   },
   openGraph: {
@@ -77,10 +79,12 @@ export default function RootLayout({
 
         {/* Favicons - explicit links for Safari compatibility */}
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/svg+xml" href="https://media.oracleboxing.com/favicons/favicon.svg" />
         <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
         <link rel="apple-touch-icon" sizes="167x167" href="/apple-touch-icon-167x167.png" />
+        <link rel="mask-icon" href="https://media.oracleboxing.com/favicons/favicon.svg" color="#D4AF37" />
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
