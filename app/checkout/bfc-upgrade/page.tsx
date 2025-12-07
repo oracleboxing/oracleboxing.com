@@ -86,6 +86,8 @@ function BFCUpgradeContent() {
   }, [searchParams, router])
 
   const handleContinue = async () => {
+    // Prevent double-clicks
+    if (isProcessing) return
     setIsProcessing(true)
 
     try {

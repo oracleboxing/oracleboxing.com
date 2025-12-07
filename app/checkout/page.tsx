@@ -89,6 +89,9 @@ export default function CheckoutPage() {
   const handleContactSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
+    // Prevent double-clicks
+    if (isLoading) return
+
     // Validate required fields
     const fullName = customerInfo.firstName.trim()
     const email = customerInfo.email.trim()

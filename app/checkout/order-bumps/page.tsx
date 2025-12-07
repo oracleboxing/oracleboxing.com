@@ -2,7 +2,7 @@
 
 import { Suspense, useState, useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { Check, ArrowRight, ArrowLeft } from 'lucide-react'
+import { Check, ArrowRight, ArrowLeft, Loader2 } from 'lucide-react'
 import { toast } from 'sonner'
 
 import { get6WCAddOns, getCourseOrderBump, getProductById } from '@/lib/products'
@@ -34,6 +34,7 @@ function OrderBumpsContent() {
   const [expandedBump, setExpandedBump] = useState<string | null>(null)
   const [currentIndex, setCurrentIndex] = useState(0)
   const [showAll, setShowAll] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const [trackingParams, setTrackingParams] = useState<{
     referrer: string
     first_utm_source?: string
@@ -133,6 +134,10 @@ function OrderBumpsContent() {
   }
 
   const handleContinue = async () => {
+    // Prevent double-clicks
+    if (isLoading) return
+    setIsLoading(true)
+
     // Build the items array for checkout
     const items = []
 
@@ -271,6 +276,7 @@ function OrderBumpsContent() {
     } catch (error: any) {
       console.error('Checkout error:', error)
       toast.error(error.message || "Couldn't start checkout, try again")
+      setIsLoading(false)
     }
   }
 
@@ -572,10 +578,21 @@ function OrderBumpsContent() {
         {/* Continue Button */}
         <button
           onClick={handleContinue}
-          className="w-full py-3 px-6 bg-[#000000] text-white font-bold text-base rounded-full shadow-lg hover:bg-[#1a1a1a] transition-all duration-200"
-          style={{ cursor: 'pointer' }}
+          disabled={isLoading}
+          className={`w-full py-3 px-6 font-bold text-base rounded-full shadow-lg transition-all duration-200 flex items-center justify-center gap-2 ${
+            isLoading
+              ? 'bg-gray-400 cursor-not-allowed'
+              : 'bg-[#000000] hover:bg-[#1a1a1a] cursor-pointer'
+          } text-white`}
         >
-          Continue to Payment
+          {isLoading ? (
+            <>
+              <Loader2 className="w-5 h-5 animate-spin" />
+              Processing...
+            </>
+          ) : (
+            'Continue to Payment'
+          )}
         </button>
         </div>
       </div>
