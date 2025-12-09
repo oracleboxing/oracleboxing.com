@@ -16,8 +16,8 @@ export const metadata: Metadata = {
     canonical: '/',
   },
   icons: {
-    icon: { url: '/favicons/infinity_squared_white.svg', type: 'image/svg+xml' },
-    apple: '/favicons/infinity_squared_white.svg',
+    icon: { url: 'https://media.oracleboxing.com/infinity_squared_white.svg', type: 'image/svg+xml' },
+    apple: 'https://media.oracleboxing.com/infinity_squared_white.svg',
   },
   openGraph: {
     title: "Oracle Boxing",
@@ -65,7 +65,7 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
 
         {/* Favicon */}
-        <link rel="icon" type="image/svg+xml" href="/favicons/infinity_squared_white.svg" />
+        <link rel="icon" type="image/svg+xml" href="https://media.oracleboxing.com/infinity_squared_white.svg" />
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
