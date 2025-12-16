@@ -134,7 +134,7 @@ export function Upsell({ product, sessionId }: UpsellProps) {
     if (!images) return null
 
     // All product images including model shots
-    // Extract color from hoodieFront path (e.g., https://media.oracleboxing.com/tracksuit/hoodie_black_front.webp -> black)
+    // Extract color from hoodieFront path (e.g., https://sb.oracleboxing.com/tracksuit/hoodie_black_front.webp -> black)
     const colorMatch = images.hoodieFront.match(/hoodie_(\w+)_front/)
     const colorName = colorMatch ? colorMatch[1] : 'black'
 
@@ -143,10 +143,10 @@ export function Upsell({ product, sessionId }: UpsellProps) {
       { src: images.hoodieBack, alt: 'Hoodie Back' },
       { src: images.joggerFront, alt: 'Joggers Front' },
       { src: images.joggerBack, alt: 'Joggers Back' },
-      { src: `https://media.oracleboxing.com/tracksuit/hoodie_${colorName}_front_model.webp`, alt: 'Hoodie Model Front' },
-      { src: `https://media.oracleboxing.com/tracksuit/hoodie_${colorName}_back_model.webp`, alt: 'Hoodie Model Back' },
-      { src: `https://media.oracleboxing.com/tracksuit/jogger_${colorName}_front_model.webp`, alt: 'Jogger Model Front' },
-      { src: `https://media.oracleboxing.com/tracksuit/jogger_${colorName}_back_model.webp`, alt: 'Jogger Model Back' },
+      { src: `https://sb.oracleboxing.com/tracksuit/hoodie_${colorName}_front_model.webp`, alt: 'Hoodie Model Front' },
+      { src: `https://sb.oracleboxing.com/tracksuit/hoodie_${colorName}_back_model.webp`, alt: 'Hoodie Model Back' },
+      { src: `https://sb.oracleboxing.com/tracksuit/jogger_${colorName}_front_model.webp`, alt: 'Jogger Model Front' },
+      { src: `https://sb.oracleboxing.com/tracksuit/jogger_${colorName}_back_model.webp`, alt: 'Jogger Model Back' },
     ]
 
     return (

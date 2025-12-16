@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://media.oracleboxing.com/Website/skool_art.webp',
+        url: 'https://sb.oracleboxing.com/Website/skool_art.webp',
         width: 1200,
         height: 630,
         alt: 'Community',
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Community',
     description: 'Join 300+ boxers training with daily live coaching calls, complete course access, and community support.',
-    images: ['https://media.oracleboxing.com/Website/skool_art.webp'],
+    images: ['https://sb.oracleboxing.com/Website/skool_art.webp'],
     creator: '@oracleboxing',
   },
 }

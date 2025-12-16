@@ -86,7 +86,7 @@ export default function HomePage() {
             "@type": "Organization",
             "name": "Oracle Boxing",
             "url": "https://oracleboxing.com",
-            "logo": "https://media.oracleboxing.com/Website/optimized/logos/long_black-large.webp",
+            "logo": "https://sb.oracleboxing.com/Website/optimized/logos/long_black-large.webp",
             "description": "Master Old School Boxing Anytime, Anywhere",
             "email": "team@oracleboxing.com",
             "sameAs": [
@@ -114,12 +114,12 @@ export default function HomePage() {
             loop
             muted
             playsInline
-            poster="https://media.oracleboxing.com/Website/hero-section-frame.webp"
+            poster="https://sb.oracleboxing.com/Website/hero-section-frame.webp"
             className="absolute inset-0 w-full h-full object-cover object-[60%_top] sm:object-[center_top]"
           >
-            <source src="https://media.oracleboxing.com/Website/optimized/videos/hero-section-desktop.webm" type="video/webm" media="(min-width: 768px)" />
-            <source src="https://media.oracleboxing.com/Website/optimized/videos/hero-section-desktop.mp4" type="video/mp4" media="(min-width: 768px)" />
-            <source src="https://media.oracleboxing.com/Website/optimized/videos/hero-section-mobile.mp4" type="video/mp4" />
+            <source src="https://sb.oracleboxing.com/Website/optimized/videos/hero-section-desktop.webm" type="video/webm" media="(min-width: 768px)" />
+            <source src="https://sb.oracleboxing.com/Website/optimized/videos/hero-section-desktop.mp4" type="video/mp4" media="(min-width: 768px)" />
+            <source src="https://sb.oracleboxing.com/Website/optimized/videos/hero-section-mobile.mp4" type="video/mp4" />
           </video>
 
           {/* Overlay for better text readability */}
@@ -278,7 +278,7 @@ export default function HomePage() {
               <div className="ob-card relative flex flex-col">
                 <div className="mb-4">
                   <Image
-                    src="https://media.oracleboxing.com/Website/optimized/products/obm_tn-large.webp"
+                    src="https://sb.oracleboxing.com/Website/optimized/products/obm_tn-large.webp"
                     alt="Oracle Boxing Bundle"
                     width={400}
                     height={225}
@@ -305,7 +305,7 @@ export default function HomePage() {
               <div className="ob-card flex flex-col">
                 <div className="mb-4">
                   <Image
-                    src="https://media.oracleboxing.com/Website/optimized/products/bffp_tn5-medium.webp"
+                    src="https://sb.oracleboxing.com/Website/optimized/products/bffp_tn5-medium.webp"
                     alt="Boxing Masterclass"
                     width={400}
                     height={225}
@@ -335,7 +335,7 @@ export default function HomePage() {
               <div className="ob-card flex flex-col">
                 <div className="mb-4">
                   <Image
-                    src="https://media.oracleboxing.com/Website/optimized/products/tbrtn5hq-medium.webp"
+                    src="https://sb.oracleboxing.com/Website/optimized/products/tbrtn5hq-medium.webp"
                     alt="Boxing Roadmap"
                     width={400}
                     height={225}
@@ -431,10 +431,10 @@ export default function HomePage() {
                     playsInline
                     loop
                     preload="none"
-                    poster={`https://media.oracleboxing.com/Website/transfo/${item.poster}`}
+                    poster={`https://sb.oracleboxing.com/Website/transfo/${item.poster}`}
                     className="w-full h-full object-cover"
                   >
-                    <source src={`https://media.oracleboxing.com/Website/transfo/${item.video}`} type="video/webm" />
+                    <source src={`https://sb.oracleboxing.com/Website/transfo/${item.video}`} type="video/webm" />
                   </video>
                 </div>
               ))}
@@ -455,10 +455,10 @@ export default function HomePage() {
                       playsInline
                       loop
                       preload="none"
-                      poster={`https://media.oracleboxing.com/Website/transfo/${item.poster}`}
+                      poster={`https://sb.oracleboxing.com/Website/transfo/${item.poster}`}
                       className="w-full h-full object-cover"
                     >
-                      <source src={`https://media.oracleboxing.com/Website/transfo/${item.video}`} type="video/webm" />
+                      <source src={`https://sb.oracleboxing.com/Website/transfo/${item.video}`} type="video/webm" />
                     </video>
                   </div>
                 ))}

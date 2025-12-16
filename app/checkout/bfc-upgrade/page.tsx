@@ -210,7 +210,7 @@ function BFCUpgradeContent() {
           {/* Logo */}
           <div className="flex justify-center mb-4">
             <img
-              src="https://media.oracleboxing.com/Website/optimized/logos/long_black-large.webp"
+              src="https://sb.oracleboxing.com/Website/optimized/logos/long_black-large.webp"
               alt="Oracle Boxing"
               className="h-4"
             />
@@ -238,7 +238,7 @@ function BFCUpgradeContent() {
                 {/* Image */}
                 <div className="flex-shrink-0 w-16 h-16">
                   <img
-                    src="https://media.oracleboxing.com/Website/optimized/products/obm_tn-large.webp"
+                    src="https://sb.oracleboxing.com/Website/optimized/products/obm_tn-large.webp"
                     alt="VIP Challenge"
                     className="w-full h-full object-cover rounded-lg"
                   />

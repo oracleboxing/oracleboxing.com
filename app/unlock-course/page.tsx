@@ -41,7 +41,7 @@ export default function ClaimAccessPage() {
         <div className="max-w-4xl mx-auto">
           <Link href="/">
             <Image
-              src="https://media.oracleboxing.com/Website/optimized/logos/long_white-large.webp"
+              src="https://sb.oracleboxing.com/Website/optimized/logos/long_white-large.webp"
               alt="Oracle Boxing"
               width={200}
               height={50}

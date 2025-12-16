@@ -12,7 +12,7 @@ export function Footer() {
           <div className="text-center sm:text-left">
             <div className="mb-4 flex justify-center sm:justify-start">
               <img
-                src="https://media.oracleboxing.com/Website/infinity_squared_white.svg"
+                src="https://sb.oracleboxing.com/Website/infinity_squared_white.svg"
                 alt="Oracle Boxing"
                 className="h-4 w-auto"
               />

@@ -122,7 +122,7 @@ export default function AdminCommunityCheckout() {
         {/* Logo */}
         <div className="flex justify-center mb-6">
           <img
-            src="https://media.oracleboxing.com/Website/optimized/logos/long_black-large.webp"
+            src="https://sb.oracleboxing.com/Website/optimized/logos/long_black-large.webp"
             alt="Oracle Boxing"
             className="h-4"
           />

@@ -11,32 +11,32 @@ export const TRACKSUIT_COLORS: ColorOption[] = [
   {
     id: 'black',
     name: 'Black',
-    hoodieUrl: 'https://media.oracleboxing.com/tracksuit/hoodie_black',
-    joggerUrl: 'https://media.oracleboxing.com/tracksuit/jogger_black',
+    hoodieUrl: 'https://sb.oracleboxing.com/tracksuit/hoodie_black',
+    joggerUrl: 'https://sb.oracleboxing.com/tracksuit/jogger_black',
   },
   {
     id: 'steel',
     name: 'Steel',
-    hoodieUrl: 'https://media.oracleboxing.com/tracksuit/hoodie_blue',
-    joggerUrl: 'https://media.oracleboxing.com/tracksuit/jogger_blue',
+    hoodieUrl: 'https://sb.oracleboxing.com/tracksuit/hoodie_blue',
+    joggerUrl: 'https://sb.oracleboxing.com/tracksuit/jogger_blue',
   },
   {
     id: 'forest',
     name: 'Forest',
-    hoodieUrl: 'https://media.oracleboxing.com/tracksuit/hoodie_green',
-    joggerUrl: 'https://media.oracleboxing.com/tracksuit/jogger_green',
+    hoodieUrl: 'https://sb.oracleboxing.com/tracksuit/hoodie_green',
+    joggerUrl: 'https://sb.oracleboxing.com/tracksuit/jogger_green',
   },
   {
     id: 'grey',
     name: 'Grey',
-    hoodieUrl: 'https://media.oracleboxing.com/tracksuit/hoodie_grey',
-    joggerUrl: 'https://media.oracleboxing.com/tracksuit/jogger_grey',
+    hoodieUrl: 'https://sb.oracleboxing.com/tracksuit/hoodie_grey',
+    joggerUrl: 'https://sb.oracleboxing.com/tracksuit/jogger_grey',
   },
   {
     id: 'hazel',
     name: 'Hazel',
-    hoodieUrl: 'https://media.oracleboxing.com/tracksuit/hoodie_brown',
-    joggerUrl: 'https://media.oracleboxing.com/tracksuit/jogger_brown',
+    hoodieUrl: 'https://sb.oracleboxing.com/tracksuit/hoodie_brown',
+    joggerUrl: 'https://sb.oracleboxing.com/tracksuit/jogger_brown',
   },
 ]
 

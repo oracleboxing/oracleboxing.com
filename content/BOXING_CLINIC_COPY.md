@@ -5,7 +5,7 @@
 **Course ID:** vault
 **Title:** Boxing Clinic
 **Price:** $97
-**Image:** https://media.oracleboxing.com/Website/boxing_clinic.png
+**Image:** https://sb.oracleboxing.com/Website/boxing_clinic.png
 
 **Short Description:**
 Your Full Library of Real Coaching Calls, Uncut and Organized.

@@ -70,17 +70,17 @@ export function Header() {
     {
       name: 'Boxing Bundle',
       href: '/courses/bundle',
-      image: 'https://media.oracleboxing.com/Website/optimized/products/obm_tn-small.webp',
+      image: 'https://sb.oracleboxing.com/Website/optimized/products/obm_tn-small.webp',
     },
     {
       name: 'Boxing Masterclass',
       href: '/courses/bffp',
-      image: 'https://media.oracleboxing.com/Website/optimized/products/bffp_tn5-small.webp',
+      image: 'https://sb.oracleboxing.com/Website/optimized/products/bffp_tn5-small.webp',
     },
     {
       name: 'Boxing Roadmap',
       href: '/courses/roadmap',
-      image: 'https://media.oracleboxing.com/Website/optimized/products/tbrtn5hq-small.webp',
+      image: 'https://sb.oracleboxing.com/Website/optimized/products/tbrtn5hq-small.webp',
     },
   ]
 
@@ -117,7 +117,7 @@ export function Header() {
                 onClick={() => handleNavClick('header', '/')}
               >
                 <img
-                  src="https://media.oracleboxing.com/Website/infinity_squared_white.svg"
+                  src="https://sb.oracleboxing.com/Website/infinity_squared_white.svg"
                   alt="Oracle Boxing"
                   className="h-3 md:h-4 w-auto"
                 />

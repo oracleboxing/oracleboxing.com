@@ -48,22 +48,22 @@ export default function BFFPPage() {
     {
       emoji: '🧘',
       text: 'Stay calm when things get hard and control your feelings.',
-      imageUrl: 'https://media.oracleboxing.com/Website/optimized/course-content/ob_fight3.webp'
+      imageUrl: 'https://sb.oracleboxing.com/Website/optimized/course-content/ob_fight3.webp'
     },
     {
       emoji: '⚡',
       text: 'Use your body the right way to punch with more power.',
-      imageUrl: 'https://media.oracleboxing.com/Website/optimized/course-content/bffp_tn4.webp'
+      imageUrl: 'https://sb.oracleboxing.com/Website/optimized/course-content/bffp_tn4.webp'
     },
     {
       emoji: '🥊',
       text: 'See patterns, read your opponent, and think ahead.',
-      imageUrl: 'https://media.oracleboxing.com/Website/optimized/course-content/bffp_course3.webp'
+      imageUrl: 'https://sb.oracleboxing.com/Website/optimized/course-content/bffp_course3.webp'
     },
     {
       emoji: '♟️',
       text: 'Build energy and stay relaxed through every round.',
-      imageUrl: 'https://media.oracleboxing.com/Website/optimized/course-content/bbffp_course4.webp'
+      imageUrl: 'https://sb.oracleboxing.com/Website/optimized/course-content/bbffp_course4.webp'
     }
   ]
 
@@ -149,7 +149,7 @@ export default function BFFPPage() {
               "name": "Oracle Boxing",
               "sameAs": "https://oracleboxing.com"
             },
-            "image": "https://media.oracleboxing.com/Website/optimized/products/bffp_tn5-large.webp",
+            "image": "https://sb.oracleboxing.com/Website/optimized/products/bffp_tn5-large.webp",
             "offers": {
               "@type": "Offer",
               "category": "Paid",
@@ -185,7 +185,7 @@ export default function BFFPPage() {
             "@type": "Product",
             "name": "Boxing Masterclass",
             "description": "Master the science of boxing through 26 comprehensive lessons covering mind, body, movement, tactics, and conditioning.",
-            "image": "https://media.oracleboxing.com/Website/optimized/products/bffp_tn5-large.webp",
+            "image": "https://sb.oracleboxing.com/Website/optimized/products/bffp_tn5-large.webp",
             "brand": {
               "@type": "Brand",
               "name": "Oracle Boxing"

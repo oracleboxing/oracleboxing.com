@@ -26,7 +26,7 @@ const courses: BundleCourse[] = [
     id: 'bffp',
     title: 'Boxing Masterclass',
     valueMetadata: 'bffp', // Maps to PRODUCT_PRICES in currency.ts
-    image: 'https://media.oracleboxing.com/Website/optimized/products/bffp_tn5-large.webp',
+    image: 'https://sb.oracleboxing.com/Website/optimized/products/bffp_tn5-large.webp',
     description: 'The science of boxing, made simple. Master the conceptual framework of boxing through mind, body mechanics, tactics, and conditioning.',
     modules: [
       {
@@ -60,7 +60,7 @@ const courses: BundleCourse[] = [
     id: 'roadmap',
     title: 'Boxing Roadmap',
     valueMetadata: 'brdmp',
-    image: 'https://media.oracleboxing.com/Website/optimized/products/tbrtn5hq-large.webp',
+    image: 'https://sb.oracleboxing.com/Website/optimized/products/tbrtn5hq-large.webp',
     description: 'Your complete 5-phase training system. Follow structured progressions from fundamentals to mastery with clear drills and techniques.',
     modules: [
       {
@@ -94,7 +94,7 @@ const courses: BundleCourse[] = [
     id: 'clinic',
     title: 'Boxing Clinic Replays',
     valueMetadata: 'rcv',
-    image: 'https://media.oracleboxing.com/Website/optimized/products/boxing_clinic-large.webp',
+    image: 'https://sb.oracleboxing.com/Website/optimized/products/boxing_clinic-large.webp',
     description: 'Learn from live coaching Q&A. Watch Oliver & Toni answer real student questions covering every aspect of boxing. Updated monthly.',
     modules: [
       {

@@ -75,7 +75,7 @@ export function PricingPopup({ isOpen, onClose }: PricingPopupProps) {
           {/* Logo */}
           <div className="flex justify-center mb-6 sm:mb-8">
             <img
-              src="https://media.oracleboxing.com/Website/infinity_squared_white.svg"
+              src="https://sb.oracleboxing.com/Website/infinity_squared_white.svg"
               alt="Oracle Boxing"
               className="h-4 sm:h-5"
               onError={(e) => {
@@ -87,7 +87,7 @@ export function PricingPopup({ isOpen, onClose }: PricingPopupProps) {
           {/* Challenge Thumbnail */}
           <div className="flex justify-center mb-6 sm:mb-8">
             <img
-              src="https://media.oracleboxing.com/Website/skool_art.webp"
+              src="https://sb.oracleboxing.com/Website/skool_art.webp"
               alt="6-Week Challenge"
               className="w-full max-w-[280px] rounded-xl border-4 border-white shadow-lg"
             />
@@ -122,24 +122,24 @@ export function PricingPopup({ isOpen, onClose }: PricingPopupProps) {
             <img
               loading="lazy"
               alt=""
-              src="https://media.oracleboxing.com/Website/payment1.svg"
+              src="https://sb.oracleboxing.com/Website/payment1.svg"
               className="image-55"
             />
             <img
               loading="lazy"
               alt=""
-              src="https://media.oracleboxing.com/Website/payment2.svg"
+              src="https://sb.oracleboxing.com/Website/payment2.svg"
               className="image-55 second"
             />
             <img
               loading="lazy"
               alt=""
-              src="https://media.oracleboxing.com/Website/paypal2.svg"
+              src="https://sb.oracleboxing.com/Website/paypal2.svg"
               className="image-55 bigger"
             />
             <img
               loading="lazy"
-              src="https://media.oracleboxing.com/Website/klarna.svg"
+              src="https://sb.oracleboxing.com/Website/klarna.svg"
               alt=""
               className="image-55 bigger-mobile"
             />

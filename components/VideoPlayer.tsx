@@ -8,7 +8,7 @@ interface VideoPlayerProps {
   title: string
 }
 
-export function VideoPlayer({ videoUrl = 'https://media.oracleboxing.com/Website/optimized/videos/VSL2_2.webm', thumbnail, title }: VideoPlayerProps) {
+export function VideoPlayer({ videoUrl = 'https://sb.oracleboxing.com/Website/optimized/videos/VSL2_2.webm', thumbnail, title }: VideoPlayerProps) {
   return (
     <div className="relative w-full max-w-3xl mx-auto aspect-video bg-gray-900 rounded-lg overflow-hidden shadow-2xl">
       {thumbnail ? (

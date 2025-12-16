@@ -13,7 +13,7 @@ export const products: Product[] = [
     metadata: 'obm',
     stripe_product_id: 'prod_TKqgHrxaUX30MC',
     stripe_price_id: 'price_1SOAyuKPvH4Ddlg1nRnvrgrF',
-    image: 'https://media.oracleboxing.com/Website/optimized/products/obm_tn-large.webp',
+    image: 'https://sb.oracleboxing.com/Website/optimized/products/obm_tn-large.webp',
     shortDescription: 'Every Course, Every Call, Every System, All in One Bundle.',
     perfectFor: 'Serious boxers who want to master everything, fast',
     moduleCount: 5,
@@ -37,7 +37,7 @@ Complete access to the entire Oracle Boxing system — theory, technique, and ta
     metadata: 'bffp',
     stripe_product_id: 'prod_TKqgg2tjyp9j4f',
     stripe_price_id: 'price_1SOAzDKPvH4Ddlg1skHdr4H0',
-    image: 'https://media.oracleboxing.com/Website/optimized/products/bffp_tn5-large.webp',
+    image: 'https://sb.oracleboxing.com/Website/optimized/products/bffp_tn5-large.webp',
     shortDescription: 'The Science of Boxing, Made Simple.',
     perfectFor: 'Beginners who crave a deep understanding',
     moduleCount: 5,
@@ -69,7 +69,7 @@ Develop discipline, leadership, and long-term mastery mindset.`,
     metadata: 'brdmp',
     stripe_product_id: 'prod_TKgxoODHTfkQEF',
     stripe_price_id: 'price_1SO1Z7KPvH4Ddlg1vrWUxFWX',
-    image: 'https://media.oracleboxing.com/Website/optimized/products/tbrtn5hq-large.webp',
+    image: 'https://sb.oracleboxing.com/Website/optimized/products/tbrtn5hq-large.webp',
     shortDescription: 'Your Full 5-Month Boxing Curriculum: Technique, Drills, and Workouts.',
     perfectFor: 'Beginners who want structure from first punch to sparring',
     weeks: 20,
@@ -99,7 +99,7 @@ Master every aspect of boxing technique through structured progression.`,
     price_ids: {
       multicurrency: 'price_1SOAysKPvH4Ddlg1JTdPV3rt',
     },
-    image: 'https://media.oracleboxing.com/Website/optimized/products/boxing_clinic-large.webp',
+    image: 'https://sb.oracleboxing.com/Website/optimized/products/boxing_clinic-large.webp',
     description: `**Quarterly access to live coaching, community, and all courses**
 
 ✓ Weekly live coaching calls with Oliver & Toni
@@ -125,7 +125,7 @@ Transform your boxing with ongoing expert guidance.`,
     price_ids: {
       multicurrency: 'price_1SOAysKPvH4Ddlg1DLECvdXA',
     },
-    image: 'https://media.oracleboxing.com/Website/optimized/products/boxing_clinic-large.webp',
+    image: 'https://sb.oracleboxing.com/Website/optimized/products/boxing_clinic-large.webp',
     description: `**6 months of access — save vs quarterly**
 
 ✓ Everything in Quarterly Membership
@@ -150,7 +150,7 @@ Best for dedicated students ready to transform their boxing.`,
     price_ids: {
       multicurrency: 'price_1SOAysKPvH4Ddlg1fS1D1kFv',
     },
-    image: 'https://media.oracleboxing.com/Website/optimized/products/boxing_clinic-large.webp',
+    image: 'https://sb.oracleboxing.com/Website/optimized/products/boxing_clinic-large.webp',
     description: `**Annual membership — best value**
 
 ✓ Everything in Quarterly Membership
@@ -178,7 +178,7 @@ const internalProducts: Product[] = [
     metadata: '6wc',
     stripe_product_id: 'prod_TKqgLcTbkwLMlK',
     stripe_price_id: 'price_1SOAyqKPvH4Ddlg1jWX78mP7',
-    image: 'https://media.oracleboxing.com/Website/6wc_tn.png',
+    image: 'https://sb.oracleboxing.com/Website/6wc_tn.png',
     description: `**6-Week Refundable Challenge — Learn Boxing Fundamentals Fast**
 
 Complete the challenge, get your money back. Simple as that.
@@ -210,7 +210,7 @@ Perfect for beginners or boxers who want rapid improvement with accountability.`
     metadata: 'rcv',
     stripe_product_id: 'prod_TKqg9nRbK27CDg',
     stripe_price_id: 'price_1SaVe2KPvH4Ddlg1zttkauwt',
-    image: 'https://media.oracleboxing.com/Website/optimized/products/boxing_clinic-large.webp',
+    image: 'https://sb.oracleboxing.com/Website/optimized/products/boxing_clinic-large.webp',
     description: `Get lifetime access to every coaching call and 1-on-1 call recording. Never worry about missing a session, rewatch, review, and learn at your own pace. Normally $197, yours today for just $67.`,
     shortDescription: 'Lifetime access to all coaching call recordings',
     perfectFor: 'Visual learners who study best through examples',
@@ -226,7 +226,7 @@ Perfect for beginners or boxers who want rapid improvement with accountability.`
     metadata: 'ltbffp',
     stripe_product_id: 'prod_TKqgCP3kcRQ7Rw',
     stripe_price_id: 'price_1SOAyiKPvH4Ddlg1EuokXH49',
-    image: 'https://media.oracleboxing.com/Website/optimized/products/bffp_tn5-large.webp',
+    image: 'https://sb.oracleboxing.com/Website/optimized/products/bffp_tn5-large.webp',
     description: `Keep the entire Boxing Masterclass course forever. Review any lesson, any time — even after your Challenge ends. Normally $297, add lifetime access today for just $147.`,
     shortDescription: 'Keep Boxing Masterclass forever',
     perfectFor: '6-Week Challenge participants who want to keep learning',
@@ -241,7 +241,7 @@ Perfect for beginners or boxers who want rapid improvement with accountability.`
     metadata: 'ltbrdmp',
     stripe_product_id: 'prod_TKgxoODHTfkQEF',
     stripe_price_id: 'price_1SaVcCKPvH4Ddlg1cT1jmuMS',
-    image: 'https://media.oracleboxing.com/Website/optimized/products/tbrtn5hq-large.webp',
+    image: 'https://sb.oracleboxing.com/Website/optimized/products/tbrtn5hq-large.webp',
     description: `Get lifetime access to the complete Boxing Roadmap training system. Master all 5 phases from fundamentals to sparring-ready technique. Normally $147, add lifetime access today for just $97.`,
     shortDescription: 'Keep Boxing Roadmap forever',
     perfectFor: '6-Week Challenge participants who want structured training',
@@ -257,7 +257,7 @@ Perfect for beginners or boxers who want rapid improvement with accountability.`
     metadata: 'ltall_297',
     stripe_product_id: 'prod_THtXlTjbNn8FXP',
     stripe_price_id: 'price_1SLLWbQNEdHwdojXAmcEYocG',
-    image: 'https://media.oracleboxing.com/Website/optimized/products/obm_tn-large.webp',
+    image: 'https://sb.oracleboxing.com/Website/optimized/products/obm_tn-large.webp',
     description: `**Own All Courses Forever — Even If You Cancel Membership**
 
 Get permanent access to BFFP, Roadmap, and Boxing Clinic, independent of your membership.
@@ -285,7 +285,7 @@ Get permanent access to BFFP, Roadmap, and Boxing Clinic, independent of your me
     metadata: 'ltall_197',
     stripe_product_id: 'prod_THtXlTjbNn8FXP',
     stripe_price_id: 'price_1SLLW7QNEdHwdojX86z2xJW4',
-    image: 'https://media.oracleboxing.com/Website/optimized/products/obm_tn-large.webp',
+    image: 'https://sb.oracleboxing.com/Website/optimized/products/obm_tn-large.webp',
     description: `**Own All Courses Forever — Discounted for Committed Members**
 
 As a 6-month or annual member, get permanent access to all courses at a special rate.
@@ -314,7 +314,7 @@ As a 6-month or annual member, get permanent access to all courses at a special 
     recurring: false,
     stripe_product_id: 'prod_THvKZVW9MTpheP',
     stripe_price_id: 'price_1SLLTqQNEdHwdojXsQKz5qSZ',
-    image: 'https://media.oracleboxing.com/Website/optimized/products/boxing_clinic-large.webp',
+    image: 'https://sb.oracleboxing.com/Website/optimized/products/boxing_clinic-large.webp',
     description: `**Temporary Full Access to Live Coaching & Community for 6 Weeks**
 
 Experience the full membership benefits for 6 weeks without commitment.
@@ -346,7 +346,7 @@ Experience the full membership benefits for 6 weeks without commitment.
       usd_membership_upsell: 'price_1SLLX4QNEdHwdojXfZImwLss',
       multicurrency: 'price_1SLLY7QNEdHwdojXVriclpjV',
     },
-    image: 'https://media.oracleboxing.com/Website/1on1_coaching.png',
+    image: 'https://sb.oracleboxing.com/Website/1on1_coaching.png',
     description: `**Personalized 4-Week Coaching Program with Weekly Zoom Calls**
 
 Direct 1-on-1 access to Oliver or Toni for personalized technical coaching.
@@ -376,7 +376,7 @@ Direct 1-on-1 access to Oliver or Toni for personalized technical coaching.
     metadata: 'coach_archive',
     stripe_product_id: 'prod_THtSgSl2rHdu8X',
     stripe_price_id: 'price_1SLJtyQNEdHwdojXpNn9LvDH',
-    image: 'https://media.oracleboxing.com/Website/optimized/products/boxing_clinic-large.webp',
+    image: 'https://sb.oracleboxing.com/Website/optimized/products/boxing_clinic-large.webp',
     description: `**Complete Archive of 1-on-1 Coaching Sessions**
 
 Access to selected 1-on-1 coaching call recordings for study and learning.
@@ -407,7 +407,7 @@ Access to selected 1-on-1 coaching call recordings for study and learning.
     price_ids: {
       multicurrency: 'price_1SRAaaKPvH4Ddlg1uX0nwIuj',
     },
-    image: 'https://media.oracleboxing.com/Website/6wc_tn.png',
+    image: 'https://sb.oracleboxing.com/Website/6wc_tn.png',
     description: `**Black Friday Challenge — 6 Weeks for $97**
 
 Complete the challenge, get your money back. Simple as that.
@@ -443,7 +443,7 @@ Perfect for beginners or boxers who want rapid improvement with accountability.`
     price_ids: {
       multicurrency: 'price_1SUj2tKPvH4Ddlg13pfNOJ3P',
     },
-    image: 'https://media.oracleboxing.com/Website/6wc_tn.png',
+    image: 'https://sb.oracleboxing.com/Website/6wc_tn.png',
     description: `**Black Friday Challenge VIP — $397**
 
 Everything in the Challenge plus lifetime access and VIP perks.
@@ -480,7 +480,7 @@ Everything in the Challenge plus lifetime access and VIP perks.
     price_ids: {
       usd: 'price_1SafJLQNEdHwdojXTHKyas20',
     },
-    image: 'https://media.oracleboxing.com/Website/tracksuit_preview.png',
+    image: 'https://sb.oracleboxing.com/Website/tracksuit_preview.png',
     description: `**Premium Oracle Boxing Tracksuit**
 
 Represent the Oracle Boxing community with our exclusive tracksuit.

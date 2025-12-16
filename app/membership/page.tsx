@@ -66,49 +66,49 @@ export default function MembershipsPage() {
       name: "Torey Goodall",
       role: "Community Member",
       content: "Did pad work yesterday and my coach kept asking what I've been doing. My balance and power got way better - all from what I learned here!",
-      image: "https://media.oracleboxing.com/Website/optimized/profiles/torey-256.webp"
+      image: "https://sb.oracleboxing.com/Website/optimized/profiles/torey-256.webp"
     },
     {
       name: "Harvey Swift",
       role: "Community Member",
       content: "The training here is great! I didn't expect such detailed, personal help from the coaches. I'm already seeing how small changes can make big results.",
-      image: "https://media.oracleboxing.com/Website/optimized/profiles/harvey-256.webp"
+      image: "https://sb.oracleboxing.com/Website/optimized/profiles/harvey-256.webp"
     },
     {
       name: "Myles Suehiro",
       role: "Community Member",
       content: "Being part of this community has changed me. The help, support, and friendship I get here has made all the difference in how I box.",
-      image: "https://media.oracleboxing.com/Website/optimized/profiles/luacs-256.webp"
+      image: "https://sb.oracleboxing.com/Website/optimized/profiles/luacs-256.webp"
     },
     {
       name: "Charlie Snider",
       role: "Community Member",
       content: "You need to find something you really love and set goals for it. For me it was boxing. Work hard for those goals and get obsessed with hitting them.",
-      image: "https://media.oracleboxing.com/Website/optimized/profiles/charlie-256.webp"
+      image: "https://sb.oracleboxing.com/Website/optimized/profiles/charlie-256.webp"
     },
     {
       name: "Balal Hanif",
       role: "Community Member",
       content: "Just finished my session with Toni. The way he breaks things down and explains them was amazing. I've been boxing for over 50 years and never had this experience.",
-      image: "https://media.oracleboxing.com/Website/optimized/profiles/balal-256.webp"
+      image: "https://sb.oracleboxing.com/Website/optimized/profiles/balal-256.webp"
     },
     {
       name: "Sam Oliver",
       role: "Community Member",
       content: "Great stuff, really well done! I'm changing the way I think about boxing and this really helps. It confirms I made the right choice to join.",
-      image: "https://media.oracleboxing.com/Website/optimized/profiles/niko-256.webp"
+      image: "https://sb.oracleboxing.com/Website/optimized/profiles/niko-256.webp"
     },
     {
       name: "Niclas Laux",
       role: "Community Member",
       content: "I think you saved my life! I'm not sure how many things will change, but my mind changed for the better! I was sure I'd learn to box here, and I was right!",
-      image: "https://media.oracleboxing.com/Website/optimized/profiles/niclas-256.webp"
+      image: "https://sb.oracleboxing.com/Website/optimized/profiles/niclas-256.webp"
     },
     {
       name: "Bernardo D",
       role: "Community Member",
       content: "The Nervous System lesson was great. Control your breathing to control your body. Being relaxed helps you box better because it removes tension.",
-      image: "https://media.oracleboxing.com/Website/optimized/profiles/bernardo-256.webp"
+      image: "https://sb.oracleboxing.com/Website/optimized/profiles/bernardo-256.webp"
     }
   ]
 
@@ -211,7 +211,7 @@ export default function MembershipsPage() {
             "@type": "Product",
             "name": "Oracle Boxing Membership",
             "description": "Ongoing boxing coaching and community program with daily live coaching calls, complete course access, personalized video feedback, and private community support.",
-            "image": "https://media.oracleboxing.com/Website/optimized/products/boxing_clinic-large.webp",
+            "image": "https://sb.oracleboxing.com/Website/optimized/products/boxing_clinic-large.webp",
             "brand": {
               "@type": "Brand",
               "name": "Oracle Boxing"
@@ -291,10 +291,10 @@ export default function MembershipsPage() {
                   loop
                   muted
                   playsInline
-                  poster="https://media.oracleboxing.com/Website/membership-herov4-frame.jpg"
+                  poster="https://sb.oracleboxing.com/Website/membership-herov4-frame.jpg"
                   className="w-full h-full object-cover"
                 >
-                  <source src="https://media.oracleboxing.com/Website/membership-herov4.webm" type="video/webm" />
+                  <source src="https://sb.oracleboxing.com/Website/membership-herov4.webm" type="video/webm" />
                 </video>
               </div>
             </div>
@@ -338,10 +338,10 @@ export default function MembershipsPage() {
                   loop
                   muted
                   playsInline
-                  poster={`https://media.oracleboxing.com/Website/transfo/${item.poster}`}
+                  poster={`https://sb.oracleboxing.com/Website/transfo/${item.poster}`}
                   className="w-full h-full object-cover"
                 >
-                  <source src={`https://media.oracleboxing.com/Website/transfo/${item.video}`} type="video/webm" />
+                  <source src={`https://sb.oracleboxing.com/Website/transfo/${item.video}`} type="video/webm" />
                 </video>
               </div>
             ))}
@@ -373,7 +373,7 @@ export default function MembershipsPage() {
                   {/* Poster image as background fallback */}
                   <div
                     className="absolute inset-0 bg-cover bg-center"
-                    style={{ backgroundImage: `url(https://media.oracleboxing.com/Website/transfo/${item.poster})` }}
+                    style={{ backgroundImage: `url(https://sb.oracleboxing.com/Website/transfo/${item.poster})` }}
                   />
                   <video
                     ref={(el) => {
@@ -385,11 +385,11 @@ export default function MembershipsPage() {
                     loop
                     muted
                     playsInline
-                    poster={`https://media.oracleboxing.com/Website/transfo/${item.poster}`}
+                    poster={`https://sb.oracleboxing.com/Website/transfo/${item.poster}`}
                     className="relative w-full h-full object-cover"
                     preload="metadata"
                   >
-                    <source src={`https://media.oracleboxing.com/Website/transfo/${item.video}`} type="video/webm" />
+                    <source src={`https://sb.oracleboxing.com/Website/transfo/${item.video}`} type="video/webm" />
                   </video>
                 </div>
               ))}
@@ -465,7 +465,7 @@ export default function MembershipsPage() {
             <div className="bg-gray-50 rounded-2xl p-6 sm:p-8 border border-gray-200">
               <div className="flex items-start gap-4 mb-4">
                 <img
-                  src="https://media.oracleboxing.com/webp/Website/niclas.webp"
+                  src="https://sb.oracleboxing.com/webp/Website/niclas.webp"
                   alt="Niclas Laux"
                   className="w-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover flex-shrink-0"
                 />
@@ -483,7 +483,7 @@ export default function MembershipsPage() {
             <div className="bg-gray-50 rounded-2xl p-6 sm:p-8 border border-gray-200">
               <div className="flex items-start gap-4 mb-4">
                 <img
-                  src="https://media.oracleboxing.com/webp/Website/torey.webp"
+                  src="https://sb.oracleboxing.com/webp/Website/torey.webp"
                   alt="Torey Goodall"
                   className="w-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover flex-shrink-0"
                 />
@@ -501,7 +501,7 @@ export default function MembershipsPage() {
             <div className="bg-gray-50 rounded-2xl p-6 sm:p-8 border border-gray-200">
               <div className="flex items-start gap-4 mb-4">
                 <img
-                  src="https://media.oracleboxing.com/webp/Website/balal.webp"
+                  src="https://sb.oracleboxing.com/webp/Website/balal.webp"
                   alt="Balal Hanif"
                   className="w-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover flex-shrink-0"
                 />
@@ -532,22 +532,22 @@ export default function MembershipsPage() {
           <div className="hidden lg:grid lg:grid-cols-2 gap-6 lg:gap-8">
             {[
               {
-                image: 'https://media.oracleboxing.com/Website/optimized/screenshots/inside1.webp',
+                image: 'https://sb.oracleboxing.com/Website/optimized/screenshots/inside1.webp',
                 title: 'All Your Courses in One Place',
                 subtitle: 'Access all three courses from a single organized dashboard'
               },
               {
-                image: 'https://media.oracleboxing.com/Website/optimized/screenshots/inside2.webp',
+                image: 'https://sb.oracleboxing.com/Website/optimized/screenshots/inside2.webp',
                 title: 'Full Video Lessons',
                 subtitle: 'Follow clear lessons with detailed video shows and learning'
               },
               {
-                image: 'https://media.oracleboxing.com/Website/optimized/screenshots/inside3.webp',
+                image: 'https://sb.oracleboxing.com/Website/optimized/screenshots/inside3.webp',
                 title: 'Follow-Along Workouts',
                 subtitle: 'Train with step-by-step drills and clear workout plans'
               },
               {
-                image: 'https://media.oracleboxing.com/Website/optimized/screenshots/inside4.webp',
+                image: 'https://sb.oracleboxing.com/Website/optimized/screenshots/inside4.webp',
                 title: 'Strong Search Feature',
                 subtitle: 'Find any move, idea, or drill quickly across all courses'
               }
@@ -578,22 +578,22 @@ export default function MembershipsPage() {
           <div className="lg:hidden space-y-6">
             {[
               {
-                image: 'https://media.oracleboxing.com/Website/optimized/screenshots/inside1.webp',
+                image: 'https://sb.oracleboxing.com/Website/optimized/screenshots/inside1.webp',
                 title: 'All Your Courses in One Place',
                 subtitle: 'Access all three courses from a single organized dashboard'
               },
               {
-                image: 'https://media.oracleboxing.com/Website/optimized/screenshots/inside2.webp',
+                image: 'https://sb.oracleboxing.com/Website/optimized/screenshots/inside2.webp',
                 title: 'Full Video Lessons',
                 subtitle: 'Follow clear lessons with detailed video shows and learning'
               },
               {
-                image: 'https://media.oracleboxing.com/Website/optimized/screenshots/inside3.webp',
+                image: 'https://sb.oracleboxing.com/Website/optimized/screenshots/inside3.webp',
                 title: 'Follow-Along Workouts',
                 subtitle: 'Train with step-by-step drills and clear workout plans'
               },
               {
-                image: 'https://media.oracleboxing.com/Website/optimized/screenshots/inside4.webp',
+                image: 'https://sb.oracleboxing.com/Website/optimized/screenshots/inside4.webp',
                 title: 'Strong Search Feature',
                 subtitle: 'Find any move, idea, or drill quickly across all courses'
               }
@@ -785,24 +785,24 @@ export default function MembershipsPage() {
             <img
               loading="lazy"
               alt=""
-              src="https://media.oracleboxing.com/Website/payment1.svg"
+              src="https://sb.oracleboxing.com/Website/payment1.svg"
               className="image-55"
             />
             <img
               loading="lazy"
               alt=""
-              src="https://media.oracleboxing.com/Website/payment2.svg"
+              src="https://sb.oracleboxing.com/Website/payment2.svg"
               className="image-55 second"
             />
             <img
               loading="lazy"
               alt=""
-              src="https://media.oracleboxing.com/Website/paypal2.svg"
+              src="https://sb.oracleboxing.com/Website/paypal2.svg"
               className="image-55 bigger"
             />
             <img
               loading="lazy"
-              src="https://media.oracleboxing.com/Website/klarna.svg"
+              src="https://sb.oracleboxing.com/Website/klarna.svg"
               alt=""
               className="image-55 bigger-mobile"
             />

@@ -32,28 +32,28 @@ export function BundleTimelineProcess({ cta }: BundleTimelineProcessProps) {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <Image
-              src="https://media.oracleboxing.com/Website/optimized/course-content/ob_fight3.webp"
+              src="https://sb.oracleboxing.com/Website/optimized/course-content/ob_fight3.webp"
               alt="Stay calm under pressure"
               width={1920}
               height={1080}
               className="rounded-lg object-cover h-20 md:h-44 lg:h-auto lg:aspect-video w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
             />
             <Image
-              src="https://media.oracleboxing.com/Website/optimized/course-content/bffp_tn4.webp"
+              src="https://sb.oracleboxing.com/Website/optimized/course-content/bffp_tn4.webp"
               alt="Biomechanics"
               width={1920}
               height={1080}
               className="rounded-lg object-cover h-20 md:h-44 lg:h-auto lg:aspect-video w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
             />
             <Image
-              src="https://media.oracleboxing.com/Website/optimized/course-content/bffp_course3.webp"
+              src="https://sb.oracleboxing.com/Website/optimized/course-content/bffp_course3.webp"
               alt="Pattern recognition"
               width={1920}
               height={1080}
               className="rounded-lg object-cover h-20 md:h-44 lg:h-auto lg:aspect-video w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
             />
             <Image
-              src="https://media.oracleboxing.com/Website/optimized/course-content/bbffp_course4.webp"
+              src="https://sb.oracleboxing.com/Website/optimized/course-content/bbffp_course4.webp"
               alt="Endurance and relaxation"
               width={1920}
               height={1080}
@@ -86,28 +86,28 @@ export function BundleTimelineProcess({ cta }: BundleTimelineProcessProps) {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <Image
-              src="https://media.oracleboxing.com/Website/optimized/course-content/tbr_course1.webp"
+              src="https://sb.oracleboxing.com/Website/optimized/course-content/tbr_course1.webp"
               alt="Technical form and mechanics"
               width={1920}
               height={1080}
               className="rounded-lg object-cover h-20 md:h-44 lg:h-auto lg:aspect-video w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
             />
             <Image
-              src="https://media.oracleboxing.com/Website/optimized/course-content/tbr_course2.webp"
+              src="https://sb.oracleboxing.com/Website/optimized/course-content/tbr_course2.webp"
               alt="Defence and movement"
               width={1920}
               height={1080}
               className="rounded-lg object-cover h-20 md:h-44 lg:h-auto lg:aspect-video w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
             />
             <Image
-              src="https://media.oracleboxing.com/Website/optimized/course-content/tbr_course22.webp"
+              src="https://sb.oracleboxing.com/Website/optimized/course-content/tbr_course22.webp"
               alt="Explosive footwork"
               width={1920}
               height={1080}
               className="rounded-lg object-cover h-20 md:h-44 lg:h-auto lg:aspect-video w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
             />
             <Image
-              src="https://media.oracleboxing.com/Website/optimized/course-content/tbr_course4.webp"
+              src="https://sb.oracleboxing.com/Website/optimized/course-content/tbr_course4.webp"
               alt="Flowing style integration"
               width={1920}
               height={1080}
@@ -140,28 +140,28 @@ export function BundleTimelineProcess({ cta }: BundleTimelineProcessProps) {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <Image
-              src="https://media.oracleboxing.com/Website/optimized/course-content/bcr_course6.webp"
+              src="https://sb.oracleboxing.com/Website/optimized/course-content/bcr_course6.webp"
               alt="Real coaching solutions"
               width={1920}
               height={1080}
               className="rounded-lg object-cover h-20 md:h-44 lg:h-auto lg:aspect-video w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
             />
             <Image
-              src="https://media.oracleboxing.com/Website/optimized/course-content/bcr_course2.webp"
+              src="https://sb.oracleboxing.com/Website/optimized/course-content/bcr_course2.webp"
               alt="Movement refinement"
               width={1920}
               height={1080}
               className="rounded-lg object-cover h-20 md:h-44 lg:h-auto lg:aspect-video w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
             />
             <Image
-              src="https://media.oracleboxing.com/Website/optimized/course-content/bcr_course4.webp"
+              src="https://sb.oracleboxing.com/Website/optimized/course-content/bcr_course4.webp"
               alt="High-level tactics"
               width={1920}
               height={1080}
               className="rounded-lg object-cover h-20 md:h-44 lg:h-auto lg:aspect-video w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
             />
             <Image
-              src="https://media.oracleboxing.com/Website/optimized/course-content/bcr_course1.webp"
+              src="https://sb.oracleboxing.com/Website/optimized/course-content/bcr_course1.webp"
               alt="Think like a coach"
               width={1920}
               height={1080}

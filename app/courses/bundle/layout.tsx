@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://media.oracleboxing.com/Website/optimized/products/obm_tn-large.webp',
+        url: 'https://sb.oracleboxing.com/Website/optimized/products/obm_tn-large.webp',
         width: 1200,
         height: 630,
         alt: 'Boxing Bundle',
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Boxing Bundle',
     description: 'Get the complete Oracle Boxing system: 225+ lessons, 220+ coaching calls, lifetime access. Save $144.',
-    images: ['https://media.oracleboxing.com/Website/optimized/products/obm_tn-large.webp'],
+    images: ['https://sb.oracleboxing.com/Website/optimized/products/obm_tn-large.webp'],
     creator: '@oracleboxing',
   },
 }

@@ -16,8 +16,8 @@ export const metadata: Metadata = {
     canonical: '/',
   },
   icons: {
-    icon: { url: 'https://media.oracleboxing.com/infinity_squared_white.svg', type: 'image/svg+xml' },
-    apple: 'https://media.oracleboxing.com/infinity_squared_white.svg',
+    icon: { url: 'https://sb.oracleboxing.com/infinity_squared_white.svg', type: 'image/svg+xml' },
+    apple: 'https://sb.oracleboxing.com/infinity_squared_white.svg',
   },
   openGraph: {
     title: "Oracle Boxing",
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://media.oracleboxing.com/Website/skool_art.webp',
+        url: 'https://sb.oracleboxing.com/Website/skool_art.webp',
         width: 1200,
         height: 630,
         alt: 'Oracle Boxing - Master Old School Boxing',
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: "Oracle Boxing",
     description: "Transform your boxing with expert courses, live coaching, and a thriving community.",
-    images: ['https://media.oracleboxing.com/Website/skool_art.webp'],
+    images: ['https://sb.oracleboxing.com/Website/skool_art.webp'],
     creator: '@oracleboxing',
   },
 };
@@ -65,7 +65,7 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
 
         {/* Favicon */}
-        <link rel="icon" type="image/svg+xml" href="https://media.oracleboxing.com/infinity_squared_white.svg" />
+        <link rel="icon" type="image/svg+xml" href="https://sb.oracleboxing.com/infinity_squared_white.svg" />
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />

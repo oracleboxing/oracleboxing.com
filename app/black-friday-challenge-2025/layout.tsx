@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://media.oracleboxing.com/Website/skool_art.webp',
+        url: 'https://sb.oracleboxing.com/Website/skool_art.webp',
         width: 1200,
         height: 630,
         alt: 'Black Friday Challenge - Train with Oracle Boxing',
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Black Friday Challenge | Oracle Boxing',
     description: '6-week boxing training program with full money-back guarantee when you finish. Starts December 2nd.',
-    images: ['https://media.oracleboxing.com/Website/skool_art.webp'],
+    images: ['https://sb.oracleboxing.com/Website/skool_art.webp'],
     creator: '@oracleboxing',
   },
 }

@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://media.oracleboxing.com/Website/optimized/products/bffp_tn5-large.webp',
+        url: 'https://sb.oracleboxing.com/Website/optimized/products/bffp_tn5-large.webp',
         width: 1200,
         height: 630,
         alt: 'Boxing Masterclass',
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Boxing Masterclass',
     description: 'Master the science of boxing through 26 comprehensive lessons covering mind, body, movement, tactics, and conditioning.',
-    images: ['https://media.oracleboxing.com/Website/optimized/products/bffp_tn5-large.webp'],
+    images: ['https://sb.oracleboxing.com/Website/optimized/products/bffp_tn5-large.webp'],
     creator: '@oracleboxing',
   },
 }

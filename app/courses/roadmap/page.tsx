@@ -48,22 +48,22 @@ export default function RoadmapPage() {
     {
       emoji: '📐',
       text: 'Build good form, clean moves, and control from the start.',
-      imageUrl: 'https://media.oracleboxing.com/Website/optimized/course-content/tbr_course1.webp'
+      imageUrl: 'https://sb.oracleboxing.com/Website/optimized/course-content/tbr_course1.webp'
     },
     {
       emoji: '🛡️',
       text: 'Learn defense and movement that keep you safe and sharp.',
-      imageUrl: 'https://media.oracleboxing.com/Website/optimized/course-content/tbr_course2.webp'
+      imageUrl: 'https://sb.oracleboxing.com/Website/optimized/course-content/tbr_course2.webp'
     },
     {
       emoji: '👟',
       text: 'Build fast footwork that connects balance with power.',
-      imageUrl: 'https://media.oracleboxing.com/Website/optimized/course-content/tbr_course22.webp'
+      imageUrl: 'https://sb.oracleboxing.com/Website/optimized/course-content/tbr_course22.webp'
     },
     {
       emoji: '🎭',
       text: 'Mix attack, defense, and rhythm into one smooth style.',
-      imageUrl: 'https://media.oracleboxing.com/Website/optimized/course-content/tbr_course4.webp'
+      imageUrl: 'https://sb.oracleboxing.com/Website/optimized/course-content/tbr_course4.webp'
     }
   ]
 
@@ -153,7 +153,7 @@ export default function RoadmapPage() {
               "name": "Oracle Boxing",
               "sameAs": "https://oracleboxing.com"
             },
-            "image": "https://media.oracleboxing.com/Website/optimized/products/tbrtn5hq-large.webp",
+            "image": "https://sb.oracleboxing.com/Website/optimized/products/tbrtn5hq-large.webp",
             "offers": {
               "@type": "Offer",
               "category": "Paid",
@@ -190,7 +190,7 @@ export default function RoadmapPage() {
             "@type": "Product",
             "name": "Boxing Roadmap",
             "description": "Follow a clear 5-phase system with 75 structured lessons that takes you from your first stance to sparring-ready.",
-            "image": "https://media.oracleboxing.com/Website/optimized/products/tbrtn5hq-large.webp",
+            "image": "https://sb.oracleboxing.com/Website/optimized/products/tbrtn5hq-large.webp",
             "brand": {
               "@type": "Brand",
               "name": "Oracle Boxing"

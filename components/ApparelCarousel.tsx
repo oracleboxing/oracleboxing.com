@@ -57,13 +57,13 @@ export function ApparelCarousel() {
       // For joggers, only include front view
       if (item === 'jogger') {
         return [{
-          src: `https://media.oracleboxing.com/tracksuit/${item}_${color}_front.webp`,
+          src: `https://sb.oracleboxing.com/tracksuit/${item}_${color}_front.webp`,
           alt: `Oracle Boxing ${item} - ${color} front`
         }]
       }
       // For hoodies, include both views
       return ['back', 'front'].map(view => ({
-        src: `https://media.oracleboxing.com/tracksuit/${item}_${color}_${view}.webp`,
+        src: `https://sb.oracleboxing.com/tracksuit/${item}_${color}_${view}.webp`,
         alt: `Oracle Boxing ${item} - ${color} ${view}`
       }))
     })

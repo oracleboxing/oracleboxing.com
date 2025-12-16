@@ -329,11 +329,11 @@ export default function BlackFridayChallengePage() {
               <div className="relative w-full mb-4 sm:mb-6 rounded-xl sm:rounded-2xl overflow-hidden" style={{ paddingBottom: '56.25%' }}>
                 <video
                   controls
-                  poster="https://media.oracleboxing.com/Website/6wcv2-main-vsl_poster.webp"
+                  poster="https://sb.oracleboxing.com/Website/6wcv2-main-vsl_poster.webp"
                   className="absolute inset-0 w-full h-full object-cover"
                   style={{ filter: 'none', opacity: 1 }}
                 >
-                  <source src="https://media.oracleboxing.com/Website/6wcv2-main-vsl.webm" type="video/webm" />
+                  <source src="https://sb.oracleboxing.com/Website/6wcv2-main-vsl.webm" type="video/webm" />
                   Your browser does not support the video tag.
                 </video>
               </div>
@@ -445,11 +445,11 @@ export default function BlackFridayChallengePage() {
           loop
           muted
           playsInline
-          poster="https://media.oracleboxing.com/Website/6wcv2_obvid_poster.webp"
+          poster="https://sb.oracleboxing.com/Website/6wcv2_obvid_poster.webp"
           className="absolute inset-0 w-full h-full object-cover"
           style={{ objectPosition: 'center 30%' }}
         >
-          <source src="https://media.oracleboxing.com/Website/6wcv2_obvid.webm" type="video/webm" />
+          <source src="https://sb.oracleboxing.com/Website/6wcv2_obvid.webm" type="video/webm" />
         </video>
 
         {/* Dark Overlay */}
@@ -620,10 +620,10 @@ export default function BlackFridayChallengePage() {
                     loop
                     muted
                     playsInline
-                    poster={`https://media.oracleboxing.com/Website/transfo/${item.poster}`}
+                    poster={`https://sb.oracleboxing.com/Website/transfo/${item.poster}`}
                     className="w-full h-full object-cover"
                   >
-                    <source src={`https://media.oracleboxing.com/Website/transfo/${item.video}`} type="video/webm" />
+                    <source src={`https://sb.oracleboxing.com/Website/transfo/${item.video}`} type="video/webm" />
                   </video>
                 </div>
               ))}
@@ -655,7 +655,7 @@ export default function BlackFridayChallengePage() {
                     {/* Poster image as background fallback */}
                     <div
                       className="absolute inset-0 bg-cover bg-center"
-                      style={{ backgroundImage: `url(https://media.oracleboxing.com/Website/transfo/${item.poster})` }}
+                      style={{ backgroundImage: `url(https://sb.oracleboxing.com/Website/transfo/${item.poster})` }}
                     />
                     <video
                       ref={(el) => {
@@ -667,11 +667,11 @@ export default function BlackFridayChallengePage() {
                       loop
                       muted
                       playsInline
-                      poster={`https://media.oracleboxing.com/Website/transfo/${item.poster}`}
+                      poster={`https://sb.oracleboxing.com/Website/transfo/${item.poster}`}
                       className="relative w-full h-full object-cover"
                       preload="metadata"
                     >
-                      <source src={`https://media.oracleboxing.com/Website/transfo/${item.video}`} type="video/webm" />
+                      <source src={`https://sb.oracleboxing.com/Website/transfo/${item.video}`} type="video/webm" />
                     </video>
                   </div>
                 ))}
@@ -720,22 +720,22 @@ export default function BlackFridayChallengePage() {
           <div className="hidden lg:grid lg:grid-cols-2 gap-6 lg:gap-8 max-w-5xl mx-auto">
             {[
               {
-                image: 'https://media.oracleboxing.com/Website/optimized/screenshots/inside1.webp',
+                image: 'https://sb.oracleboxing.com/Website/optimized/screenshots/inside1.webp',
                 title: 'All Your Courses in One Place',
                 subtitle: 'Access all three courses from a single organized dashboard'
               },
               {
-                image: 'https://media.oracleboxing.com/Website/optimized/screenshots/inside2.webp',
+                image: 'https://sb.oracleboxing.com/Website/optimized/screenshots/inside2.webp',
                 title: 'Full Video Lessons',
                 subtitle: 'Follow clear lessons with detailed video shows and learning'
               },
               {
-                image: 'https://media.oracleboxing.com/Website/optimized/screenshots/inside3.webp',
+                image: 'https://sb.oracleboxing.com/Website/optimized/screenshots/inside3.webp',
                 title: 'Follow-Along Workouts',
                 subtitle: 'Train with step-by-step drills and clear workout plans'
               },
               {
-                image: 'https://media.oracleboxing.com/Website/optimized/screenshots/inside4.webp',
+                image: 'https://sb.oracleboxing.com/Website/optimized/screenshots/inside4.webp',
                 title: 'Strong Search Feature',
                 subtitle: 'Find any move, idea, or drill quickly across all courses'
               }
@@ -766,22 +766,22 @@ export default function BlackFridayChallengePage() {
           <div className="lg:hidden space-y-6 max-w-lg mx-auto">
             {[
               {
-                image: 'https://media.oracleboxing.com/Website/optimized/screenshots/inside1.webp',
+                image: 'https://sb.oracleboxing.com/Website/optimized/screenshots/inside1.webp',
                 title: 'All Your Courses in One Place',
                 subtitle: 'Access all three courses from a single organized dashboard'
               },
               {
-                image: 'https://media.oracleboxing.com/Website/optimized/screenshots/inside2.webp',
+                image: 'https://sb.oracleboxing.com/Website/optimized/screenshots/inside2.webp',
                 title: 'Full Video Lessons',
                 subtitle: 'Follow clear lessons with detailed video shows and learning'
               },
               {
-                image: 'https://media.oracleboxing.com/Website/optimized/screenshots/inside3.webp',
+                image: 'https://sb.oracleboxing.com/Website/optimized/screenshots/inside3.webp',
                 title: 'Follow-Along Workouts',
                 subtitle: 'Train with step-by-step drills and clear workout plans'
               },
               {
-                image: 'https://media.oracleboxing.com/Website/optimized/screenshots/inside4.webp',
+                image: 'https://sb.oracleboxing.com/Website/optimized/screenshots/inside4.webp',
                 title: 'Strong Search Feature',
                 subtitle: 'Find any move, idea, or drill quickly across all courses'
               }
@@ -946,14 +946,14 @@ export default function BlackFridayChallengePage() {
                   <div className="slideshow-image absolute inset-0 grid grid-cols-2 gap-0">
                     <div className="w-full h-full">
                       <img
-                        src="https://media.oracleboxing.com/tracksuit/hoodie_green_back.webp"
+                        src="https://sb.oracleboxing.com/tracksuit/hoodie_green_back.webp"
                         alt="Green Hoodie"
                         className="w-full h-full object-cover"
                       />
                     </div>
                     <div className="w-full h-full">
                       <img
-                        src="https://media.oracleboxing.com/tracksuit/jogger_green_front.webp"
+                        src="https://sb.oracleboxing.com/tracksuit/jogger_green_front.webp"
                         alt="Green Joggers"
                         className="w-full h-full object-cover"
                       />
@@ -964,14 +964,14 @@ export default function BlackFridayChallengePage() {
                   <div className="slideshow-image absolute inset-0 grid grid-cols-2 gap-0">
                     <div className="w-full h-full">
                       <img
-                        src="https://media.oracleboxing.com/tracksuit/hoodie_brown_back.webp"
+                        src="https://sb.oracleboxing.com/tracksuit/hoodie_brown_back.webp"
                         alt="Brown Hoodie"
                         className="w-full h-full object-cover"
                       />
                     </div>
                     <div className="w-full h-full">
                       <img
-                        src="https://media.oracleboxing.com/tracksuit/jogger_brown_front.webp"
+                        src="https://sb.oracleboxing.com/tracksuit/jogger_brown_front.webp"
                         alt="Brown Joggers"
                         className="w-full h-full object-cover"
                       />
@@ -982,14 +982,14 @@ export default function BlackFridayChallengePage() {
                   <div className="slideshow-image absolute inset-0 grid grid-cols-2 gap-0">
                     <div className="w-full h-full">
                       <img
-                        src="https://media.oracleboxing.com/tracksuit/hoodie_black_back.webp"
+                        src="https://sb.oracleboxing.com/tracksuit/hoodie_black_back.webp"
                         alt="Black Hoodie"
                         className="w-full h-full object-cover"
                       />
                     </div>
                     <div className="w-full h-full">
                       <img
-                        src="https://media.oracleboxing.com/tracksuit/jogger_black_front.webp"
+                        src="https://sb.oracleboxing.com/tracksuit/jogger_black_front.webp"
                         alt="Black Joggers"
                         className="w-full h-full object-cover"
                       />
@@ -1040,7 +1040,7 @@ export default function BlackFridayChallengePage() {
             <div className="bg-black text-white rounded-2xl p-6 sm:p-8 shadow-2xl">
               <div className="flex justify-center mb-6">
                 <img
-                  src="https://media.oracleboxing.com/Website/infinity_squared_white.svg"
+                  src="https://sb.oracleboxing.com/Website/infinity_squared_white.svg"
                   alt="Oracle Boxing"
                   className="h-5"
                 />

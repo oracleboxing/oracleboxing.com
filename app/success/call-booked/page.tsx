@@ -31,7 +31,7 @@ function CallBookedContent() {
 
                 <div className="relative w-full aspect-[16/9] bg-gray-100 rounded-lg overflow-hidden shadow-lg mb-4">
                   <Image
-                    src="https://media.oracleboxing.com/Website/skool_invite.png"
+                    src="https://sb.oracleboxing.com/Website/skool_invite.png"
                     alt="Oracle Boxing Courses email invitation"
                     fill
                     className="object-contain"

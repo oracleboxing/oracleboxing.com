@@ -111,7 +111,7 @@ export default function BundlePage() {
             "@type": "Product",
             "name": "Oracle Boxing Bundle",
             "description": "Complete Oracle Boxing system including Boxing Masterclass, Boxing Roadmap, and Coaching Call Replays. 225+ lessons, 220+ coaching calls, lifetime access.",
-            "image": "https://media.oracleboxing.com/Website/optimized/products/obm_tn-large.webp",
+            "image": "https://sb.oracleboxing.com/Website/optimized/products/obm_tn-large.webp",
             "brand": {
               "@type": "Brand",
               "name": "Oracle Boxing"

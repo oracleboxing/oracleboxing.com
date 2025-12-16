@@ -25,7 +25,7 @@ export default function TestimonialsWithMediaSection({ onCTAClick, onOpenPricing
               <div className="space-y-2 sm:space-y-4">
                 <div className="flex items-center gap-2 sm:gap-4 mb-2 sm:mb-4">
                   <img
-                    src="https://media.oracleboxing.com/webp/Website/niclas.webp"
+                    src="https://sb.oracleboxing.com/webp/Website/niclas.webp"
                     alt="Niclas Laux"
                     className="w-12 h-12 sm:w-16 sm:h-16 rounded-full object-cover"
                   />
@@ -47,7 +47,7 @@ export default function TestimonialsWithMediaSection({ onCTAClick, onOpenPricing
           </div>
           <div className="relative rounded-xl overflow-hidden lg:max-w-md lg:mx-auto" style={{ aspectRatio: '16/9' }}>
             <img
-              src="https://media.oracleboxing.com/webp/Website/laptop_mockup.webp"
+              src="https://sb.oracleboxing.com/webp/Website/laptop_mockup.webp"
               alt="Boxing Masterclass Course"
               className="w-full h-full object-contain"
             />
@@ -64,9 +64,9 @@ export default function TestimonialsWithMediaSection({ onCTAClick, onOpenPricing
               loop
               playsInline
               preload="auto"
-              poster="https://media.oracleboxing.com/Website/obcoachingcall-frame.jpg"
+              poster="https://sb.oracleboxing.com/Website/obcoachingcall-frame.jpg"
             >
-              <source src="https://media.oracleboxing.com/Website/optimized/videos/obcoachingcall-optimized.webm" type="video/webm" />
+              <source src="https://sb.oracleboxing.com/Website/optimized/videos/obcoachingcall-optimized.webm" type="video/webm" />
             </video>
           </div>
           <div className="flex gap-8 flex-col order-1 lg:order-2">
@@ -75,7 +75,7 @@ export default function TestimonialsWithMediaSection({ onCTAClick, onOpenPricing
                 <div className="space-y-2 sm:space-y-4">
                   <div className="flex items-center gap-2 sm:gap-4 mb-2 sm:mb-4">
                     <img
-                      src="https://media.oracleboxing.com/webp/Website/torey.webp"
+                      src="https://sb.oracleboxing.com/webp/Website/torey.webp"
                       alt="Torey Goodall"
                       className="w-12 h-12 sm:w-16 sm:h-16 rounded-full object-cover"
                     />
@@ -103,7 +103,7 @@ export default function TestimonialsWithMediaSection({ onCTAClick, onOpenPricing
                 <div className="space-y-2 sm:space-y-4">
                   <div className="flex items-center gap-2 sm:gap-4 mb-2 sm:mb-4">
                     <img
-                      src="https://media.oracleboxing.com/webp/Website/balal.webp"
+                      src="https://sb.oracleboxing.com/webp/Website/balal.webp"
                       alt="Balal Hanif"
                       className="w-12 h-12 sm:w-16 sm:h-16 rounded-full object-cover"
                     />
@@ -129,9 +129,9 @@ export default function TestimonialsWithMediaSection({ onCTAClick, onOpenPricing
               loop
               playsInline
               preload="auto"
-              poster="https://media.oracleboxing.com/Website/online_rating-frame.jpg"
+              poster="https://sb.oracleboxing.com/Website/online_rating-frame.jpg"
             >
-              <source src="https://media.oracleboxing.com/Website/optimized/videos/online_rating-optimized.webm" type="video/webm" />
+              <source src="https://sb.oracleboxing.com/Website/optimized/videos/online_rating-optimized.webm" type="video/webm" />
             </video>
           </div>
         </div>

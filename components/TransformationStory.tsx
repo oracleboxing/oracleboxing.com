@@ -27,7 +27,7 @@ export default function TransformationStory({ onCTAClick }: TransformationStoryP
   const testimonials: Testimonial[] = [
     {
       name: "Bruno Martins",
-      image: "https://media.oracleboxing.com/Website/optimized/profiles/bruno-256.webp",
+      image: "https://sb.oracleboxing.com/Website/optimized/profiles/bruno-256.webp",
       badge: "10h (edited) • 🏆 Win of the Day",
       title: "Week 6! Here you are... and damn that went fast!",
       content: [
@@ -39,7 +39,7 @@ export default function TransformationStory({ onCTAClick }: TransformationStoryP
     },
     {
       name: "Daniel Ramirez",
-      image: "https://media.oracleboxing.com/Website/optimized/profiles/daniel-256.webp",
+      image: "https://sb.oracleboxing.com/Website/optimized/profiles/daniel-256.webp",
       badge: "1d ago • 🏆 WOTD",
       title: "Week 6 🤯 - The final results",
       content: [
@@ -50,7 +50,7 @@ export default function TransformationStory({ onCTAClick }: TransformationStoryP
     },
     {
       name: "Illya",
-      image: "https://media.oracleboxing.com/Website/optimized/profiles/iilya-256.webp",
+      image: "https://sb.oracleboxing.com/Website/optimized/profiles/iilya-256.webp",
       badge: "2d ago",
       title: "JOINING ORACLE BOXING",
       content: [

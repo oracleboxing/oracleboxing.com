@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://media.oracleboxing.com/Website/optimized/products/tbrtn5hq-large.webp',
+        url: 'https://sb.oracleboxing.com/Website/optimized/products/tbrtn5hq-large.webp',
         width: 1200,
         height: 630,
         alt: 'Boxing Roadmap',
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Boxing Roadmap',
     description: 'Follow a clear 5-phase system with 75 structured lessons that takes you from your first stance to sparring-ready.',
-    images: ['https://media.oracleboxing.com/Website/optimized/products/tbrtn5hq-large.webp'],
+    images: ['https://sb.oracleboxing.com/Website/optimized/products/tbrtn5hq-large.webp'],
     creator: '@oracleboxing',
   },
 }

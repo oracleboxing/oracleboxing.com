@@ -102,7 +102,7 @@ export default function SixWeekChallengePage() {
             "@type": "Product",
             "name": "6-Week Challenge",
             "description": "6-week boxing training program with full money-back promise when you finish. Includes Boxing Masterclass, Boxing Roadmap you keep forever, live coaching, and personal help.",
-            "image": "https://media.oracleboxing.com/Website/skool_art.webp",
+            "image": "https://sb.oracleboxing.com/Website/skool_art.webp",
             "brand": {
               "@type": "Brand",
               "name": "Oracle Boxing"
@@ -159,11 +159,11 @@ export default function SixWeekChallengePage() {
               <div className="relative w-full mb-4 sm:mb-6 rounded-xl sm:rounded-2xl overflow-hidden" style={{ paddingBottom: '56.25%' }}>
                 <video
                   controls
-                  poster="https://media.oracleboxing.com/Website/vsl2_thumbnail.webp"
+                  poster="https://sb.oracleboxing.com/Website/vsl2_thumbnail.webp"
                   className="absolute inset-0 w-full h-full object-cover"
                   style={{ filter: 'none', opacity: 1 }}
                 >
-                  <source src="https://media.oracleboxing.com/Website/VSL2_2.webm" type="video/webm" />
+                  <source src="https://sb.oracleboxing.com/Website/VSL2_2.webm" type="video/webm" />
                   Your browser does not support the video tag.
                 </video>
               </div>
@@ -304,10 +304,10 @@ export default function SixWeekChallengePage() {
                     loop
                     muted
                     playsInline
-                    poster={`https://media.oracleboxing.com/Website/transfo/${item.poster}`}
+                    poster={`https://sb.oracleboxing.com/Website/transfo/${item.poster}`}
                     className="w-full h-full object-cover"
                   >
-                    <source src={`https://media.oracleboxing.com/Website/transfo/${item.video}`} type="video/webm" />
+                    <source src={`https://sb.oracleboxing.com/Website/transfo/${item.video}`} type="video/webm" />
                   </video>
                 </div>
               ))}
@@ -338,7 +338,7 @@ export default function SixWeekChallengePage() {
                   <div key={index} className="relative flex-shrink-0 w-[70vw] sm:w-[320px] aspect-[9/16] rounded-xl overflow-hidden snap-center bg-gray-200">
                     <div
                       className="absolute inset-0 bg-cover bg-center"
-                      style={{ backgroundImage: `url(https://media.oracleboxing.com/Website/transfo/${item.poster})` }}
+                      style={{ backgroundImage: `url(https://sb.oracleboxing.com/Website/transfo/${item.poster})` }}
                     />
                     <video
                       ref={(el) => {
@@ -350,11 +350,11 @@ export default function SixWeekChallengePage() {
                       loop
                       muted
                       playsInline
-                      poster={`https://media.oracleboxing.com/Website/transfo/${item.poster}`}
+                      poster={`https://sb.oracleboxing.com/Website/transfo/${item.poster}`}
                       className="relative w-full h-full object-cover"
                       preload="metadata"
                     >
-                      <source src={`https://media.oracleboxing.com/Website/transfo/${item.video}`} type="video/webm" />
+                      <source src={`https://sb.oracleboxing.com/Website/transfo/${item.video}`} type="video/webm" />
                     </video>
                   </div>
                 ))}
@@ -403,22 +403,22 @@ export default function SixWeekChallengePage() {
           <div className="hidden lg:grid lg:grid-cols-2 gap-6 lg:gap-8 max-w-5xl mx-auto">
             {[
               {
-                image: 'https://media.oracleboxing.com/Website/optimized/screenshots/inside1.webp',
+                image: 'https://sb.oracleboxing.com/Website/optimized/screenshots/inside1.webp',
                 title: 'All Your Courses in One Place',
                 subtitle: 'Access all three courses from a single organized dashboard'
               },
               {
-                image: 'https://media.oracleboxing.com/Website/optimized/screenshots/inside2.webp',
+                image: 'https://sb.oracleboxing.com/Website/optimized/screenshots/inside2.webp',
                 title: 'Full Video Lessons',
                 subtitle: 'Follow clear lessons with detailed video shows and learning'
               },
               {
-                image: 'https://media.oracleboxing.com/Website/optimized/screenshots/inside3.webp',
+                image: 'https://sb.oracleboxing.com/Website/optimized/screenshots/inside3.webp',
                 title: 'Follow-Along Workouts',
                 subtitle: 'Train with step-by-step drills and clear workout plans'
               },
               {
-                image: 'https://media.oracleboxing.com/Website/optimized/screenshots/inside4.webp',
+                image: 'https://sb.oracleboxing.com/Website/optimized/screenshots/inside4.webp',
                 title: 'Strong Search Feature',
                 subtitle: 'Find any move, idea, or drill quickly across all courses'
               }
@@ -449,22 +449,22 @@ export default function SixWeekChallengePage() {
           <div className="lg:hidden space-y-6 max-w-lg mx-auto">
             {[
               {
-                image: 'https://media.oracleboxing.com/Website/optimized/screenshots/inside1.webp',
+                image: 'https://sb.oracleboxing.com/Website/optimized/screenshots/inside1.webp',
                 title: 'All Your Courses in One Place',
                 subtitle: 'Access all three courses from a single organized dashboard'
               },
               {
-                image: 'https://media.oracleboxing.com/Website/optimized/screenshots/inside2.webp',
+                image: 'https://sb.oracleboxing.com/Website/optimized/screenshots/inside2.webp',
                 title: 'Full Video Lessons',
                 subtitle: 'Follow clear lessons with detailed video shows and learning'
               },
               {
-                image: 'https://media.oracleboxing.com/Website/optimized/screenshots/inside3.webp',
+                image: 'https://sb.oracleboxing.com/Website/optimized/screenshots/inside3.webp',
                 title: 'Follow-Along Workouts',
                 subtitle: 'Train with step-by-step drills and clear workout plans'
               },
               {
-                image: 'https://media.oracleboxing.com/Website/optimized/screenshots/inside4.webp',
+                image: 'https://sb.oracleboxing.com/Website/optimized/screenshots/inside4.webp',
                 title: 'Strong Search Feature',
                 subtitle: 'Find any move, idea, or drill quickly across all courses'
               }
@@ -616,7 +616,7 @@ export default function SixWeekChallengePage() {
             {/* Logo */}
             <div className="flex justify-center mb-6 sm:mb-8">
               <img
-                src="https://media.oracleboxing.com/Website/infinity_squared_white.svg"
+                src="https://sb.oracleboxing.com/Website/infinity_squared_white.svg"
                 alt="Oracle Boxing"
                 className="h-4 sm:h-5"
                 onError={(e) => {
@@ -628,7 +628,7 @@ export default function SixWeekChallengePage() {
             {/* Challenge Thumbnail */}
             <div className="flex justify-center mb-6 sm:mb-8">
               <img
-                src="https://media.oracleboxing.com/Website/skool_art.webp"
+                src="https://sb.oracleboxing.com/Website/skool_art.webp"
                 alt="6-Week Challenge"
                 className="w-full max-w-[280px] rounded-xl border-4 border-white shadow-lg"
               />
@@ -666,24 +666,24 @@ export default function SixWeekChallengePage() {
               <img
                 loading="lazy"
                 alt=""
-                src="https://media.oracleboxing.com/Website/payment1.svg"
+                src="https://sb.oracleboxing.com/Website/payment1.svg"
                 className="image-55"
               />
               <img
                 loading="lazy"
                 alt=""
-                src="https://media.oracleboxing.com/Website/payment2.svg"
+                src="https://sb.oracleboxing.com/Website/payment2.svg"
                 className="image-55 second"
               />
               <img
                 loading="lazy"
                 alt=""
-                src="https://media.oracleboxing.com/Website/paypal2.svg"
+                src="https://sb.oracleboxing.com/Website/paypal2.svg"
                 className="image-55 bigger"
               />
               <img
                 loading="lazy"
-                src="https://media.oracleboxing.com/Website/klarna.svg"
+                src="https://sb.oracleboxing.com/Website/klarna.svg"
                 alt=""
                 className="image-55 bigger-mobile"
               />

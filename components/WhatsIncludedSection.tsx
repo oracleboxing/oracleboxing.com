@@ -16,22 +16,22 @@ export default function WhatsIncludedSection() {
   const features = [
     {
       title: "Boxing Masterclass",
-      image: "https://media.oracleboxing.com/Website/optimized/products/bffp_tn5-large.webp",
+      image: "https://sb.oracleboxing.com/Website/optimized/products/bffp_tn5-large.webp",
       description: "Master the science of boxing with our comprehensive 5-module course covering mindset, anatomy, mechanics, tactics, and conditioning."
     },
     {
       title: "Daily Live Coaching Calls",
-      image: "https://media.oracleboxing.com/Website/optimized/products/boxing_clinic-large.webp",
+      image: "https://sb.oracleboxing.com/Website/optimized/products/boxing_clinic-large.webp",
       description: "Join Oliver & Toni for daily live coaching sessions where you'll get real-time feedback and technique refinement."
     },
     {
       title: "Private Boxing Community Access",
-      image: "https://media.oracleboxing.com/Website/optimized/screenshots/phone_mockup1.webp",
+      image: "https://sb.oracleboxing.com/Website/optimized/screenshots/phone_mockup1.webp",
       description: "Connect with fellow boxers, share your progress, and get support from our expert coaches and community members."
     },
     {
       title: "The Boxing Roadmap",
-      image: "https://media.oracleboxing.com/Website/optimized/products/tbrtn5hq-large.webp",
+      image: "https://sb.oracleboxing.com/Website/optimized/products/tbrtn5hq-large.webp",
       description: "Follow our proven 5-phase training system with 100+ workouts taking you from fundamentals to mastery."
     },
   ]
