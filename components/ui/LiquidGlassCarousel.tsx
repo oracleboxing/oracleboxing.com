@@ -49,6 +49,7 @@ export function LiquidGlassCarousel({ items = defaultItems }: LiquidGlassCarouse
   const [translateX, setTranslateX] = useState(0)
   const [prevMagnify, setPrevMagnify] = useState(false)
   const [nextMagnify, setNextMagnify] = useState(false)
+  const [autoScrollEnabled, setAutoScrollEnabled] = useState(true)
 
   const carouselRef = useRef<HTMLDivElement>(null)
   const thumbnailsRef = useRef<HTMLDivElement>(null)
@@ -80,8 +81,27 @@ export function LiquidGlassCarousel({ items = defaultItems }: LiquidGlassCarouse
     })
   }, [])
 
-  // Play/pause videos based on current index
+  // Auto-advance to next video when current one ends
+  const advanceToNext = useCallback(() => {
+    if (!autoScrollEnabled) return
+
+    setCurrentIndex(prevIndex => {
+      const nextIndex = prevIndex < items.length - 1 ? prevIndex + 1 : 0
+      updateTranslate(nextIndex)
+      scrollThumbnailsToIndex(nextIndex)
+      return nextIndex
+    })
+  }, [autoScrollEnabled, items.length, updateTranslate, scrollThumbnailsToIndex])
+
+  // Disable auto-scroll on user interaction
+  const disableAutoScroll = useCallback(() => {
+    setAutoScrollEnabled(false)
+  }, [])
+
+  // Play/pause videos based on current index and set up ended event listener
   useEffect(() => {
+    const currentVideo = videoRefs.current[currentIndex]
+
     videoRefs.current.forEach((video, index) => {
       if (video) {
         if (index === currentIndex) {
@@ -94,10 +114,22 @@ export function LiquidGlassCarousel({ items = defaultItems }: LiquidGlassCarouse
         }
       }
     })
-  }, [currentIndex])
+
+    // Add ended event listener to current video for auto-advance
+    if (currentVideo) {
+      currentVideo.addEventListener('ended', advanceToNext)
+    }
+
+    return () => {
+      if (currentVideo) {
+        currentVideo.removeEventListener('ended', advanceToNext)
+      }
+    }
+  }, [currentIndex, advanceToNext])
 
   const handlePrevClick = () => {
     if (currentIndex > 0) {
+      disableAutoScroll()
       setPrevMagnify(true)
       setTimeout(() => setPrevMagnify(false), 400)
 
@@ -110,6 +142,7 @@ export function LiquidGlassCarousel({ items = defaultItems }: LiquidGlassCarouse
 
   const handleNextClick = () => {
     if (currentIndex < items.length - 1) {
+      disableAutoScroll()
       setNextMagnify(true)
       setTimeout(() => setNextMagnify(false), 400)
 
@@ -121,12 +154,14 @@ export function LiquidGlassCarousel({ items = defaultItems }: LiquidGlassCarouse
   }
 
   const handleThumbnailClick = (index: number) => {
+    disableAutoScroll()
     setCurrentIndex(index)
     updateTranslate(index)
     scrollThumbnailsToIndex(index)
   }
 
   const handleDragStart = (e: React.MouseEvent | React.TouchEvent) => {
+    disableAutoScroll()
     setIsDragging(true)
     const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX
     setDragStartX(clientX)
@@ -204,12 +239,12 @@ export function LiquidGlassCarousel({ items = defaultItems }: LiquidGlassCarouse
   }
 
   return (
-    <div className="w-full max-w-full mx-auto p-0">
+    <div className="w-full max-w-full mx-auto p-0 -mx-6">
       <div className="flex flex-col gap-0">
         {/* Main Carousel */}
         <div
           ref={carouselRef}
-          className="relative overflow-hidden rounded-lg bg-transparent cursor-grab select-none active:cursor-grabbing"
+          className="relative overflow-hidden rounded-t-lg bg-transparent cursor-grab select-none active:cursor-grabbing"
           onMouseDown={handleDragStart}
           onTouchStart={handleDragStart}
         >
@@ -223,16 +258,16 @@ export function LiquidGlassCarousel({ items = defaultItems }: LiquidGlassCarouse
             {items.map((item, index) => (
               <div
                 key={item.id}
-                className="flex-shrink-0 w-full flex flex-col overflow-hidden rounded-lg bg-gray-900"
+                className="flex-shrink-0 w-full flex flex-col overflow-hidden rounded-t-lg bg-gray-900"
               >
                 <div className="relative w-full aspect-[9/16]">
                   <video
                     ref={(el) => { videoRefs.current[index] = el }}
-                    loop
+                    loop={!autoScrollEnabled}
                     muted
                     playsInline
                     poster={`${BASE_URL}${item.poster}`}
-                    className="w-full h-full object-cover rounded-lg"
+                    className="w-full h-full object-cover rounded-t-lg"
                   >
                     <source src={`${BASE_URL}${item.video}`} type="video/webm" />
                   </video>
@@ -297,11 +332,11 @@ export function LiquidGlassCarousel({ items = defaultItems }: LiquidGlassCarouse
           className="overflow-x-auto scrollbar-hide"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
-          <div className="flex gap-0.5 h-20 pb-0 w-fit">
+          <div className="flex gap-0 h-20 pb-0 w-fit">
             {items.map((item, i) => (
               <button
                 key={item.id}
-                className={`relative flex-shrink-0 h-full overflow-hidden rounded border-none cursor-pointer p-0 bg-transparent ${i === currentIndex ? 'ring-2 ring-gray-900' : ''}`}
+                className={`relative flex-shrink-0 h-full overflow-hidden border-none cursor-pointer p-0 bg-transparent ${i === currentIndex ? 'ring-2 ring-gray-900' : ''}`}
                 style={getThumbnailStyle(i)}
                 onClick={() => handleThumbnailClick(i)}
                 aria-label={`View video ${i + 1}: ${item.title}`}

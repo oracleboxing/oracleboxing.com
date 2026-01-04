@@ -11,13 +11,13 @@ export default function FooterSection() {
           {/* Brand Section */}
           <div className="self-stretch flex justify-start items-center gap-3">
             <img
-              src="https://sb.oracleboxing.com/Website/ob_logo_long_black.webp"
+              src="https://sb.oracleboxing.com/logo/long_dark.webp"
               alt="Oracle Boxing"
               className="h-5 w-auto"
             />
           </div>
           <div className="text-[rgba(73,66,61,0.90)] text-sm font-medium leading-[18px] font-sans max-w-[280px]">
-            Old School Boxing, New Skool System
+            Learn Better Boxing
           </div>
 
           {/* Social Media Icons */}

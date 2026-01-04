@@ -3,203 +3,97 @@
 import Link from "next/link"
 
 export default function PricingSection() {
-  const packages = [
-    {
-      id: "21dc-entry",
-      name: "Entry",
-      price: 147,
-      description: "Everything you need to start mastering the fundamentals.",
-      features: [
-        "11 Live Classes Per Week",
-        "Private Community Access",
-        "Boxing Roadmap Course",
-        "1-on-1 Graduation Call",
-        "Money-Back Guarantee",
-      ],
-      featured: false,
-      ctaText: "Get Started",
-    },
-    {
-      id: "21dc-premium",
-      name: "Premium",
-      price: 297,
-      description: "Go deeper with additional courses and recordings.",
-      features: [
-        "Everything in Entry",
-        "Full Recordings Vault",
-        "First Principles Course",
-      ],
-      featured: true,
-      ctaText: "Get Premium",
-    },
-    {
-      id: "21dc-vip",
-      name: "VIP",
-      price: 497,
-      description: "The complete experience with 1-1 coaching and gear.",
-      features: [
-        "Everything in Premium",
-        "Jump-Start Coaching Call",
-        "Oracle Boxing Tracksuit",
-      ],
-      featured: false,
-      ctaText: "Get VIP Access",
-    },
-  ]
-
   return (
-    <div id="pricing" className="w-full flex flex-col justify-center items-center gap-2 scroll-mt-8">
-      {/* Header Section */}
-      <div className="self-stretch px-6 md:px-24 py-12 md:py-16 border-b border-[rgba(55,50,47,0.12)] flex justify-center items-center gap-6">
-        <div className="w-full max-w-[700px] px-6 py-5 overflow-hidden rounded-lg flex flex-col justify-start items-center gap-4">
-          {/* Title */}
-          <div className="self-stretch text-center flex justify-center flex-col text-[#49423D] text-3xl md:text-5xl font-semibold leading-tight md:leading-[60px] font-sans tracking-tight">
-            Choose Your Package
-          </div>
-
-          {/* Subtitle */}
-          <div className="self-stretch text-center text-[#605A57] text-lg font-medium leading-7 font-sans">
-            All packages are for the 21-Day Fundamentals Challenge
-          </div>
+    <div id="pricing" className="w-full relative overflow-hidden flex flex-col justify-center items-center scroll-mt-8 border-b border-[rgba(55,50,47,0.12)]">
+      {/* Diagonal stripes background on margins */}
+      <div className="absolute inset-0 w-full h-full overflow-hidden">
+        <div className="w-full h-full relative">
+          {Array.from({ length: 300 }).map((_, i) => (
+            <div
+              key={i}
+              className="absolute h-4 w-full rotate-[-45deg] origin-top-left outline outline-[0.5px] outline-[rgba(3,7,18,0.08)] outline-offset-[-0.25px]"
+              style={{
+                top: `${i * 16 - 120}px`,
+                left: "-100%",
+                width: "300%",
+              }}
+            ></div>
+          ))}
         </div>
       </div>
 
-      {/* Pricing Cards Section */}
-      <div className="self-stretch border-b border-t border-[rgba(55,50,47,0.12)] flex justify-center items-center">
-        <div className="flex justify-center items-start w-full">
-          {/* Left Decorative Pattern */}
-          <div className="w-12 self-stretch relative overflow-hidden hidden md:block">
-            <div className="w-[162px] left-[-58px] top-[-120px] absolute flex flex-col justify-start items-start">
-              {Array.from({ length: 200 }).map((_, i) => (
-                <div
-                  key={i}
-                  className="self-stretch h-4 rotate-[-45deg] origin-top-left outline outline-[0.5px] outline-[rgba(3,7,18,0.08)] outline-offset-[-0.25px]"
-                ></div>
-              ))}
-            </div>
-          </div>
+      {/* Content with solid background */}
+      <div className="mx-0 sm:mx-4 md:mx-8 lg:mx-12 my-0 self-stretch relative bg-[#FFFCF5] sm:border border-[rgba(55,50,47,0.12)] py-12 sm:py-16 md:py-24 flex flex-col justify-center items-center gap-8 sm:gap-10 md:gap-12 z-10">
+        {/* Header */}
+        <div className="w-full max-w-[500px] text-center px-4 flex flex-col gap-2">
+          <p className="text-[#37322F] text-xl sm:text-2xl md:text-3xl font-normal font-serif">
+            Earn Your Place.
+          </p>
+          <p className="text-[#FF8000] text-base sm:text-lg font-medium font-sans">
+            Win Your Money Back
+          </p>
+        </div>
 
-          {/* Pricing Cards Container */}
-          <div className="flex-1 flex flex-col md:flex-row justify-center items-stretch gap-0 py-12 md:py-0">
-            {packages.map((pkg) => (
-              <div
-                key={pkg.id}
-                className={`flex-1 max-w-full md:max-w-none self-stretch px-6 py-8 border border-[rgba(50,45,43,0.12)] overflow-hidden flex flex-col justify-between items-start gap-8 ${
-                  pkg.featured
-                    ? "bg-[#37322F]"
-                    : "bg-white"
-                }`}
-              >
-                {/* Plan Header */}
-                <div className="self-stretch flex flex-col justify-start items-start gap-6">
-                  <div className="self-stretch flex flex-col justify-start items-start gap-2">
-                    <div
-                      className={`text-lg font-medium leading-7 font-sans ${
-                        pkg.featured ? "text-[#FBFAF9]" : "text-[rgba(55,50,47,0.90)]"
-                      }`}
-                    >
-                      {pkg.name}
-                    </div>
-                    <div
-                      className={`w-full max-w-[280px] text-sm font-normal leading-5 font-sans ${
-                        pkg.featured ? "text-[#B2AEA9]" : "text-[rgba(41,37,35,0.70)]"
-                      }`}
-                    >
-                      {pkg.description}
-                    </div>
-                  </div>
-
-                  <div className="self-stretch flex flex-col justify-start items-start gap-2">
-                    <div className="flex items-baseline gap-1">
-                      <span
-                        className={`text-5xl font-medium leading-[60px] font-serif ${
-                          pkg.featured ? "text-[#F0EFEE]" : "text-[#37322F]"
-                        }`}
-                      >
-                        ${pkg.price}
-                      </span>
-                    </div>
-                    <div
-                      className={`text-sm font-medium font-sans ${
-                        pkg.featured ? "text-[#D2C6BF]" : "text-[#847971]"
-                      }`}
-                    >
-                      one-time payment
-                    </div>
-                  </div>
-
-                  {/* CTA Button */}
-                  <Link
-                    href={`/checkout?product=${pkg.id}`}
-                    className={`self-stretch px-4 py-[12px] relative shadow-[0px_2px_4px_rgba(55,50,47,0.12)] overflow-hidden rounded-[99px] flex justify-center items-center ${
-                      pkg.featured
-                        ? "bg-[#FBFAF9]"
-                        : "bg-[#37322F]"
-                    }`}
-                  >
-                    <div
-                      className={`text-[14px] font-medium leading-5 font-sans ${
-                        pkg.featured ? "text-[#37322F]" : "text-[#FBFAF9]"
-                      }`}
-                    >
-                      {pkg.ctaText}
-                    </div>
-                  </Link>
-                </div>
-
-                {/* Features */}
-                <div className="self-stretch flex flex-col justify-start items-start gap-3">
-                  {pkg.features.map((feature, index) => (
-                    <div key={index} className="self-stretch flex justify-start items-center gap-3">
-                      <svg width="14" height="14" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0">
-                        <path
-                          d="M10 3L4.5 8.5L2 6"
-                          stroke={pkg.featured ? "#FF8000" : "#37322F"}
-                          strokeWidth="1.5"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                      <div
-                        className={`flex-1 text-sm font-medium leading-5 font-sans ${
-                          pkg.featured ? "text-[#F0EFEE]" : "text-[#49423D]"
-                        }`}
-                      >
-                        {feature}
-                      </div>
-                    </div>
-                  ))}
-                </div>
+        {/* Pricing Card */}
+        <div className="w-full px-4 sm:px-6 flex justify-center">
+          <div className="w-full max-w-[440px] bg-[#37322F] rounded-2xl overflow-hidden shadow-xl">
+            {/* Card Content */}
+            <div className="px-5 sm:px-8 py-8 sm:py-10 flex flex-col gap-6 sm:gap-8">
+            {/* Header */}
+            <div className="flex flex-col gap-2">
+              <div className="text-[#FBFAF9] text-xl sm:text-2xl md:text-3xl font-semibold font-sans">
+                21-Day Challenge
               </div>
-            ))}
-          </div>
+            </div>
 
-          {/* Right Decorative Pattern */}
-          <div className="w-12 self-stretch relative overflow-hidden hidden md:block">
-            <div className="w-[162px] left-[-58px] top-[-120px] absolute flex flex-col justify-start items-start">
-              {Array.from({ length: 200 }).map((_, i) => (
-                <div
-                  key={i}
-                  className="self-stretch h-4 rotate-[-45deg] origin-top-left outline outline-[0.5px] outline-[rgba(3,7,18,0.08)] outline-offset-[-0.25px]"
-                ></div>
+            {/* Price */}
+            <div className="flex flex-col gap-1">
+              <div className="flex items-baseline gap-2">
+                <span className="text-[#F0EFEE] text-4xl sm:text-5xl md:text-6xl font-medium font-serif">
+                  $147
+                </span>
+              </div>
+              <div className="text-[#847971] text-sm font-medium font-sans">
+                one-time payment
+              </div>
+            </div>
+
+            {/* CTA Button */}
+            <Link
+              href="/checkout?product=21dc-entry"
+              className="w-full px-6 py-4 bg-[#FBFAF9] hover:bg-white transition-colors rounded-full flex justify-center items-center shadow-[0px_2px_4px_rgba(55,50,47,0.12)]"
+            >
+              <span className="text-[#37322F] text-base font-semibold font-sans">
+                Join the Challenge
+              </span>
+            </Link>
+
+            {/* Features */}
+            <div className="flex flex-col gap-4 pt-4 border-t border-[rgba(255,255,255,0.1)]">
+              {[
+                "11 Live Classes Per Week",
+                "Private Community Access",
+                "Boxing Roadmap Course",
+                "1-on-1 Graduation Call",
+                "Win Your Money Back Guarantee",
+              ].map((feature, index) => (
+                <div key={index} className="flex items-center gap-3">
+                  <svg width="16" height="16" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0">
+                    <path
+                      d="M10 3L4.5 8.5L2 6"
+                      stroke="#FF8000"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                  <span className="text-[#F0EFEE] text-base font-medium font-sans">
+                    {feature}
+                  </span>
+                </div>
               ))}
             </div>
           </div>
-        </div>
-      </div>
-
-      {/* WYMB Section */}
-      <div className="self-stretch px-6 md:px-24 py-12 md:py-16 flex justify-center items-center">
-        <div className="w-full max-w-[700px] flex flex-col items-center gap-6">
-          <div className="text-center text-[#49423D] text-2xl md:text-3xl font-semibold leading-tight font-sans">
-            Why The Win Your Money Back (WYMB) Feature?
-          </div>
-          <div className="text-center text-[#605A57] text-base font-normal leading-7 font-sans">
-            The WYMB feature means if you complete the BARE MINIMUM required from our battle-tested programme, we'll refund your entire investment for this challenge.
-            <br /><br />
-            This holds you accountable so that you show up twice per week for our live classes and once per week for a video review.
-            <br /><br />
-            And it gives us an opportunity to see if you're a good fit for the Oracle Boxing Community.
           </div>
         </div>
       </div>

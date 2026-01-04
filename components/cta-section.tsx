@@ -1,8 +1,14 @@
 "use client"
 
-import Link from "next/link"
-
 export default function CTASection() {
+  const scrollToPricing = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault()
+    const pricingSection = document.getElementById("pricing")
+    if (pricingSection) {
+      pricingSection.scrollIntoView({ behavior: "smooth" })
+    }
+  }
+
   return (
     <div className="w-full relative overflow-hidden flex flex-col justify-center items-center gap-2">
       {/* Content */}
@@ -36,15 +42,15 @@ export default function CTASection() {
           </div>
           <div className="w-full max-w-[497px] flex flex-col justify-center items-center gap-12">
             <div className="flex justify-start items-center gap-4">
-              <Link
-                href="#pricing"
+              <button
+                onClick={scrollToPricing}
                 className="h-10 px-12 py-[6px] relative bg-[#37322F] shadow-[0px_0px_0px_2.5px_rgba(255,255,255,0.08)_inset] overflow-hidden rounded-full flex justify-center items-center cursor-pointer hover:bg-[#2A2520] transition-colors"
               >
                 <div className="w-44 h-[41px] absolute left-0 top-0 bg-gradient-to-b from-[rgba(255,255,255,0)] to-[rgba(0,0,0,0.10)] mix-blend-multiply"></div>
                 <div className="flex flex-col justify-center text-white text-[13px] font-medium leading-5 font-sans">
                   Choose Your Package
                 </div>
-              </Link>
+              </button>
             </div>
           </div>
         </div>

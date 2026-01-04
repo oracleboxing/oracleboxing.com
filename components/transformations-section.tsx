@@ -23,11 +23,13 @@ export default function TransformationsSection() {
       </div>
 
       {/* Content with solid background */}
-      <div className="mx-8 md:mx-[128px] my-0 self-stretch relative bg-[#FFFCF5] border border-[rgba(55,50,47,0.12)] py-12 md:py-16 flex flex-col justify-center items-center gap-8 z-10">
+      <div className="mx-0 sm:mx-4 md:mx-8 lg:mx-12 my-0 self-stretch relative bg-[#FFFCF5] sm:border border-[rgba(55,50,47,0.12)] py-10 sm:py-12 md:py-16 flex flex-col justify-center items-center gap-6 sm:gap-8 z-10">
         {/* Header */}
         <div className="w-full max-w-[700px] flex flex-col items-center gap-4 relative z-20 px-6">
-          <div className="self-stretch text-center text-[#49423D] text-3xl md:text-5xl font-semibold leading-tight md:leading-[60px] font-sans tracking-tight">
-            Transformations From our Fundamentals First Approach
+          <div className="self-stretch text-center text-[#49423D] text-xl sm:text-2xl md:text-3xl lg:text-5xl font-normal leading-tight md:leading-[60px] font-serif tracking-tight">
+            Fundamentals
+            <br />
+            First Approach
           </div>
         </div>
 

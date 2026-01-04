@@ -19,9 +19,9 @@ export function HeroSection() {
           <div className="max-w-[937px] flex flex-col items-center gap-3">
             <div className="flex flex-col items-center gap-6">
               <h1 className="max-w-[900px] text-center text-[#37322f] text-4xl md:text-[64px] font-normal leading-tight md:leading-[1.15] font-serif">
-                Improve Your
+                Learn
                 <br />
-                Boxing Technique
+                Better Boxing
               </h1>
               <p className="max-w-[700px] text-center text-[#37322f]/80 text-lg md:text-xl font-medium leading-7">
                 Oracle Boxing is the virtual school for beginners in the sweet science.
