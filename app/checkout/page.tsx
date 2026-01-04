@@ -501,7 +501,7 @@ export default function CheckoutPage() {
           {/* Logo */}
           <div className="flex justify-center mb-4">
             <img
-              src="https://sb.oracleboxing.com/Website/ob_logo_long_black.webp"
+              src="https://sb.oracleboxing.com/logo/long_dark.webp"
               alt="Oracle Boxing"
               className="h-4"
             />
