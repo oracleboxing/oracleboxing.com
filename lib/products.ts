@@ -31,35 +31,23 @@ Complete access to the entire Oracle Boxing system — theory, technique, and ta
   },
   {
     id: 'bffp',
-    title: 'Boxing Masterclass',
-    price: 297,
+    title: 'Boxing from First Principles',
+    price: 247,
     type: 'course',
     metadata: 'bffp',
-    stripe_product_id: 'prod_TKqgg2tjyp9j4f',
-    stripe_price_id: 'price_1SOAzDKPvH4Ddlg1skHdr4H0',
+    stripe_product_id: 'prod_TjIiJYgN766HTt',
+    stripe_price_id: 'price_1Slq71QNEdHwdojXUEUJbrIU',
     image: 'https://sb.oracleboxing.com/Website/optimized/products/bffp_tn5-large.webp',
-    shortDescription: 'The Science of Boxing, Made Simple.',
+    shortDescription: 'Learn how boxing really works. 26 lessons across 5 modules.',
     perfectFor: 'Beginners who crave a deep understanding',
     moduleCount: 5,
     lessonCount: 26,
     hours: 13,
-    description: `**SENTIENCE — The Mind of the Fighter**
-Learn how to think, feel, and perform like a boxer. Shift your paradigm for success, build mental clarity, and access flow on command.
-
-**ANATOMY — The Wiring of Performance**
-Understand how your body truly works beneath the surface. Study the nervous system, fascia, and energy transfer through the body.
-
-**FORMIS — The Language of Movement**
-Master the mechanics of boxing. Develop shape, stance, striking, defence, distance control, and the flow of movement.
-
-**GAMBIT — The Science of Tactics**
-Learn to think like a strategist in the ring. Understand pattern recognition, positioning, deception, and guard manipulation.
-
-**ENGINE — The Physiology of Fighting**
-Build the engine that powers it all. Train breathing, conditioning, nervous system strength, and recovery.
-
-**MENTORSHIP — The Final Principle**
-Develop discipline, leadership, and long-term mastery mindset.`,
+    description: `- Sentience: Master the mental game and flow state
+- Anatomy: Understand how your body generates power
+- Formis: Build perfect stance, movement, and striking
+- Gambit: Learn tactics, patterns, and ring IQ
+- Engine: Develop conditioning and recovery`,
   },
   {
     id: 'roadmap',
@@ -551,37 +539,28 @@ Everything in the Challenge plus lifetime access and VIP perks.
   {
     id: 'tracksuit',
     title: 'Oracle Boxing Tracksuit',
-    price: 161, // USD base price (20% discount applied)
+    price: 187,
     prices: {
-      usd: 161,
-      gbp: 128,
-      eur: 150,
-      cad: 219,
-      aud: 241,
-      aed: 590,
+      usd: 187,
+      gbp: 149,
+      eur: 174,
+      cad: 254,
+      aud: 280,
+      aed: 687,
     },
     type: 'course',
     metadata: 'tracksuit',
-    stripe_product_id: 'prod_TXkoI5vRqO7auz', // Test product ID
-    stripe_price_id: 'price_1SafJLQNEdHwdojXTHKyas20', // Test price ID ($161)
+    stripe_product_id: 'prod_TXkoI5vRqO7auz',
+    stripe_price_id: 'price_1Slq6MQNEdHwdojX0Woi30hN',
     price_ids: {
-      usd: 'price_1SafJLQNEdHwdojXTHKyas20',
+      usd: 'price_1Slq6MQNEdHwdojX0Woi30hN',
     },
-    image: 'https://sb.oracleboxing.com/Website/tracksuit_preview.png',
-    description: `**Premium Oracle Boxing Tracksuit**
-
-Represent the Oracle Boxing community with our exclusive tracksuit.
-
-**Features:**
-• 100% cotton for maximum comfort and durability
-• Made in Britain with premium craftsmanship
-• Official Oracle Boxing branding
-• Perfect for training or casual wear
-• Limited availability
-
-**Sizing:**
-We'll contact you after purchase to confirm your size and shipping details.`,
-    shortDescription: 'Official Oracle Boxing Tracksuit - 20% Off Success Page Only',
+    image: 'https://sb.oracleboxing.com/Website/ob_black_4.webp',
+    description: `- 100% cotton for maximum comfort and durability
+- Made in Britain with premium craftsmanship
+- Colours: Steel, Hazel, Forest, Black, Grey
+- You'll be contacted to select size and add shipping`,
+    shortDescription: 'Premium tracksuit. Made in Britain. 100% cotton.',
     perfectFor: 'Community members who want to represent',
   },
 ]
@@ -643,4 +622,9 @@ export function getBundleUpsells(): Product[] {
 // Get 21-Day Challenge products
 export function get21DayChallengeProducts(): Product[] {
   return allProducts.filter(p => ['21dc_entry', '21dc_premium', '21dc_vip'].includes(p.metadata || ''))
+}
+
+// Get 21-Day Challenge order bumps (BFFP + Tracksuit)
+export function get21DCOrderBumps(): Product[] {
+  return allProducts.filter(p => ['bffp', 'tracksuit'].includes(p.metadata || ''))
 }

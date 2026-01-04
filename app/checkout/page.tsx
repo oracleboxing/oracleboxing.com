@@ -303,80 +303,35 @@ export default function CheckoutPage() {
         return
       }
 
-      // 21-Day Challenge products → Direct to Stripe (packages are complete)
+      // 21-Day Challenge products → Order bumps (BFFP + Tracksuit)
       if (['21dc-entry', '21dc-premium', '21dc-vip'].includes(productParam)) {
-        console.log('→ Routing 21-Day Challenge direct to Stripe')
+        console.log('→ Routing 21-Day Challenge to order-bumps')
+        const orderBumpsUrl = new URL('/checkout/order-bumps', window.location.origin)
+        orderBumpsUrl.searchParams.set('email', email)
+        orderBumpsUrl.searchParams.set('name', fullName)
+        orderBumpsUrl.searchParams.set('funnel', '21dc')
+        orderBumpsUrl.searchParams.set('product', productParam)
+        orderBumpsUrl.searchParams.set('currency', currency)
+        if (sourceParam) orderBumpsUrl.searchParams.set('source', sourceParam)
 
-        const product = getProductById(productParam)
-        if (!product) {
-          throw new Error(`Product not found: ${productParam}`)
-        }
+        // Pass tracking params
+        orderBumpsUrl.searchParams.set('referrer', trackingParams.referrer)
+        // First Touch
+        if (trackingParams.first_utm_source) orderBumpsUrl.searchParams.set('first_utm_source', trackingParams.first_utm_source)
+        if (trackingParams.first_utm_medium) orderBumpsUrl.searchParams.set('first_utm_medium', trackingParams.first_utm_medium)
+        if (trackingParams.first_utm_campaign) orderBumpsUrl.searchParams.set('first_utm_campaign', trackingParams.first_utm_campaign)
+        if (trackingParams.first_utm_term) orderBumpsUrl.searchParams.set('first_utm_term', trackingParams.first_utm_term)
+        if (trackingParams.first_utm_content) orderBumpsUrl.searchParams.set('first_utm_content', trackingParams.first_utm_content)
+        if (trackingParams.first_referrer_time) orderBumpsUrl.searchParams.set('first_referrer_time', trackingParams.first_referrer_time)
+        // Last Touch
+        if (trackingParams.last_utm_source) orderBumpsUrl.searchParams.set('last_utm_source', trackingParams.last_utm_source)
+        if (trackingParams.last_utm_medium) orderBumpsUrl.searchParams.set('last_utm_medium', trackingParams.last_utm_medium)
+        if (trackingParams.last_utm_campaign) orderBumpsUrl.searchParams.set('last_utm_campaign', trackingParams.last_utm_campaign)
+        if (trackingParams.last_utm_term) orderBumpsUrl.searchParams.set('last_utm_term', trackingParams.last_utm_term)
+        if (trackingParams.last_utm_content) orderBumpsUrl.searchParams.set('last_utm_content', trackingParams.last_utm_content)
+        if (trackingParams.last_referrer_time) orderBumpsUrl.searchParams.set('last_referrer_time', trackingParams.last_referrer_time)
 
-        // Track InitiateCheckout
-        const priceInUserCurrency = product.price || 0
-
-        trackInitiateCheckout(
-          fullName,
-          email,
-          priceInUserCurrency,
-          [productParam],
-          '/checkout',
-          trackingParams.referrer || 'direct',
-          {
-            funnel: '21dc',
-            currency: currency,
-            source: sourceParam || 'homepage',
-          }
-        )
-
-        // Get full cookie data
-        const cookieData = getCookie('ob_track')
-
-        // Create checkout session
-        const response = await fetch('/api/checkout/session', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            items: [{
-              product: product,
-              quantity: 1,
-              price_id: product.stripe_price_id,
-            }],
-            currency: currency,
-            customerInfo: {
-              firstName: fullName,
-              lastName: fullName,
-              email: email,
-              phone: '',
-              address: {
-                line1: '',
-                line2: '',
-                city: '',
-                state: '',
-                postal_code: '',
-                country: 'US',
-              },
-            },
-            trackingParams: trackingParams,
-            cookieData: cookieData,
-            pageUrl: window.location.href,
-          }),
-        })
-
-        const data = await response.json()
-
-        if (!response.ok) {
-          throw new Error(data.error || 'Failed to create checkout session')
-        }
-
-        if (!data.url) {
-          throw new Error('No checkout URL returned')
-        }
-
-        // Redirect to Stripe
-        window.location.href = data.url
+        router.push(orderBumpsUrl.pathname + orderBumpsUrl.search)
         return
       }
 
