@@ -8,6 +8,7 @@ import PricingSection from "@/components/pricing-section"
 import WhoIsForSection from "@/components/WhoIsForSection"
 import FundamentalsWarningSection from "@/components/FundamentalsWarningSection"
 import ChallengeFAQSection from "@/components/ChallengeFAQSection"
+import TeamSection from "@/components/TeamSection"
 
 export default function Home() {
   return (
@@ -22,6 +23,7 @@ export default function Home() {
         <PricingSection />
         <WhoIsForSection />
         <FundamentalsWarningSection />
+        <TeamSection />
         <ChallengeFAQSection />
         <FooterSection />
       </main>
