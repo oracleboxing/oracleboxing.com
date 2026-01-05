@@ -1,8 +1,11 @@
 "use client"
 
 import Link from "next/link"
+import { useCurrency } from "@/contexts/CurrencyContext"
+import { getProductPrice, formatPrice } from "@/lib/currency"
 
 export default function PricingSection() {
+  const { currency, isLoading } = useCurrency()
   return (
     <div id="pricing" className="w-full relative overflow-hidden flex flex-col justify-center items-center scroll-mt-8 border-b border-[rgba(55,50,47,0.12)]">
       {/* Diagonal stripes background on margins */}
@@ -50,7 +53,7 @@ export default function PricingSection() {
             <div className="flex flex-col gap-1">
               <div className="flex items-baseline gap-2">
                 <span className="text-[#F0EFEE] text-4xl sm:text-5xl md:text-6xl font-medium font-serif">
-                  $147
+                  {isLoading ? '...' : formatPrice(getProductPrice('21dc_entry', currency) || 147, currency)}
                 </span>
               </div>
               <div className="text-[#847971] text-sm font-medium font-sans">

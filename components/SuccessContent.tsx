@@ -1,9 +1,6 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { Upsell } from './Upsell'
-import { Product } from '@/lib/types'
-import { getProductById } from '@/lib/products'
 import { useAnalytics } from '@/hooks/useAnalytics'
 
 interface SuccessContentProps {
@@ -56,7 +53,6 @@ function getFbclid(): string | null {
 
 export function SuccessContent({ sessionId }: SuccessContentProps) {
   const [session, setSession] = useState<any>(null)
-  const [upsellProduct, setUpsellProduct] = useState<Product | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const { trackPurchase } = useAnalytics()
 
@@ -73,11 +69,6 @@ export function SuccessContent({ sessionId }: SuccessContentProps) {
         // Send Purchase event to Facebook (browser + CAPI)
         await sendPurchaseEvent(sessionData);
 
-        // Show tracksuit upsell for all purchases
-        const tracksuit = getProductById('tracksuit')
-        console.log('🔍 Tracksuit product:', tracksuit)
-        setUpsellProduct(tracksuit || null)
-
         setIsLoading(false)
       } catch (error) {
         console.error('Error fetching session:', error)
@@ -87,7 +78,7 @@ export function SuccessContent({ sessionId }: SuccessContentProps) {
 
     async function sendPurchaseEvent(sessionData: any) {
       try {
-        console.log('🔍 Session data received for Purchase tracking:', {
+        console.log('Session data received for Purchase tracking:', {
           has_amount_total: !!sessionData.amount_total,
           has_line_items: !!sessionData.line_items,
           line_items_count: sessionData.line_items?.data?.length || 0,
@@ -123,12 +114,12 @@ export function SuccessContent({ sessionId }: SuccessContentProps) {
 
         // Extract metadata for Vercel Analytics
         const metadata = sessionData.metadata || {};
-        const products = contentIds; // Use Stripe product IDs as product identifiers
+        const products = contentIds;
         const funnelType = metadata.funnel_type || 'unknown';
         const orderBumps = metadata.add_ons_included ? metadata.add_ons_included.split(',') : [];
         const hasOrderBumps = orderBumps.length > 0;
 
-        console.log('📊 Sending Purchase event:', {
+        console.log('Sending Purchase event:', {
           event_id: eventId,
           value: amountTotal,
           currency,
@@ -152,9 +143,9 @@ export function SuccessContent({ sessionId }: SuccessContentProps) {
           }, {
             eventID: eventId
           });
-          console.log('📱 Browser Purchase event sent with event_id:', eventId);
+          console.log('Browser Purchase event sent with event_id:', eventId);
         } else {
-          console.warn('⚠️ Facebook Pixel not loaded - browser Purchase event not sent');
+          console.warn('Facebook Pixel not loaded - browser Purchase event not sent');
         }
 
         // 2. Send server-side CAPI Purchase event
@@ -179,13 +170,13 @@ export function SuccessContent({ sessionId }: SuccessContentProps) {
         }).then(async response => {
           if (response.ok) {
             const result = await response.json();
-            console.log('✅ CAPI Purchase event sent successfully:', result);
+            console.log('CAPI Purchase event sent successfully:', result);
           } else {
             const error = await response.json();
-            console.error('❌ CAPI Purchase event failed:', response.status, error);
+            console.error('CAPI Purchase event failed:', response.status, error);
           }
         }).catch((error) => {
-          console.error('❌ Failed to send CAPI Purchase event:', error);
+          console.error('Failed to send CAPI Purchase event:', error);
         });
 
         // 3. Send Vercel Analytics Purchase event
@@ -199,7 +190,7 @@ export function SuccessContent({ sessionId }: SuccessContentProps) {
           has_order_bumps: hasOrderBumps,
           order_bumps: orderBumps,
         });
-        console.log('✅ Vercel Analytics Purchase event sent');
+        console.log('Vercel Analytics Purchase event sent');
 
       } catch (error) {
         console.error('Error sending Purchase event:', error);
@@ -207,46 +198,29 @@ export function SuccessContent({ sessionId }: SuccessContentProps) {
     }
 
     fetchSession()
-  }, [sessionId])
+  }, [sessionId, trackPurchase])
 
   if (isLoading) {
     return (
-      <section className="py-20 text-center">
-        <div className="animate-pulse">Loading...</div>
-      </section>
+      <div className="flex-1 flex items-center justify-center py-20">
+        <div className="text-[rgba(73,66,61,0.90)]">Loading...</div>
+      </div>
     )
   }
 
+  const customerEmail = session?.customerEmail || session?.customer_details?.email || 'your email'
+
   return (
-    <section className="py-8 sm:py-16">
-      <div className="mx-auto">
-        {/* Stacked layout: Order details on top, Upsell below */}
-        <div className="space-y-12">
-
-          {/* TOP: Order Details */}
-          <div className="space-y-6">
-            {/* Simple Thank You Message */}
-            <div className="text-center max-w-xl mx-auto space-y-4">
-              <h1 className="text-2xl font-bold text-gray-900">
-                Thank you for your purchase, {session?.customerName || 'Customer'}.
-              </h1>
-              <p className="text-gray-600">
-                We will email your receipt and further instructions to <span className="font-medium text-gray-900">{session?.customerEmail || 'your email'}</span>.
-              </p>
-            </div>
-          </div>
-
-          {/* BOTTOM: Tracksuit Upsell */}
-          <div>
-            {upsellProduct && (
-              <Upsell
-                product={upsellProduct}
-                sessionId={sessionId}
-              />
-            )}
-          </div>
-        </div>
+    <div className="flex-1 flex items-center justify-center py-20 px-4">
+      <div className="text-center max-w-md">
+        <h1 className="text-3xl font-bold text-[#37322F] mb-4">
+          Purchase Successful
+        </h1>
+        <p className="text-[rgba(73,66,61,0.90)] text-lg leading-relaxed">
+          We will email your receipt and further instructions to{' '}
+          <span className="font-medium text-[#37322F]">{customerEmail}</span>.
+        </p>
       </div>
-    </section>
+    </div>
   )
 }

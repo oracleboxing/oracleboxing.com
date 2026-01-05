@@ -297,6 +297,9 @@ export async function createCheckoutSession({
     allow_promotion_codes: true,
     customer: customerId, // Attach customer to session
     customer_creation: customerId ? undefined : 'always', // Create customer if not provided
+    phone_number_collection: {
+      enabled: true,
+    },
   }
 
   // Enable automatic tax if configured in Stripe

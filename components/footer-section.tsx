@@ -1,4 +1,51 @@
+'use client'
+
 import Link from "next/link"
+import { useCurrency } from "@/contexts/CurrencyContext"
+import { Currency, CURRENCIES } from "@/lib/currency"
+
+const CURRENCY_OPTIONS: { code: Currency; label: string; flag: string }[] = [
+  { code: 'USD', label: 'USD ($)', flag: '🇺🇸' },
+  { code: 'GBP', label: 'GBP (£)', flag: '🇬🇧' },
+  { code: 'EUR', label: 'EUR (€)', flag: '🇪🇺' },
+  { code: 'AUD', label: 'AUD ($)', flag: '🇦🇺' },
+  { code: 'CAD', label: 'CAD ($)', flag: '🇨🇦' },
+  { code: 'AED', label: 'AED', flag: '🇦🇪' },
+]
+
+function CurrencySelector() {
+  const { currency, setCurrency, isLoading } = useCurrency()
+
+  if (isLoading) {
+    return (
+      <div className="h-9 w-32 bg-[rgba(55,50,47,0.1)] rounded-lg animate-pulse" />
+    )
+  }
+
+  const currentOption = CURRENCY_OPTIONS.find(opt => opt.code === currency) || CURRENCY_OPTIONS[0]
+
+  return (
+    <div className="relative">
+      <select
+        value={currency}
+        onChange={(e) => setCurrency(e.target.value as Currency)}
+        className="appearance-none bg-white border border-[rgba(55,50,47,0.12)] rounded-lg px-3 py-2 pr-8 text-sm text-[#37322F] font-medium cursor-pointer hover:border-[rgba(55,50,47,0.24)] focus:outline-none focus:ring-2 focus:ring-[#37322F]/20 focus:border-[#37322F] transition-all"
+        aria-label="Select currency"
+      >
+        {CURRENCY_OPTIONS.map((option) => (
+          <option key={option.code} value={option.code}>
+            {option.flag} {option.label}
+          </option>
+        ))}
+      </select>
+      <div className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+        <svg className="w-4 h-4 text-[#49423D]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </svg>
+      </div>
+    </div>
+  )
+}
 
 export default function FooterSection() {
   const currentYear = new Date().getFullYear()
@@ -7,21 +54,21 @@ export default function FooterSection() {
     <div className="w-full pt-10 flex flex-col justify-start items-start">
       {/* Main Footer Content */}
       <div className="self-stretch h-auto flex flex-col md:flex-row justify-between items-stretch pr-0 pb-8 pt-0">
-        <div className="h-auto p-4 md:p-8 flex flex-col justify-start items-start gap-6">
+        <div className="h-auto p-4 md:p-8 flex flex-col justify-center items-center md:justify-start md:items-start gap-6">
           {/* Brand Section */}
-          <div className="self-stretch flex justify-start items-center gap-3">
+          <div className="self-stretch flex justify-center md:justify-start items-center gap-3">
             <img
               src="https://sb.oracleboxing.com/logo/long_dark.webp"
               alt="Oracle Boxing"
               className="h-5 w-auto"
             />
           </div>
-          <div className="text-[rgba(73,66,61,0.90)] text-sm font-medium leading-[18px] font-sans max-w-[280px]">
+          <div className="text-[rgba(73,66,61,0.90)] text-sm font-medium leading-[18px] font-sans max-w-[280px] text-center md:text-left">
             Learn Better Boxing
           </div>
 
           {/* Social Media Icons */}
-          <div className="flex justify-start items-start gap-4">
+          <div className="flex justify-center md:justify-start items-start gap-4">
             {/* YouTube Icon */}
             <a
               href="https://youtube.com/@oracle_boxing"
@@ -73,13 +120,19 @@ export default function FooterSection() {
               </div>
             </a>
           </div>
+
+          {/* Currency Selector */}
+          <div className="flex flex-col gap-2">
+            <div className="text-[rgba(73,66,61,0.50)] text-xs font-medium leading-5 font-sans">Currency</div>
+            <CurrencySelector />
+          </div>
         </div>
 
         {/* Legal Links */}
-        <div className="self-stretch p-4 md:p-8 flex flex-col sm:flex-row flex-wrap justify-start sm:justify-end items-start gap-6 md:gap-8">
-          <div className="flex flex-col justify-start items-start gap-3 min-w-[120px]">
+        <div className="self-stretch p-4 md:p-8 flex flex-col sm:flex-row flex-wrap justify-center md:justify-end items-center md:items-start gap-6 md:gap-8">
+          <div className="flex flex-col justify-start items-center md:items-start gap-3 min-w-[120px]">
             <div className="text-[rgba(73,66,61,0.50)] text-sm font-medium leading-5 font-sans">Legal</div>
-            <div className="flex flex-col justify-end items-start gap-2">
+            <div className="flex flex-col justify-end items-center md:items-start gap-2">
               <Link
                 href="/terms"
                 className="text-[#49423D] text-sm font-normal leading-5 font-sans cursor-pointer hover:text-[#37322F] transition-colors"
@@ -91,6 +144,12 @@ export default function FooterSection() {
                 className="text-[#49423D] text-sm font-normal leading-5 font-sans cursor-pointer hover:text-[#37322F] transition-colors"
               >
                 Privacy Policy
+              </Link>
+              <Link
+                href="/refund"
+                className="text-[#49423D] text-sm font-normal leading-5 font-sans cursor-pointer hover:text-[#37322F] transition-colors"
+              >
+                Refund Policy
               </Link>
               <Link
                 href="/contact"

@@ -13,7 +13,16 @@
       "Bash(git checkout:*)",
       "Bash(ls:*)",
       "Bash(npm run dev:*)",
-      "Bash(grep:*)"
+      "Bash(grep:*)",
+      "Bash(curl:*)",
+      "Bash(cat:*)",
+      "Bash(/Users/jordanlyne/Projects/oracleboxing.com/app/6wc-tt-comment )",
+      "Bash(/Users/jordanlyne/Projects/oracleboxing.com/app/black-friday-challenge-2025 )",
+      "Bash(/Users/jordanlyne/Projects/oracleboxing.com/app/buttons )",
+      "Bash(/Users/jordanlyne/Projects/oracleboxing.com/app/contact-library )",
+      "Bash(/Users/jordanlyne/Projects/oracleboxing.com/app/tech-demo )",
+      "Bash(/Users/jordanlyne/Projects/oracleboxing.com/app/success/call-booked )",
+      "Bash(/Users/jordanlyne/Projects/oracleboxing.com/app/checkout/bfc-upgrade)"
     ]
   }
 }

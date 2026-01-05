@@ -2,16 +2,15 @@
 
 import { useState } from 'react'
 import { toast } from 'sonner'
-import { Loader2, Copy, Check, AlertTriangle } from 'lucide-react'
+import { Loader2, Copy, Check, AlertTriangle, ChevronDown } from 'lucide-react'
+import FooterSection from '@/components/footer-section'
 import {
   CommunityTier,
   CommunityDiscount,
   calculateCommunityPrice,
   formatPrice,
   getTierDisplayName,
-  getDiscountDisplayName,
   isDiscountEligible,
-  isDiscountAdvised,
   TIER_PRICES,
 } from '@/lib/community-pricing'
 
@@ -19,6 +18,7 @@ export default function AdminCommunityCheckout() {
   const [isLoading, setIsLoading] = useState(false)
   const [checkoutUrl, setCheckoutUrl] = useState<string | null>(null)
   const [copied, setCopied] = useState(false)
+  const [openFaq, setOpenFaq] = useState<number | null>(null)
 
   // Form state
   const [email, setEmail] = useState('')
@@ -29,9 +29,8 @@ export default function AdminCommunityCheckout() {
   // Calculate pricing whenever selections change
   const calculation = calculateCommunityPrice(tier, discount)
 
-  // Check if current discount is eligible and advised
+  // Check if current discount is eligible
   const discountEligible = isDiscountEligible(tier, discount)
-  const discountAdvised = isDiscountAdvised(tier, discount)
 
   // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
@@ -116,383 +115,353 @@ export default function AdminCommunityCheckout() {
     setDiscount('none')
   }
 
+  const faqs = [
+    {
+      question: "Membership Tiers",
+      answer: `⚠️ ALL memberships are subscriptions that renew automatically. Direct customers to the billing portal at checkout.oracleboxing.com/p/login/dR69Bm6Pg7Csavm288 to manage their subscription or cancel.
+
+Monthly: ${formatPrice(TIER_PRICES.monthly)}/month - Renews monthly
+
+3-Month: ${formatPrice(TIER_PRICES['3_month'])} - Renews every 3 months
+
+6-Month: ${formatPrice(TIER_PRICES['6_month'])} - Renews every 6 months
+
+Annual: ${formatPrice(TIER_PRICES.annual)} - Renews yearly
+
+24-Month: ${formatPrice(TIER_PRICES['24_month'])} - Renews every 24 months`
+    },
+    {
+      question: "Discount Codes",
+      answer: `Challenge Winner ($147 off): Available for 6-Month, Annual, and 24-Month tiers. Can be applied to 3-Month but NOT ADVISED.
+
+First 4 Months ($49.25/mo × 4): Only available for Monthly subscription - gives $49.25 off per month for the first 4 months.`
+    },
+    {
+      question: "Payment Methods",
+      answer: `PayPal: Customers need to select "Pay with USD" option when checking out.
+
+Klarna: Only available for GBP, EUR, and certain other currencies - NOT available for USD.
+
+Apple Pay / Google Pay: Automatically appears on supported devices.`
+    },
+    {
+      question: "Billing & Subscription Management",
+      answer: `Automatic Tax: Tax is calculated automatically based on customer location and added to the total.
+
+All Subscriptions: All memberships auto-renew at their respective intervals (monthly, 3-month, 6-month, annual, or 24-month).
+
+Billing Portal: Customers can manage their subscription, update payment methods, or cancel at checkout.oracleboxing.com/p/login/dR69Bm6Pg7Csavm288
+
+Renewal Date: Subscriptions renew on the same day of their billing cycle.`
+    },
+    {
+      question: "Sales Recommendations & Pricing Comparisons",
+      answer: `Best Value: Annual membership at ${formatPrice(TIER_PRICES.annual - 147)} with Challenge Winner discount (${formatPrice((TIER_PRICES.annual - 147) / 12)}/mo equivalent)
+
+Avoid: Don't apply Challenge Winner discount to 3-Month tier - better to upsell to 6-Month or Annual.
+
+6-Month vs Annual (Common Misconception): Many think buying 6-Month twice is cheaper than Annual. Reality: 6-Month × 2 = ${formatPrice(TIER_PRICES['6_month'] * 2)} vs Annual with discount = ${formatPrice(TIER_PRICES.annual - 147)}. Annual saves ${formatPrice((TIER_PRICES['6_month'] * 2) - (TIER_PRICES.annual - 147))}!
+
+Savings Breakdown: 3-Month (${formatPrice(TIER_PRICES['3_month'] / 3)}/mo) → 6-Month (${formatPrice(TIER_PRICES['6_month'] / 6)}/mo) → Annual with discount (${formatPrice((TIER_PRICES.annual - 147) / 12)}/mo) - Longer commitment = better value`
+    }
+  ]
+
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="w-full max-w-2xl">
-        {/* Logo */}
-        <div className="flex justify-center mb-6">
-          <img
-            src="https://sb.oracleboxing.com/Website/optimized/logos/long_black-large.webp"
-            alt="Oracle Boxing"
-            className="h-4"
-          />
-        </div>
+    <div className="min-h-screen bg-[#FFFCF5] flex overflow-x-hidden">
+      <div className="hidden sm:block sm:w-4 md:w-8 lg:w-12 flex-shrink-0 border-r border-[rgba(55,50,47,0.12)]"></div>
+      <main className="flex-1 min-w-0">
 
-        {/* Heading */}
-        <h1 className="text-center text-gray-900 text-xl font-bold mb-2">
-          Internal Community Checkout
-        </h1>
-        <p className="text-center text-gray-600 text-sm mb-8">
-          Create custom checkout links for community memberships
-        </p>
-
-        {checkoutUrl ? (
-          // Success State - Show checkout URL
-          <div className="bg-white rounded-2xl shadow-sm p-8 border border-gray-200">
-            <div className="text-center mb-6">
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">Checkout Link Created</h2>
-              <p className="text-gray-600">Share this link with {name}</p>
+        {/* Hero Section */}
+        <section className="relative pt-[120px] md:pt-[160px] pb-16 border-b border-[rgba(55,50,47,0.12)]">
+          <div className="max-w-[1060px] mx-auto px-4">
+            <div className="flex flex-col items-center gap-6">
+              <h1 className="max-w-[900px] text-center text-[#37322f] text-4xl md:text-[64px] font-normal leading-tight md:leading-[1.15] font-serif">
+                Internal Community Checkout
+              </h1>
+              <p className="max-w-[700px] text-center text-[#37322f]/80 text-lg md:text-xl font-medium leading-7 font-sans">
+                Create custom checkout links for community memberships
+              </p>
             </div>
-
-            <div className="bg-gray-50 rounded-xl p-4 mb-6">
-              <p className="text-xs font-medium text-gray-500 mb-2">CHECKOUT URL</p>
-              <div className="flex items-center gap-2">
-                <input
-                  type="text"
-                  value={checkoutUrl}
-                  readOnly
-                  className="flex-1 px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm font-mono"
-                />
-                <button
-                  onClick={() => window.open(checkoutUrl, '_blank')}
-                  className="px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-800 transition-colors flex items-center gap-2"
-                >
-                  Open
-                </button>
-                <button
-                  onClick={copyToClipboard}
-                  className="px-4 py-2 bg-[#000000] text-white rounded-lg hover:bg-[#1a1a1a] transition-colors flex items-center gap-2"
-                >
-                  {copied ? (
-                    <>
-                      <Check className="w-4 h-4" />
-                      Copied
-                    </>
-                  ) : (
-                    <>
-                      <Copy className="w-4 h-4" />
-                      Copy
-                    </>
-                  )}
-                </button>
-              </div>
-            </div>
-
-            <div className="bg-gray-50 rounded-xl p-4 mb-6">
-              <p className="text-sm font-medium text-gray-700 mb-3">Membership Details:</p>
-              <div className="space-y-2 text-sm text-gray-600">
-                <div className="flex justify-between">
-                  <span>Membership:</span>
-                  <span className="font-semibold text-gray-900">{getTierDisplayName(calculation.tier)}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Base Price:</span>
-                  <span className="font-semibold text-gray-900">{formatPrice(calculation.basePrice)}</span>
-                </div>
-                {calculation.discountAmount > 0 && (
-                  <div className="flex justify-between">
-                    <span>Discount:</span>
-                    <span className="font-semibold text-gray-900">-{formatPrice(calculation.discountAmount)}</span>
-                  </div>
-                )}
-                <div className="flex justify-between pt-2 border-t border-gray-300">
-                  <span className="font-bold text-gray-900">Final Price:</span>
-                  <span className="font-bold text-lg text-gray-900">{formatPrice(calculation.finalPrice)}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Monthly Equivalent:</span>
-                  <span className="font-semibold text-gray-900">{formatPrice(calculation.monthlyEquivalent)}/mo</span>
-                </div>
-              </div>
-            </div>
-
-            <button
-              onClick={resetForm}
-              className="w-full py-3 px-6 bg-gray-200 text-gray-800 font-semibold rounded-full hover:bg-gray-300 transition-colors"
-            >
-              Create Another Link
-            </button>
           </div>
-        ) : (
-          // Form State
-          <form onSubmit={handleSubmit}>
-            <div className="bg-white rounded-2xl shadow-sm p-8 border border-gray-200 space-y-6">
-              {/* Customer Information */}
-              <div className="space-y-4">
-                <h2 className="text-lg font-semibold text-gray-900">Customer Information</h2>
+        </section>
 
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                    Email *
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="w-full px-5 py-3 bg-white border border-gray-300 rounded-full focus:ring-2 focus:ring-[#000000] focus:border-transparent transition-all"
-                    placeholder="customer@email.com"
-                    required
-                  />
+        {/* Form Section */}
+        <section className="py-16 md:py-24 border-b border-[rgba(55,50,47,0.12)]">
+          <div className="max-w-[600px] mx-auto px-4">
+            {checkoutUrl ? (
+              // Success State - Show checkout URL
+              <div className="bg-white rounded-2xl p-8 border border-[rgba(55,50,47,0.12)]">
+                <div className="text-center mb-6">
+                  <h2 className="text-[#37322F] text-2xl md:text-3xl font-normal font-serif mb-2">Checkout Link Created</h2>
+                  <p className="text-[rgba(73,66,61,0.70)] text-base font-sans">Share this link with {name}</p>
                 </div>
 
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-                    Full Name *
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    className="w-full px-5 py-3 bg-white border border-gray-300 rounded-full focus:ring-2 focus:ring-[#000000] focus:border-transparent transition-all"
-                    placeholder="John Doe"
-                    required
-                  />
+                <div className="bg-[#FFFCF5] rounded-xl p-4 mb-6">
+                  <p className="text-xs font-medium text-[rgba(73,66,61,0.50)] mb-2 font-sans">CHECKOUT URL</p>
+                  <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+                    <input
+                      type="text"
+                      value={checkoutUrl}
+                      readOnly
+                      className="flex-1 px-4 py-2 bg-white border border-[rgba(55,50,47,0.12)] rounded-xl text-sm font-mono text-[#37322F]"
+                    />
+                    <div className="flex gap-2">
+                      <button
+                        onClick={() => window.open(checkoutUrl, '_blank')}
+                        className="flex-1 sm:flex-none px-4 py-2 bg-[#49423D] text-white rounded-full hover:bg-[#37322F] transition-colors flex items-center justify-center gap-2 font-sans font-semibold text-sm"
+                      >
+                        Open
+                      </button>
+                      <button
+                        onClick={copyToClipboard}
+                        className="flex-1 sm:flex-none px-4 py-2 bg-[#37322F] text-white rounded-full hover:bg-[#49423D] transition-colors flex items-center justify-center gap-2 font-sans font-semibold text-sm"
+                      >
+                        {copied ? (
+                          <>
+                            <Check className="w-4 h-4" />
+                            Copied
+                          </>
+                        ) : (
+                          <>
+                            <Copy className="w-4 h-4" />
+                            Copy
+                          </>
+                        )}
+                      </button>
+                    </div>
+                  </div>
                 </div>
+
+                <div className="bg-[#FFFCF5] rounded-xl p-4 mb-6">
+                  <p className="text-sm font-medium text-[#37322F] mb-3 font-sans">Membership Details:</p>
+                  <div className="space-y-2 text-sm text-[rgba(73,66,61,0.70)] font-sans">
+                    <div className="flex justify-between">
+                      <span>Membership:</span>
+                      <span className="font-semibold text-[#37322F]">{getTierDisplayName(calculation.tier)}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Base Price:</span>
+                      <span className="font-semibold text-[#37322F]">{formatPrice(calculation.basePrice)}</span>
+                    </div>
+                    {calculation.discountAmount > 0 && (
+                      <div className="flex justify-between">
+                        <span>Discount:</span>
+                        <span className="font-semibold text-[#37322F]">-{formatPrice(calculation.discountAmount)}</span>
+                      </div>
+                    )}
+                    <div className="flex justify-between pt-2 border-t border-[rgba(55,50,47,0.12)]">
+                      <span className="font-semibold text-[#37322F]">Final Price:</span>
+                      <span className="font-semibold text-lg text-[#37322F]">{formatPrice(calculation.finalPrice)}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Monthly Equivalent:</span>
+                      <span className="font-semibold text-[#37322F]">{formatPrice(calculation.monthlyEquivalent)}/mo</span>
+                    </div>
+                  </div>
+                </div>
+
+                <button
+                  onClick={resetForm}
+                  className="w-full py-4 bg-[#FFFCF5] text-[#37322F] rounded-full font-semibold text-lg font-sans cursor-pointer hover:bg-[#F5F2EB] transition-colors border border-[rgba(55,50,47,0.12)]"
+                >
+                  Create Another Link
+                </button>
               </div>
+            ) : (
+              // Form State
+              <form onSubmit={handleSubmit}>
+                <div className="bg-white rounded-2xl p-8 border border-[rgba(55,50,47,0.12)] space-y-6">
+                  {/* Customer Information */}
+                  <div className="space-y-4">
+                    <h2 className="text-[#37322F] text-xl font-normal font-serif">Customer Information</h2>
 
-              {/* Membership Configuration */}
-              <div className="space-y-4 pt-6 border-t border-gray-200">
-                <h2 className="text-lg font-semibold text-gray-900">Membership Configuration</h2>
+                    <div>
+                      <label htmlFor="email" className="block text-sm font-medium text-[#37322F] mb-2 font-sans">
+                        Email *
+                      </label>
+                      <input
+                        type="email"
+                        id="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className="w-full px-4 py-3 border border-[rgba(55,50,47,0.12)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#37322F]/20 focus:border-[#37322F] transition-all bg-white text-[#37322F] font-sans"
+                        placeholder="customer@email.com"
+                        required
+                      />
+                    </div>
 
-                {/* Tier Selection */}
-                <div>
-                  <label htmlFor="tier" className="block text-sm font-medium text-gray-700 mb-2">
-                    Membership Tier *
-                  </label>
-                  <select
-                    id="tier"
-                    value={tier}
-                    onChange={(e) => {
-                      const newTier = e.target.value as CommunityTier
-                      setTier(newTier)
-                      // Reset discount if not eligible
-                      if (!isDiscountEligible(newTier, discount)) {
-                        setDiscount('none')
-                      }
-                    }}
-                    className="w-full px-5 py-3 bg-white border border-gray-300 rounded-full focus:ring-2 focus:ring-[#000000] focus:border-transparent transition-all"
-                  >
-                    <option value="monthly">Monthly - {formatPrice(TIER_PRICES.monthly)}/mo</option>
-                    <option value="3_month">3-Month - {formatPrice(TIER_PRICES['3_month'])} total</option>
-                    <option value="6_month">6-Month - {formatPrice(TIER_PRICES['6_month'])} total</option>
-                    <option value="annual">Annual - {formatPrice(TIER_PRICES.annual)} total</option>
-                    <option value="24_month">24-Month - {formatPrice(TIER_PRICES['24_month'])} total</option>
-                  </select>
-                </div>
+                    <div>
+                      <label htmlFor="name" className="block text-sm font-medium text-[#37322F] mb-2 font-sans">
+                        Full Name *
+                      </label>
+                      <input
+                        type="text"
+                        id="name"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        className="w-full px-4 py-3 border border-[rgba(55,50,47,0.12)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#37322F]/20 focus:border-[#37322F] transition-all bg-white text-[#37322F] font-sans"
+                        placeholder="John Doe"
+                        required
+                      />
+                    </div>
+                  </div>
 
-                {/* Discount Selection */}
-                <div>
-                  <label htmlFor="discount" className="block text-sm font-medium text-gray-700 mb-2">
-                    Discount Code
-                  </label>
-                  <select
-                    id="discount"
-                    value={discount}
-                    onChange={(e) => setDiscount(e.target.value as CommunityDiscount)}
-                    className="w-full px-5 py-3 bg-white border border-gray-300 rounded-full focus:ring-2 focus:ring-[#000000] focus:border-transparent transition-all"
-                  >
-                    <option value="none">No Discount</option>
-                    <option value="challenge_winner" disabled={!isDiscountEligible(tier, 'challenge_winner')}>
-                      Challenge Winner (-$197) {!isDiscountEligible(tier, 'challenge_winner') && '(Not available)'}
-                    </option>
-                    <option value="first_4_months" disabled={!isDiscountEligible(tier, 'first_4_months')}>
-                      First 4 Months (-$49.25/mo × 4) {!isDiscountEligible(tier, 'first_4_months') && '(Not available)'}
-                    </option>
-                    <option value="97_off" disabled={!isDiscountEligible(tier, '97_off')}>
-                      $97 Off (-$97) {!isDiscountEligible(tier, '97_off') && '(Not available)'}
-                    </option>
-                  </select>
+                  {/* Membership Configuration */}
+                  <div className="space-y-4 pt-6 border-t border-[rgba(55,50,47,0.08)]">
+                    <h2 className="text-[#37322F] text-xl font-normal font-serif">Membership Configuration</h2>
 
-                  {/* Warning for 3-month + challenge winner */}
-                  {discount === 'challenge_winner' && tier === '3_month' && (
-                    <div className="mt-3 p-3 bg-yellow-50 border border-yellow-200 rounded-lg flex items-start gap-2">
-                      <AlertTriangle className="w-5 h-5 text-yellow-600 flex-shrink-0 mt-0.5" />
-                      <div className="text-sm text-yellow-800">
-                        <strong>Warning:</strong> Applying the Challenge Winner discount to the 3-Month membership is not advised.
-                        Consider recommending the 6-Month, Annual, or 24-Month plan instead for better value.
+                    {/* Tier Selection */}
+                    <div>
+                      <label htmlFor="tier" className="block text-sm font-medium text-[#37322F] mb-2 font-sans">
+                        Membership Tier *
+                      </label>
+                      <select
+                        id="tier"
+                        value={tier}
+                        onChange={(e) => {
+                          const newTier = e.target.value as CommunityTier
+                          setTier(newTier)
+                          // Reset discount if not eligible
+                          if (!isDiscountEligible(newTier, discount)) {
+                            setDiscount('none')
+                          }
+                        }}
+                        className="w-full px-4 py-3 border border-[rgba(55,50,47,0.12)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#37322F]/20 focus:border-[#37322F] transition-all bg-white text-[#37322F] font-sans"
+                      >
+                        <option value="monthly">Monthly - {formatPrice(TIER_PRICES.monthly)}/mo</option>
+                        <option value="3_month">3-Month - {formatPrice(TIER_PRICES['3_month'])} total</option>
+                        <option value="6_month">6-Month - {formatPrice(TIER_PRICES['6_month'])} total</option>
+                        <option value="annual">Annual - {formatPrice(TIER_PRICES.annual)} total</option>
+                        <option value="24_month">24-Month - {formatPrice(TIER_PRICES['24_month'])} total</option>
+                      </select>
+                    </div>
+
+                    {/* Discount Selection */}
+                    <div>
+                      <label htmlFor="discount" className="block text-sm font-medium text-[#37322F] mb-2 font-sans">
+                        Discount Code
+                      </label>
+                      <select
+                        id="discount"
+                        value={discount}
+                        onChange={(e) => setDiscount(e.target.value as CommunityDiscount)}
+                        className="w-full px-4 py-3 border border-[rgba(55,50,47,0.12)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#37322F]/20 focus:border-[#37322F] transition-all bg-white text-[#37322F] font-sans"
+                      >
+                        <option value="none">No Discount</option>
+                        <option value="challenge_winner" disabled={!isDiscountEligible(tier, 'challenge_winner')}>
+                          Challenge Winner (-$147) {!isDiscountEligible(tier, 'challenge_winner') && '(Not available)'}
+                        </option>
+                        <option value="first_4_months" disabled={!isDiscountEligible(tier, 'first_4_months')}>
+                          First 4 Months (-$49.25/mo × 4) {!isDiscountEligible(tier, 'first_4_months') && '(Not available)'}
+                        </option>
+                      </select>
+
+                      {/* Warning for 3-month + challenge winner */}
+                      {discount === 'challenge_winner' && tier === '3_month' && (
+                        <div className="mt-3 p-3 bg-amber-50 border border-amber-200 rounded-xl flex items-start gap-2">
+                          <AlertTriangle className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+                          <div className="text-sm text-amber-800 font-sans">
+                            <strong>Warning:</strong> Applying the Challenge Winner discount to the 3-Month membership is not advised.
+                            Consider recommending the 6-Month, Annual, or 24-Month plan instead for better value.
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Price Preview */}
+                  <div className="bg-[#FFFCF5] rounded-xl p-6 border border-[rgba(55,50,47,0.12)]">
+                    <p className="text-sm font-medium text-[rgba(73,66,61,0.70)] mb-4 font-sans">Price Preview</p>
+                    <div className="space-y-2 text-sm font-sans">
+                      <div className="flex justify-between">
+                        <span className="text-[rgba(73,66,61,0.70)]">Membership:</span>
+                        <span className="font-semibold text-[#37322F]">{getTierDisplayName(tier)}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-[rgba(73,66,61,0.70)]">Base Price:</span>
+                        <span className="font-semibold text-[#37322F]">{formatPrice(calculation.basePrice)}</span>
+                      </div>
+                      {calculation.discountAmount > 0 && (
+                        <div className="flex justify-between text-green-700">
+                          <span>Discount:</span>
+                          <span className="font-semibold">-{formatPrice(calculation.discountAmount)}</span>
+                        </div>
+                      )}
+                      <div className="flex justify-between pt-3 border-t border-[rgba(55,50,47,0.12)] text-lg">
+                        <span className="font-semibold text-[#37322F]">Final Price:</span>
+                        <span className="font-semibold text-[#37322F]">{formatPrice(calculation.finalPrice)}</span>
+                      </div>
+                      <div className="flex justify-between text-[rgba(73,66,61,0.70)] pt-2">
+                        <span>Monthly Equivalent:</span>
+                        <span className="font-semibold text-[#37322F]">{formatPrice(calculation.monthlyEquivalent)}/mo</span>
+                      </div>
+                      <div className="flex justify-between text-[rgba(73,66,61,0.70)]">
+                        <span>Total Duration:</span>
+                        <span className="font-semibold text-[#37322F]">{calculation.totalMonths} {calculation.totalMonths === 1 ? 'month' : 'months'}</span>
                       </div>
                     </div>
-                  )}
-                </div>
-              </div>
+                  </div>
 
-              {/* Price Preview */}
-              <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
-                <p className="text-sm font-medium text-gray-600 mb-4">Price Preview</p>
-                <div className="space-y-2 text-sm">
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Membership:</span>
-                    <span className="font-semibold text-gray-900">{getTierDisplayName(tier)}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Base Price:</span>
-                    <span className="font-semibold text-gray-900">{formatPrice(calculation.basePrice)}</span>
-                  </div>
-                  {calculation.discountAmount > 0 && (
-                    <div className="flex justify-between text-green-700">
-                      <span>Discount:</span>
-                      <span className="font-semibold">-{formatPrice(calculation.discountAmount)}</span>
-                    </div>
-                  )}
-                  <div className="flex justify-between pt-3 border-t border-gray-300 text-lg">
-                    <span className="font-bold text-gray-900">Final Price:</span>
-                    <span className="font-bold text-[#000000]">{formatPrice(calculation.finalPrice)}</span>
-                  </div>
-                  <div className="flex justify-between text-gray-600 pt-2">
-                    <span>Monthly Equivalent:</span>
-                    <span className="font-semibold text-gray-900">{formatPrice(calculation.monthlyEquivalent)}/mo</span>
-                  </div>
-                  <div className="flex justify-between text-gray-600">
-                    <span>Total Duration:</span>
-                    <span className="font-semibold text-gray-900">{calculation.totalMonths} {calculation.totalMonths === 1 ? 'month' : 'months'}</span>
-                  </div>
+                  {/* Submit Button */}
+                  <button
+                    type="submit"
+                    disabled={isLoading || !discountEligible}
+                    className="w-full py-4 bg-[#37322F] text-white rounded-full font-semibold text-lg font-sans cursor-pointer hover:bg-[#49423D] transition-colors shadow-[0px_2px_4px_rgba(55,50,47,0.12)] disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {isLoading ? (
+                      <span className="flex items-center justify-center gap-2">
+                        <Loader2 className="w-5 h-5 animate-spin" />
+                        Creating Checkout Link...
+                      </span>
+                    ) : (
+                      'Create Checkout Link'
+                    )}
+                  </button>
                 </div>
-              </div>
-
-              {/* Submit Button */}
-              <button
-                type="submit"
-                disabled={isLoading || !discountEligible}
-                className={`w-full py-4 px-6 font-bold text-base rounded-full shadow-lg transition-all duration-200 flex items-center justify-center gap-2 ${
-                  isLoading || !discountEligible
-                    ? 'bg-gray-400 cursor-not-allowed'
-                    : 'bg-[#000000] hover:bg-[#1a1a1a] cursor-pointer'
-                } text-white`}
-              >
-                {isLoading ? (
-                  <>
-                    <Loader2 className="w-5 h-5 animate-spin" />
-                    Creating Checkout Link...
-                  </>
-                ) : (
-                  'Create Checkout Link'
-                )}
-              </button>
-            </div>
-          </form>
-        )}
+              </form>
+            )}
+          </div>
+        </section>
 
         {/* FAQ Section */}
-        <div className="bg-white rounded-2xl shadow-sm p-8 border border-gray-200 mt-8">
-          <h2 className="text-xl font-bold text-gray-900 mb-6">FAQ for Closers</h2>
+        <section className="py-16 md:py-24 border-b border-[rgba(55,50,47,0.12)]">
+          <div className="max-w-[700px] mx-auto px-4">
+            <h2 className="text-center text-[#37322F] text-2xl md:text-4xl font-normal font-serif mb-12">
+              FAQ for Closers
+            </h2>
 
-          <div className="space-y-6">
-            {/* Membership Tiers */}
-            <div>
-              <h3 className="text-base font-semibold text-gray-900 mb-2">Membership Tiers</h3>
-              <p className="text-sm text-gray-600 mb-3 italic">⚠️ ALL memberships are subscriptions that renew automatically. Direct customers to the billing portal at <a href="https://checkout.oracleboxing.com/p/login/dR69Bm6Pg7Csavm288" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline font-semibold">checkout.oracleboxing.com/p/login/dR69Bm6Pg7Csavm288</a> to manage their subscription or cancel.</p>
-              <ul className="space-y-2 text-sm text-gray-600">
-                <li className="flex items-start gap-2">
-                  <span className="text-gray-400 mt-0.5">•</span>
-                  <span><strong>Monthly:</strong> {formatPrice(TIER_PRICES.monthly)}/month - Renews monthly</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-gray-400 mt-0.5">•</span>
-                  <span><strong>3-Month:</strong> {formatPrice(TIER_PRICES['3_month'])} - Renews every 3 months</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-gray-400 mt-0.5">•</span>
-                  <span><strong>6-Month:</strong> {formatPrice(TIER_PRICES['6_month'])} - Renews every 6 months</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-gray-400 mt-0.5">•</span>
-                  <span><strong>Annual:</strong> {formatPrice(TIER_PRICES.annual)} - Renews yearly</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-gray-400 mt-0.5">•</span>
-                  <span><strong>24-Month:</strong> {formatPrice(TIER_PRICES['24_month'])} - Renews every 24 months</span>
-                </li>
-              </ul>
-            </div>
-
-            {/* Discounts */}
-            <div>
-              <h3 className="text-base font-semibold text-gray-900 mb-2">Discount Codes</h3>
-              <ul className="space-y-2 text-sm text-gray-600">
-                <li className="flex items-start gap-2">
-                  <span className="text-gray-400 mt-0.5">•</span>
-                  <span><strong>Challenge Winner ($197 off):</strong> Available for 6-Month, Annual, and 24-Month tiers. Can be applied to 3-Month but NOT ADVISED.</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-gray-400 mt-0.5">•</span>
-                  <span><strong>First 4 Months ($49.25/mo × 4):</strong> Only available for Monthly subscription - gives $49.25 off per month for the first 4 months.</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-gray-400 mt-0.5">•</span>
-                  <span><strong>$97 Off:</strong> Available for all membership tiers - gives $97 off the total price.</span>
-                </li>
-              </ul>
-            </div>
-
-            {/* Payment Methods */}
-            <div>
-              <h3 className="text-base font-semibold text-gray-900 mb-2">Payment Methods</h3>
-              <ul className="space-y-2 text-sm text-gray-600">
-                <li className="flex items-start gap-2">
-                  <span className="text-gray-400 mt-0.5">•</span>
-                  <span><strong>PayPal:</strong> Customers need to select "Pay with USD" option when checking out</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-gray-400 mt-0.5">•</span>
-                  <span><strong>Klarna:</strong> Only available for GBP, EUR, and certain other currencies - NOT available for USD</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-gray-400 mt-0.5">•</span>
-                  <span><strong>Apple Pay / Google Pay:</strong> Automatically appears on supported devices</span>
-                </li>
-              </ul>
-            </div>
-
-            {/* Billing */}
-            <div>
-              <h3 className="text-base font-semibold text-gray-900 mb-2">Billing & Subscription Management</h3>
-              <ul className="space-y-2 text-sm text-gray-600">
-                <li className="flex items-start gap-2">
-                  <span className="text-gray-400 mt-0.5">•</span>
-                  <span><strong>Automatic Tax:</strong> Tax is calculated automatically based on customer location and added to the total</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-gray-400 mt-0.5">•</span>
-                  <span><strong>All Subscriptions:</strong> All memberships auto-renew at their respective intervals (monthly, 3-month, 6-month, annual, or 24-month)</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-gray-400 mt-0.5">•</span>
-                  <span><strong>Billing Portal:</strong> Customers can manage their subscription, update payment methods, or cancel at <a href="https://checkout.oracleboxing.com/p/login/dR69Bm6Pg7Csavm288" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline font-semibold">checkout.oracleboxing.com/p/login/dR69Bm6Pg7Csavm288</a></span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-gray-400 mt-0.5">•</span>
-                  <span><strong>Renewal Date:</strong> Subscriptions renew on the same day of their billing cycle (e.g., if purchased on Jan 15, renews on Feb 15 for monthly)</span>
-                </li>
-              </ul>
-            </div>
-
-            {/* Recommendations */}
-            <div>
-              <h3 className="text-base font-semibold text-gray-900 mb-2">Sales Recommendations & Pricing Comparisons</h3>
-              <ul className="space-y-2 text-sm text-gray-600">
-                <li className="flex items-start gap-2">
-                  <span className="text-gray-400 mt-0.5">•</span>
-                  <span><strong>Best Value:</strong> Annual membership at {formatPrice(TIER_PRICES.annual - 197)} with Challenge Winner discount ({formatPrice((TIER_PRICES.annual - 197) / 12)}/mo equivalent)</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-gray-400 mt-0.5">•</span>
-                  <span><strong>Avoid:</strong> Don't apply Challenge Winner discount to 3-Month tier - better to upsell to 6-Month or Annual</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-gray-400 mt-0.5">•</span>
-                  <span><strong>6-Month vs Annual (Common Misconception):</strong> Many think buying 6-Month twice is cheaper than Annual. Reality: 6-Month × 2 = {formatPrice(TIER_PRICES['6_month'] * 2)} vs Annual with discount = {formatPrice(TIER_PRICES.annual - 197)}. Annual saves {formatPrice((TIER_PRICES['6_month'] * 2) - (TIER_PRICES.annual - 197))}!</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-gray-400 mt-0.5">•</span>
-                  <span><strong>Savings Breakdown:</strong> 3-Month ({formatPrice(TIER_PRICES['3_month'] / 3)}/mo) → 6-Month ({formatPrice(TIER_PRICES['6_month'] / 6)}/mo) → Annual with discount ({formatPrice((TIER_PRICES.annual - 197) / 12)}/mo) - Longer commitment = better value</span>
-                </li>
-              </ul>
+            <div className="space-y-3">
+              {faqs.map((faq, index) => (
+                <div key={index} className="bg-white rounded-xl overflow-hidden border border-[rgba(55,50,47,0.12)]">
+                  <button
+                    onClick={() => setOpenFaq(openFaq === index ? null : index)}
+                    className="w-full flex items-center justify-between p-5 text-left hover:bg-[rgba(55,50,47,0.02)] transition-colors"
+                  >
+                    <span className="text-[#37322F] text-base font-medium font-sans pr-4">
+                      {faq.question}
+                    </span>
+                    <ChevronDown
+                      className={`w-5 h-5 text-[rgba(73,66,61,0.50)] flex-shrink-0 transition-transform ${
+                        openFaq === index ? 'rotate-180' : ''
+                      }`}
+                    />
+                  </button>
+                  {openFaq === index && (
+                    <div className="px-5 pb-5">
+                      <p className="text-[rgba(73,66,61,0.90)] text-sm font-sans leading-relaxed whitespace-pre-line">
+                        {faq.answer}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              ))}
             </div>
           </div>
-        </div>
-      </div>
+        </section>
+
+        <FooterSection />
+      </main>
+      <div className="hidden sm:block sm:w-4 md:w-8 lg:w-12 flex-shrink-0 border-l border-[rgba(55,50,47,0.12)]"></div>
     </div>
   )
 }

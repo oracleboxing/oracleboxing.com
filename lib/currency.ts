@@ -42,7 +42,7 @@ export const PRODUCT_PRICES: Record<string, Record<Currency, number>> = {
   rcv: { USD: 67, GBP: 53, EUR: 62, AUD: 100, CAD: 91, AED: 245 },
   ltbffp: { USD: 147, GBP: 117, EUR: 136, AUD: 220, CAD: 199, AED: 540 },
   ltbrdmp: { USD: 97, GBP: 77, EUR: 90, AUD: 145, CAD: 132, AED: 355 },
-  bffp: { USD: 247, GBP: 197, EUR: 227, AUD: 370, CAD: 335, AED: 910 },
+  bffp: { USD: 247, GBP: 197, EUR: 229, AUD: 379, CAD: 335, AED: 909 },
   brdmp: { USD: 147, GBP: 117, EUR: 136, AUD: 220, CAD: 199, AED: 540 },
   clnc: { USD: 97, GBP: 77, EUR: 90, AUD: 145, CAD: 132, AED: 355 },
   obm: { USD: 397, GBP: 317, EUR: 365, AUD: 595, CAD: 538, AED: 1465 },
@@ -62,7 +62,7 @@ export const PRODUCT_PRICES: Record<string, Record<Currency, number>> = {
   // Tracksuit
   tracksuit: { USD: 187, GBP: 149, EUR: 174, CAD: 254, AUD: 280, AED: 687 },
   // 21-Day Challenge products
-  '21dc_entry': { USD: 147, GBP: 117, EUR: 136, AUD: 220, CAD: 199, AED: 540 },
+  '21dc_entry': { USD: 147, GBP: 119, EUR: 139, AUD: 229, CAD: 199, AED: 539 },
   '21dc_premium': { USD: 297, GBP: 237, EUR: 273, AUD: 445, CAD: 403, AED: 1095 },
   '21dc_vip': { USD: 497, GBP: 397, EUR: 457, AUD: 745, CAD: 674, AED: 1834 },
 };

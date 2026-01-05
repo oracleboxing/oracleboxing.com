@@ -266,6 +266,7 @@ function OrderBumpsContent() {
               country: 'US',
             },
           },
+          currency: currency,
           trackingParams: trackingParams,
           cookieData: cookieData,
           pageUrl: window.location.href,

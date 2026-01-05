@@ -12,7 +12,7 @@ export const COMMUNITY_PRODUCT_ID = 'prod_TKqg25PDS8om6s'
 export type CommunityTier = 'monthly' | '3_month' | '6_month' | 'annual' | '24_month'
 
 // Discount Types
-export type CommunityDiscount = 'none' | 'challenge_winner' | 'first_4_months' | '97_off'
+export type CommunityDiscount = 'none' | 'challenge_winner' | 'first_4_months'
 
 // Stripe Price IDs for each tier
 export const COMMUNITY_PRICE_IDS: Record<CommunityTier, string> = {
@@ -34,16 +34,14 @@ export const TIER_PRICES: Record<CommunityTier, number> = {
 
 // Stripe Promotion Code IDs
 export const PROMO_CODE_IDS = {
-  challenge_winner: 'promo_1SQBjEKPvH4Ddlg10pBvi4ZL',   // $197 off (for 6mo, annual, 24mo)
+  challenge_winner: 'promo_1SQBjEKPvH4Ddlg10pBvi4ZL',   // $147 off (for 6mo, annual, 24mo)
   first_4_months: 'promo_1S1kraKPvH4Ddlg1namrGeoW',     // $49.25 off for 4 months (monthly only)
-  '97_off': 'promo_1SVpeDKPvH4Ddlg1DUEoBOMm',          // $97 off (for any tier)
 }
 
 // Discount amounts (in dollars)
 export const DISCOUNT_AMOUNTS = {
-  challenge_winner: 197,      // One-time $197 off
+  challenge_winner: 147,      // One-time $147 off
   first_4_months: 49.25,      // $49.25 off per month for 4 months
-  '97_off': 97,               // One-time $97 off
 }
 
 // Tier display names
@@ -57,11 +55,11 @@ export const TIER_DISPLAY_NAMES: Record<CommunityTier, string> = {
 
 // Discount eligibility matrix
 export const DISCOUNT_ELIGIBILITY: Record<CommunityTier, CommunityDiscount[]> = {
-  monthly: ['first_4_months', '97_off'],                          // First 4 months discount and $97 off
-  '3_month': ['challenge_winner', '97_off'],                      // Challenge winner (not advised) and $97 off
-  '6_month': ['challenge_winner', '97_off'],                      // Challenge winner and $97 off
-  annual: ['challenge_winner', '97_off'],                         // Challenge winner and $97 off
-  '24_month': ['challenge_winner', '97_off'],                     // Challenge winner and $97 off
+  monthly: ['first_4_months'],                          // First 4 months discount
+  '3_month': ['challenge_winner'],                      // Challenge winner (not advised)
+  '6_month': ['challenge_winner'],                      // Challenge winner
+  annual: ['challenge_winner'],                         // Challenge winner
+  '24_month': ['challenge_winner'],                     // Challenge winner
 }
 
 // Check if discount is eligible for tier
@@ -112,9 +110,6 @@ export function calculateCommunityPrice(
       // For monthly, discount is per month for 4 months, but we show total discount
       discountAmount = DISCOUNT_AMOUNTS.first_4_months * 4
       promoCodeId = PROMO_CODE_IDS.first_4_months
-    } else if (discount === '97_off') {
-      discountAmount = DISCOUNT_AMOUNTS['97_off']
-      promoCodeId = PROMO_CODE_IDS['97_off']
     }
   }
 
@@ -170,8 +165,6 @@ export function getDiscountDisplayName(discount: CommunityDiscount): string {
       return `Challenge Winner (-${formatPrice(DISCOUNT_AMOUNTS.challenge_winner)})`
     case 'first_4_months':
       return `First 4 Months (-${formatPrice(DISCOUNT_AMOUNTS.first_4_months)}/mo × 4)`
-    case '97_off':
-      return `$97 Off (-${formatPrice(DISCOUNT_AMOUNTS['97_off'])})`
   }
 }
 
