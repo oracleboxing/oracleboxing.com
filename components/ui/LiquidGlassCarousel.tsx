@@ -15,25 +15,23 @@ interface LiquidGlassCarouselProps {
 }
 
 const defaultItems: CarouselItem[] = [
-  { id: 1, video: 'andre.webm', poster: 'andre_poster.webp', title: 'Andre' },
-  { id: 2, video: 'sha-lyn.webm', poster: 'sha-lyn_poster.webp', title: 'Sha-lyn' },
-  { id: 3, video: 'jordan.webm', poster: 'jordan_poster.webp', title: 'Jordan' },
-  { id: 4, video: 'charlie.webm', poster: 'charlie_poster.webp', title: 'Charlie' },
-  { id: 5, video: 'Niclas.webm', poster: 'Niclas_poster.webp', title: 'Niclas' },
-  { id: 6, video: 'rod.webm', poster: 'rod_poster.webp', title: 'Rod' },
-  { id: 7, video: 'nico.webm', poster: 'nico_poster.webp', title: 'Nico' },
-  { id: 8, video: 'keli.webm', poster: 'keli_poster.webp', title: 'Keli' },
-  { id: 9, video: 'balal.webm', poster: 'balal_poster.webp', title: 'Balal' },
-  { id: 10, video: 'Beat.webm', poster: 'Beat_poster.webp', title: 'Beat' },
-  { id: 11, video: 'Bruno.webm', poster: 'Bruno_poster.webp', title: 'Bruno' },
-  { id: 12, video: 'daniel.webm', poster: 'daniel_poster.webp', title: 'Daniel' },
-  { id: 13, video: 'David.webm', poster: 'David_poster.webp', title: 'David' },
-  { id: 14, video: 'iilya.webm', poster: 'iilya_poster.webp', title: 'Illya' },
-  { id: 15, video: 'kris.webm', poster: 'kris_poster.webp', title: 'Kris' },
-  { id: 16, video: 'Maria.webm', poster: 'Maria_poster.webp', title: 'Maria' },
+  { id: 1, video: 'andre_prob4.webm', poster: 'andre_poster.webp', title: 'Andre' },
+  { id: 2, video: 'sha-lyn_prob4.webm', poster: 'sha-lyn_poster.webp', title: 'Sha-lyn' },
+  { id: 3, video: 'Niclas_prob4.webm', poster: 'Niclas_poster.webp', title: 'Niclas' },
+  { id: 4, video: 'rod_prob4.webm', poster: 'rod_poster.webp', title: 'Rod' },
+  { id: 5, video: 'nico_prob4.webm', poster: 'nico_poster.webp', title: 'Nico' },
+  { id: 6, video: 'keli_prob4.webm', poster: 'keli_poster.webp', title: 'Keli' },
+  { id: 7, video: 'balal_prob4.webm', poster: 'balal_poster.webp', title: 'Balal' },
+  { id: 8, video: 'daniel_prob4.webm', poster: 'daniel_poster.webp', title: 'Daniel' },
+  { id: 9, video: 'David_prob4.webm', poster: 'David_poster.webp', title: 'David' },
+  { id: 10, video: 'ilyas_prob4.webm', poster: 'ilyas_poster.webp', title: 'Ilyas' },
+  { id: 11, video: 'kris_prob4.webm', poster: 'kris_poster.webp', title: 'Kris' },
+  { id: 12, video: 'Maria_prob4_Copy(1).webm', poster: 'Maria_poster.webp', title: 'Maria' },
+  { id: 13, video: 'lovensky_prob4.webm', poster: 'lovensky_poster.webp', title: 'Lovensky' },
+  { id: 14, video: 'zyginta_prob4.webm', poster: 'zyginta_poster.webp', title: 'Zyginta' },
 ]
 
-const BASE_URL = 'https://sb.oracleboxing.com/Website/transfo/'
+const BASE_URL = 'https://sb.oracleboxing.com/transfo/'
 
 // Constants
 const FULL_WIDTH = 120
