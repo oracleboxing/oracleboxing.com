@@ -239,7 +239,7 @@ export function LiquidGlassCarousel({ items = defaultItems }: LiquidGlassCarouse
   }
 
   return (
-    <div className="w-full max-w-full mx-auto p-0 -mx-6">
+    <div className="w-full max-w-full mx-auto p-0">
       <div className="flex flex-col gap-0">
         {/* Main Carousel */}
         <div

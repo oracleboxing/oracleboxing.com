@@ -33,8 +33,8 @@ export default function TransformationsSection() {
           </div>
         </div>
 
-        {/* Carousel Container - Wider on desktop */}
-        <div className="w-full max-w-[400px] md:max-w-[500px] lg:max-w-[600px] relative z-20 rounded-2xl overflow-hidden px-4 sm:px-6">
+        {/* Carousel Container - Sized for 9:16 videos */}
+        <div className="w-full max-w-[280px] sm:max-w-[320px] md:max-w-[360px] relative z-20 rounded-2xl overflow-hidden">
           <LiquidGlassCarousel />
         </div>
       </div>
