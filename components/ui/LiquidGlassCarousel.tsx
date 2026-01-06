@@ -258,18 +258,16 @@ export function LiquidGlassCarousel({ items = defaultItems }: LiquidGlassCarouse
                 key={item.id}
                 className="flex-shrink-0 w-full flex flex-col overflow-hidden rounded-t-lg bg-gray-900"
               >
-                <div className="relative w-full aspect-[9/16]">
-                  <video
-                    ref={(el) => { videoRefs.current[index] = el }}
-                    loop={!autoScrollEnabled}
-                    muted
-                    playsInline
-                    poster={`${BASE_URL}${item.poster}`}
-                    className="w-full h-full object-cover rounded-t-lg"
-                  >
-                    <source src={`${BASE_URL}${item.video}`} type="video/webm" />
-                  </video>
-                </div>
+                <video
+                  ref={(el) => { videoRefs.current[index] = el }}
+                  loop={!autoScrollEnabled}
+                  muted
+                  playsInline
+                  poster={`${BASE_URL}${item.poster}`}
+                  className="w-full h-auto rounded-t-lg"
+                >
+                  <source src={`${BASE_URL}${item.video}`} type="video/webm" />
+                </video>
               </div>
             ))}
           </div>

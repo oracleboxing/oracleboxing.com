@@ -33,8 +33,8 @@ export default function TransformationsSection() {
           </div>
         </div>
 
-        {/* Carousel Container - Sized for 9:16 videos */}
-        <div className="w-full max-w-[280px] sm:max-w-[320px] md:max-w-[360px] relative z-20 rounded-2xl overflow-hidden">
+        {/* Carousel Container - Natural aspect ratio */}
+        <div className="w-full max-w-[320px] sm:max-w-[360px] md:max-w-[400px] relative z-20 rounded-2xl overflow-hidden">
           <LiquidGlassCarousel />
         </div>
       </div>
