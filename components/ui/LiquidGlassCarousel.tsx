@@ -43,6 +43,7 @@ export function LiquidGlassCarousel({ items = defaultItems }: LiquidGlassCarouse
   const [currentIndex, setCurrentIndex] = useState(0)
   const [translateX, setTranslateX] = useState(0)
   const [containerHeight, setContainerHeight] = useState<number | null>(null)
+  const [isPlaying, setIsPlaying] = useState(false)
 
   const carouselRef = useRef<HTMLDivElement>(null)
   const thumbnailsRef = useRef<HTMLDivElement>(null)
@@ -100,16 +101,24 @@ export function LiquidGlassCarousel({ items = defaultItems }: LiquidGlassCarouse
     }
   }, [currentIndex])
 
+  // Start playing all videos (called on first user interaction)
+  const startPlaying = useCallback(() => {
+    if (isPlaying) return
+    setIsPlaying(true)
+    const currentVideo = videoRefs.current[currentIndex]
+    if (currentVideo) {
+      currentVideo.play().catch(() => {})
+    }
+  }, [isPlaying, currentIndex])
+
   // Play current video, pause others, and set up ended event listener
   useEffect(() => {
     const currentVideo = videoRefs.current[currentIndex]
 
     videoRefs.current.forEach((video, index) => {
       if (video) {
-        if (index === currentIndex) {
-          video.play().catch(() => {
-            // Autoplay might be blocked, that's ok
-          })
+        if (index === currentIndex && isPlaying) {
+          video.play().catch(() => {})
         } else {
           video.pause()
           video.currentTime = 0
@@ -129,7 +138,19 @@ export function LiquidGlassCarousel({ items = defaultItems }: LiquidGlassCarouse
         currentVideo.removeEventListener('loadedmetadata', updateContainerHeight)
       }
     }
-  }, [currentIndex, advanceToNext, updateContainerHeight])
+  }, [currentIndex, isPlaying, advanceToNext, updateContainerHeight])
+
+  // Try to autoplay on mount
+  useEffect(() => {
+    const firstVideo = videoRefs.current[0]
+    if (firstVideo) {
+      firstVideo.play()
+        .then(() => setIsPlaying(true))
+        .catch(() => {
+          // Autoplay blocked, user will need to click
+        })
+    }
+  }, [])
 
   // Handle resize
   useEffect(() => {
@@ -144,6 +165,35 @@ export function LiquidGlassCarousel({ items = defaultItems }: LiquidGlassCarouse
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
   }, [currentIndex, updateTranslate, scrollThumbnailsToIndex, updateContainerHeight])
+
+  const handlePrevClick = () => {
+    if (currentIndex > 0) {
+      const newIndex = currentIndex - 1
+      setCurrentIndex(newIndex)
+      updateTranslate(newIndex)
+      scrollThumbnailsToIndex(newIndex)
+    }
+  }
+
+  const handleNextClick = () => {
+    if (currentIndex < items.length - 1) {
+      const newIndex = currentIndex + 1
+      setCurrentIndex(newIndex)
+      updateTranslate(newIndex)
+      scrollThumbnailsToIndex(newIndex)
+    }
+  }
+
+  const handleThumbnailClick = (index: number) => {
+    setCurrentIndex(index)
+    updateTranslate(index)
+    scrollThumbnailsToIndex(index)
+    if (!isPlaying) {
+      setIsPlaying(true)
+      const video = videoRefs.current[index]
+      if (video) video.play().catch(() => {})
+    }
+  }
 
   const getThumbnailStyle = (index: number): React.CSSProperties => {
     const isActive = index === currentIndex
@@ -163,6 +213,7 @@ export function LiquidGlassCarousel({ items = defaultItems }: LiquidGlassCarouse
           ref={carouselRef}
           className="relative overflow-hidden rounded-t-lg bg-transparent transition-[height] duration-300 ease-out"
           style={{ height: containerHeight ? `${containerHeight}px` : 'auto' }}
+          onClick={startPlaying}
         >
           <div
             className="flex will-change-transform"
@@ -178,18 +229,55 @@ export function LiquidGlassCarousel({ items = defaultItems }: LiquidGlassCarouse
               >
                 <video
                   ref={(el) => { videoRefs.current[index] = el }}
-                  autoPlay={index === 0}
                   muted
                   playsInline
                   preload="auto"
                   poster={`${BASE_URL}${item.poster}`}
-                  className="w-full h-auto rounded-t-lg pointer-events-none"
+                  className="w-full h-auto rounded-t-lg"
                 >
                   <source src={`${BASE_URL}${item.video}`} type="video/webm" />
                 </video>
               </div>
             ))}
           </div>
+
+          {/* Play button overlay - shown when not playing */}
+          {!isPlaying && (
+            <div
+              className="absolute inset-0 flex items-center justify-center bg-black/20 cursor-pointer"
+              onClick={startPlaying}
+            >
+              <div className="w-16 h-16 bg-white/90 rounded-full flex items-center justify-center shadow-lg">
+                <svg className="w-8 h-8 text-gray-900 ml-1" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </div>
+            </div>
+          )}
+
+          {/* Previous Button */}
+          <button
+            className="absolute top-1/2 left-4 -translate-y-1/2 z-10 w-10 h-10 rounded-full flex items-center justify-center backdrop-blur-[20px] saturate-[180%] bg-slate-50/75 shadow-lg disabled:opacity-40 disabled:cursor-not-allowed opacity-70 hover:enabled:scale-110 hover:enabled:opacity-100 active:enabled:scale-95 transition-all duration-200"
+            disabled={currentIndex === 0}
+            onClick={handlePrevClick}
+            aria-label="Previous video"
+          >
+            <svg className="w-6 h-6 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+
+          {/* Next Button */}
+          <button
+            className="absolute top-1/2 right-4 -translate-y-1/2 z-10 w-10 h-10 rounded-full flex items-center justify-center backdrop-blur-[20px] saturate-[180%] bg-slate-50/75 shadow-lg disabled:opacity-40 disabled:cursor-not-allowed opacity-70 hover:enabled:scale-110 hover:enabled:opacity-100 active:enabled:scale-95 transition-all duration-200"
+            disabled={currentIndex === items.length - 1}
+            onClick={handleNextClick}
+            aria-label="Next video"
+          >
+            <svg className="w-6 h-6 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
 
           {/* Video Counter */}
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/50 text-white py-1 px-3 rounded-full text-sm font-medium pointer-events-none">
@@ -200,15 +288,17 @@ export function LiquidGlassCarousel({ items = defaultItems }: LiquidGlassCarouse
         {/* Thumbnails */}
         <div
           ref={thumbnailsRef}
-          className="overflow-x-auto scrollbar-hide pointer-events-none"
+          className="overflow-x-auto scrollbar-hide"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
           <div className="flex gap-0 h-20 pb-0 w-fit">
             {items.map((item, i) => (
-              <div
+              <button
                 key={item.id}
-                className={`relative flex-shrink-0 h-full overflow-hidden p-0 bg-transparent ${i === currentIndex ? 'ring-2 ring-gray-900' : ''}`}
+                className={`relative flex-shrink-0 h-full overflow-hidden border-none cursor-pointer p-0 bg-transparent ${i === currentIndex ? 'ring-2 ring-gray-900' : ''}`}
                 style={getThumbnailStyle(i)}
+                onClick={() => handleThumbnailClick(i)}
+                aria-label={`View video ${i + 1}: ${item.title}`}
               >
                 <Image
                   src={`${BASE_URL}${item.poster}`}
@@ -218,7 +308,7 @@ export function LiquidGlassCarousel({ items = defaultItems }: LiquidGlassCarouse
                   draggable={false}
                   sizes="120px"
                 />
-              </div>
+              </button>
             ))}
           </div>
         </div>
