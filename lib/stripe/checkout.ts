@@ -286,7 +286,6 @@ export async function createCheckoutSession({
     line_items,
     success_url: successUrl,
     cancel_url: cancelUrl,
-    allow_promotion_codes: true,
     customer: customerId,
     customer_creation: customerId ? undefined : 'always',
     phone_number_collection: {

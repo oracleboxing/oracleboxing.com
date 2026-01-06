@@ -24,7 +24,8 @@
       "Bash(/Users/jordanlyne/Projects/oracleboxing.com/app/success/call-booked )",
       "Bash(/Users/jordanlyne/Projects/oracleboxing.com/app/checkout/bfc-upgrade)",
       "Bash(npm install:*)",
-      "Bash(source:*)"
+      "Bash(source:*)",
+      "Bash(md5:*)"
     ]
   }
 }
