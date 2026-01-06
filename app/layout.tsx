@@ -32,7 +32,7 @@ export const metadata: Metadata = {
       { url: `${FAVICON_BASE}/apple-touch-icon-57x57.png`, sizes: "57x57" },
     ],
   },
-  manifest: `${FAVICON_BASE}/site.webmanifest`,
+  manifest: "/site.webmanifest",
   other: {
     "msapplication-TileColor": "#3d3830",
     "msapplication-TileImage": `${FAVICON_BASE}/mstile-144x144.png`,
