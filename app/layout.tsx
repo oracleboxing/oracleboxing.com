@@ -33,7 +33,7 @@ export const metadata: Metadata = {
       { url: `${FAVICON_BASE}/apple-touch-icon-57x57.png?${FAVICON_VERSION}`, sizes: "57x57" },
     ],
   },
-  manifest: "https://sb.oracleboxing.com/Website/site.webmanifest",
+  manifest: "/site.webmanifest",
   other: {
     "msapplication-TileColor": "#3d3830",
     "msapplication-TileImage": `${FAVICON_BASE}/mstile-144x144.png?${FAVICON_VERSION}`,
