@@ -283,9 +283,11 @@ export function LiquidGlassCarousel({ items = defaultItems }: LiquidGlassCarouse
               >
                 <video
                   ref={(el) => { videoRefs.current[index] = el }}
+                  autoPlay={index === 0}
                   loop={!autoScrollEnabled}
                   muted
                   playsInline
+                  preload="auto"
                   poster={`${BASE_URL}${item.poster}`}
                   className="w-full h-auto rounded-t-lg"
                 >
