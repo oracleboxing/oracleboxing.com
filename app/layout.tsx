@@ -3,6 +3,8 @@ import type { Metadata } from "next"
 import "./globals.css"
 import { Toaster } from "sonner"
 import { CurrencyProvider } from "@/contexts/CurrencyContext"
+import PageViewTracker from "@/components/PageViewTracker"
+import EngagementTracker from "@/components/EngagementTracker"
 
 const FAVICON_BASE = "https://sb.oracleboxing.com/favicons"
 const FAVICON_VERSION = "v=3" // Cache buster - increment to force refresh
@@ -55,6 +57,8 @@ export default function RootLayout({
       </head>
       <body className="font-sans antialiased">
         <CurrencyProvider>
+          <PageViewTracker />
+          <EngagementTracker />
           {children}
           <Toaster position="top-center" richColors />
         </CurrencyProvider>

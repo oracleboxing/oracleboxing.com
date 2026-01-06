@@ -563,28 +563,40 @@ export async function trackInitiateCheckout(
     console.log('💰 Initiate Checkout - Complete Data Being Sent:', JSON.stringify(data, null, 2));
 
     // Send to Supabase (non-blocking)
+    const insertData = {
+      date: data.date,
+      session_id: data.sessionId,
+      event_id: data.eventId,
+      first_name: data.firstName,
+      last_name: data.lastName,
+      email: data.email,
+      amount: data.value,
+      product: data.products.join(', '),
+      funnel: data.funnel,
+      source: data.source,
+      country: data.country,
+      referrer: data.initialReferrer,
+      utm_source: data.utmSource,
+      utm_medium: data.utmMedium,
+      utm_content: data.utmContent,
+    };
+
+    console.log('📦 Supabase insert data:', insertData);
+
     supabase
       .from('initiate_checkouts')
-      .insert({
-        date: data.date,
-        session_id: data.sessionId,
-        event_id: data.eventId,
-        first_name: data.firstName,
-        last_name: data.lastName,
-        email: data.email,
-        amount: data.value,
-        product: data.products.join(', '),
-        funnel: data.funnel,
-        source: data.source,
-        country: data.country,
-        referrer: data.initialReferrer,
-        utm_source: data.utmSource,
-        utm_medium: data.utmMedium,
-        utm_content: data.utmContent,
-      })
-      .then(({ error }) => {
+      .insert(insertData)
+      .then(({ error, status, statusText }) => {
         if (error) {
-          console.error('❌ Failed to save initiate checkout to Supabase:', error);
+          console.error('❌ Failed to save initiate checkout to Supabase:', {
+            error,
+            message: error.message,
+            details: error.details,
+            hint: error.hint,
+            code: error.code,
+            status,
+            statusText
+          });
         } else {
           console.log('✅ Initiate checkout saved to Supabase');
         }
