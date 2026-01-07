@@ -4,6 +4,9 @@ import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { CoursesIllustration, CoachingIllustration, CommunityIllustration } from "./feature-illustrations"
 
+// Temporary flag to disable enrollment
+const ENROLLMENT_CLOSED = true
+
 export function HeroSection() {
   const [activeCard, setActiveCard] = useState(0)
   const [animationKey, setAnimationKey] = useState(0)
@@ -70,12 +73,19 @@ export function HeroSection() {
 
           {/* CTA Button */}
           <div className="flex justify-center">
-            <Button
-              onClick={scrollToPricing}
-              className="h-12 px-12 bg-[#37322f] hover:bg-[#37322f]/90 text-white rounded-full font-medium text-base shadow-[0px_0px_0px_2.5px_rgba(255,255,255,0.08)_inset] cursor-pointer"
-            >
-              Choose Your Package
-            </Button>
+            {ENROLLMENT_CLOSED ? (
+              <div className="h-auto px-12 py-3 bg-[#37322f]/40 text-white/60 rounded-full font-medium text-base cursor-not-allowed flex flex-col items-center">
+                <span>Choose Your Package</span>
+                <span className="text-xs text-white/40">Temporarily Closed</span>
+              </div>
+            ) : (
+              <Button
+                onClick={scrollToPricing}
+                className="h-12 px-12 bg-[#37322f] hover:bg-[#37322f]/90 text-white rounded-full font-medium text-base shadow-[0px_0px_0px_2.5px_rgba(255,255,255,0.08)_inset] cursor-pointer"
+              >
+                Choose Your Package
+              </Button>
+            )}
           </div>
 
           {/* Tabs Row */}

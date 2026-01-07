@@ -2,6 +2,9 @@
 
 import Image from "next/image"
 
+// Temporary flag to disable enrollment
+const ENROLLMENT_CLOSED = true
+
 // Badge Component (matching Brilliance)
 function Badge({ icon, text }: { icon: React.ReactNode; text: string }) {
   return (
@@ -16,7 +19,7 @@ function Badge({ icon, text }: { icon: React.ReactNode; text: string }) {
 
 export default function ChallengeDetailsSection() {
   return (
-    <div className="w-full border-b border-[rgba(55,50,47,0.12)] flex flex-col justify-center items-center bg-[#FFFCF5]">
+    <div className={`w-full border-b border-[rgba(55,50,47,0.12)] flex flex-col justify-center items-center bg-[#FFFCF5] ${ENROLLMENT_CLOSED ? 'blur-sm opacity-60 pointer-events-none select-none' : ''}`}>
       {/* Header Section */}
       <div className="self-stretch px-4 sm:px-6 md:px-8 lg:px-24 py-8 sm:py-12 md:py-16 border-b border-[rgba(55,50,47,0.12)] flex justify-center items-center gap-6">
         <div className="w-full max-w-[616px] px-4 sm:px-6 py-4 sm:py-5 overflow-hidden rounded-lg flex flex-col justify-start items-center gap-3 sm:gap-4">

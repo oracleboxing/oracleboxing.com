@@ -6,6 +6,9 @@ import { getProductPrice, formatPrice } from "@/lib/currency"
 import { useAnalytics } from "@/hooks/useAnalytics"
 import { generateEventId } from "@/lib/tracking-cookies"
 
+// Temporary flag to disable enrollment
+const ENROLLMENT_CLOSED = true
+
 export default function PricingSection() {
   const { currency, isLoading } = useCurrency()
   const { trackAddToCart } = useAnalytics()
@@ -138,7 +141,7 @@ export default function PricingSection() {
               {/* Price */}
               <div className="flex flex-col gap-1 text-center">
                 <div className="flex items-baseline justify-center gap-2">
-                  <span className="text-[#F0EFEE] text-5xl sm:text-6xl md:text-7xl font-medium font-serif">
+                  <span className={`text-[#F0EFEE] text-5xl sm:text-6xl md:text-7xl font-medium font-serif ${ENROLLMENT_CLOSED ? 'blur-md select-none' : ''}`}>
                     {isLoading ? '...' : formatPrice(getProductPrice('21dc_entry', currency) || 147, currency)}
                   </span>
                 </div>
@@ -148,16 +151,27 @@ export default function PricingSection() {
               </div>
 
               {/* CTA Button */}
-              <div className="flex justify-center">
-                <Link
-                  href="/checkout?product=21dc-entry"
-                  onClick={() => handleCheckoutClick('21dc-entry', '21-Day Challenge - Entry', 'pricing-card')}
-                  className="w-full max-w-[400px] px-8 py-4 sm:py-5 bg-[#FBFAF9] hover:bg-white transition-colors rounded-full flex justify-center items-center shadow-[0px_2px_4px_rgba(55,50,47,0.12)]"
-                >
-                  <span className="text-[#37322F] text-base sm:text-lg font-semibold font-sans">
-                    Join the Challenge
-                  </span>
-                </Link>
+              <div className="flex flex-col items-center gap-3">
+                {ENROLLMENT_CLOSED ? (
+                  <div className="w-full max-w-[400px] px-8 py-4 sm:py-5 bg-[#6B6560] rounded-full flex flex-col justify-center items-center cursor-not-allowed opacity-60">
+                    <span className="text-[#A39E9A] text-base sm:text-lg font-semibold font-sans">
+                      Join the Challenge
+                    </span>
+                    <span className="text-[#847971] text-xs font-medium font-sans">
+                      Temporarily Closed
+                    </span>
+                  </div>
+                ) : (
+                  <Link
+                    href="/checkout?product=21dc-entry"
+                    onClick={() => handleCheckoutClick('21dc-entry', '21-Day Challenge - Entry', 'pricing-card')}
+                    className="w-full max-w-[400px] px-8 py-4 sm:py-5 bg-[#FBFAF9] hover:bg-white transition-colors rounded-full flex justify-center items-center shadow-[0px_2px_4px_rgba(55,50,47,0.12)]"
+                  >
+                    <span className="text-[#37322F] text-base sm:text-lg font-semibold font-sans">
+                      Join the Challenge
+                    </span>
+                  </Link>
+                )}
               </div>
 
               {/* Payment Icons */}
