@@ -516,7 +516,7 @@ export function StripeCheckout({
       </header>
 
       <main className="flex-1 overflow-hidden">
-        <div className="max-w-6xl mx-auto px-4 h-full">
+        <div className="max-w-6xl mx-auto px-4 lg:px-8 xl:px-12 h-full">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 h-full">
             {/* Left Column - Payment (scrollable, hidden scrollbar) */}
             <div className="order-2 lg:order-1 overflow-y-auto overflow-x-hidden py-8 lg:py-12 scrollbar-hide" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
