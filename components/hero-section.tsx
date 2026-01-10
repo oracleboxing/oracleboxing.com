@@ -1,11 +1,9 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Button } from "@/components/ui/button"
+import { ArrowButton } from "@/components/ui/arrow-button"
 import { CoursesIllustration, CoachingIllustration, CommunityIllustration } from "./feature-illustrations"
-
-// Temporary flag to disable enrollment
-const ENROLLMENT_CLOSED = true
+import { TransformationShowcase } from "./TransformationShowcase"
 
 export function HeroSection() {
   const [activeCard, setActiveCard] = useState(0)
@@ -44,14 +42,6 @@ export function HeroSection() {
     setIsPaused(true)
   }
 
-  const scrollToPricing = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault()
-    const pricingSection = document.getElementById("pricing")
-    if (pricingSection) {
-      pricingSection.scrollIntoView({ behavior: "smooth" })
-    }
-  }
-
   return (
     <section className="relative pt-[120px] md:pt-[160px] pb-8">
       {/* Text Content - Constrained */}
@@ -73,21 +63,17 @@ export function HeroSection() {
 
           {/* CTA Button */}
           <div className="flex justify-center">
-            {ENROLLMENT_CLOSED ? (
-              <div className="h-auto px-12 py-3 bg-[#37322f]/40 text-white/60 rounded-full font-medium text-base cursor-not-allowed flex flex-col items-center">
-                <span>Choose Your Package</span>
-                <span className="text-xs text-white/40">Temporarily Closed</span>
-              </div>
-            ) : (
-              <Button
-                onClick={scrollToPricing}
-                className="h-12 px-12 bg-[#37322f] hover:bg-[#37322f]/90 text-white rounded-full font-medium text-base shadow-[0px_0px_0px_2.5px_rgba(255,255,255,0.08)_inset] cursor-pointer"
-              >
-                Choose Your Package
-              </Button>
-            )}
+            <ArrowButton href="/checkout-v2">Start Now</ArrowButton>
           </div>
+        </div>
+      </div>
 
+      {/* Transformation Showcase - Full Width */}
+      <TransformationShowcase />
+
+      {/* Text Content - Constrained (Courses/Coaching/Community section) */}
+      <div className="max-w-[1060px] mx-auto px-4">
+        <div className="flex flex-col items-center gap-8">
           {/* Tabs Row */}
           <div className="w-full flex justify-center items-center gap-2 md:gap-4 mt-4">
             {cards.map((card, index) => {
@@ -135,7 +121,7 @@ export function HeroSection() {
                 {cards[activeCard].illustration}
               </div>
               {/* Bottom gradient fade overlay */}
-              <div className="absolute bottom-0 left-0 right-0 h-48 md:h-64 bg-gradient-to-t from-[#FFFCF5] via-[#FFFCF5]/80 to-transparent pointer-events-none" />
+              <div className="absolute bottom-0 left-0 right-0 h-48 md:h-64 bg-gradient-to-t from-white via-white/80 to-transparent pointer-events-none" />
             </div>
           </div>
         </div>
