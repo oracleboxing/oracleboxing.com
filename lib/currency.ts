@@ -160,10 +160,23 @@ export const detectUserCurrency = async (): Promise<Currency> => {
 };
 
 // Get Stripe price ID for a product in a specific currency
+// Supports test mode when using test Stripe keys
 export const getStripePriceId = (
   product: any,
   currency: Currency
 ): string => {
+  // Import test products dynamically to avoid circular dependencies
+  const { isTestMode, getTestPriceId } = require('./test-products');
+
+  // Check if we're in test mode and have a test price for this product
+  if (isTestMode()) {
+    const testPriceId = getTestPriceId(product.id, currency);
+    if (testPriceId) {
+      return testPriceId;
+    }
+    // Fall through to live price IDs if no test price exists
+  }
+
   // If product has multi-currency price IDs, use them
   if (product.price_ids) {
     // Check for currency-specific price ID first (e.g., usd, gbp, eur)
@@ -185,6 +198,26 @@ export const getStripePriceId = (
 };
 
 // Helper to format product descriptions with currency-aware prices
+// Approximate exchange rates to USD (for analytics/reporting purposes)
+// These are rough estimates and should be updated periodically
+export const USD_EXCHANGE_RATES: Record<Currency, number> = {
+  USD: 1,
+  GBP: 1.27,  // 1 GBP = ~1.27 USD
+  EUR: 1.09,  // 1 EUR = ~1.09 USD
+  AUD: 0.65,  // 1 AUD = ~0.65 USD
+  CAD: 0.74,  // 1 CAD = ~0.74 USD
+  AED: 0.27,  // 1 AED = ~0.27 USD
+};
+
+/**
+ * Convert an amount from a given currency to USD
+ * Uses approximate exchange rates for analytics/reporting purposes
+ */
+export const convertToUSD = (amount: number, fromCurrency: Currency): number => {
+  const rate = USD_EXCHANGE_RATES[fromCurrency] || 1;
+  return Math.round(amount * rate * 100) / 100; // Round to 2 decimal places
+};
+
 export const formatProductDescription = (
   productId: string,
   description: string,

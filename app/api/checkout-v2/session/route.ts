@@ -70,6 +70,7 @@ export async function POST(req: NextRequest) {
         firstName: string
         lastName: string
         email: string
+        phone?: string
       }
       currency?: Currency
       trackingParams?: {
@@ -119,13 +120,16 @@ export async function POST(req: NextRequest) {
     const firstName = customerInfo.firstName.trim()
     const lastName = customerInfo.lastName.trim()
     const fullName = `${firstName} ${lastName}`.trim()
+    const phone = customerInfo.phone?.trim() || ''
 
     const customer = await stripe.customers.create({
       email: customerInfo.email,
       name: fullName,
+      phone: phone || undefined,
       metadata: {
         first_name: firstName,
         last_name: lastName,
+        phone: phone,
       },
     })
 
@@ -159,6 +163,7 @@ export async function POST(req: NextRequest) {
       customer_first_name: firstName,
       customer_last_name: lastName,
       customer_email: customerInfo.email,
+      customer_phone: phone,
       funnel_type: '21dc',
       type: '21dc',
       entry_product: '21dc_entry',

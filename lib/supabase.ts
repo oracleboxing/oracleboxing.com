@@ -37,6 +37,7 @@ export interface InitiateCheckoutRecord {
   first_name: string | null
   last_name: string | null
   email: string | null
+  phone: string | null
   amount: number | null
   product: string | null
   funnel: string | null
@@ -54,11 +55,28 @@ export interface PurchaseRecord {
   event_id: string | null
   name: string | null
   email: string | null
+  phone: string | null
   amount: number | null
   product: string | null
   country: string | null
   referrer: string | null
   utm_source: string | null
   utm_medium: string | null
+  utm_content: string | null
+}
+
+export interface WaitlistRecord {
+  date: string
+  session_id: string | null
+  event_id: string | null
+  first_name: string | null
+  last_name: string | null
+  email: string | null
+  phone: string | null
+  country: string | null
+  referrer: string | null
+  utm_source: string | null
+  utm_medium: string | null
+  utm_campaign: string | null
   utm_content: string | null
 }

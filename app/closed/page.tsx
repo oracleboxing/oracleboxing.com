@@ -1,20 +1,45 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { toast } from 'sonner'
 import { Loader2 } from 'lucide-react'
 import { trackWaitlistSignup } from '@/lib/webhook-tracking'
 import { useAnalytics } from '@/hooks/useAnalytics'
+import { PhoneInput, getFullPhoneNumber, COUNTRIES } from '@/components/ui/phone-input'
 
 export default function ClosedPage() {
   const [isLoading, setIsLoading] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [detectedCountry, setDetectedCountry] = useState('US')
+  const [phoneCountry, setPhoneCountry] = useState('US')
   const [customerInfo, setCustomerInfo] = useState({
     firstName: '',
     lastName: '',
     email: '',
+    phone: '',
   })
   const { trackWaitlistSignup: trackVercelWaitlist } = useAnalytics()
+
+  // Auto-detect country on mount
+  useEffect(() => {
+    async function detectCountry() {
+      try {
+        const response = await fetch('/api/detect-location')
+        const data = await response.json()
+        if (data.country_code) {
+          // Check if country is in our list
+          const country = COUNTRIES.find(c => c.code === data.country_code)
+          if (country) {
+            setDetectedCountry(data.country_code)
+            setPhoneCountry(data.country_code)
+          }
+        }
+      } catch (error) {
+        console.warn('Failed to detect location:', error)
+      }
+    }
+    detectCountry()
+  }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -22,6 +47,7 @@ export default function ClosedPage() {
     const firstName = customerInfo.firstName.trim()
     const lastName = customerInfo.lastName.trim()
     const email = customerInfo.email.trim()
+    const phoneRaw = customerInfo.phone.trim()
 
     if (!firstName || !lastName || !email) {
       toast.error('Please fill in all required fields')
@@ -33,6 +59,11 @@ export default function ClosedPage() {
       toast.error('Please enter a valid email address')
       return
     }
+
+    // Get the full E.164 formatted phone number
+    const selectedCountry = COUNTRIES.find(c => c.code === phoneCountry)
+    const dialCode = selectedCountry?.dial || '+1'
+    const phone = phoneRaw ? getFullPhoneNumber(phoneRaw, dialCode) : ''
 
     setIsLoading(true)
 
@@ -48,6 +79,8 @@ export default function ClosedPage() {
           firstName,
           lastName,
           email,
+          phone,
+          phoneCountry,
         }),
       })
 
@@ -56,7 +89,7 @@ export default function ClosedPage() {
       }
 
       // Track in Supabase and Facebook (non-blocking)
-      trackWaitlistSignup(firstName, lastName, email)
+      trackWaitlistSignup(firstName, lastName, email, phone)
 
       // Track in Vercel Analytics (non-blocking)
       trackVercelWaitlist({
@@ -111,7 +144,7 @@ export default function ClosedPage() {
             </h1>
 
             <p className="text-[#605A57] text-sm md:text-base font-normal leading-relaxed mb-8">
-              We'll send you an email as soon as spots re-open. Keep an eye on your inbox.
+              We'll notify you as soon as spots re-open. Keep an eye on your inbox and phone.
             </p>
 
             <a
@@ -180,7 +213,7 @@ export default function ClosedPage() {
             </div>
 
             {/* Email Input */}
-            <div className="mb-8">
+            <div className="mb-4">
               <label htmlFor="email" className="block text-sm font-medium text-[#49423D] mb-2">
                 Email *
               </label>
@@ -195,6 +228,25 @@ export default function ClosedPage() {
                 disabled={isLoading}
                 style={{ cursor: 'text' }}
               />
+            </div>
+
+            {/* Phone Input */}
+            <div className="mb-8">
+              <label htmlFor="phone" className="block text-sm font-medium text-[#49423D] mb-2">
+                Phone Number <span className="text-[#847971] font-normal">(optional)</span>
+              </label>
+              <PhoneInput
+                id="phone"
+                value={customerInfo.phone}
+                onChange={(phone) => setCustomerInfo({ ...customerInfo, phone })}
+                onCountryChange={setPhoneCountry}
+                defaultCountryCode={detectedCountry}
+                disabled={isLoading}
+                placeholder="7912345678"
+              />
+              <p className="text-[#847971] text-xs mt-1.5">
+                We'll text you when enrollment opens. Msg & data rates may apply. Reply STOP to opt out.
+              </p>
             </div>
 
             {/* Submit Button */}

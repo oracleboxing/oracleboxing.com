@@ -44,6 +44,7 @@ export async function GET() {
           first_name TEXT,
           last_name TEXT,
           email TEXT,
+          phone TEXT,
           amount DECIMAL(10,2),
           product TEXT,
           funnel TEXT,
@@ -58,6 +59,7 @@ export async function GET() {
 
         CREATE INDEX IF NOT EXISTS idx_initiate_checkouts_date ON initiate_checkouts(date);
         CREATE INDEX IF NOT EXISTS idx_initiate_checkouts_email ON initiate_checkouts(email);
+        CREATE INDEX IF NOT EXISTS idx_initiate_checkouts_phone ON initiate_checkouts(phone);
       `
     })
 
@@ -71,6 +73,7 @@ export async function GET() {
           event_id TEXT,
           name TEXT,
           email TEXT,
+          phone TEXT,
           amount DECIMAL(10,2),
           product TEXT,
           country TEXT,
@@ -83,6 +86,7 @@ export async function GET() {
 
         CREATE INDEX IF NOT EXISTS idx_purchases_date ON purchases(date);
         CREATE INDEX IF NOT EXISTS idx_purchases_email ON purchases(email);
+        CREATE INDEX IF NOT EXISTS idx_purchases_phone ON purchases(phone);
       `
     })
 
@@ -97,6 +101,7 @@ export async function GET() {
           first_name TEXT,
           last_name TEXT,
           email TEXT,
+          phone TEXT,
           country TEXT,
           referrer TEXT,
           utm_source TEXT,
@@ -108,6 +113,7 @@ export async function GET() {
 
         CREATE INDEX IF NOT EXISTS idx_waitlist_date ON waitlist(date);
         CREATE INDEX IF NOT EXISTS idx_waitlist_email ON waitlist(email);
+        CREATE INDEX IF NOT EXISTS idx_waitlist_phone ON waitlist(phone);
       `
     })
 
@@ -176,6 +182,7 @@ CREATE TABLE IF NOT EXISTS initiate_checkouts (
   first_name TEXT,
   last_name TEXT,
   email TEXT,
+  phone TEXT,
   amount DECIMAL(10,2),
   product TEXT,
   funnel TEXT,
@@ -190,6 +197,7 @@ CREATE TABLE IF NOT EXISTS initiate_checkouts (
 
 CREATE INDEX IF NOT EXISTS idx_initiate_checkouts_date ON initiate_checkouts(date);
 CREATE INDEX IF NOT EXISTS idx_initiate_checkouts_email ON initiate_checkouts(email);
+CREATE INDEX IF NOT EXISTS idx_initiate_checkouts_phone ON initiate_checkouts(phone);
 
 -- Purchases Table
 CREATE TABLE IF NOT EXISTS purchases (
@@ -199,6 +207,7 @@ CREATE TABLE IF NOT EXISTS purchases (
   event_id TEXT,
   name TEXT,
   email TEXT,
+  phone TEXT,
   amount DECIMAL(10,2),
   product TEXT,
   country TEXT,
@@ -211,6 +220,7 @@ CREATE TABLE IF NOT EXISTS purchases (
 
 CREATE INDEX IF NOT EXISTS idx_purchases_date ON purchases(date);
 CREATE INDEX IF NOT EXISTS idx_purchases_email ON purchases(email);
+CREATE INDEX IF NOT EXISTS idx_purchases_phone ON purchases(phone);
 
 -- Waitlist Table
 CREATE TABLE IF NOT EXISTS waitlist (
@@ -221,6 +231,7 @@ CREATE TABLE IF NOT EXISTS waitlist (
   first_name TEXT,
   last_name TEXT,
   email TEXT,
+  phone TEXT,
   country TEXT,
   referrer TEXT,
   utm_source TEXT,
@@ -232,6 +243,7 @@ CREATE TABLE IF NOT EXISTS waitlist (
 
 CREATE INDEX IF NOT EXISTS idx_waitlist_date ON waitlist(date);
 CREATE INDEX IF NOT EXISTS idx_waitlist_email ON waitlist(email);
+CREATE INDEX IF NOT EXISTS idx_waitlist_phone ON waitlist(phone);
 
 -- Enable Row Level Security (optional but recommended)
 ALTER TABLE page_views ENABLE ROW LEVEL SECURITY;

@@ -28,6 +28,9 @@ export interface PurchaseData {
   eventId: string;
   date: string;
   sessionId: string;
+  name: string | null;
+  email: string | null;
+  phone: string | null;
   value: number;
   currency: string;
   products: string[];
@@ -46,6 +49,7 @@ export interface InitiateCheckoutData {
   firstName: string;
   lastName: string;
   email: string;
+  phone: string | null;
   value: number;  // Value in the currency specified in the 'currency' field
   valueUSD: number;  // Kept for backwards compatibility (same as 'value')
   products: string[];
@@ -73,6 +77,7 @@ export interface WaitlistData {
   firstName: string;
   lastName: string;
   email: string;
+  phone: string | null;
   country: string | null;
   referrer: string | null;
   utmSource: string | null;
@@ -403,7 +408,12 @@ export async function trackPurchase(
   sessionId: string,
   value: number,
   currency: string,
-  products: string[]
+  products: string[],
+  customerInfo?: {
+    name?: string;
+    email?: string;
+    phone?: string;
+  }
 ): Promise<void> {
   try {
     const utm = getUTMParameters();
@@ -417,6 +427,9 @@ export async function trackPurchase(
       eventId,
       date: new Date(eventTime).toISOString(),
       sessionId,
+      name: customerInfo?.name || null,
+      email: customerInfo?.email || null,
+      phone: customerInfo?.phone || null,
       value,
       currency,
       products,
@@ -434,8 +447,9 @@ export async function trackPurchase(
         date: data.date,
         session_id: data.sessionId,
         event_id: data.eventId,
-        name: null, // Not available in this function
-        email: null, // Not available in this function
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
         amount: data.value,
         product: data.products.join(', '),
         country: data.country,
@@ -520,7 +534,8 @@ export async function trackInitiateCheckout(
     course?: string | null;
     currency?: string | null;
     source?: string | null;
-  }
+  },
+  phone?: string
 ): Promise<void> {
   try {
     // Get all cookie data (will be empty object if no consent)
@@ -556,6 +571,7 @@ export async function trackInitiateCheckout(
       firstName,
       lastName,
       email,
+      phone: phone || null,
       value,  // Value in the user's currency
       valueUSD: value,  // Keep for backwards compatibility (will be deprecated)
       products,
@@ -586,6 +602,7 @@ export async function trackInitiateCheckout(
       first_name: data.firstName,
       last_name: data.lastName,
       email: data.email,
+      phone: data.phone,
       amount: data.value,
       product: data.products.join(', '),
       funnel: data.funnel,
@@ -720,7 +737,8 @@ export async function trackInitiateCheckout(
 export async function trackWaitlistSignup(
   firstName: string,
   lastName: string,
-  email: string
+  email: string,
+  phone?: string
 ): Promise<void> {
   try {
     const cookieData = getTrackingCookie();
@@ -745,6 +763,7 @@ export async function trackWaitlistSignup(
       firstName,
       lastName,
       email,
+      phone: phone || null,
       country,
       referrer: cookieData.initial_referrer || document?.referrer || null,
       utmSource: cookieData.first_utm_source || utm.utmSource,
@@ -763,6 +782,7 @@ export async function trackWaitlistSignup(
       first_name: data.firstName,
       last_name: data.lastName,
       email: data.email,
+      phone: data.phone,
       country: data.country,
       referrer: data.referrer,
       utm_source: data.utmSource,

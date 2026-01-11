@@ -1,23 +1,47 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { toast } from 'sonner'
 import { Loader2 } from 'lucide-react'
 import { Currency, formatPrice, getProductPrice } from '@/lib/currency'
+import { PhoneInput, getFullPhoneNumber, COUNTRIES } from '@/components/ui/phone-input'
 
 interface CheckoutFormProps {
-  onSubmit: (info: { firstName: string; lastName: string; email: string }) => Promise<void>
+  onSubmit: (info: { firstName: string; lastName: string; email: string; phone: string }) => Promise<void>
   isLoading: boolean
   error: string | null
   currency: Currency
 }
 
 export function CheckoutForm({ onSubmit, isLoading, error, currency }: CheckoutFormProps) {
+  const [detectedCountry, setDetectedCountry] = useState('US')
+  const [phoneCountry, setPhoneCountry] = useState('US')
   const [customerInfo, setCustomerInfo] = useState({
     firstName: '',
     lastName: '',
     email: '',
+    phone: '',
   })
+
+  // Auto-detect country on mount
+  useEffect(() => {
+    async function detectCountry() {
+      try {
+        const response = await fetch('/api/detect-location')
+        const data = await response.json()
+        if (data.country_code) {
+          const country = COUNTRIES.find(c => c.code === data.country_code)
+          if (country) {
+            setDetectedCountry(data.country_code)
+            setPhoneCountry(data.country_code)
+          }
+        }
+      } catch (error) {
+        console.warn('Failed to detect location:', error)
+      }
+    }
+    detectCountry()
+  }, [])
 
   // Calculate prices
   const mainPrice = getProductPrice('21dc_entry', currency) || 147
@@ -28,8 +52,9 @@ export function CheckoutForm({ onSubmit, isLoading, error, currency }: CheckoutF
     const firstName = customerInfo.firstName.trim()
     const lastName = customerInfo.lastName.trim()
     const email = customerInfo.email.trim()
+    const phoneRaw = customerInfo.phone.trim()
 
-    if (!firstName || !lastName || !email) {
+    if (!firstName || !lastName || !email || !phoneRaw) {
       toast.error('Please fill in all required fields')
       return
     }
@@ -40,7 +65,17 @@ export function CheckoutForm({ onSubmit, isLoading, error, currency }: CheckoutF
       return
     }
 
-    await onSubmit({ firstName, lastName, email })
+    // Get the full E.164 formatted phone number
+    const selectedCountry = COUNTRIES.find(c => c.code === phoneCountry)
+    const dialCode = selectedCountry?.dial || '+1'
+    const phone = getFullPhoneNumber(phoneRaw, dialCode)
+
+    if (!phone) {
+      toast.error('Please enter a valid phone number')
+      return
+    }
+
+    await onSubmit({ firstName, lastName, email, phone })
   }
 
   return (
@@ -127,7 +162,7 @@ export function CheckoutForm({ onSubmit, isLoading, error, currency }: CheckoutF
           </div>
 
           {/* Email Input */}
-          <div className="mb-8">
+          <div className="mb-4">
             <label htmlFor="email" className="block text-sm font-medium text-[#49423D] mb-2">
               Email *
             </label>
@@ -142,6 +177,26 @@ export function CheckoutForm({ onSubmit, isLoading, error, currency }: CheckoutF
               disabled={isLoading}
               style={{ cursor: 'text' }}
             />
+          </div>
+
+          {/* Phone Input */}
+          <div className="mb-8">
+            <label htmlFor="phone" className="block text-sm font-medium text-[#49423D] mb-2">
+              Phone Number *
+            </label>
+            <PhoneInput
+              id="phone"
+              value={customerInfo.phone}
+              onChange={(phone) => setCustomerInfo({ ...customerInfo, phone })}
+              onCountryChange={setPhoneCountry}
+              defaultCountryCode={detectedCountry}
+              disabled={isLoading}
+              placeholder="7912345678"
+              required
+            />
+            <p className="text-[#847971] text-xs mt-1.5">
+              For order confirmations and program reminders.
+            </p>
           </div>
 
           {/* Continue Button */}
@@ -203,9 +258,9 @@ export function CheckoutForm({ onSubmit, isLoading, error, currency }: CheckoutF
             )}
           </button>
 
-          {/* Email consent */}
+          {/* Consent */}
           <p className="text-left text-[#847971] text-xs mt-4">
-            I agree to be contacted by email with updates and offers.
+            I agree to receive order updates and program reminders via email and SMS. Reply STOP to opt out. Msg & data rates may apply.
           </p>
         </form>
       </div>

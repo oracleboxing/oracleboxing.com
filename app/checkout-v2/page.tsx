@@ -5,6 +5,8 @@ import { useCurrency } from '@/contexts/CurrencyContext'
 import { getTrackingParams, getCookie } from '@/lib/tracking-cookies'
 import { CheckoutForm } from '@/components/checkout-v2/CheckoutForm'
 import { StripeCheckout } from '@/components/checkout-v2/StripeCheckout'
+import { trackInitiateCheckout } from '@/lib/webhook-tracking'
+import { getProductPrice } from '@/lib/currency'
 
 export const dynamic = 'force-dynamic'
 
@@ -12,6 +14,7 @@ interface CustomerInfo {
   firstName: string
   lastName: string
   email: string
+  phone: string
 }
 
 interface TrackingParams {
@@ -115,6 +118,25 @@ export default function CheckoutV2Page() {
     setError(null)
 
     try {
+      // Track InitiateCheckout to Supabase and Facebook (non-blocking)
+      const fullName = `${info.firstName} ${info.lastName}`.trim()
+      const priceInUserCurrency = getProductPrice('21dc_entry', currency) || 147
+
+      trackInitiateCheckout(
+        fullName,
+        info.email,
+        priceInUserCurrency,
+        ['21dc-entry'],
+        '/checkout-v2',
+        trackingParams.referrer || 'direct',
+        {
+          funnel: '21dc',
+          currency: currency,
+          source: 'checkout-v2',
+        },
+        info.phone
+      )
+
       const { clientSecret: secret, paymentIntentId: piId } = await createSession(info)
       setClientSecret(secret)
       setPaymentIntentId(piId)

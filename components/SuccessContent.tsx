@@ -1,10 +1,13 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { useAnalytics } from '@/hooks/useAnalytics'
+import { trackPurchase as trackPurchaseToSupabase } from '@/lib/webhook-tracking'
+import { convertToUSD, Currency } from '@/lib/currency'
 
 interface SuccessContentProps {
   sessionId: string
+  isPaymentIntent?: boolean
 }
 
 /**
@@ -88,16 +91,22 @@ function markPurchaseAsTracked(sessionId: string): void {
   }
 }
 
-export function SuccessContent({ sessionId }: SuccessContentProps) {
+export function SuccessContent({ sessionId, isPaymentIntent = false }: SuccessContentProps) {
   const [session, setSession] = useState<any>(null)
   const [isLoading, setIsLoading] = useState(true)
   const { trackPurchase } = useAnalytics()
+  const hasFetchedRef = useRef(false)
 
   useEffect(() => {
+    // Prevent multiple fetches due to React strict mode or re-renders
+    if (hasFetchedRef.current) return
+    hasFetchedRef.current = true
+
     async function fetchSession() {
       try {
-        // Fetch session data from Stripe
-        const response = await fetch(`/api/session?session_id=${sessionId}`);
+        // Fetch session data from Stripe (supports both session_id and payment_intent)
+        const param = isPaymentIntent ? 'payment_intent' : 'session_id'
+        const response = await fetch(`/api/session?${param}=${sessionId}`);
         const sessionData = await response.json();
 
         console.log('Session data:', sessionData);
@@ -257,6 +266,30 @@ export function SuccessContent({ sessionId }: SuccessContentProps) {
         });
         console.log('Vercel Analytics Purchase event sent');
 
+        // 4. Track purchase in Supabase (non-blocking)
+        const customerName = sessionData.customer_details?.name ||
+                            (metadata.customer_first_name && metadata.customer_last_name
+                              ? `${metadata.customer_first_name} ${metadata.customer_last_name}`
+                              : undefined);
+        const customerEmail = sessionData.customer_details?.email || sessionData.customer_email || sessionData.customerEmail || undefined;
+        const customerPhone = sessionData.customer_details?.phone || metadata.customer_phone || undefined;
+
+        // Convert amount to USD for consistent analytics
+        const amountInUSD = convertToUSD(amountTotal, currency as Currency);
+
+        trackPurchaseToSupabase(
+          cookieData.session_id || sessionId,
+          amountInUSD,
+          'USD', // Always store in USD
+          productNames, // Already contains all product names from line items
+          {
+            name: customerName,
+            email: customerEmail,
+            phone: customerPhone,
+          }
+        );
+        console.log('✅ Purchase tracked to Supabase (amount in USD:', amountInUSD, ')');
+
         // Mark purchase as tracked to prevent duplicates on page refresh
         markPurchaseAsTracked(sessionId);
         console.log('✅ Purchase marked as tracked for session:', sessionId);
@@ -267,7 +300,8 @@ export function SuccessContent({ sessionId }: SuccessContentProps) {
     }
 
     fetchSession()
-  }, [sessionId, trackPurchase])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sessionId, isPaymentIntent])
 
   if (isLoading) {
     return (
@@ -282,7 +316,7 @@ export function SuccessContent({ sessionId }: SuccessContentProps) {
   return (
     <div className="flex-1 flex items-center justify-center py-20 px-4">
       <div className="text-center max-w-md">
-        <h1 className="text-3xl font-bold text-[#37322F] mb-4">
+        <h1 className="text-3xl font-bold text-[#37322F] mb-4" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
           Purchase Successful
         </h1>
         <p className="text-[rgba(73,66,61,0.90)] text-lg leading-relaxed">
