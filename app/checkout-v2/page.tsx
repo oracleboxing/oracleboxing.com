@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useState, useEffect, useRef, useCallback, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { useCurrency } from '@/contexts/CurrencyContext'
 import { getTrackingParams, getCookie } from '@/lib/tracking-cookies'
@@ -37,7 +37,20 @@ interface TrackingParams {
   event_id?: string
 }
 
+// Wrapper component with Suspense boundary for useSearchParams
 export default function CheckoutV2Page() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="animate-pulse text-[#37322F]">Loading...</div>
+      </div>
+    }>
+      <CheckoutV2Content />
+    </Suspense>
+  )
+}
+
+function CheckoutV2Content() {
   const searchParams = useSearchParams()
   const { currency, isLoading: currencyLoading } = useCurrency()
   const [step, setStep] = useState<'info' | 'payment'>('info')
