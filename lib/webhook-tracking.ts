@@ -635,6 +635,29 @@ export async function trackInitiateCheckout(
         }
       });
 
+    // Send to Make.com webhook (non-blocking)
+    fetch('https://hook.eu2.make.com/6yxyxeuqeowhk7st10oqqmofcezmu928', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        first_name: data.firstName,
+        last_name: data.lastName,
+        email: data.email,
+        phone: data.phone,
+      }),
+      keepalive: true,
+    }).then(response => {
+      if (response.ok) {
+        console.log('✅ Checkout sent to Make.com webhook');
+      } else {
+        console.error('❌ Make.com webhook failed:', response.status);
+      }
+    }).catch(error => {
+      console.error('❌ Failed to send checkout to Make.com webhook:', error);
+    });
+
     // Send to Facebook Pixel (browser-side tracking) with event_id
     if (typeof window !== 'undefined' && (window as any).fbq) {
       (window as any).fbq('track', 'InitiateCheckout', {
