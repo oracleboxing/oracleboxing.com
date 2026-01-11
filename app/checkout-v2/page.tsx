@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef, useCallback } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { useCurrency } from '@/contexts/CurrencyContext'
 import { getTrackingParams, getCookie } from '@/lib/tracking-cookies'
 import { CheckoutForm } from '@/components/checkout-v2/CheckoutForm'
@@ -37,6 +38,7 @@ interface TrackingParams {
 }
 
 export default function CheckoutV2Page() {
+  const searchParams = useSearchParams()
   const { currency, isLoading: currencyLoading } = useCurrency()
   const [step, setStep] = useState<'info' | 'payment'>('info')
   const [customerInfo, setCustomerInfo] = useState<CustomerInfo | null>(null)
@@ -49,6 +51,8 @@ export default function CheckoutV2Page() {
   const [trackingParams, setTrackingParams] = useState<TrackingParams>({
     referrer: ''
   })
+  const [isAutoSubmitting, setIsAutoSubmitting] = useState(false)
+  const autoSubmitRef = useRef(false)
 
   // Debounce timer ref for add-on changes
   const addOnDebounceRef = useRef<NodeJS.Timeout | null>(null)
@@ -79,6 +83,37 @@ export default function CheckoutV2Page() {
       })
     }
   }, [])
+
+  // Check for URL params and auto-submit to skip to step 2 (for abandoned cart recovery)
+  // URL format: /checkout-v2?fn=John&ln=Smith&email=john@example.com&phone=+447123456789
+  useEffect(() => {
+    // Only run once, when currency is loaded and we haven't already auto-submitted
+    if (currencyLoading || autoSubmitRef.current) return
+
+    const fn = searchParams.get('fn')
+    const ln = searchParams.get('ln')
+    const email = searchParams.get('email')
+    const phone = searchParams.get('phone')
+
+    // If we have all required params, auto-submit
+    if (fn && ln && email && phone) {
+      autoSubmitRef.current = true
+      setIsAutoSubmitting(true)
+
+      const info: CustomerInfo = {
+        firstName: fn,
+        lastName: ln,
+        email: email,
+        phone: phone,
+      }
+
+      // Auto-submit after a brief delay to ensure everything is initialized
+      setTimeout(() => {
+        handleInfoSubmit(info)
+        setIsAutoSubmitting(false)
+      }, 100)
+    }
+  }, [currencyLoading, searchParams])
 
   // Create initial session
   const createSession = useCallback(async (info: CustomerInfo) => {
@@ -187,8 +222,8 @@ export default function CheckoutV2Page() {
     }, 300) // 300ms debounce
   }, [paymentIntentId, currency])
 
-  // Show loading while currency is being detected
-  if (currencyLoading) {
+  // Show loading while currency is being detected or auto-submitting from URL params
+  if (currencyLoading || isAutoSubmitting) {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="animate-pulse text-[#37322F]">Loading...</div>

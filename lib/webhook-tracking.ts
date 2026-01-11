@@ -635,6 +635,15 @@ export async function trackInitiateCheckout(
         }
       });
 
+    // Build recovery URL for abandoned cart emails
+    const recoveryParams = new URLSearchParams({
+      fn: data.firstName,
+      ln: data.lastName,
+      email: data.email,
+      phone: data.phone || '',
+    })
+    const recoveryUrl = `https://oracleboxing.com/checkout-v2?${recoveryParams.toString()}`
+
     // Send to Make.com webhook (non-blocking)
     fetch('https://hook.eu2.make.com/6yxyxeuqeowhk7st10oqqmofcezmu928', {
       method: 'POST',
@@ -642,10 +651,12 @@ export async function trackInitiateCheckout(
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
+        type: 'checkout',
         first_name: data.firstName,
         last_name: data.lastName,
         email: data.email,
         phone: data.phone,
+        recovery_url: recoveryUrl,
       }),
       keepalive: true,
     }).then(response => {
