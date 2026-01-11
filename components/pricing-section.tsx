@@ -88,22 +88,19 @@ export default function PricingSection() {
   }
   return (
     <div id="pricing" className="w-full relative overflow-hidden flex flex-col justify-center items-center scroll-mt-8 border-b border-[rgba(55,50,47,0.12)]">
-      {/* Diagonal stripes background on margins */}
-      <div className="absolute inset-0 w-full h-full overflow-hidden">
-        <div className="w-full h-full relative">
-          {Array.from({ length: 300 }).map((_, i) => (
-            <div
-              key={i}
-              className="absolute h-4 w-full rotate-[-45deg] origin-top-left outline outline-[0.5px] outline-[rgba(3,7,18,0.08)] outline-offset-[-0.25px]"
-              style={{
-                top: `${i * 16 - 120}px`,
-                left: "-100%",
-                width: "300%",
-              }}
-            ></div>
-          ))}
-        </div>
-      </div>
+      {/* Diagonal stripes background - CSS gradient instead of DOM elements */}
+      <div
+        className="absolute inset-0 w-full h-full"
+        style={{
+          backgroundImage: `repeating-linear-gradient(
+            -45deg,
+            transparent,
+            transparent 15px,
+            rgba(3,7,18,0.08) 15px,
+            rgba(3,7,18,0.08) 16px
+          )`
+        }}
+      />
 
       {/* Content with solid background */}
       <div className="mx-0 sm:mx-4 md:mx-8 lg:mx-12 my-0 self-stretch relative bg-white sm:border border-[rgba(55,50,47,0.12)] py-12 sm:py-16 md:py-24 flex flex-col justify-center items-center gap-8 sm:gap-10 md:gap-12 z-10">

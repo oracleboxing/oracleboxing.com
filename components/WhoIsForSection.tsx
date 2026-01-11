@@ -4,40 +4,43 @@ import WhoIsForIllustration from "./challenge/WhoIsForIllustration"
 
 export default function WhoIsForSection() {
   const isForYou = [
-    "You're patient and disciplined.",
-    "You're ready to focus on the fundamentals, not flashy tricks.",
-    "You want honest coaching, real progress, and are open to feedback.",
-    "You're ready to slow down in order to master the art faster.",
+    { bold: "You can't get proper coaching on fundamentals", rest: ", your gym doesn't teach technique, your coach can't explain the nuances, or you just don't have access to a boxing gym." },
+    { bold: "You train at home and want to actually improve", rest: ", not just hammer a bag mindlessly. You find the art and science of boxing mentally stimulating." },
+    { bold: "You're preparing for a fight", rest: " and want to leave no stone unturned, analysing footage, getting critiques, doing what your opponent isn't." },
+    { bold: "You're open to honest, direct feedback", rest: ". You want to be told exactly what's wrong and how to fix it, not sugarcoated nonsense." },
+    { bold: "You're willing to contribute", rest: ". The community only works because members help each other." },
   ]
 
   const notForYou = [
-    "You think you have to be perfect before you start.",
-    "You're trying to rush through levels to feel \"advanced.\"",
-    "You want to freestyle, shadowbox, or \"look good\" without the basics.",
-    "You care more about appearances than building real boxing skill.",
+    { bold: "You're an active amateur or pro", rest: ". This is a community of beginners learning the very basics. You'd probably learn something, but it's not built for you." },
+    { bold: "You train MMA, Muay Thai, or kickboxing", rest: " and want boxing to supplement it. We teach boxing. The way an MMA fighter strikes is different, and you'll be torn between the two." },
+    { bold: "You can't handle being critiqued", rest: ". If you get defensive when someone tells you directly what you're doing wrong, this isn't going to work." },
+    { bold: "You just want to take", rest: ". If you're here to extract value without becoming part of the community and helping others, look elsewhere." },
   ]
 
   return (
-    <div className="w-full border-b border-[rgba(55,50,47,0.12)] flex flex-col justify-center items-center bg-[#FFFCF5]">
+    <div className="w-full border-b border-[rgba(55,50,47,0.12)] flex flex-col justify-center items-center bg-white">
       {/* Bento Grid Content */}
       <div className="self-stretch flex justify-center items-start">
-        {/* Left decorative pattern */}
-        <div className="hidden sm:block sm:w-4 md:w-8 lg:w-12 self-stretch relative overflow-hidden">
-          <div className="w-[120px] sm:w-[140px] md:w-[162px] left-[-40px] sm:left-[-50px] md:left-[-58px] top-[-120px] absolute flex flex-col justify-start items-start">
-            {Array.from({ length: 200 }).map((_, i) => (
-              <div
-                key={i}
-                className="self-stretch h-3 sm:h-4 rotate-[-45deg] origin-top-left outline outline-[0.5px] outline-[rgba(3,7,18,0.08)] outline-offset-[-0.25px]"
-              />
-            ))}
-          </div>
-        </div>
+        {/* Left decorative pattern - CSS gradient instead of DOM elements */}
+        <div
+          className="hidden sm:block sm:w-4 md:w-8 lg:w-12 self-stretch relative overflow-hidden"
+          style={{
+            backgroundImage: `repeating-linear-gradient(
+              -45deg,
+              transparent,
+              transparent 11px,
+              rgba(3,7,18,0.08) 11px,
+              rgba(3,7,18,0.08) 12px
+            )`
+          }}
+        />
 
-        <div className="flex-1 min-w-0 grid grid-cols-1 md:grid-cols-2 gap-0 sm:border-l sm:border-r border-[rgba(55,50,47,0.12)] bg-[#FFFCF5]">
+        <div className="flex-1 min-w-0 grid grid-cols-1 md:grid-cols-2 gap-0 sm:border-l sm:border-r border-[rgba(55,50,47,0.12)] bg-white">
           {/* Left - This Is For You */}
           <div className="border-b md:border-b-0 border-r-0 md:border-r border-[rgba(55,50,47,0.12)] p-4 sm:p-6 md:p-8 lg:p-12 flex flex-col justify-start items-start gap-4 sm:gap-6">
             <div className="flex flex-col gap-4 w-full">
-              <h3 className="text-[#37322F] text-lg sm:text-xl font-semibold leading-tight font-sans">
+              <h3 className="text-[#37322F] text-lg sm:text-xl font-semibold leading-tight" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
                 Oracle Boxing is for you if:
               </h3>
               <div className="flex flex-col gap-3">
@@ -61,7 +64,7 @@ export default function WhoIsForSection() {
                       />
                     </svg>
                     <p className="text-[#605A57] text-sm md:text-base font-normal leading-relaxed font-sans">
-                      {item}
+                      <span className="font-semibold text-[#37322F]">{item.bold}</span>{item.rest}
                     </p>
                   </div>
                 ))}
@@ -72,7 +75,7 @@ export default function WhoIsForSection() {
           {/* Right - This Is NOT For You */}
           <div className="p-4 sm:p-6 md:p-8 lg:p-12 flex flex-col justify-start items-start gap-4 sm:gap-6">
             <div className="flex flex-col gap-4 w-full">
-              <h3 className="text-[#37322F] text-lg sm:text-xl font-semibold leading-tight font-sans">
+              <h3 className="text-[#37322F] text-lg sm:text-xl font-semibold leading-tight" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
                 This is NOT for you if:
               </h3>
               <div className="flex flex-col gap-3">
@@ -96,7 +99,7 @@ export default function WhoIsForSection() {
                       />
                     </svg>
                     <p className="text-[#605A57] text-sm md:text-base font-normal leading-relaxed font-sans">
-                      {item}
+                      <span className="font-semibold text-[#37322F]">{item.bold}</span>{item.rest}
                     </p>
                   </div>
                 ))}
@@ -105,17 +108,19 @@ export default function WhoIsForSection() {
           </div>
         </div>
 
-        {/* Right decorative pattern */}
-        <div className="hidden sm:block sm:w-4 md:w-8 lg:w-12 self-stretch relative overflow-hidden">
-          <div className="w-[120px] sm:w-[140px] md:w-[162px] left-[-40px] sm:left-[-50px] md:left-[-58px] top-[-120px] absolute flex flex-col justify-start items-start">
-            {Array.from({ length: 200 }).map((_, i) => (
-              <div
-                key={i}
-                className="self-stretch h-3 sm:h-4 rotate-[-45deg] origin-top-left outline outline-[0.5px] outline-[rgba(3,7,18,0.08)] outline-offset-[-0.25px]"
-              />
-            ))}
-          </div>
-        </div>
+        {/* Right decorative pattern - CSS gradient instead of DOM elements */}
+        <div
+          className="hidden sm:block sm:w-4 md:w-8 lg:w-12 self-stretch relative overflow-hidden"
+          style={{
+            backgroundImage: `repeating-linear-gradient(
+              -45deg,
+              transparent,
+              transparent 11px,
+              rgba(3,7,18,0.08) 11px,
+              rgba(3,7,18,0.08) 12px
+            )`
+          }}
+        />
       </div>
 
     </div>

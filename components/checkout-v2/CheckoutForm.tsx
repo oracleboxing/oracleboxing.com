@@ -278,11 +278,14 @@ export function CheckoutForm({ onSubmit, isLoading, error, currency }: CheckoutF
             transparent 100%
           );
           border-radius: 50%;
-          filter: blur(40px);
-          box-shadow:
-            0 0 80px 40px rgba(255, 252, 245, 0.25),
-            0 0 120px 60px rgba(255, 252, 245, 0.15),
-            0 0 180px 90px rgba(255, 252, 245, 0.08);
+          filter: blur(20px);
+          box-shadow: 0 0 60px 30px rgba(255, 252, 245, 0.15);
+        }
+        /* Hide heavy animations on mobile to prevent Safari crashes */
+        @media (max-width: 768px) {
+          .ribbon {
+            display: none;
+          }
         }
         .ribbon-1 {
           top: 5%;

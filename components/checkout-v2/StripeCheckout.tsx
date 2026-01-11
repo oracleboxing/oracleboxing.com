@@ -941,9 +941,13 @@ export function StripeCheckout({
           );
           border-radius: 50%;
           filter: blur(20px);
-          box-shadow:
-            0 0 40px 20px rgba(255, 252, 245, 0.2),
-            0 0 60px 30px rgba(255, 252, 245, 0.1);
+          box-shadow: 0 0 40px 20px rgba(255, 252, 245, 0.15);
+        }
+        /* Hide heavy animations on mobile to prevent Safari crashes */
+        @media (max-width: 768px) {
+          .ribbon {
+            display: none;
+          }
         }
         .ribbon-1 {
           top: 10%;

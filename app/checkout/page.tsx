@@ -114,9 +114,9 @@ export default function CheckoutPage() {
       // All products must have ?product=X parameter in URL
       //
       // Routing rules:
-      //    - 6WC → Order bumps (Recordings Vault + Lifetime BFFP)
+      //    - 21DC (21dc-entry) → Order bumps (BFFP + Tracksuit)
       //    - BFC (bfc, bfc-vip) → BFC Upgrade page (Standard → VIP upgrade)
-      //    - Course (BFFP, Roadmap, Vault) → Order bumps (6-Week Membership)
+      //    - Course (BFFP, Roadmap) → Order bumps
       //    - Membership (monthly, 6month, annual) → Direct to Stripe
       //    - Bundle → Direct to Stripe
       // ===================================================================
@@ -240,37 +240,6 @@ export default function CheckoutPage() {
         return
       }
 
-      // 6WC → Order bumps
-      if (productParam === '6wc') {
-        console.log('→ Routing to 6WC order-bumps')
-        const orderBumpsUrl = new URL('/checkout/order-bumps', window.location.origin)
-        orderBumpsUrl.searchParams.set('email', email)
-        orderBumpsUrl.searchParams.set('name', fullName)
-        orderBumpsUrl.searchParams.set('funnel', '6wc')
-        orderBumpsUrl.searchParams.set('currency', currency)
-        if (sourceParam) orderBumpsUrl.searchParams.set('source', sourceParam)
-
-        // Pass tracking params
-        orderBumpsUrl.searchParams.set('referrer', trackingParams.referrer)
-        // First Touch
-        if (trackingParams.first_utm_source) orderBumpsUrl.searchParams.set('first_utm_source', trackingParams.first_utm_source)
-        if (trackingParams.first_utm_medium) orderBumpsUrl.searchParams.set('first_utm_medium', trackingParams.first_utm_medium)
-        if (trackingParams.first_utm_campaign) orderBumpsUrl.searchParams.set('first_utm_campaign', trackingParams.first_utm_campaign)
-        if (trackingParams.first_utm_term) orderBumpsUrl.searchParams.set('first_utm_term', trackingParams.first_utm_term)
-        if (trackingParams.first_utm_content) orderBumpsUrl.searchParams.set('first_utm_content', trackingParams.first_utm_content)
-        if (trackingParams.first_referrer_time) orderBumpsUrl.searchParams.set('first_referrer_time', trackingParams.first_referrer_time)
-        // Last Touch
-        if (trackingParams.last_utm_source) orderBumpsUrl.searchParams.set('last_utm_source', trackingParams.last_utm_source)
-        if (trackingParams.last_utm_medium) orderBumpsUrl.searchParams.set('last_utm_medium', trackingParams.last_utm_medium)
-        if (trackingParams.last_utm_campaign) orderBumpsUrl.searchParams.set('last_utm_campaign', trackingParams.last_utm_campaign)
-        if (trackingParams.last_utm_term) orderBumpsUrl.searchParams.set('last_utm_term', trackingParams.last_utm_term)
-        if (trackingParams.last_utm_content) orderBumpsUrl.searchParams.set('last_utm_content', trackingParams.last_utm_content)
-        if (trackingParams.last_referrer_time) orderBumpsUrl.searchParams.set('last_referrer_time', trackingParams.last_referrer_time)
-
-        router.push(orderBumpsUrl.pathname + orderBumpsUrl.search)
-        return
-      }
-
       // Individual Course → Order bumps
       if (['bffp', 'roadmap'].includes(productParam)) {
         console.log('→ Routing to course order-bumps')
@@ -358,8 +327,6 @@ export default function CheckoutPage() {
         let funnelType = 'direct'
         if (product.type === 'membership') {
           funnelType = 'membership'
-        } else if (productParam === '6wc') {
-          funnelType = '6wc'
         } else if (['bfc', 'bfc-vip'].includes(productParam)) {
           funnelType = 'bfc'
         } else if (productParam === 'bundle') {
@@ -450,42 +417,47 @@ export default function CheckoutPage() {
   // }
 
   return (
-    <div className="min-h-screen bg-[#FFFCF5] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="w-full max-w-md">
-        <form onSubmit={handleContactSubmit}>
+    <div className="min-h-screen bg-white flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+      {/* Animated flowing ribbons background */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="ribbon ribbon-1" />
+        <div className="ribbon ribbon-2" />
+        <div className="ribbon ribbon-3" />
+        <div className="ribbon ribbon-4" />
+        <div className="ribbon ribbon-5" />
+        <div className="ribbon ribbon-6" />
+      </div>
+
+      {/* Back link */}
+      <a href="/" className="absolute top-4 left-4 text-white/70 text-sm font-medium hover:text-white transition-colors z-10">
+        ← Back
+      </a>
+
+      {/* Card */}
+      <div className="w-full max-w-md lg:max-w-3xl bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl p-8 lg:p-12 relative z-10">
+        <form onSubmit={handleContactSubmit} className="max-w-xl mx-auto">
           {/* Logo */}
-          <div className="flex justify-center mb-4">
+          <div className="flex justify-start mb-8">
             <img
-              src="https://sb.oracleboxing.com/logo/long_dark.webp"
+              src="https://sb.oracleboxing.com/logo/icon_dark.webp"
               alt="Oracle Boxing"
-              className="h-4"
+              className="w-10 h-auto"
             />
           </div>
 
           {/* Heading */}
-          <p className="text-center text-[#37322F] text-sm font-medium mb-8">
-            Just a few details to get started
+          <h1 className="text-left text-3xl md:text-4xl font-normal leading-tight mb-6 font-serif">
+            <span className="text-[#37322F]">Earn</span><br />
+            <span className="text-[#9CABA8]">Your Place.</span>
+          </h1>
+
+          {/* Description */}
+          <p className="text-left text-[#605A57] text-sm md:text-base font-normal leading-relaxed mb-10">
+            Join the 21-Day Challenge and prove you have what it takes. Show up, put in the work, and earn your place in Oracle Boxing.
           </p>
 
-          {/* Email Input */}
-          <div className="mb-4">
-            <label htmlFor="email" className="block text-sm font-medium text-[#49423D] mb-2">
-              Email *
-            </label>
-            <input
-              type="email"
-              id="email"
-              value={customerInfo.email}
-              onChange={(e) => setCustomerInfo({ ...customerInfo, email: e.target.value })}
-              className="w-full px-5 py-3 bg-white border border-[rgba(55,50,47,0.20)] rounded-full focus:ring-2 focus:ring-[#37322F] focus:border-transparent transition-all"
-              placeholder="your@email.com"
-              required
-              style={{ cursor: 'text' }}
-            />
-          </div>
-
           {/* Full Name Input */}
-          <div className="mb-6">
+          <div className="mb-4">
             <label htmlFor="fullName" className="block text-sm font-medium text-[#49423D] mb-2">
               Full Name *
             </label>
@@ -501,27 +473,202 @@ export default function CheckoutPage() {
             />
           </div>
 
-          {/* Next Button */}
+          {/* Email Input */}
+          <div className="mb-6">
+            <label htmlFor="email" className="block text-sm font-medium text-[#49423D] mb-2">
+              Email *
+            </label>
+            <input
+              type="email"
+              id="email"
+              value={customerInfo.email}
+              onChange={(e) => setCustomerInfo({ ...customerInfo, email: e.target.value })}
+              className="w-full px-5 py-3 bg-white border border-[rgba(55,50,47,0.20)] rounded-full focus:ring-2 focus:ring-[#37322F] focus:border-transparent transition-all"
+              placeholder="your@email.com"
+              required
+              style={{ cursor: 'text' }}
+            />
+          </div>
+
+          {/* Continue Button */}
           <button
             type="submit"
             disabled={isLoading}
-            className={`w-full py-3 px-6 font-bold text-base rounded-full shadow-[0px_2px_4px_rgba(55,50,47,0.12)] transition-all duration-200 flex items-center justify-center gap-2 ${
+            className={`w-full h-12 px-6 rounded-full font-medium text-base shadow-[0px_0px_0px_2.5px_rgba(255,255,255,0.08)_inset] transition-all duration-200 flex items-center justify-center ${
               isLoading
                 ? 'bg-[#847971] cursor-not-allowed'
-                : 'bg-[#37322F] hover:bg-[#49423D] cursor-pointer'
-            } text-[#FBFAF9]`}
+                : 'bg-[#37322F] hover:bg-[#37322f]/90 cursor-pointer'
+            } text-white`}
           >
             {isLoading ? (
               <>
-                <Loader2 className="w-5 h-5 animate-spin" />
+                <Loader2 className="w-5 h-5 animate-spin mr-2" />
                 Processing...
               </>
             ) : (
-              'Next'
+              <>
+                <span className="font-medium">Continue</span>
+                <span className="text-white/40 mx-3">|</span>
+                <span className="w-5 h-5 overflow-hidden relative">
+                  <span className="arrow-container flex items-center">
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 20 20"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="flex-shrink-0"
+                    >
+                      <path
+                        d="M4 10H16M16 10L11 5M16 10L11 15"
+                        stroke="white"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 20 20"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="flex-shrink-0 ml-1"
+                    >
+                      <path
+                        d="M4 10H16M16 10L11 5M16 10L11 15"
+                        stroke="white"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </span>
+                </span>
+              </>
             )}
           </button>
+
+          {/* Email consent */}
+          <p className="text-left text-[#847971] text-xs mt-4 whitespace-nowrap">
+            I agree to be contacted by email with updates and offers.
+          </p>
         </form>
       </div>
+
+      <style jsx>{`
+        .ribbon {
+          position: absolute;
+          width: 200%;
+          height: 150px;
+          background: linear-gradient(90deg,
+            transparent 0%,
+            rgba(255,252,245,0.15) 20%,
+            rgba(255,252,245,0.3) 50%,
+            rgba(255,252,245,0.15) 80%,
+            transparent 100%
+          );
+          border-radius: 50%;
+          filter: blur(20px);
+          box-shadow: 0 0 60px 30px rgba(255, 252, 245, 0.15);
+        }
+        /* Hide heavy animations on mobile to prevent Safari crashes */
+        @media (max-width: 768px) {
+          .ribbon {
+            display: none;
+          }
+        }
+        .ribbon-1 {
+          top: 5%;
+          left: -50%;
+          transform: rotate(-15deg);
+          animation: drift1 12s ease-in-out infinite;
+        }
+        .ribbon-2 {
+          top: 25%;
+          left: -30%;
+          height: 200px;
+          transform: rotate(10deg);
+          animation: drift2 15s ease-in-out infinite;
+          animation-delay: -3s;
+        }
+        .ribbon-3 {
+          top: 50%;
+          left: -40%;
+          height: 180px;
+          transform: rotate(-8deg);
+          animation: drift3 11s ease-in-out infinite;
+          animation-delay: -5s;
+        }
+        .ribbon-4 {
+          top: 70%;
+          left: -60%;
+          height: 160px;
+          transform: rotate(20deg);
+          animation: drift1 14s ease-in-out infinite;
+          animation-delay: -8s;
+        }
+        .ribbon-5 {
+          top: 85%;
+          left: -20%;
+          height: 140px;
+          transform: rotate(-12deg);
+          animation: drift2 12s ease-in-out infinite;
+          animation-delay: -4s;
+        }
+        .ribbon-6 {
+          top: 40%;
+          left: -50%;
+          height: 220px;
+          transform: rotate(5deg);
+          animation: drift3 16s ease-in-out infinite;
+          animation-delay: -10s;
+        }
+        @keyframes drift1 {
+          0%, 100% {
+            transform: translateX(0) translateY(0) rotate(-15deg);
+            opacity: 0.8;
+          }
+          50% {
+            transform: translateX(60vw) translateY(30px) rotate(-10deg);
+            opacity: 1;
+          }
+        }
+        @keyframes drift2 {
+          0%, 100% {
+            transform: translateX(0) translateY(0) rotate(10deg);
+            opacity: 0.75;
+          }
+          50% {
+            transform: translateX(50vw) translateY(-40px) rotate(15deg);
+            opacity: 1;
+          }
+        }
+        @keyframes drift3 {
+          0%, 100% {
+            transform: translateX(0) translateY(0) rotate(-8deg);
+            opacity: 0.7;
+          }
+          50% {
+            transform: translateX(55vw) translateY(20px) rotate(-5deg);
+            opacity: 0.95;
+          }
+        }
+        .arrow-container {
+          transition: transform 0.3s ease;
+        }
+        button:hover .arrow-container {
+          animation: scrollArrow 0.3s ease forwards;
+        }
+        @keyframes scrollArrow {
+          0% {
+            transform: translateX(-24px);
+          }
+          100% {
+            transform: translateX(0);
+          }
+        }
+      `}</style>
     </div>
   )
 }

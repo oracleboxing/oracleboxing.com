@@ -4,24 +4,26 @@ import Image from "next/image"
 
 export default function FundamentalsWarningSection() {
   return (
-    <div className="w-full border-b border-[rgba(55,50,47,0.12)] flex flex-col justify-center items-center bg-[#FFFCF5]">
+    <div className="w-full border-b border-[rgba(55,50,47,0.12)] flex flex-col justify-center items-center bg-white">
       {/* Content */}
       <div className="self-stretch flex justify-center items-start">
-        {/* Left decorative pattern */}
-        <div className="hidden sm:block sm:w-4 md:w-8 lg:w-12 self-stretch relative overflow-hidden">
-          <div className="w-[120px] sm:w-[140px] md:w-[162px] left-[-40px] sm:left-[-50px] md:left-[-58px] top-[-120px] absolute flex flex-col justify-start items-start">
-            {Array.from({ length: 200 }).map((_, i) => (
-              <div
-                key={i}
-                className="self-stretch h-3 sm:h-4 rotate-[-45deg] origin-top-left outline outline-[0.5px] outline-[rgba(3,7,18,0.08)] outline-offset-[-0.25px]"
-              />
-            ))}
-          </div>
-        </div>
+        {/* Left decorative pattern - CSS gradient instead of DOM elements */}
+        <div
+          className="hidden sm:block sm:w-4 md:w-8 lg:w-12 self-stretch relative overflow-hidden"
+          style={{
+            backgroundImage: `repeating-linear-gradient(
+              -45deg,
+              transparent,
+              transparent 11px,
+              rgba(3,7,18,0.08) 11px,
+              rgba(3,7,18,0.08) 12px
+            )`
+          }}
+        />
 
-        <div className="flex-1 min-w-0 sm:border-l sm:border-r border-[rgba(55,50,47,0.12)] bg-[#FFFCF5] p-4 sm:p-6 md:p-8 lg:p-12 flex flex-col gap-6 sm:gap-8">
+        <div className="flex-1 min-w-0 sm:border-l sm:border-r border-[rgba(55,50,47,0.12)] bg-white p-4 sm:p-6 md:p-8 lg:p-12 flex flex-col gap-6 sm:gap-8">
           {/* Title */}
-          <h3 className="text-[#49423D] text-xl sm:text-2xl md:text-3xl font-normal leading-tight font-serif tracking-tight text-center md:text-left">
+          <h3 className="text-[#49423D] text-xl sm:text-2xl md:text-3xl font-normal leading-tight tracking-tight text-center md:text-left" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
             <span className="hidden sm:inline">Not Having Solid Fundamentals Is Costing You Progress Every Single Day</span>
             <span className="sm:hidden">Bad Fundamentals Cost You Progress Every Day</span>
           </h3>
@@ -68,17 +70,19 @@ export default function FundamentalsWarningSection() {
           </div>
         </div>
 
-        {/* Right decorative pattern */}
-        <div className="hidden sm:block sm:w-4 md:w-8 lg:w-12 self-stretch relative overflow-hidden">
-          <div className="w-[120px] sm:w-[140px] md:w-[162px] left-[-40px] sm:left-[-50px] md:left-[-58px] top-[-120px] absolute flex flex-col justify-start items-start">
-            {Array.from({ length: 200 }).map((_, i) => (
-              <div
-                key={i}
-                className="self-stretch h-3 sm:h-4 rotate-[-45deg] origin-top-left outline outline-[0.5px] outline-[rgba(3,7,18,0.08)] outline-offset-[-0.25px]"
-              />
-            ))}
-          </div>
-        </div>
+        {/* Right decorative pattern - CSS gradient instead of DOM elements */}
+        <div
+          className="hidden sm:block sm:w-4 md:w-8 lg:w-12 self-stretch relative overflow-hidden"
+          style={{
+            backgroundImage: `repeating-linear-gradient(
+              -45deg,
+              transparent,
+              transparent 11px,
+              rgba(3,7,18,0.08) 11px,
+              rgba(3,7,18,0.08) 12px
+            )`
+          }}
+        />
       </div>
     </div>
   )

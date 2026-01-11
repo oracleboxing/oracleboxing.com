@@ -606,10 +606,13 @@ export function TransformationDetailsCarousel() {
           );
           border-radius: 50%;
           filter: blur(20px);
-          box-shadow:
-            0 0 60px 30px rgba(255, 252, 245, 0.4),
-            0 0 100px 50px rgba(255, 252, 245, 0.25),
-            0 0 140px 70px rgba(255, 252, 245, 0.15);
+          box-shadow: 0 0 60px 30px rgba(255, 252, 245, 0.2);
+        }
+        /* Hide heavy animations on mobile to prevent Safari crashes */
+        @media (max-width: 768px) {
+          .ribbon {
+            display: none;
+          }
         }
         .ribbon-1 {
           top: 0%;

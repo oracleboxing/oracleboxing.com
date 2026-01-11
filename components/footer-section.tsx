@@ -64,7 +64,7 @@ export default function FooterSection() {
             />
           </div>
           <div className="text-[rgba(73,66,61,0.90)] text-sm font-medium leading-[18px] font-sans max-w-[280px] text-center md:text-left">
-            Learn Better Boxing
+            Learn Boxing Properly
           </div>
 
           {/* Social Media Icons */}
@@ -164,22 +164,19 @@ export default function FooterSection() {
 
       {/* Bottom Section with Pattern */}
       <div className="self-stretch h-12 relative overflow-hidden border-t border-b border-[rgba(55,50,47,0.12)]">
-        <div className="absolute inset-0 w-full h-full overflow-hidden">
-          <div className="w-full h-full relative">
-            {Array.from({ length: 400 }).map((_, i) => (
-              <div
-                key={i}
-                className="absolute w-[300px] h-16 border border-[rgba(3,7,18,0.08)]"
-                style={{
-                  left: `${i * 300 - 600}px`,
-                  top: "-120px",
-                  transform: "rotate(-45deg)",
-                  transformOrigin: "top left",
-                }}
-              />
-            ))}
-          </div>
-        </div>
+        {/* CSS-based diagonal stripes - no DOM elements needed */}
+        <div
+          className="absolute inset-0 w-full h-full"
+          style={{
+            backgroundImage: `repeating-linear-gradient(
+              -45deg,
+              transparent,
+              transparent 15px,
+              rgba(3,7,18,0.08) 15px,
+              rgba(3,7,18,0.08) 16px
+            )`
+          }}
+        />
 
         {/* Copyright text */}
         <div className="absolute inset-0 flex items-center justify-center">
