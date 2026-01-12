@@ -66,9 +66,59 @@ function CheckoutV2Content() {
   })
   const [isAutoSubmitting, setIsAutoSubmitting] = useState(false)
   const autoSubmitRef = useRef(false)
+  const redirectCheckedRef = useRef(false)
 
   // Debounce timer ref for add-on changes
   const addOnDebounceRef = useRef<NodeJS.Timeout | null>(null)
+
+  // Handle PayPal/redirect-based payment returns at the page level
+  // This handles the case where a user returns from PayPal with success/fail status
+  useEffect(() => {
+    if (redirectCheckedRef.current) return
+    redirectCheckedRef.current = true
+
+    const redirectStatus = searchParams.get('redirect_status')
+    const returnedPaymentIntent = searchParams.get('payment_intent')
+    const returnedClientSecret = searchParams.get('payment_intent_client_secret')
+
+    if (redirectStatus && returnedPaymentIntent) {
+      console.log('🔄 Payment redirect detected at page level:', { redirectStatus, returnedPaymentIntent })
+
+      if (redirectStatus === 'succeeded' || redirectStatus === 'processing') {
+        // Payment succeeded - redirect to success page immediately
+        window.location.href = `${window.location.origin}/success?payment_intent=${returnedPaymentIntent}`
+      } else if (redirectStatus === 'failed' && returnedClientSecret) {
+        // Payment failed - recover the PaymentIntent and show the payment form so user can retry
+        // We need to fetch the PaymentIntent details to recover customer info
+        recoverFailedPayment(returnedPaymentIntent, returnedClientSecret)
+      }
+    }
+  }, [searchParams])
+
+  // Recover a failed payment so user can retry
+  const recoverFailedPayment = async (piId: string, secret: string) => {
+    try {
+      // Fetch PaymentIntent details from Stripe via our API
+      const response = await fetch(`/api/checkout-v2/recover?payment_intent=${piId}`)
+      const data = await response.json()
+
+      if (response.ok && data.customerInfo) {
+        // Recover the session state
+        setCustomerInfo(data.customerInfo)
+        setPaymentIntentId(piId)
+        setClientSecret(secret)
+        setSelectedAddOns(data.addOns || [])
+        setError('Payment failed. Please try again with a different payment method.')
+        setStep('payment')
+      } else {
+        // If we can't recover, just show a general error
+        setError('Payment failed. Please enter your details to try again.')
+      }
+    } catch (err) {
+      console.error('Failed to recover payment:', err)
+      setError('Payment failed. Please enter your details to try again.')
+    }
+  }
 
   // Capture tracking params on mount
   useEffect(() => {

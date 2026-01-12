@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState, useRef } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { loadStripe, Stripe, StripeElements } from '@stripe/stripe-js'
 import { Currency, formatPrice, getProductPrice } from '@/lib/currency'
 import { Loader2, ChevronLeft, ChevronRight, Check, ShieldCheck, Star, X } from 'lucide-react'
@@ -231,6 +232,7 @@ export function StripeCheckout({
   isUpdatingAmount,
   onBack,
 }: StripeCheckoutProps) {
+  const searchParams = useSearchParams()
   const [stripe, setStripe] = useState<Stripe | null>(null)
   const [elements, setElements] = useState<StripeElements | null>(null)
   const [isLoading, setIsLoading] = useState(true)
@@ -244,6 +246,28 @@ export function StripeCheckout({
   const [expandedProduct, setExpandedProduct] = useState<string | null>(null)
   const [modalImageIndex, setModalImageIndex] = useState(0)
   const [moduleIndex, setModuleIndex] = useState(0)
+
+  // Check for redirect status from PayPal/other redirect-based payment methods
+  useEffect(() => {
+    const redirectStatus = searchParams.get('redirect_status')
+    const returnedPaymentIntent = searchParams.get('payment_intent')
+
+    if (redirectStatus && returnedPaymentIntent) {
+      console.log('🔄 Payment redirect detected:', { redirectStatus, returnedPaymentIntent })
+
+      if (redirectStatus === 'succeeded') {
+        // Payment succeeded - redirect to success page
+        window.location.href = `${window.location.origin}/success?payment_intent=${returnedPaymentIntent}`
+      } else if (redirectStatus === 'failed') {
+        // Payment failed - show error message, allow retry
+        setError('Payment failed. Please try again with a different payment method.')
+      } else if (redirectStatus === 'processing') {
+        // Payment is still processing - redirect to success (will show processing message)
+        window.location.href = `${window.location.origin}/success?payment_intent=${returnedPaymentIntent}`
+      }
+      // For 'requires_payment_method' or other statuses, user can retry
+    }
+  }, [searchParams])
 
   // Product prices for display
   const mainPrice = getProductPrice('21dc_entry', currency) || 147
@@ -401,20 +425,55 @@ export function StripeCheckout({
       const { error: confirmError, paymentIntent } = await stripe.confirmPayment({
         elements,
         confirmParams: {
-          return_url: `${window.location.origin}/success?payment_intent=${paymentIntentId}`,
+          return_url: `${window.location.origin}/checkout-v2?payment_intent=${paymentIntentId}`,
         },
         redirect: 'if_required', // Only redirect if necessary (for redirect-based payments)
       })
 
+      console.log('🔄 confirmPayment result:', { error: confirmError, status: paymentIntent?.status })
+
       if (confirmError) {
-        setError(confirmError.message || 'Payment failed')
+        // Payment failed with an error
+        setError(confirmError.message || 'Payment failed. Please try again.')
         setIsConfirming(false)
-      } else if (paymentIntent && paymentIntent.status === 'succeeded') {
-        // Payment succeeded without redirect (card payments)
-        // Manually redirect to success page
-        window.location.href = `${window.location.origin}/success?payment_intent=${paymentIntentId}`
+        return
       }
-      // For redirect-based payments, Stripe will redirect to return_url
+
+      if (paymentIntent) {
+        if (paymentIntent.status === 'succeeded') {
+          // Payment succeeded without redirect (card payments)
+          window.location.href = `${window.location.origin}/success?payment_intent=${paymentIntentId}`
+          return
+        }
+
+        if (paymentIntent.status === 'processing') {
+          // Payment is processing (bank transfers, etc.) - redirect to success
+          window.location.href = `${window.location.origin}/success?payment_intent=${paymentIntentId}`
+          return
+        }
+
+        if (paymentIntent.status === 'requires_action') {
+          // 3D Secure or other authentication required - Stripe handles this automatically
+          console.log('⏳ Payment requires additional action (3D Secure)')
+          return
+        }
+
+        if (paymentIntent.status === 'requires_payment_method') {
+          // Card was declined or payment method failed
+          setError('Your card was declined. Please try a different payment method.')
+          setIsConfirming(false)
+          return
+        }
+
+        // Any other status - show generic error
+        console.log('⚠️ Unexpected payment status:', paymentIntent.status)
+        setError('Payment could not be completed. Please try again.')
+        setIsConfirming(false)
+        return
+      }
+
+      // For redirect-based payments (PayPal), Stripe will redirect to return_url
+      // The redirect_status will be checked when user returns
     } catch (err: any) {
       console.error('Confirmation error:', err)
       setError(err.message || 'Payment failed')
