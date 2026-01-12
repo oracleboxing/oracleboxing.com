@@ -88,7 +88,7 @@ export default function FeaturesSection() {
                 {cards[activeCard].illustration}
               </div>
               {/* Bottom gradient fade overlay */}
-              <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#FFFCF5] to-transparent pointer-events-none" />
+              <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent pointer-events-none" />
             </div>
           </div>
         </div>

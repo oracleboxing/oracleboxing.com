@@ -53,7 +53,7 @@ export default function EpicOfferStackSection({ onCTAClick }: EpicOfferStackSect
           </div>
 
           {/* Heading */}
-          <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-6 sm:mb-8 uppercase px-4" style={{ fontFamily: "var(--font-satoshi)" }}>
+          <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-6 sm:mb-8 uppercase px-4" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
             6-WEEK CHALLENGE
           </h3>
 

@@ -59,7 +59,7 @@ export default function MinimalTestimonials() {
   const [active, setActive] = useState(0)
 
   return (
-    <section className="w-full bg-[#FFFCF5] py-12 md:py-16 border-b border-[rgba(55,50,47,0.12)]">
+    <section className="w-full bg-white py-12 md:py-16 border-b border-[rgba(55,50,47,0.12)]">
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
         {/* Quote */}
         <div className="relative min-h-[140px] sm:min-h-[120px] md:min-h-[100px] mb-8">

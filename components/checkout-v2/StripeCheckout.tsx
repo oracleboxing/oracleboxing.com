@@ -208,6 +208,7 @@ const ADD_ONS: AddOn[] = [
 
 interface StripeCheckoutProps {
   clientSecret: string
+  paymentIntentId: string
   customerInfo: {
     firstName: string
     lastName: string
@@ -222,6 +223,7 @@ interface StripeCheckoutProps {
 
 export function StripeCheckout({
   clientSecret,
+  paymentIntentId,
   customerInfo,
   currency,
   selectedAddOns,
@@ -235,6 +237,7 @@ export function StripeCheckout({
   const [isConfirming, setIsConfirming] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const paymentElementRef = useRef<HTMLDivElement>(null)
+  const addressElementRef = useRef<HTMLDivElement>(null)
   const hasInitializedRef = useRef(false)
 
   // Modal state for Learn More
@@ -316,13 +319,28 @@ export function StripeCheckout({
 
         setElements(elementsInstance)
 
-        // Create and mount the payment element
+        // Create and mount the payment element with billing address collection
         const paymentElement = elementsInstance.create('payment', {
           layout: 'tabs',
         })
 
+        // Create and mount the address element for billing address
+        const addressElement = elementsInstance.create('address', {
+          mode: 'billing',
+          fields: {
+            phone: 'never', // We already have phone from step 1
+          },
+          defaultValues: {
+            name: `${customerInfo.firstName} ${customerInfo.lastName}`.trim(),
+          },
+        })
+
         if (paymentElementRef.current) {
           paymentElement.mount(paymentElementRef.current)
+        }
+
+        if (addressElementRef.current) {
+          addressElement.mount(addressElementRef.current)
         }
 
         setIsLoading(false)
@@ -351,18 +369,52 @@ export function StripeCheckout({
         return
       }
 
-      const { error: confirmError } = await stripe.confirmPayment({
+      // Get the billing address from the Address Element
+      const addressElement = elements.getElement('address')
+      if (addressElement) {
+        const { complete, value } = await addressElement.getValue()
+        if (complete && value?.address) {
+          // Update PaymentIntent metadata with billing address
+          try {
+            await fetch('/api/checkout-v2/update-address', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                paymentIntentId,
+                billingAddress: {
+                  city: value.address.city || '',
+                  country: value.address.country || '',
+                  line1: value.address.line1 || '',
+                  line2: value.address.line2 || '',
+                  postal_code: value.address.postal_code || '',
+                  state: value.address.state || '',
+                },
+              }),
+            })
+          } catch (err) {
+            // Non-blocking - continue with payment even if address update fails
+            console.error('Failed to update billing address:', err)
+          }
+        }
+      }
+
+      const { error: confirmError, paymentIntent } = await stripe.confirmPayment({
         elements,
         confirmParams: {
-          return_url: `${window.location.origin}/success`,
+          return_url: `${window.location.origin}/success?payment_intent=${paymentIntentId}`,
         },
+        redirect: 'if_required', // Only redirect if necessary (for redirect-based payments)
       })
 
       if (confirmError) {
         setError(confirmError.message || 'Payment failed')
         setIsConfirming(false)
+      } else if (paymentIntent && paymentIntent.status === 'succeeded') {
+        // Payment succeeded without redirect (card payments)
+        // Manually redirect to success page
+        window.location.href = `${window.location.origin}/success?payment_intent=${paymentIntentId}`
       }
-      // If successful, Stripe will redirect to return_url
+      // For redirect-based payments, Stripe will redirect to return_url
     } catch (err: any) {
       console.error('Confirmation error:', err)
       setError(err.message || 'Payment failed')
@@ -581,6 +633,14 @@ export function StripeCheckout({
               <div ref={paymentElementRef} className="mb-6" />
             </div>
 
+            {/* Billing Address Section */}
+            <div className="mb-8 relative z-20">
+              <p className="text-xs font-medium text-[#847971] uppercase tracking-wider mb-4">
+                Billing address /
+              </p>
+              <div ref={addressElementRef} className="address-element-container" />
+            </div>
+
             {/* Desktop: Add-ons below payment element */}
             <div className="hidden lg:block">
               <AddOnsSection />
@@ -594,9 +654,9 @@ export function StripeCheckout({
             {/* Pay Button */}
             <button
               onClick={handleConfirm}
-              disabled={isLoading || isConfirming || !stripe || !elements}
+              disabled={isLoading || isConfirming || isUpdatingAmount || !stripe || !elements}
               className={`w-full h-14 px-6 rounded-lg font-medium text-base transition-all duration-200 flex items-center justify-center gap-2 ${
-                isLoading || isConfirming || !stripe || !elements
+                isLoading || isConfirming || isUpdatingAmount || !stripe || !elements
                   ? 'bg-[#847971] cursor-not-allowed'
                   : 'bg-[#37322F] hover:bg-[#37322f]/90 cursor-pointer'
               } text-white`}
@@ -693,7 +753,7 @@ export function StripeCheckout({
                   {[
                     "11 Live Classes Per Week",
                     "Private Community Access",
-                    "Boxing Roadmap Course",
+                    "Grade 1 Course",
                     "1-on-1 Graduation Call",
                     "Win Your Money Back Guarantee",
                   ].map((feature, index) => (
@@ -924,9 +984,18 @@ export function StripeCheckout({
         </div>
       )}
 
-      <style jsx>{`
+      <style jsx global>{`
         .scrollbar-hide::-webkit-scrollbar {
           display: none;
+        }
+        /* Ensure Google Maps autocomplete dropdown appears above other elements */
+        .pac-container {
+          z-index: 10000 !important;
+          background-color: white !important;
+        }
+        .address-element-container {
+          position: relative;
+          z-index: 20;
         }
         .ribbon {
           position: absolute;

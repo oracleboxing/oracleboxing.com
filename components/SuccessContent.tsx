@@ -8,6 +8,7 @@ import { convertToUSD, Currency } from '@/lib/currency'
 interface SuccessContentProps {
   sessionId: string
   isPaymentIntent?: boolean
+  isSubscription?: boolean
 }
 
 /**
@@ -91,7 +92,7 @@ function markPurchaseAsTracked(sessionId: string): void {
   }
 }
 
-export function SuccessContent({ sessionId, isPaymentIntent = false }: SuccessContentProps) {
+export function SuccessContent({ sessionId, isPaymentIntent = false, isSubscription = false }: SuccessContentProps) {
   const [session, setSession] = useState<any>(null)
   const [isLoading, setIsLoading] = useState(true)
   const { trackPurchase } = useAnalytics()
@@ -104,8 +105,8 @@ export function SuccessContent({ sessionId, isPaymentIntent = false }: SuccessCo
 
     async function fetchSession() {
       try {
-        // Fetch session data from Stripe (supports both session_id and payment_intent)
-        const param = isPaymentIntent ? 'payment_intent' : 'session_id'
+        // Fetch session data from Stripe (supports session_id, payment_intent, or subscription)
+        const param = isSubscription ? 'subscription' : isPaymentIntent ? 'payment_intent' : 'session_id'
         const response = await fetch(`/api/session?${param}=${sessionId}`);
         const sessionData = await response.json();
 

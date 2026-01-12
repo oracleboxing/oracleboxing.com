@@ -7,7 +7,6 @@ import {
   Coach,
   calculateCoachingPrice,
   createCoachingMetadata,
-  COACHING_PRODUCT_ID,
   TIER_PRICES,
   CUSTOMER_DISCOUNTS,
   getTierDisplayName,
@@ -134,8 +133,7 @@ export async function POST(req: NextRequest) {
 
     // Customer discount
     if (customerDiscount !== 'none') {
-      const discountName = customerDiscount === 'challenge_winner' ? 'Challenge Winner' : 'Existing Member'
-      description += `${discountName} Discount: -${formatPrice(CUSTOMER_DISCOUNTS[customerDiscount])}\n`
+      description += `Challenge Winner Discount: -${formatPrice(CUSTOMER_DISCOUNTS[customerDiscount])}\n`
       description += `Subtotal: ${formatPrice(calculation.subtotal)}\n`
     }
 
@@ -154,128 +152,138 @@ export async function POST(req: NextRequest) {
       description += `\n\nMonthly Payment: ${formatPrice(calculation.monthlyAmount!)}/month × 3 months`
     }
 
-    // Create Stripe checkout session based on payment plan
-    let session
+    // Create or find customer (needed for all payment types now)
+    const customers = await stripe.customers.list({ email, limit: 1 })
+    let customer = customers.data[0]
 
-    if (paymentPlan === 'full') {
-      // ONE-TIME PAYMENT
-      // finalPrice already includes 2x tier price if 6-month commitment is selected
-      session = await stripe.checkout.sessions.create({
-        mode: 'payment',
-        customer_email: email,
-        line_items: [
-          {
-            price_data: {
-              currency: 'usd',
-              product_data: {
-                name: `1-on-1 Coaching - ${tierName}`,
-                description: description,
-              },
-              unit_amount: calculation.finalPrice * 100, // Convert to cents
-              tax_behavior: 'exclusive',
-            },
-            quantity: 1,
-          },
-        ],
-        automatic_tax: {
-          enabled: true,
-        },
-        success_url: `${baseUrl}/success/final?session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `${baseUrl}/admin/coaching-checkout`,
-        metadata: fullMetadata,
-        payment_intent_data: {
-          metadata: fullMetadata, // Also attach to payment intent
-        },
-      })
-    } else if (paymentPlan === 'split_2') {
-      // SPLIT BY 2 - Subscription that cancels after 2 payments
-      // Note: We'll use webhook to cancel after 2nd payment
-      // For now, create regular subscription and handle cancellation logic in webhook
-
-      session = await stripe.checkout.sessions.create({
-        mode: 'subscription',
-        customer_email: email,
-        line_items: [
-          {
-            price_data: {
-              currency: 'usd',
-              product_data: {
-                name: `1-on-1 Coaching - ${tierName} (Split Pay)`,
-                description: description,
-              },
-              unit_amount: calculation.monthlyAmount! * 100, // Convert to cents
-              recurring: {
-                interval: 'month',
-              },
-              tax_behavior: 'exclusive',
-            },
-            quantity: 1,
-          },
-        ],
-        automatic_tax: {
-          enabled: true,
-        },
-        success_url: `${baseUrl}/success/final?session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `${baseUrl}/admin/coaching-checkout`,
+    if (!customer) {
+      customer = await stripe.customers.create({
+        email,
+        name: name.trim(),
         metadata: {
-          ...fullMetadata,
-          auto_cancel_after_payments: '2', // Custom flag for webhook handler
-        },
-        subscription_data: {
-          metadata: {
-            ...fullMetadata,
-            auto_cancel_after_payments: '2', // Custom flag for webhook handler
-          },
+          first_name: firstName,
+          last_name: lastName,
         },
       })
-    } else if (paymentPlan === 'monthly') {
-      // MONTHLY - Ongoing subscription
-
-      session = await stripe.checkout.sessions.create({
-        mode: 'subscription',
-        customer_email: email,
-        line_items: [
-          {
-            price_data: {
-              currency: 'usd',
-              product_data: {
-                name: `1-on-1 Coaching - ${tierName} (Monthly)`,
-                description: description,
-              },
-              unit_amount: calculation.monthlyAmount! * 100, // Convert to cents
-              recurring: {
-                interval: 'month',
-              },
-              tax_behavior: 'exclusive',
-            },
-            quantity: 1,
-          },
-        ],
-        automatic_tax: {
-          enabled: true,
-        },
-        success_url: `${baseUrl}/success/final?session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `${baseUrl}/admin/coaching-checkout`,
-        metadata: fullMetadata,
-        subscription_data: {
-          metadata: fullMetadata, // Also attach to subscription
-        },
-      })
-    } else {
-      return NextResponse.json(
-        { error: 'Invalid payment plan' },
-        { status: 400 }
-      )
     }
 
-    console.log('✅ Coaching session created:', session.id)
-    console.log('🔗 Checkout URL:', session.url)
+    // For ONE-TIME PAYMENTS (full plan), use PaymentIntent with custom checkout page
+    if (paymentPlan === 'full') {
+      // Create PaymentIntent for custom checkout page with automatic tax (inclusive)
+      const paymentIntent = await stripe.paymentIntents.create({
+        amount: calculation.finalPrice * 100, // Convert to cents (tax inclusive)
+        currency: 'usd',
+        customer: customer.id,
+        setup_future_usage: 'off_session',
+        automatic_payment_methods: {
+          enabled: true,
+        },
+        metadata: {
+          ...fullMetadata,
+          product_name: `1-on-1 Coaching - ${tierName}`,
+          product_description: description,
+          tax_inclusive: 'true', // Flag that price includes tax
+        },
+      })
 
-    return NextResponse.json({
-      url: session.url,
-      sessionId: session.id,
-      calculation,
-    })
+      console.log('✅ PaymentIntent created:', paymentIntent.id)
+
+      // Build custom checkout URL with payment intent info
+      const checkoutUrl = `${baseUrl}/coaching-checkout?pi=${paymentIntent.id}&secret=${paymentIntent.client_secret}`
+
+      console.log('🔗 Custom Checkout URL:', checkoutUrl)
+
+      return NextResponse.json({
+        url: checkoutUrl,
+        paymentIntentId: paymentIntent.id,
+        clientSecret: paymentIntent.client_secret,
+        calculation,
+        useCustomCheckout: true,
+      })
+    }
+
+    // For SPLIT BY 2 - Use PaymentIntent for first payment, schedule second for 30 days
+    if (paymentPlan === 'split_2') {
+      // Create PaymentIntent for first payment (custom checkout page) with automatic tax (inclusive)
+      const paymentIntent = await stripe.paymentIntents.create({
+        amount: calculation.monthlyAmount! * 100, // First payment amount in cents (tax inclusive)
+        currency: 'usd',
+        customer: customer.id,
+        setup_future_usage: 'off_session', // Save card for second payment
+        automatic_payment_methods: {
+          enabled: true,
+        },
+        metadata: {
+          ...fullMetadata,
+          product_name: `1-on-1 Coaching - ${tierName} (Payment 1 of 2)`,
+          product_description: description,
+          tax_inclusive: 'true', // Flag that price includes tax
+          split_payment: 'true',
+          payment_number: '1',
+          total_payments: '2',
+          second_payment_amount: (calculation.monthlyAmount! * 100).toString(),
+          second_payment_due_days: '30',
+        },
+      })
+
+      console.log('✅ Split Pay PaymentIntent created:', paymentIntent.id)
+
+      // Build custom checkout URL with payment intent info
+      const checkoutUrl = `${baseUrl}/coaching-checkout?pi=${paymentIntent.id}&secret=${paymentIntent.client_secret}`
+
+      console.log('🔗 Custom Checkout URL:', checkoutUrl)
+
+      return NextResponse.json({
+        url: checkoutUrl,
+        paymentIntentId: paymentIntent.id,
+        clientSecret: paymentIntent.client_secret,
+        calculation,
+        useCustomCheckout: true,
+        splitPayment: true,
+      })
+    }
+
+    // For MONTHLY subscriptions, create a SetupIntent to collect card, then create subscription after
+    // This allows us to use the custom checkout page while still setting up recurring billing
+    if (paymentPlan === 'monthly') {
+      // Create a SetupIntent to collect and save the payment method
+      const setupIntent = await stripe.setupIntents.create({
+        customer: customer.id,
+        payment_method_types: ['card'],
+        usage: 'off_session', // We'll use this for future subscription payments
+        metadata: {
+          ...fullMetadata,
+          product_name: `1-on-1 Coaching - ${tierName} (Monthly)`,
+          product_description: description,
+          monthly_amount: (calculation.monthlyAmount! * 100).toString(),
+          setup_for_subscription: 'true',
+          tax_inclusive: 'true', // Flag that price includes tax
+          tier,
+          coach,
+        },
+      })
+
+      console.log('✅ SetupIntent created for subscription:', setupIntent.id)
+
+      // Build custom checkout URL with setup intent info
+      const checkoutUrl = `${baseUrl}/coaching-checkout?setup=${setupIntent.id}&secret=${setupIntent.client_secret}&monthly=true`
+
+      console.log('🔗 Custom Checkout URL:', checkoutUrl)
+
+      return NextResponse.json({
+        url: checkoutUrl,
+        setupIntentId: setupIntent.id,
+        clientSecret: setupIntent.client_secret,
+        calculation,
+        useCustomCheckout: true,
+        setupForSubscription: true,
+      })
+    }
+
+    return NextResponse.json(
+      { error: 'Invalid payment plan' },
+      { status: 400 }
+    )
   } catch (error: any) {
     console.error('❌ Error creating coaching session:', error)
     return NextResponse.json(

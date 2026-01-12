@@ -65,10 +65,14 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // Update the PaymentIntent with new amount
+    // Fetch current PaymentIntent to preserve existing metadata
+    const currentPaymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId)
+
+    // Update the PaymentIntent with new amount - MERGE metadata to preserve tracking data
     const updatedPaymentIntent = await stripe.paymentIntents.update(paymentIntentId, {
       amount: totalAmount,
       metadata: {
+        ...currentPaymentIntent.metadata, // Preserve existing metadata (customer info, tracking, etc.)
         line_items: JSON.stringify(lineItemPriceIds),
         product_descriptions: lineItemDescriptions.join(', '),
         add_ons_included: addOns.join(','),

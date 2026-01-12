@@ -216,6 +216,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Create PaymentIntent directly (works with stripe.elements())
+    // Tax is inclusive (already included in the price shown to customer)
     const paymentIntent = await stripe.paymentIntents.create({
       amount: totalAmount,
       currency: currency.toLowerCase(),
@@ -229,6 +230,7 @@ export async function POST(req: NextRequest) {
         ...cookieMetadata,
         line_items: JSON.stringify(line_items.map(li => li.price)),
         product_descriptions: lineItemDescriptions.join(', '),
+        tax_inclusive: 'true', // Flag that price includes tax
       },
     })
 

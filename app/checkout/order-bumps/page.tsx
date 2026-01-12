@@ -2,7 +2,7 @@
 
 import { Suspense, useState, useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { Check, ChevronDown, ChevronUp, ArrowRight, ArrowLeft, Loader2, X } from 'lucide-react'
+import { Check, ChevronDown, ChevronUp, ArrowRight, ArrowLeft, Loader2, X, ShieldCheck, Star } from 'lucide-react'
 import { toast } from 'sonner'
 
 import { get6WCAddOns, getCourseOrderBump, get21DCOrderBumps, getProductById } from '@/lib/products'
@@ -731,7 +731,7 @@ function OrderBumpsContent() {
         )
       })()}
 
-      <div className="min-h-screen bg-[#FFFCF5] py-8 px-4 sm:px-6 lg:px-8">
+      <div className="min-h-screen bg-white py-8 px-4 sm:px-6 lg:px-8">
         <div className="max-w-2xl md:max-w-5xl mx-auto">
           {/* Header */}
           <div className="text-center mb-8">
@@ -835,28 +835,37 @@ function OrderBumpsContent() {
               </div>
 
               {/* Items */}
-              <div className="space-y-4 mb-5">
+              <div className="space-y-4 mb-5 transition-all duration-300">
                 {/* Base Product */}
                 {funnelType === '21dc' && (() => {
                   const productParam = searchParams.get('product')
                   const baseProduct = productParam ? getProductById(productParam) : null
                   if (baseProduct) {
                     return (
-                      <div className="flex items-center gap-4">
-                        <div className="w-20 h-12 rounded-lg overflow-hidden bg-[#F5F3F0] flex-shrink-0">
-                          <img
-                            src={baseProduct.image}
-                            alt={baseProduct.title}
-                            className="w-full h-full object-cover"
-                          />
+                      <div className="bg-gradient-to-br from-[#4A4540] to-[#37322F] rounded-xl p-4 text-white relative overflow-hidden">
+                        {/* Background pattern */}
+                        <div className="absolute inset-0 opacity-10">
+                          <div className="absolute top-0 right-0 w-64 h-64 bg-white/20 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2" />
                         </div>
-                        <div className="flex-1 min-w-0">
-                          <p className="text-sm font-medium text-[#37322F] truncate">{baseProduct.title}</p>
-                          <p className="text-xs text-[#847971]">Challenge Entry</p>
+                        <div className="relative flex items-center gap-4">
+                          <div className="w-20 h-12 rounded-lg overflow-hidden bg-white/10 flex-shrink-0">
+                            <img
+                              src={baseProduct.image}
+                              alt={baseProduct.title}
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className="text-sm font-medium text-white truncate">{baseProduct.title}</p>
+                            <p className="text-xs text-white/60">Challenge Entry</p>
+                          </div>
+                          <div className="text-right flex-shrink-0">
+                            <span className="text-sm font-semibold text-white">
+                              {formatPrice(getProductPrice(baseProduct.metadata, currency) || baseProduct.price, currency)}
+                            </span>
+                            <p className="text-xs text-white/60">one time</p>
+                          </div>
                         </div>
-                        <span className="text-sm font-semibold text-[#37322F]">
-                          {formatPrice(getProductPrice(baseProduct.metadata, currency) || baseProduct.price, currency)}
-                        </span>
                       </div>
                     )
                   }
@@ -868,7 +877,7 @@ function OrderBumpsContent() {
                   const bump = orderBumps.find(b => b.id === bumpId)
                   if (!bump) return null
                   return (
-                    <div key={bumpId} className="flex items-center gap-4">
+                    <div key={bumpId} className="flex items-center gap-4 transition-all duration-300">
                       <div className="w-20 h-12 rounded-lg overflow-hidden bg-[#F5F3F0] flex-shrink-0">
                         <img
                           src={bump.image}
@@ -880,9 +889,12 @@ function OrderBumpsContent() {
                         <p className="text-sm font-medium text-[#37322F] truncate">{bump.title}</p>
                         <p className="text-xs text-[#847971]">Add-on</p>
                       </div>
-                      <span className="text-sm font-semibold text-[#37322F]">
-                        {formatPrice(getProductPrice(bump.metadata, currency) || bump.price, currency)}
-                      </span>
+                      <div className="text-right flex-shrink-0">
+                        <span className="text-sm font-semibold text-[#37322F]">
+                          {formatPrice(getProductPrice(bump.metadata, currency) || bump.price, currency)}
+                        </span>
+                        <p className="text-xs text-[#847971]">one time</p>
+                      </div>
                     </div>
                   )
                 })}
@@ -911,7 +923,7 @@ function OrderBumpsContent() {
               )}
             </div>
 
-            {/* Continue Button */}
+            {/* Pay Button */}
             <button
               onClick={handleContinue}
               disabled={isLoading}
@@ -928,11 +940,50 @@ function OrderBumpsContent() {
                 </>
               ) : (
                 <>
-                  Continue to Payment
+                  Pay
                   <ArrowRight className="w-4 h-4" />
                 </>
               )}
             </button>
+
+            {/* Trust Elements */}
+            <div className="mt-6 space-y-4">
+              {/* Terms link */}
+              <p className="text-center text-[#847971] text-xs">
+                By clicking the pay button you agree to our{' '}
+                <a href="/terms" className="underline hover:text-[#605A57]">Terms & services</a>.
+              </p>
+
+              {/* Security badge */}
+              <div className="flex items-center justify-center gap-2 text-[#605A57] text-sm">
+                <ShieldCheck className="w-5 h-5" />
+                <span>Your information is encrypted and secure</span>
+              </div>
+
+              {/* Rating */}
+              <div className="flex items-center justify-center gap-2 text-[#605A57] text-sm">
+                <span>Rated 4.9/5 by members</span>
+                <div className="flex gap-0.5">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="w-4 h-4 fill-[#F5A623] text-[#F5A623]" />
+                  ))}
+                </div>
+              </div>
+
+              {/* Powered by Stripe */}
+              <div className="flex items-center justify-center gap-2">
+                <span className="text-[#847971] text-sm">Powered by</span>
+                <svg className="h-6" viewBox="0 0 60 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fillRule="evenodd" clipRule="evenodd" d="M59.64 14.28C59.64 10.05 57.56 6.73 53.75 6.73C49.93 6.73 47.49 10.05 47.49 14.24C47.49 19.18 50.34 21.71 54.39 21.71C56.38 21.71 57.87 21.23 59.02 20.56V17.37C57.87 17.97 56.54 18.33 54.87 18.33C53.24 18.33 51.8 17.78 51.62 15.81H59.6C59.6 15.58 59.64 14.68 59.64 14.28ZM51.54 12.89C51.54 10.99 52.66 10.15 53.74 10.15C54.79 10.15 55.85 10.99 55.85 12.89H51.54Z" fill="#635BFF"/>
+                  <path fillRule="evenodd" clipRule="evenodd" d="M41.13 6.73C39.47 6.73 38.39 7.5 37.79 8.02L37.57 7.01H33.75V24.94L38.01 24.06L38.02 20.49C38.64 20.93 39.54 21.71 41.11 21.71C44.27 21.71 47.13 19.28 47.13 14.09C47.12 9.31 44.21 6.73 41.13 6.73ZM40.11 18.12C39.04 18.12 38.39 17.75 37.96 17.3L37.94 11.22C38.41 10.72 39.08 10.36 40.11 10.36C41.77 10.36 42.92 12.14 42.92 14.23C42.92 16.36 41.79 18.12 40.11 18.12Z" fill="#635BFF"/>
+                  <path fillRule="evenodd" clipRule="evenodd" d="M28.24 5.57L32.52 4.68V1.29L28.24 2.17V5.57Z" fill="#635BFF"/>
+                  <path d="M32.52 7.01H28.24V21.44H32.52V7.01Z" fill="#635BFF"/>
+                  <path fillRule="evenodd" clipRule="evenodd" d="M23.75 8.17L23.49 7.01H19.75V21.44H24.01V11.59C25.01 10.32 26.68 10.53 27.17 10.7V7.01C26.66 6.82 24.75 6.48 23.75 8.17Z" fill="#635BFF"/>
+                  <path fillRule="evenodd" clipRule="evenodd" d="M15.17 2.85L11.01 3.71L10.99 17.54C10.99 19.92 12.77 21.72 15.16 21.72C16.47 21.72 17.42 21.48 17.95 21.19V17.85C17.44 18.05 15.15 18.69 15.15 16.31V10.56H17.95V7.01H15.15L15.17 2.85Z" fill="#635BFF"/>
+                  <path fillRule="evenodd" clipRule="evenodd" d="M4.28 11.22C4.28 10.55 4.82 10.29 5.7 10.29C6.97 10.29 8.56 10.68 9.83 11.38V7.41C8.44 6.86 7.07 6.64 5.7 6.64C2.28 6.64 0 8.45 0 11.41C0 16.03 6.35 15.26 6.35 17.24C6.35 18.03 5.68 18.29 4.74 18.29C3.35 18.29 1.59 17.71 0.19 16.91V20.94C1.74 21.61 3.31 21.89 4.74 21.89C8.24 21.89 10.67 20.14 10.67 17.13C10.66 12.15 4.28 13.08 4.28 11.22Z" fill="#635BFF"/>
+                </svg>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -1040,7 +1091,7 @@ function ProductCard({
 export default function OrderBumpsPage() {
   return (
     <Suspense fallback={
-      <div className="flex items-center justify-center min-h-screen bg-[#FFFCF5]">
+      <div className="flex items-center justify-center min-h-screen bg-white">
         <Loader2 className="w-8 h-8 animate-spin text-[#847971]" />
       </div>
     }>

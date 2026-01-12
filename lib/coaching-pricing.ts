@@ -4,38 +4,33 @@
 // Internal tool for creating custom 1-on-1 coaching checkout sessions
 // with flexible pricing, discounts, and payment plans
 
-export type CoachingTier = 'tier_1' | 'tier_2' | 'tier_3'
-export type CustomerDiscount = 'none' | 'challenge_winner' | 'existing_member' | '97_off'
+export type CoachingTier = 'tier_1' | 'tier_2'
+export type CustomerDiscount = 'none' | 'challenge_winner'
 export type PaymentPlan = 'full' | 'split_2' | 'monthly'
 export type Coach = 'Toni' | 'Charlie'
 
 // Base pricing structure
 export const TIER_PRICES = {
-  tier_1: 1500,
-  tier_2: 2000,
-  tier_3: 2500,
+  tier_1: 1200,
+  tier_2: 1800,
 } as const
 
 // Customer discount amounts
 export const CUSTOMER_DISCOUNTS = {
   none: 0,
-  challenge_winner: 197,
-  existing_member: 297,
-  '97_off': 97,
+  challenge_winner: 147,
 } as const
 
-// Split pay rates - divide tier price by 2 (not affected by discounts)
+// Split pay rates - (base price - 10%) / 2 for 6-month commitment
 export const SPLIT_PAY_RATES = {
-  tier_1: 750,  // $1500 / 2
-  tier_2: 1000, // $2000 / 2
-  tier_3: 1250, // $2500 / 2
+  tier_1: 540,  // ($1200 * 0.9) / 2
+  tier_2: 810,  // ($1800 * 0.9) / 2
 } as const
 
-// Monthly subscription rates - divide tier price by 3 (not affected by discounts)
+// Monthly subscription rates (3 month commitment)
 export const MONTHLY_RATES = {
-  tier_1: 500,  // $1500 / 3
-  tier_2: 667,  // $2000 / 3 (rounded)
-  tier_3: 833,  // $2500 / 3 (rounded)
+  tier_1: 400,
+  tier_2: 600,
 } as const
 
 // 6-month commitment discount percentage
@@ -134,10 +129,6 @@ export function getCustomerDiscountDisplayName(discount: CustomerDiscount): stri
       return 'No Discount'
     case 'challenge_winner':
       return 'Challenge Winner'
-    case 'existing_member':
-      return 'Existing Member'
-    case '97_off':
-      return '$97 Off'
   }
 }
 

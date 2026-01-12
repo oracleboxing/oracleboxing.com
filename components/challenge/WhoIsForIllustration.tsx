@@ -22,7 +22,7 @@ export default function WhoIsForIllustration({
       preserveAspectRatio="xMidYMid meet"
     >
       {/* Background */}
-      <rect width="320" height="280" fill="#FFFCF5" />
+      <rect width="320" height="280" fill="white" />
 
       {/* Approved checkmark card */}
       <g transform="translate(40, 40)">

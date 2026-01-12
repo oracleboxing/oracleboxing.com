@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react'
 import { toast } from 'sonner'
 import { Loader2, Copy, Check, ChevronDown } from 'lucide-react'
-import FooterSection from '@/components/footer-section'
 import {
   CoachingTier,
   CustomerDiscount,
@@ -19,7 +18,6 @@ export default function AdminCoachingCheckout() {
   const [isLoading, setIsLoading] = useState(false)
   const [checkoutUrl, setCheckoutUrl] = useState<string | null>(null)
   const [copied, setCopied] = useState(false)
-  const [openFaq, setOpenFaq] = useState<number | null>(null)
 
   // Form state
   const [email, setEmail] = useState('')
@@ -33,17 +31,17 @@ export default function AdminCoachingCheckout() {
   // Calculate pricing whenever selections change
   const calculation = calculateCoachingPrice(tier, customerDiscount, sixMonthCommitment, paymentPlan)
 
-  // Reset discounts and 6-month commitment when monthly is selected
+  // Reset discounts and 6-month when monthly is selected
   useEffect(() => {
     if (paymentPlan === 'monthly') {
-      if (sixMonthCommitment) {
-        setSixMonthCommitment(false)
-      }
       if (customerDiscount !== 'none') {
         setCustomerDiscount('none')
       }
+      if (sixMonthCommitment) {
+        setSixMonthCommitment(false)
+      }
     }
-  }, [paymentPlan, sixMonthCommitment, customerDiscount])
+  }, [paymentPlan, customerDiscount, sixMonthCommitment])
 
   // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
@@ -129,404 +127,421 @@ export default function AdminCoachingCheckout() {
     setCoach('Toni')
   }
 
-  const faqs = [
-    {
-      question: "Payment Methods",
-      answer: `PayPal: Customers need to select "Pay with USD" option when checking out to use PayPal.
+  // Button style helper for coach buttons
+  const btnClass = (isActive: boolean) =>
+    `py-3 px-4 rounded-lg font-medium transition-all font-sans text-sm ${
+      isActive
+        ? 'bg-[#37322F] text-white'
+        : 'bg-gray-100 text-[#37322F] hover:bg-gray-200'
+    }`
 
-Klarna: Only available for GBP, EUR, and certain other currencies - NOT available for USD payments.
-
-Apple Pay / Google Pay: Automatically appears for customers on supported devices (iPhone/Safari for Apple Pay, Android/Chrome for Google Pay).`
-    },
-    {
-      question: "Discounts & Payment Plans",
-      answer: `Challenge Winner: -$197 discount (applies to Pay in Full and Split by 2 only)
-
-Existing Member: -$297 discount (applies to Pay in Full and Split by 2 only)
-
-$97 Off: -$97 discount (applies to Pay in Full and Split by 2 only)
-
-Monthly Subscriptions: Do NOT receive customer discounts - standard rates only ($500, $667, or $833/month)
-
-6-Month Commitment: Get 10% off + pay for 2 months upfront (not available for monthly plans)`
-    },
-    {
-      question: "Payment Plan Details",
-      answer: `Pay in Full: One-time payment, customer discounts apply
-
-Split by 2: 2 monthly payments, auto-cancels after 2nd payment, customer discounts apply
-
-Monthly: Ongoing subscription over 3 months, NO customer discounts, 6-month commitment NOT available`
-    },
-    {
-      question: "Tax & Billing",
-      answer: `Automatic Tax: Tax is calculated automatically based on customer location and added to the total.
-
-Subscription Billing: For Split by 2 and Monthly plans, customers are charged on the same day each month.`
-    },
-    {
-      question: "Coach Assignment",
-      answer: `Toni & Charlie: Select the coach that will work with this client - this is tracked in metadata.`
-    }
-  ]
+  // Select dropdown styles
+  const selectClass = "w-full h-12 px-4 pr-10 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#37322F]/20 focus:border-[#37322F] bg-white text-[#37322F] font-sans text-sm appearance-none cursor-pointer disabled:bg-gray-50 disabled:text-gray-400 disabled:cursor-not-allowed"
 
   return (
-    <div className="min-h-screen bg-[#FFFCF5] flex overflow-x-hidden">
-      <div className="hidden sm:block sm:w-4 md:w-8 lg:w-12 flex-shrink-0 border-r border-[rgba(55,50,47,0.12)]"></div>
-      <main className="flex-1 min-w-0">
+    <div className="min-h-screen bg-white">
+      {/* Header */}
+      <header className="border-b border-gray-200 py-4 px-6">
+        <h1 className="text-lg font-semibold text-[#37322F] font-sans">Admin</h1>
+      </header>
 
-        {/* Hero Section */}
-        <section className="relative pt-[120px] md:pt-[160px] pb-16 border-b border-[rgba(55,50,47,0.12)]">
-          <div className="max-w-[1060px] mx-auto px-4">
-            <div className="flex flex-col items-center gap-6">
-              <h1 className="max-w-[900px] text-center text-[#37322f] text-4xl md:text-[64px] font-normal leading-tight md:leading-[1.15] font-serif">
-                Internal Coaching Checkout
-              </h1>
-              <p className="max-w-[700px] text-center text-[#37322f]/80 text-lg md:text-xl font-medium leading-7 font-sans">
-                Create custom checkout links for 1-on-1 coaching clients
-              </p>
+      {/* Main Content */}
+      <div className="p-6">
+        {checkoutUrl ? (
+          // Success State
+          <div className="space-y-6">
+            <div>
+              <h2 className="text-[#37322F] text-lg font-semibold font-sans mb-1">Link Created</h2>
+              <p className="text-gray-500 text-sm font-sans">Share with {name}</p>
             </div>
+
+            <div className="flex items-center gap-3">
+              <input
+                type="text"
+                value={checkoutUrl}
+                readOnly
+                className="flex-1 h-12 px-4 bg-gray-50 border border-gray-200 rounded-lg text-sm font-mono text-[#37322F]"
+              />
+              <button
+                onClick={() => window.open(checkoutUrl, '_blank')}
+                className="h-12 px-5 bg-gray-100 text-[#37322F] rounded-lg hover:bg-gray-200 transition-colors font-sans font-medium text-sm"
+              >
+                Open
+              </button>
+              <button
+                onClick={copyToClipboard}
+                className="h-12 px-5 bg-[#37322F] text-white rounded-lg hover:bg-[#49423D] transition-colors flex items-center gap-2 font-sans font-medium text-sm"
+              >
+                {copied ? <><Check className="w-4 h-4" /> Copied</> : <><Copy className="w-4 h-4" /> Copy</>}
+              </button>
+            </div>
+
+            <div className="flex items-center gap-6 text-sm font-sans py-3 border-y border-gray-100">
+              <span className="text-gray-500">
+                {tier === 'tier_1' ? 'Tier 1' : 'Tier 2'} • {coach}
+              </span>
+              {calculation.customerDiscount > 0 && (
+                <span className="text-green-600">-{formatPrice(calculation.customerDiscount)} discount</span>
+              )}
+              {calculation.sixMonthDiscount > 0 && (
+                <span className="text-green-600">-{formatPrice(calculation.sixMonthDiscount)} (10% off)</span>
+              )}
+              <span className="font-semibold text-[#37322F] ml-auto text-base">
+                {formatPrice(calculation.finalPrice)}
+                {calculation.monthlyAmount && <span className="text-gray-400 font-normal text-sm ml-2">({formatPrice(calculation.monthlyAmount)}/payment)</span>}
+              </span>
+            </div>
+
+            <button
+              onClick={resetForm}
+              className="text-sm text-gray-500 hover:text-[#37322F] font-sans underline"
+            >
+              Create another link
+            </button>
           </div>
-        </section>
-
-        {/* Form Section */}
-        <section className="py-16 md:py-24 border-b border-[rgba(55,50,47,0.12)]">
-          <div className="max-w-[600px] mx-auto px-4">
-            {checkoutUrl ? (
-              // Success State - Show checkout URL
-              <div className="bg-white rounded-2xl p-8 border border-[rgba(55,50,47,0.12)]">
-                <div className="text-center mb-6">
-                  <h2 className="text-[#37322F] text-2xl md:text-3xl font-normal font-serif mb-2">Checkout Link Created</h2>
-                  <p className="text-[rgba(73,66,61,0.70)] text-base font-sans">Share this link with {name}</p>
-                </div>
-
-                <div className="bg-[#FFFCF5] rounded-xl p-4 mb-6">
-                  <p className="text-xs font-medium text-[rgba(73,66,61,0.50)] mb-2 font-sans">CHECKOUT URL</p>
-                  <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
-                    <input
-                      type="text"
-                      value={checkoutUrl}
-                      readOnly
-                      className="flex-1 px-4 py-2 bg-white border border-[rgba(55,50,47,0.12)] rounded-xl text-sm font-mono text-[#37322F]"
-                    />
-                    <div className="flex gap-2">
-                      <button
-                        onClick={() => window.open(checkoutUrl, '_blank')}
-                        className="flex-1 sm:flex-none px-4 py-2 bg-[#49423D] text-white rounded-full hover:bg-[#37322F] transition-colors flex items-center justify-center gap-2 font-sans font-semibold text-sm"
-                      >
-                        Open
-                      </button>
-                      <button
-                        onClick={copyToClipboard}
-                        className="flex-1 sm:flex-none px-4 py-2 bg-[#37322F] text-white rounded-full hover:bg-[#49423D] transition-colors flex items-center justify-center gap-2 font-sans font-semibold text-sm"
-                      >
-                        {copied ? (
-                          <>
-                            <Check className="w-4 h-4" />
-                            Copied
-                          </>
-                        ) : (
-                          <>
-                            <Copy className="w-4 h-4" />
-                            Copy
-                          </>
-                        )}
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="bg-[#FFFCF5] rounded-xl p-4 mb-6">
-                  <p className="text-sm font-medium text-[#37322F] mb-3 font-sans">Payment Details:</p>
-                  <div className="space-y-2 text-sm text-[rgba(73,66,61,0.70)] font-sans">
-                    <div className="flex justify-between">
-                      <span>Tier:</span>
-                      <span className="font-semibold text-[#37322F]">{tier.toUpperCase().replace('_', ' ')}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Base Price:</span>
-                      <span className="font-semibold text-[#37322F]">{formatPrice(calculation.basePrice)}</span>
-                    </div>
-                    {calculation.customerDiscount > 0 && (
-                      <div className="flex justify-between">
-                        <span>Customer Discount:</span>
-                        <span className="font-semibold text-[#37322F]">-{formatPrice(calculation.customerDiscount)}</span>
-                      </div>
-                    )}
-                    {calculation.sixMonthDiscount > 0 && (
-                      <div className="flex justify-between">
-                        <span>6-Month Discount (10%):</span>
-                        <span className="font-semibold text-[#37322F]">-{formatPrice(calculation.sixMonthDiscount)}</span>
-                      </div>
-                    )}
-                    <div className="flex justify-between pt-2 border-t border-[rgba(55,50,47,0.12)]">
-                      <span className="font-semibold text-[#37322F]">Final Price:</span>
-                      <span className="font-semibold text-lg text-[#37322F]">{formatPrice(calculation.finalPrice)}</span>
-                    </div>
-                    {calculation.monthlyAmount && (
-                      <div className="flex justify-between">
-                        <span>Monthly Payment:</span>
-                        <span className="font-semibold text-[#37322F]">{formatPrice(calculation.monthlyAmount)}/mo</span>
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                <button
-                  onClick={resetForm}
-                  className="w-full py-4 bg-[#FFFCF5] text-[#37322F] rounded-full font-semibold text-lg font-sans cursor-pointer hover:bg-[#F5F2EB] transition-colors border border-[rgba(55,50,47,0.12)]"
-                >
-                  Create Another Link
-                </button>
+        ) : (
+          // Form State
+          <form onSubmit={handleSubmit} className="space-y-6">
+            {/* Row 1: Customer Info */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-[#37322F] mb-1.5 font-sans">Email</label>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full h-12 px-4 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#37322F]/20 focus:border-[#37322F] bg-white text-[#37322F] font-sans text-sm"
+                  placeholder="customer@email.com"
+                  required
+                />
               </div>
-            ) : (
-              // Form State
-              <form onSubmit={handleSubmit}>
-                <div className="bg-white rounded-2xl p-8 border border-[rgba(55,50,47,0.12)] space-y-6">
-                  {/* Customer Information */}
-                  <div className="space-y-4">
-                    <h2 className="text-[#37322F] text-xl font-normal font-serif">Customer Information</h2>
-
-                    <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-[#37322F] mb-2 font-sans">
-                        Email *
-                      </label>
-                      <input
-                        type="email"
-                        id="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        className="w-full px-4 py-3 border border-[rgba(55,50,47,0.12)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#37322F]/20 focus:border-[#37322F] transition-all bg-white text-[#37322F] font-sans"
-                        placeholder="customer@email.com"
-                        required
-                      />
-                    </div>
-
-                    <div>
-                      <label htmlFor="name" className="block text-sm font-medium text-[#37322F] mb-2 font-sans">
-                        Full Name *
-                      </label>
-                      <input
-                        type="text"
-                        id="name"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        className="w-full px-4 py-3 border border-[rgba(55,50,47,0.12)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#37322F]/20 focus:border-[#37322F] transition-all bg-white text-[#37322F] font-sans"
-                        placeholder="John Doe"
-                        required
-                      />
-                    </div>
-                  </div>
-
-                  {/* Pricing Configuration */}
-                  <div className="space-y-4 pt-6 border-t border-[rgba(55,50,47,0.08)]">
-                    <h2 className="text-[#37322F] text-xl font-normal font-serif">Pricing Configuration</h2>
-
-                    {/* Tier Selection */}
-                    <div>
-                      <label htmlFor="tier" className="block text-sm font-medium text-[#37322F] mb-2 font-sans">
-                        Tier *
-                      </label>
-                      <select
-                        id="tier"
-                        value={tier}
-                        onChange={(e) => setTier(e.target.value as CoachingTier)}
-                        className="w-full px-4 py-3 border border-[rgba(55,50,47,0.12)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#37322F]/20 focus:border-[#37322F] transition-all bg-white text-[#37322F] font-sans"
-                      >
-                        <option value="tier_1">Tier 1 - {formatPrice(TIER_PRICES.tier_1)}</option>
-                        <option value="tier_2">Tier 2 - {formatPrice(TIER_PRICES.tier_2)}</option>
-                        <option value="tier_3">Tier 3 - {formatPrice(TIER_PRICES.tier_3)}</option>
-                      </select>
-                    </div>
-
-                    {/* Customer Discount */}
-                    <div>
-                      <label htmlFor="discount" className={`block text-sm font-medium mb-2 font-sans ${paymentPlan === 'monthly' ? 'text-[rgba(73,66,61,0.50)]' : 'text-[#37322F]'}`}>
-                        Customer Discount
-                        {paymentPlan === 'monthly' && <span className="text-xs text-[rgba(73,66,61,0.50)] ml-2">(Not available for monthly plans)</span>}
-                      </label>
-                      <select
-                        id="discount"
-                        value={customerDiscount}
-                        onChange={(e) => setCustomerDiscount(e.target.value as CustomerDiscount)}
-                        disabled={paymentPlan === 'monthly'}
-                        className="w-full px-4 py-3 border border-[rgba(55,50,47,0.12)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#37322F]/20 focus:border-[#37322F] transition-all bg-white text-[#37322F] font-sans disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-[#FFFCF5]"
-                      >
-                        <option value="none">No Discount</option>
-                        <option value="challenge_winner">Challenge Winner (-{formatPrice(CUSTOMER_DISCOUNTS.challenge_winner)})</option>
-                        <option value="existing_member">Existing Member (-{formatPrice(CUSTOMER_DISCOUNTS.existing_member)})</option>
-                        <option value="97_off">$97 Off (-{formatPrice(CUSTOMER_DISCOUNTS['97_off'])})</option>
-                      </select>
-                    </div>
-
-                    {/* Payment Plan */}
-                    <div>
-                      <label className="block text-sm font-medium text-[#37322F] mb-3 font-sans">
-                        Payment Plan *
-                      </label>
-                      <div className="grid grid-cols-3 gap-3">
-                        <button
-                          type="button"
-                          onClick={() => setPaymentPlan('full')}
-                          className={`py-3 px-4 rounded-xl font-medium transition-all font-sans text-sm ${
-                            paymentPlan === 'full'
-                              ? 'bg-[#37322F] text-white shadow-lg'
-                              : 'bg-[#FFFCF5] text-[#37322F] hover:bg-[#F5F2EB] border border-[rgba(55,50,47,0.12)]'
-                          }`}
-                        >
-                          Pay in Full
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => setPaymentPlan('split_2')}
-                          className={`py-3 px-4 rounded-xl font-medium transition-all font-sans text-sm ${
-                            paymentPlan === 'split_2'
-                              ? 'bg-[#37322F] text-white shadow-lg'
-                              : 'bg-[#FFFCF5] text-[#37322F] hover:bg-[#F5F2EB] border border-[rgba(55,50,47,0.12)]'
-                          }`}
-                        >
-                          Split by 2
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => setPaymentPlan('monthly')}
-                          className={`py-3 px-4 rounded-xl font-medium transition-all font-sans text-sm ${
-                            paymentPlan === 'monthly'
-                              ? 'bg-[#37322F] text-white shadow-lg'
-                              : 'bg-[#FFFCF5] text-[#37322F] hover:bg-[#F5F2EB] border border-[rgba(55,50,47,0.12)]'
-                          }`}
-                        >
-                          Monthly
-                        </button>
-                      </div>
-                    </div>
-
-                    {/* 6-Month Commitment */}
-                    <div className="flex items-center gap-3 p-4 bg-[#FFFCF5] rounded-xl border border-[rgba(55,50,47,0.12)]">
-                      <input
-                        type="checkbox"
-                        id="sixMonth"
-                        checked={sixMonthCommitment}
-                        onChange={(e) => setSixMonthCommitment(e.target.checked)}
-                        disabled={paymentPlan === 'monthly'}
-                        className="w-5 h-5 rounded border-[rgba(55,50,47,0.12)] text-[#37322F] focus:ring-[#37322F] disabled:opacity-50 disabled:cursor-not-allowed"
-                      />
-                      <label htmlFor="sixMonth" className={`text-sm font-medium flex-1 font-sans ${paymentPlan === 'monthly' ? 'text-[rgba(73,66,61,0.50)]' : 'text-[#37322F]'}`}>
-                        6-Month Commitment <span className="text-[#37322F] font-semibold">(Get 10% off + 2 months upfront)</span>
-                        {paymentPlan === 'monthly' && <span className="block text-xs text-[rgba(73,66,61,0.50)] mt-1">Not available for monthly plans</span>}
-                      </label>
-                    </div>
-
-                    {/* Coach Selection */}
-                    <div>
-                      <label htmlFor="coach" className="block text-sm font-medium text-[#37322F] mb-2 font-sans">
-                        Coach Assignment *
-                      </label>
-                      <select
-                        id="coach"
-                        value={coach}
-                        onChange={(e) => setCoach(e.target.value as Coach)}
-                        className="w-full px-4 py-3 border border-[rgba(55,50,47,0.12)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#37322F]/20 focus:border-[#37322F] transition-all bg-white text-[#37322F] font-sans"
-                      >
-                        <option value="Toni">Toni</option>
-                        <option value="Charlie">Charlie</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  {/* Price Preview */}
-                  <div className="bg-[#FFFCF5] rounded-xl p-6 border border-[rgba(55,50,47,0.12)]">
-                    <p className="text-sm font-medium text-[rgba(73,66,61,0.70)] mb-4 font-sans">Price Preview</p>
-                    <div className="space-y-2 text-sm font-sans">
-                      <div className="flex justify-between">
-                        <span className="text-[rgba(73,66,61,0.70)]">Base Price:</span>
-                        <span className="font-semibold text-[#37322F]">{formatPrice(calculation.basePrice)}</span>
-                      </div>
-                      {calculation.customerDiscount > 0 && (
-                        <div className="flex justify-between text-green-700">
-                          <span>Customer Discount:</span>
-                          <span className="font-semibold">-{formatPrice(calculation.customerDiscount)}</span>
-                        </div>
-                      )}
-                      {calculation.sixMonthDiscount > 0 && (
-                        <div className="flex justify-between text-green-700">
-                          <span>6-Month Discount:</span>
-                          <span className="font-semibold">-{formatPrice(calculation.sixMonthDiscount)}</span>
-                        </div>
-                      )}
-                      <div className="flex justify-between pt-3 border-t border-[rgba(55,50,47,0.12)] text-lg">
-                        <span className="font-semibold text-[#37322F]">Total:</span>
-                        <span className="font-semibold text-[#37322F]">{formatPrice(calculation.finalPrice)}</span>
-                      </div>
-                      {calculation.monthlyAmount && (
-                        <div className="flex justify-between text-blue-700 pt-2">
-                          <span className="font-medium">Monthly Payment:</span>
-                          <span className="font-semibold">{formatPrice(calculation.monthlyAmount)}/mo</span>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Submit Button */}
+              <div>
+                <label className="block text-sm font-medium text-[#37322F] mb-1.5 font-sans">Name</label>
+                <input
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="w-full h-12 px-4 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#37322F]/20 focus:border-[#37322F] bg-white text-[#37322F] font-sans text-sm"
+                  placeholder="John Doe"
+                  required
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-[#37322F] mb-1.5 font-sans">Coach</label>
+                <div className="grid grid-cols-2 gap-2">
                   <button
-                    type="submit"
-                    disabled={isLoading}
-                    className="w-full py-4 bg-[#37322F] text-white rounded-full font-semibold text-lg font-sans cursor-pointer hover:bg-[#49423D] transition-colors shadow-[0px_2px_4px_rgba(55,50,47,0.12)] disabled:opacity-50 disabled:cursor-not-allowed"
+                    type="button"
+                    onClick={() => setCoach('Toni')}
+                    className={btnClass(coach === 'Toni')}
                   >
-                    {isLoading ? (
-                      <span className="flex items-center justify-center gap-2">
-                        <Loader2 className="w-5 h-5 animate-spin" />
-                        Creating Checkout Link...
-                      </span>
-                    ) : (
-                      'Create Checkout Link'
-                    )}
+                    Toni
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setCoach('Charlie')}
+                    className={btnClass(coach === 'Charlie')}
+                  >
+                    Charlie
                   </button>
                 </div>
-              </form>
-            )}
-          </div>
-        </section>
+              </div>
+            </div>
 
-        {/* FAQ Section */}
-        <section className="py-16 md:py-24 border-b border-[rgba(55,50,47,0.12)]">
-          <div className="max-w-[700px] mx-auto px-4">
-            <h2 className="text-center text-[#37322F] text-2xl md:text-4xl font-normal font-serif mb-12">
-              FAQ for Closers
-            </h2>
-
-            <div className="space-y-3">
-              {faqs.map((faq, index) => (
-                <div key={index} className="bg-white rounded-xl overflow-hidden border border-[rgba(55,50,47,0.12)]">
-                  <button
-                    onClick={() => setOpenFaq(openFaq === index ? null : index)}
-                    className="w-full flex items-center justify-between p-5 text-left hover:bg-[rgba(55,50,47,0.02)] transition-colors"
+            {/* Row 2: Plan Options */}
+            <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-[#37322F] mb-1.5 font-sans">Tier</label>
+                <div className="relative">
+                  <select
+                    value={tier}
+                    onChange={(e) => setTier(e.target.value as CoachingTier)}
+                    className={selectClass}
                   >
-                    <span className="text-[#37322F] text-base font-medium font-sans pr-4">
-                      {faq.question}
-                    </span>
-                    <ChevronDown
-                      className={`w-5 h-5 text-[rgba(73,66,61,0.50)] flex-shrink-0 transition-transform ${
-                        openFaq === index ? 'rotate-180' : ''
-                      }`}
-                    />
-                  </button>
-                  {openFaq === index && (
-                    <div className="px-5 pb-5">
-                      <p className="text-[rgba(73,66,61,0.90)] text-sm font-sans leading-relaxed whitespace-pre-line">
-                        {faq.answer}
+                    <option value="tier_1">Tier 1 — {formatPrice(TIER_PRICES.tier_1)}</option>
+                    <option value="tier_2">Tier 2 — {formatPrice(TIER_PRICES.tier_2)}</option>
+                  </select>
+                  <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
+                </div>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-[#37322F] mb-1.5 font-sans">Payment</label>
+                <div className="relative">
+                  <select
+                    value={paymentPlan}
+                    onChange={(e) => setPaymentPlan(e.target.value as PaymentPlan)}
+                    className={selectClass}
+                  >
+                    <option value="full">Pay in Full</option>
+                    <option value="split_2">Split by 2</option>
+                    <option value="monthly">Monthly</option>
+                  </select>
+                  <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
+                </div>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-[#37322F] mb-1.5 font-sans">6-Month</label>
+                <div className="relative">
+                  <select
+                    value={sixMonthCommitment ? 'yes' : 'no'}
+                    onChange={(e) => setSixMonthCommitment(e.target.value === 'yes')}
+                    disabled={paymentPlan === 'monthly'}
+                    className={selectClass}
+                  >
+                    <option value="no">No</option>
+                    <option value="yes">Yes — 10% off</option>
+                  </select>
+                  <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
+                </div>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-[#37322F] mb-1.5 font-sans">Discount</label>
+                <div className="relative">
+                  <select
+                    value={customerDiscount}
+                    onChange={(e) => setCustomerDiscount(e.target.value as CustomerDiscount)}
+                    disabled={paymentPlan === 'monthly'}
+                    className={selectClass}
+                  >
+                    <option value="none">None</option>
+                    <option value="challenge_winner">Challenge Winner (-{formatPrice(CUSTOMER_DISCOUNTS.challenge_winner)})</option>
+                  </select>
+                  <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
+                </div>
+              </div>
+            </div>
+
+            {/* Order Summary Preview - matches customer checkout page */}
+            <div className="border-t border-[rgba(55,50,47,0.08)] pt-6 mt-6">
+              <p className="text-xs font-medium text-[#847971] uppercase tracking-wider mb-4 text-center">
+                Order preview /
+              </p>
+
+              {/* Centered container matching checkout page width */}
+              <div className="max-w-md mx-auto">
+              {/* Gold card preview with animated ribbons */}
+              <div className="gold-card rounded-2xl p-6 mb-6 relative overflow-hidden">
+                {/* Animated flowing ribbons background */}
+                <div className="absolute inset-0 overflow-hidden">
+                  <div className="ribbon-gold ribbon-gold-1" />
+                  <div className="ribbon-gold ribbon-gold-2" />
+                  <div className="ribbon-gold ribbon-gold-3" />
+                </div>
+
+                <div className="relative">
+                  <h3 className="text-lg font-medium mb-1 text-[#1a1611]">1-on-1 Coaching</h3>
+                  <p className="text-[#5c4a36] text-sm mb-6">
+                    {tier === 'tier_1' ? 'Tier 1' : 'Tier 2'} with {coach}
+                  </p>
+                  <div className="flex items-end justify-between">
+                    <div>
+                      <span className="text-3xl font-bold text-[#1a1611]">
+                        {paymentPlan === 'monthly'
+                          ? formatPrice(calculation.monthlyAmount || 0)
+                          : paymentPlan === 'split_2'
+                          ? formatPrice(calculation.monthlyAmount || 0)
+                          : formatPrice(calculation.finalPrice)
+                        }
+                      </span>
+                      <p className="text-[#5c4a36] text-xs mt-1">
+                        {paymentPlan === 'split_2'
+                          ? 'payment 1 of 2'
+                          : paymentPlan === 'monthly'
+                          ? 'per month'
+                          : 'one time'
+                        }
                       </p>
                     </div>
-                  )}
+                  </div>
                 </div>
-              ))}
-            </div>
-          </div>
-        </section>
+              </div>
 
-        <FooterSection />
-      </main>
-      <div className="hidden sm:block sm:w-4 md:w-8 lg:w-12 flex-shrink-0 border-l border-[rgba(55,50,47,0.12)]"></div>
+              {/* Customer info preview */}
+              {(name || email) && (
+                <div className="mb-6">
+                  <p className="text-xs font-medium text-[#847971] uppercase tracking-wider mb-2">Purchasing for /</p>
+                  <p className="text-[#37322F] font-medium">{name || 'Customer Name'}</p>
+                  <p className="text-[#605A57] text-sm">{email || 'customer@email.com'}</p>
+                </div>
+              )}
+
+              {/* Order breakdown */}
+              <div className="space-y-3">
+                <div className="flex justify-between text-sm">
+                  <span className="text-[#605A57]">
+                    {paymentPlan === 'split_2'
+                      ? `1-on-1 Coaching (Payment 1 of 2)`
+                      : paymentPlan === 'monthly'
+                      ? `1-on-1 Coaching (${tier === 'tier_1' ? 'Tier 1' : 'Tier 2'}) - Monthly`
+                      : `1-on-1 Coaching (${tier === 'tier_1' ? 'Tier 1' : 'Tier 2'})`
+                    }
+                  </span>
+                  <span className="text-[#37322F] font-medium">
+                    {paymentPlan === 'monthly'
+                      ? <>{formatPrice(calculation.monthlyAmount || 0)}<span className="text-[#847971] font-normal">/mo</span></>
+                      : paymentPlan === 'split_2'
+                      ? formatPrice(calculation.monthlyAmount || 0)
+                      : formatPrice(calculation.finalPrice)
+                    }
+                  </span>
+                </div>
+
+                {paymentPlan === 'split_2' && (
+                  <div className="flex justify-between text-sm">
+                    <span className="text-[#847971]">Payment 2 (in 30 days)</span>
+                    <span className="text-[#847971]">{formatPrice(calculation.monthlyAmount || 0)}</span>
+                  </div>
+                )}
+
+                {paymentPlan === 'monthly' && (
+                  <div className="flex justify-between text-sm">
+                    <span className="text-[#847971]">Recurring monthly (cancel anytime)</span>
+                  </div>
+                )}
+
+                {/* Show discounts applied */}
+                {calculation.customerDiscount > 0 && (
+                  <div className="flex justify-between text-sm">
+                    <span className="text-green-600">Challenge Winner Discount</span>
+                    <span className="text-green-600">-{formatPrice(calculation.customerDiscount)}</span>
+                  </div>
+                )}
+                {calculation.sixMonthDiscount > 0 && (
+                  <div className="flex justify-between text-sm">
+                    <span className="text-green-600">6-Month Commitment (10% off)</span>
+                    <span className="text-green-600">-{formatPrice(calculation.sixMonthDiscount)}</span>
+                  </div>
+                )}
+              </div>
+
+              <div className="border-t border-[rgba(55,50,47,0.08)] mt-4 pt-4">
+                <div className="flex justify-between">
+                  <span className="text-[#37322F] font-medium">
+                    {paymentPlan === 'monthly' ? 'First payment' : paymentPlan === 'split_2' ? 'Due today' : 'Total'}
+                  </span>
+                  <span className="text-[#37322F] font-bold text-lg">
+                    {paymentPlan === 'monthly' || paymentPlan === 'split_2'
+                      ? formatPrice(calculation.monthlyAmount || 0)
+                      : formatPrice(calculation.finalPrice)
+                    }
+                  </span>
+                </div>
+                {paymentPlan !== 'monthly' && paymentPlan !== 'split_2' && calculation.finalPrice !== calculation.basePrice && (
+                  <div className="flex justify-between text-xs mt-1">
+                    <span className="text-[#847971]">Original price</span>
+                    <span className="text-[#847971] line-through">{formatPrice(calculation.basePrice)}</span>
+                  </div>
+                )}
+              </div>
+
+              {/* Submit Button - inside centered container */}
+              <div className="pt-6">
+                <button
+                  type="submit"
+                  disabled={isLoading}
+                  className="w-full h-12 px-8 bg-[#37322F] text-white rounded-lg font-semibold text-sm font-sans cursor-pointer hover:bg-[#49423D] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {isLoading ? (
+                    <span className="flex items-center justify-center gap-2">
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      Creating...
+                    </span>
+                  ) : (
+                    'Create Link'
+                  )}
+                </button>
+              </div>
+              </div>{/* End centered container */}
+            </div>
+          </form>
+        )}
+      </div>
+
+      <style jsx global>{`
+        /* Metallic gold card */
+        .gold-card {
+          background: linear-gradient(
+            135deg,
+            #f5e6c8 0%,
+            #e8d48b 15%,
+            #fff8dc 35%,
+            #e8d48b 50%,
+            #d4c47a 65%,
+            #fff8dc 80%,
+            #e8d48b 100%
+          );
+          box-shadow:
+            0 4px 20px rgba(212, 175, 55, 0.25),
+            inset 0 1px 0 rgba(255, 255, 255, 0.5),
+            inset 0 -1px 0 rgba(0, 0, 0, 0.05);
+        }
+        /* Gold ribbons */
+        .ribbon-gold {
+          position: absolute;
+          width: 200%;
+          height: 80px;
+          background: linear-gradient(90deg,
+            transparent 0%,
+            rgba(255,255,255,0.25) 20%,
+            rgba(255,255,255,0.5) 50%,
+            rgba(255,255,255,0.25) 80%,
+            transparent 100%
+          );
+          border-radius: 50%;
+          filter: blur(15px);
+        }
+        .ribbon-gold-1 {
+          top: 10%;
+          left: -50%;
+          transform: rotate(-15deg);
+          animation: driftGold1 8s ease-in-out infinite;
+        }
+        .ribbon-gold-2 {
+          top: 40%;
+          left: -30%;
+          height: 100px;
+          transform: rotate(10deg);
+          animation: driftGold2 10s ease-in-out infinite;
+          animation-delay: -2s;
+        }
+        .ribbon-gold-3 {
+          top: 70%;
+          left: -40%;
+          height: 60px;
+          transform: rotate(-8deg);
+          animation: driftGold3 7s ease-in-out infinite;
+          animation-delay: -4s;
+        }
+        @keyframes driftGold1 {
+          0%, 100% {
+            transform: translateX(0) translateY(0) rotate(-15deg);
+            opacity: 0.6;
+          }
+          50% {
+            transform: translateX(80%) translateY(10px) rotate(-10deg);
+            opacity: 0.9;
+          }
+        }
+        @keyframes driftGold2 {
+          0%, 100% {
+            transform: translateX(0) translateY(0) rotate(10deg);
+            opacity: 0.5;
+          }
+          50% {
+            transform: translateX(70%) translateY(-15px) rotate(15deg);
+            opacity: 0.85;
+          }
+        }
+        @keyframes driftGold3 {
+          0%, 100% {
+            transform: translateX(0) translateY(0) rotate(-8deg);
+            opacity: 0.55;
+          }
+          50% {
+            transform: translateX(75%) translateY(8px) rotate(-5deg);
+            opacity: 0.8;
+          }
+        }
+      `}</style>
     </div>
   )
 }

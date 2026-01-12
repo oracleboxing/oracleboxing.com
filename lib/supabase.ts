@@ -81,3 +81,33 @@ export interface WaitlistRecord {
   utm_campaign: string | null
   utm_content: string | null
 }
+
+// Coaching split payment tracking
+export interface CoachingSplitPaymentRecord {
+  id?: string
+  created_at?: string
+  // Customer info
+  customer_email: string
+  customer_name: string
+  stripe_customer_id: string
+  // First payment info
+  first_payment_intent_id: string
+  first_payment_date: string
+  first_payment_amount: number // in cents
+  // Second payment info
+  second_payment_amount: number // in cents
+  second_payment_due_date: string
+  second_payment_status: 'pending' | 'webhook_sent' | 'completed' | 'failed'
+  second_payment_intent_id: string | null
+  second_payment_date: string | null
+  // Coaching details
+  tier: string
+  coach: string
+  six_month_commitment: boolean
+  // Webhook tracking
+  webhook_sent_at: string | null
+  webhook_response: string | null
+  // For manual retry
+  retry_count: number
+  last_error: string | null
+}

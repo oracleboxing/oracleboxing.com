@@ -27,10 +27,10 @@ const team = [
 
 export default function TeamSection() {
   return (
-    <section className="w-full bg-[#FFFCF5] py-12 md:py-16 border-b border-[rgba(55,50,47,0.12)]">
+    <section className="w-full bg-white py-12 md:py-16 border-b border-[rgba(55,50,47,0.12)]">
       {/* Header */}
       <div className="text-center mb-10 md:mb-12 px-4">
-        <h2 className="text-[#37322F] text-2xl sm:text-3xl md:text-4xl font-normal font-serif">
+        <h2 className="text-[#37322F] text-2xl sm:text-3xl md:text-4xl font-normal" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
           Your Dream Team
         </h2>
       </div>

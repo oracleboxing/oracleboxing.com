@@ -7,7 +7,7 @@ import { useAnalytics } from "@/hooks/useAnalytics"
 import { generateEventId } from "@/lib/tracking-cookies"
 
 // Temporary flag to disable enrollment
-const ENROLLMENT_CLOSED = true
+const ENROLLMENT_CLOSED = false
 
 export default function PricingSection() {
   const { currency, isLoading } = useCurrency()
@@ -204,7 +204,7 @@ export default function PricingSection() {
                 {[
                   "11 Live Classes Per Week",
                   "Private Community Access",
-                  "Boxing Roadmap Course",
+                  "Grade 1 Course",
                   "1-on-1 Graduation Call",
                   "Win Your Money Back Guarantee",
                 ].map((feature, index) => (

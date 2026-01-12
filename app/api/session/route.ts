@@ -1,21 +1,200 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { stripe } from '@/lib/stripe/client';
 
+/**
+ * Handle PaymentIntent retrieval (from custom checkout v2)
+ * PaymentIntents store all metadata and customer info differently than Checkout Sessions
+ */
+async function handlePaymentIntent(paymentIntentId: string) {
+  // Retrieve the PaymentIntent with customer expansion
+  const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId, {
+    expand: ['customer'],
+  });
+
+  // Get currency and format amount
+  const currency = paymentIntent.currency?.toUpperCase() || 'USD';
+  const currencySymbols: Record<string, string> = {
+    'USD': '$',
+    'GBP': '£',
+    'EUR': '€',
+    'CAD': 'CA$',
+    'AUD': 'A$',
+    'AED': 'AED ',
+  };
+  const currencySymbol = currencySymbols[currency] || '$';
+  const amountPaid = `${currencySymbol}${(paymentIntent.amount / 100).toFixed(2)}`;
+
+  // Extract customer info from metadata or expanded customer
+  const metadata = paymentIntent.metadata || {};
+  const customer = paymentIntent.customer as any;
+  const customerName = metadata.customer_first_name || customer?.name || 'Customer';
+  const customerEmail = metadata.customer_email || customer?.email || '';
+
+  // Parse product descriptions from metadata
+  const productDescriptions = metadata.product_descriptions || 'Product';
+
+  // Parse line items from metadata (stored as JSON string of price IDs)
+  let lineItemsData: any[] = [];
+  try {
+    const lineItemPriceIds = metadata.line_items ? JSON.parse(metadata.line_items) : [];
+    // Create a simplified line_items structure for compatibility
+    lineItemsData = lineItemPriceIds.map((priceId: string, index: number) => ({
+      description: productDescriptions.split(', ')[index] || 'Product',
+      quantity: 1,
+      price: {
+        id: priceId,
+        unit_amount: Math.round(paymentIntent.amount / lineItemPriceIds.length), // Approximate
+        product: {
+          id: `prod_from_${priceId}`,
+          name: productDescriptions.split(', ')[index] || 'Product',
+        },
+      },
+    }));
+  } catch (e) {
+    console.error('Error parsing line items from metadata:', e);
+  }
+
+  // Extract tracking params from metadata
+  const trackingParams = {
+    referrer: metadata.referrer || 'direct',
+    utm_source: metadata.first_utm_source || metadata.utm_source || undefined,
+    utm_medium: metadata.first_utm_medium || metadata.utm_medium || undefined,
+    utm_campaign: metadata.first_utm_campaign || metadata.utm_campaign || undefined,
+    utm_term: metadata.first_utm_term || undefined,
+    utm_content: metadata.first_utm_content || undefined,
+  };
+
+  return NextResponse.json({
+    // Original format for backward compatibility
+    customerName,
+    customerEmail,
+    amountPaid,
+    productPurchased: productDescriptions,
+    currency,
+    funnelType: metadata.funnel_type || '21dc',
+    sessionId: paymentIntentId,
+    productMetadata: {
+      funnel: metadata.funnel_type || '21dc',
+      product_metadata: metadata.product_metadata || '21dc_entry',
+    },
+    trackingParams,
+    metadata,
+
+    // Full session data for Purchase tracking (compatible format)
+    amount_total: paymentIntent.amount,
+    customer_details: {
+      name: customerName,
+      email: customerEmail,
+    },
+    customer_email: customerEmail,
+    line_items: {
+      data: lineItemsData,
+    },
+  });
+}
+
+/**
+ * Handle Subscription retrieval (from coaching monthly subscriptions)
+ */
+async function handleSubscription(subscriptionId: string) {
+  const subscription = await stripe.subscriptions.retrieve(subscriptionId, {
+    expand: ['customer', 'items.data.price.product', 'latest_invoice'],
+  });
+
+  const customer = subscription.customer as any;
+  const metadata = subscription.metadata || {};
+  const item = subscription.items.data[0];
+  const price = item?.price;
+  const product = price?.product as any;
+
+  const currency = price?.currency?.toUpperCase() || 'USD';
+  const currencySymbols: Record<string, string> = {
+    'USD': '$',
+    'GBP': '£',
+    'EUR': '€',
+    'CAD': 'CA$',
+    'AUD': 'A$',
+    'AED': 'AED ',
+  };
+  const currencySymbol = currencySymbols[currency] || '$';
+  const amount = price?.unit_amount || 0;
+  const amountPaid = `${currencySymbol}${(amount / 100).toFixed(2)}/month`;
+
+  const customerName = metadata.customer_first_name
+    ? `${metadata.customer_first_name} ${metadata.customer_last_name || ''}`
+    : customer?.name || 'Customer';
+  const customerEmail = metadata.customer_email || customer?.email || '';
+
+  return NextResponse.json({
+    customerName: customerName.trim(),
+    customerEmail,
+    amountPaid,
+    productPurchased: product?.name || metadata.product_name || '1-on-1 Coaching (Monthly)',
+    currency,
+    funnelType: 'coaching',
+    sessionId: subscriptionId,
+    productMetadata: {
+      funnel: 'coaching',
+      product_metadata: 'coaching_subscription',
+    },
+    trackingParams: {
+      referrer: metadata.referrer || 'direct',
+      utm_source: metadata.utm_source || undefined,
+      utm_medium: metadata.utm_medium || undefined,
+      utm_campaign: metadata.utm_campaign || undefined,
+    },
+    metadata,
+    amount_total: amount,
+    customer_details: {
+      name: customerName.trim(),
+      email: customerEmail,
+    },
+    customer_email: customerEmail,
+    line_items: {
+      data: [
+        {
+          description: product?.name || '1-on-1 Coaching (Monthly)',
+          quantity: 1,
+          price: {
+            id: price?.id,
+            unit_amount: amount,
+            product: {
+              id: product?.id || 'coaching_subscription',
+              name: product?.name || '1-on-1 Coaching (Monthly)',
+            },
+          },
+        },
+      ],
+    },
+    isSubscription: true,
+  });
+}
+
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
-  const sessionId = searchParams.get('session_id');
+  // Handle case where params might appear multiple times (e.g., from PayPal redirects)
+  const sessionIdParam = searchParams.get('session_id');
+  const paymentIntentParam = searchParams.get('payment_intent');
+  const subscriptionParam = searchParams.get('subscription');
+
+  // Ensure we have strings (get() already returns first value if multiple)
+  const sessionId = typeof sessionIdParam === 'string' ? sessionIdParam : null;
+  const paymentIntentId = typeof paymentIntentParam === 'string' ? paymentIntentParam : null;
+  const subscriptionId = typeof subscriptionParam === 'string' ? subscriptionParam : null;
 
   try {
+    // Support session_id, payment_intent, and subscription params
+    const identifier = sessionId || paymentIntentId || subscriptionId;
 
-    if (!sessionId) {
+    if (!identifier) {
       return NextResponse.json(
-        { error: 'Session ID is required' },
+        { error: 'Session ID, Payment Intent ID, or Subscription ID is required' },
         { status: 400 }
       );
     }
 
     // DEV MODE: Return mock data for test session ID
-    if (sessionId === 'test_preview' || sessionId.startsWith('cs_test_preview')) {
+    if (identifier === 'test_preview' || identifier.startsWith('cs_test_preview')) {
       return NextResponse.json({
         customerName: 'John Doe',
         customerEmail: 'john@example.com',
@@ -23,7 +202,7 @@ export async function GET(req: NextRequest) {
         productPurchased: 'Oracle Boxing Bundle',
         currency: 'USD',
         funnelType: 'course',
-        sessionId: sessionId,
+        sessionId: identifier,
         productMetadata: {
           funnel: 'course',
           product_metadata: 'obm'
@@ -61,8 +240,22 @@ export async function GET(req: NextRequest) {
       });
     }
 
+    // Check if this is a PaymentIntent (starts with pi_), Subscription (starts with sub_), or Checkout Session
+    const isPaymentIntent = identifier.startsWith('pi_');
+    const isSubscription = identifier.startsWith('sub_');
+
+    if (isSubscription) {
+      // Handle Subscription (from coaching monthly)
+      return await handleSubscription(identifier);
+    }
+
+    if (isPaymentIntent) {
+      // Handle PaymentIntent (from custom checkout v2)
+      return await handlePaymentIntent(identifier);
+    }
+
     // Retrieve the checkout session from Stripe with expanded line items
-    const session = await stripe.checkout.sessions.retrieve(sessionId, {
+    const session = await stripe.checkout.sessions.retrieve(identifier, {
       expand: ['line_items', 'line_items.data.price.product', 'customer', 'payment_intent'],
     });
 

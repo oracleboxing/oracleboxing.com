@@ -107,7 +107,7 @@ export default function ProgressTrackerPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#FFFCF5] flex overflow-x-hidden">
+    <div className="min-h-screen bg-white flex overflow-x-hidden">
       <div className="hidden sm:block sm:w-4 md:w-8 lg:w-12 flex-shrink-0 border-r border-[rgba(55,50,47,0.12)]"></div>
       <main className="flex-1 min-w-0">
 

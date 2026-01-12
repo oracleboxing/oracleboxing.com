@@ -25,7 +25,20 @@
       "Bash(/Users/jordanlyne/Projects/oracleboxing.com/app/checkout/bfc-upgrade)",
       "Bash(npm install:*)",
       "Bash(source:*)",
-      "Bash(md5:*)"
+      "Bash(md5:*)",
+      "Bash(python3:*)",
+      "Bash(node scripts/create-test-products.js:*)",
+      "Bash(STRIPE_SECRET_KEY=sk_test_51SJHAKQNEdHwdojXMOFU2inCjQbxKdM9IK8EC1andJw7MDdIgcDqB8y5Hcvag74JiD7US5f7CoIUYLIKYVPWlWz800YzlzqwU4 node:*)",
+      "Bash(lsof:*)",
+      "Bash(git push)",
+      "Bash(node -e:*)",
+      "Bash(pkill:*)",
+      "Bash(git push:*)",
+      "Bash(node scripts/test-supabase-tracking.js:*)",
+      "Bash(openssl rand:*)",
+      "Bash(node scripts/test-abandoned-cart.js:*)",
+      "Bash(chmod:*)",
+      "Bash(find:*)"
     ]
   }
 }

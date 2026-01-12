@@ -85,7 +85,7 @@ export default function ChallengeBannerPage() {
   // Draw the banner on canvas
   const drawBanner = useCallback((ctx: CanvasRenderingContext2D, includeGuides: boolean) => {
     // Background - warm cream color like the website
-    ctx.fillStyle = "#FFFCF5"
+    ctx.fillStyle = "#FFFFFF"
     ctx.fillRect(0, 0, BANNER_WIDTH, BANNER_HEIGHT)
 
     // Draw diagonal stripes pattern across entire background

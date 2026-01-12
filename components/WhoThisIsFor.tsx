@@ -13,7 +13,7 @@ export function WhoThisIsFor({ courseName, personas }: WhoThisIsForProps) {
   return (
     <section className="py-8 sm:py-16 bg-white">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4 sm:mb-6 text-center">
+        <h2 className="text-xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4 sm:mb-6 text-center" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
           <span className="italic">{courseName}</span> is built for:
         </h2>
 

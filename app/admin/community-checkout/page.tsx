@@ -167,7 +167,7 @@ Savings Breakdown: 3-Month (${formatPrice(TIER_PRICES['3_month'] / 3)}/mo) → 6
   ]
 
   return (
-    <div className="min-h-screen bg-[#FFFCF5] flex overflow-x-hidden">
+    <div className="min-h-screen bg-white flex overflow-x-hidden">
       <div className="hidden sm:block sm:w-4 md:w-8 lg:w-12 flex-shrink-0 border-r border-[rgba(55,50,47,0.12)]"></div>
       <main className="flex-1 min-w-0">
 
@@ -196,7 +196,7 @@ Savings Breakdown: 3-Month (${formatPrice(TIER_PRICES['3_month'] / 3)}/mo) → 6
                   <p className="text-[rgba(73,66,61,0.70)] text-base font-sans">Share this link with {name}</p>
                 </div>
 
-                <div className="bg-[#FFFCF5] rounded-xl p-4 mb-6">
+                <div className="bg-gray-50 rounded-xl p-4 mb-6">
                   <p className="text-xs font-medium text-[rgba(73,66,61,0.50)] mb-2 font-sans">CHECKOUT URL</p>
                   <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
                     <input
@@ -232,7 +232,7 @@ Savings Breakdown: 3-Month (${formatPrice(TIER_PRICES['3_month'] / 3)}/mo) → 6
                   </div>
                 </div>
 
-                <div className="bg-[#FFFCF5] rounded-xl p-4 mb-6">
+                <div className="bg-gray-50 rounded-xl p-4 mb-6">
                   <p className="text-sm font-medium text-[#37322F] mb-3 font-sans">Membership Details:</p>
                   <div className="space-y-2 text-sm text-[rgba(73,66,61,0.70)] font-sans">
                     <div className="flex justify-between">
@@ -262,7 +262,7 @@ Savings Breakdown: 3-Month (${formatPrice(TIER_PRICES['3_month'] / 3)}/mo) → 6
 
                 <button
                   onClick={resetForm}
-                  className="w-full py-4 bg-[#FFFCF5] text-[#37322F] rounded-full font-semibold text-lg font-sans cursor-pointer hover:bg-[#F5F2EB] transition-colors border border-[rgba(55,50,47,0.12)]"
+                  className="w-full py-4 bg-gray-50 text-[#37322F] rounded-full font-semibold text-lg font-sans cursor-pointer hover:bg-gray-100 transition-colors border border-[rgba(55,50,47,0.12)]"
                 >
                   Create Another Link
                 </button>
@@ -370,7 +370,7 @@ Savings Breakdown: 3-Month (${formatPrice(TIER_PRICES['3_month'] / 3)}/mo) → 6
                   </div>
 
                   {/* Price Preview */}
-                  <div className="bg-[#FFFCF5] rounded-xl p-6 border border-[rgba(55,50,47,0.12)]">
+                  <div className="bg-gray-50 rounded-xl p-6 border border-[rgba(55,50,47,0.12)]">
                     <p className="text-sm font-medium text-[rgba(73,66,61,0.70)] mb-4 font-sans">Price Preview</p>
                     <div className="space-y-2 text-sm font-sans">
                       <div className="flex justify-between">
