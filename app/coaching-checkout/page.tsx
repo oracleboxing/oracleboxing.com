@@ -92,9 +92,9 @@ function CoachingCheckoutContent() {
     fetchDetails()
   }, [intentId, paymentIntentId, setupIntentId])
 
-  // Initialize Stripe Elements
+  // Initialize Stripe Elements - wait for coachingDetails to load first
   useEffect(() => {
-    if (hasInitializedRef.current || !clientSecret) return
+    if (hasInitializedRef.current || !clientSecret || !coachingDetails) return
     hasInitializedRef.current = true
 
     const initStripe = async () => {
@@ -176,7 +176,7 @@ function CoachingCheckoutContent() {
     }
 
     initStripe()
-  }, [clientSecret, coachingDetails?.customerName])
+  }, [clientSecret, coachingDetails])
 
   // Handle payment confirmation
   const handleConfirm = async () => {
