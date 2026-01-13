@@ -48,18 +48,18 @@ export function HeroSection() {
   }
 
   return (
-    <section className="relative pt-[120px] md:pt-[160px] pb-8">
+    <section className="relative pt-[90px] sm:pt-[120px] md:pt-[160px] pb-8">
       {/* Text Content - Constrained */}
       <div className="max-w-[1060px] mx-auto px-4">
         <div className="flex flex-col items-center gap-8">
           {/* Hero Content */}
           <div className="max-w-[937px] flex flex-col items-center gap-3">
             <div className="flex flex-col items-center gap-6">
-              <h1 className="max-w-[900px] text-center text-[#37322f] text-4xl md:text-[64px] font-normal leading-tight md:leading-[1.15]" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
+              <h1 className="max-w-[900px] text-center text-[#37322f] text-3xl sm:text-4xl md:text-[64px] font-normal leading-tight md:leading-[1.15]" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
                 <span className="block tracking-tight">Become The Fighter</span>
                 <span className="block tracking-wide">You Were Born To Be</span>
               </h1>
-              <p className="max-w-[900px] text-center text-[#37322f]/80 text-xl md:text-2xl font-medium leading-8">
+              <p className="max-w-[900px] text-center text-[#37322f]/80 text-lg sm:text-xl md:text-2xl font-medium leading-7 sm:leading-8">
                 The online boxing school that transforms more than your technique.
               </p>
             </div>
