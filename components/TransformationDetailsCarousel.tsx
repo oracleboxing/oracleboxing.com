@@ -506,10 +506,10 @@ export function TransformationDetailsCarousel() {
                 </svg>
               </button>
 
-              {/* Sliding carousel of white cards - centered with fixed width */}
+              {/* Sliding carousel of white cards - full width on mobile */}
               <div
                 ref={mobileCarouselRef}
-                className="relative overflow-hidden touch-pan-y w-full max-w-[340px] mx-auto"
+                className="relative overflow-hidden touch-pan-y w-full px-12"
                 onTouchStart={handleTouchStart}
                 onTouchMove={handleTouchMove}
                 onTouchEnd={handleTouchEnd}
@@ -522,7 +522,7 @@ export function TransformationDetailsCarousel() {
                   }}
                 >
                   {transformations.map((item, cardIndex) => (
-                    <div key={item.id} className="flex-shrink-0 w-full px-2">
+                    <div key={item.id} className="flex-shrink-0 w-full px-1">
                       {/* White card - slides */}
                       <div className="relative bg-white p-4 rounded-xl">
                         {/* Row 1: Before/After Videos */}
