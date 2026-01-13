@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
@@ -12,41 +12,61 @@ export function LiquidGlassHeader() {
   const [contactMagnify, setContactMagnify] = useState(false)
   const [isMounted, setIsMounted] = useState(false)
 
+  // Track timeouts for cleanup
+  const timeoutRefs = useRef<NodeJS.Timeout[]>([])
+
   const isHomePage = pathname === '/'
 
   useEffect(() => {
     setIsMounted(true)
+    // Cleanup all timeouts on unmount
+    return () => {
+      timeoutRefs.current.forEach(clearTimeout)
+    }
   }, [])
 
-  // Check which section is currently in view
+  // Throttled scroll handler
+  const checkActiveSection = useCallback(() => {
+    const pricingSection = document.getElementById('pricing')
+    const scrollPosition = window.scrollY + 200
+
+    if (pricingSection) {
+      const pricingTop = pricingSection.offsetTop
+
+      if (scrollPosition >= pricingTop) {
+        setActiveSection('pricing')
+      } else {
+        setActiveSection('home')
+      }
+    }
+  }, [])
+
+  // Check which section is currently in view - with throttling
   useEffect(() => {
     if (!isHomePage) return
 
-    const checkActiveSection = () => {
-      const pricingSection = document.getElementById('pricing')
-      const scrollPosition = window.scrollY + 200
-
-      if (pricingSection) {
-        const pricingTop = pricingSection.offsetTop
-
-        if (scrollPosition >= pricingTop) {
-          setActiveSection('pricing')
-        } else {
-          setActiveSection('home')
-        }
+    let ticking = false
+    const throttledScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          checkActiveSection()
+          ticking = false
+        })
+        ticking = true
       }
     }
 
-    window.addEventListener('scroll', checkActiveSection)
+    window.addEventListener('scroll', throttledScroll, { passive: true })
     checkActiveSection()
 
-    return () => window.removeEventListener('scroll', checkActiveSection)
-  }, [isHomePage])
+    return () => window.removeEventListener('scroll', throttledScroll)
+  }, [isHomePage, checkActiveSection])
 
   const handleHomeClick = (e: React.MouseEvent) => {
     e.preventDefault()
     setHomeMagnify(true)
-    setTimeout(() => setHomeMagnify(false), 400)
+    const timeout = setTimeout(() => setHomeMagnify(false), 400)
+    timeoutRefs.current.push(timeout)
 
     if (isHomePage) {
       window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -58,7 +78,8 @@ export function LiquidGlassHeader() {
   const handlePricingClick = (e: React.MouseEvent) => {
     e.preventDefault()
     setPricingMagnify(true)
-    setTimeout(() => setPricingMagnify(false), 400)
+    const timeout = setTimeout(() => setPricingMagnify(false), 400)
+    timeoutRefs.current.push(timeout)
 
     if (isHomePage) {
       const pricingSection = document.getElementById('pricing')
@@ -72,7 +93,8 @@ export function LiquidGlassHeader() {
 
   const handleContactClick = () => {
     setContactMagnify(true)
-    setTimeout(() => setContactMagnify(false), 400)
+    const timeout = setTimeout(() => setContactMagnify(false), 400)
+    timeoutRefs.current.push(timeout)
   }
 
   const isActive = (section: 'home' | 'pricing' | 'contact') => {
@@ -92,7 +114,7 @@ export function LiquidGlassHeader() {
   return (
     <header className="fixed bottom-6 lg:bottom-auto lg:top-6 left-0 right-0 z-50 flex justify-center pointer-events-none">
       <nav
-        className="pointer-events-auto backdrop-blur-[20px] saturate-[180%] bg-white/20 border border-white/30 rounded-full p-1.5"
+        className="pointer-events-auto bg-white/80 border border-white/50 rounded-full p-1.5"
         style={{
           boxShadow: '0 8px 32px rgba(17, 17, 17, 0.08), 0 2px 8px rgba(17, 17, 17, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.6), inset 0 -1px 0 rgba(17, 17, 17, 0.03)'
         }}

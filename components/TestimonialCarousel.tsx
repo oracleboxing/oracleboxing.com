@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Testimonial } from '@/lib/testimonials'
 
 interface TestimonialCarouselProps {
@@ -9,10 +9,27 @@ interface TestimonialCarouselProps {
 
 export function TestimonialCarousel({ testimonials }: TestimonialCarouselProps) {
   const scrollRef = useRef<HTMLDivElement>(null)
+  const [isVisible, setIsVisible] = useState(false)
 
+  // Only run animation when visible
   useEffect(() => {
     const scrollContainer = scrollRef.current
     if (!scrollContainer) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting)
+      },
+      { threshold: 0.1 }
+    )
+
+    observer.observe(scrollContainer)
+    return () => observer.disconnect()
+  }, [])
+
+  useEffect(() => {
+    const scrollContainer = scrollRef.current
+    if (!scrollContainer || !isVisible) return
 
     let animationId: number
     let isPaused = false
@@ -50,7 +67,7 @@ export function TestimonialCarousel({ testimonials }: TestimonialCarouselProps) 
       scrollContainer.removeEventListener('mouseenter', handleMouseEnter)
       scrollContainer.removeEventListener('mouseleave', handleMouseLeave)
     }
-  }, [])
+  }, [isVisible])
 
   // Duplicate testimonials for infinite scroll effect
   const duplicatedTestimonials = [...testimonials, ...testimonials]

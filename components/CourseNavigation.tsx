@@ -16,7 +16,7 @@ export function CourseNavigation() {
   }
 
   return (
-    <div className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-gray-200">
+    <div className="sticky top-0 z-40 bg-white/95 border-b border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Mobile & Desktop - Horizontal Buttons */}
         <nav className="flex items-center justify-center md:justify-end gap-3 md:gap-8 py-3 md:py-4 overflow-x-auto">

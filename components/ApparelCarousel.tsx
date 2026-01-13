@@ -1,14 +1,31 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 
 export function ApparelCarousel() {
   const scrollRef = useRef<HTMLDivElement>(null)
+  const [isVisible, setIsVisible] = useState(false)
 
+  // Only run animation when visible
   useEffect(() => {
     const scrollContainer = scrollRef.current
     if (!scrollContainer) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting)
+      },
+      { threshold: 0.1 }
+    )
+
+    observer.observe(scrollContainer)
+    return () => observer.disconnect()
+  }, [])
+
+  useEffect(() => {
+    const scrollContainer = scrollRef.current
+    if (!scrollContainer || !isVisible) return
 
     let animationId: number
     let isPaused = false
@@ -46,7 +63,7 @@ export function ApparelCarousel() {
       scrollContainer.removeEventListener('mouseenter', handleMouseEnter)
       scrollContainer.removeEventListener('mouseleave', handleMouseLeave)
     }
-  }, [])
+  }, [isVisible])
 
   const colors = ['black', 'blue', 'green', 'grey', 'brown']
   const items = ['hoodie', 'jogger']

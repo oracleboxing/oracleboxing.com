@@ -33,7 +33,7 @@ export default function PricingSection() {
 
       <div className="max-w-4xl mx-auto relative z-10">
         {/* Inner white card */}
-        <div className="bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl p-6 md:p-10 lg:p-12">
+        <div className="bg-white rounded-2xl shadow-2xl p-6 md:p-10 lg:p-12">
           <div className="flex flex-col lg:flex-row lg:items-stretch lg:justify-between gap-8 lg:gap-8">
             {/* Left side - Product info */}
             <div className="lg:max-w-[420px]">
@@ -131,6 +131,12 @@ export default function PricingSection() {
         }
         /* Hide heavy animations on mobile to prevent Safari crashes */
         @media (max-width: 768px) {
+          .ribbon {
+            display: none;
+          }
+        }
+        /* Also hide for users who prefer reduced motion */
+        @media (prefers-reduced-motion: reduce) {
           .ribbon {
             display: none;
           }

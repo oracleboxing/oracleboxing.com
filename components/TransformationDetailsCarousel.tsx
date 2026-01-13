@@ -74,6 +74,11 @@ interface TransformationItem {
 
 const BASE_URL = 'https://sb.oracleboxing.com/transfo-v2/'
 
+// Helper to generate poster path from video path
+const getPosterUrl = (videoPath: string) => {
+  return `${BASE_URL}${videoPath.replace('.webm', '_poster.webp')}`
+}
+
 const transformations: TransformationItem[] = [
   {
     id: 1,
@@ -195,11 +200,23 @@ export function TransformationDetailsCarousel() {
     return () => window.removeEventListener('resize', handleResize)
   }, [currentIndex, updateTranslate])
 
+  // Smooth loop handler - restart video slightly before end to avoid freeze
+  const handleTimeUpdate = useCallback((video: HTMLVideoElement) => {
+    // If within 0.1 seconds of the end, restart immediately for seamless loop
+    if (video.duration - video.currentTime < 0.1) {
+      video.currentTime = 0
+      video.play().catch(() => {})
+    }
+  }, [])
+
   // Handle video playback for both desktop and mobile
   useEffect(() => {
     const playVideos = (refs: (HTMLVideoElement | null)[]) => {
       refs.forEach((video, index) => {
         if (video) {
+          // Ensure preload for smoother playback
+          video.preload = 'auto'
+
           if (Math.floor(index / 2) === currentIndex) {
             video.play().catch(() => {})
           } else {
@@ -302,7 +319,7 @@ export function TransformationDetailsCarousel() {
           <div className="hidden md:flex items-center gap-4">
             {/* Left Arrow - Desktop */}
             <button
-              className="flex flex-shrink-0 w-12 h-12 rounded-full items-center justify-center backdrop-blur-[20px] saturate-[180%] bg-[#37322F]/10 shadow-lg disabled:opacity-40 disabled:cursor-not-allowed hover:enabled:scale-110 hover:enabled:bg-[#37322F]/20 active:enabled:scale-95 transition-all duration-200"
+              className="flex flex-shrink-0 w-12 h-12 rounded-full items-center justify-center bg-white/90 shadow-lg disabled:opacity-40 disabled:cursor-not-allowed hover:enabled:scale-110 hover:enabled:bg-white active:enabled:scale-95 transition-all duration-200"
               disabled={currentIndex === 0}
               onClick={handlePrevClick}
               aria-label="Previous transformation"
@@ -355,13 +372,16 @@ export function TransformationDetailsCarousel() {
                               <video
                                 ref={(el) => { desktopVideoRefs.current[cardIndex * 2] = el }}
                                 src={`${BASE_URL}${item.beforeVideo}`}
+                                poster={getPosterUrl(item.beforeVideo)}
                                 autoPlay={cardIndex === currentIndex}
                                 muted
                                 loop
                                 playsInline
+                                preload="auto"
+                                onTimeUpdate={(e) => handleTimeUpdate(e.currentTarget)}
                                 className="absolute inset-0 w-full h-full object-cover"
                               />
-                              <div className="absolute top-3 left-3 bg-[#37322F]/80 backdrop-blur-sm px-3 py-1.5 rounded-md">
+                              <div className="absolute top-3 left-3 bg-[#37322F]/90 px-3 py-1.5 rounded-md">
                                 <span className="text-white text-sm font-semibold tracking-wide">
                                   BEFORE
                                 </span>
@@ -373,13 +393,16 @@ export function TransformationDetailsCarousel() {
                               <video
                                 ref={(el) => { desktopVideoRefs.current[cardIndex * 2 + 1] = el }}
                                 src={`${BASE_URL}${item.afterVideo}`}
+                                poster={getPosterUrl(item.afterVideo)}
                                 autoPlay={cardIndex === currentIndex}
                                 muted
                                 loop
                                 playsInline
+                                preload="auto"
+                                onTimeUpdate={(e) => handleTimeUpdate(e.currentTarget)}
                                 className="absolute inset-0 w-full h-full object-cover"
                               />
-                              <div className="absolute top-3 right-3 bg-[#37322F]/80 backdrop-blur-sm px-3 py-1.5 rounded-md">
+                              <div className="absolute top-3 right-3 bg-[#37322F]/90 px-3 py-1.5 rounded-md">
                                 <span className="text-white text-sm font-semibold tracking-wide">
                                   AFTER
                                 </span>
@@ -438,7 +461,7 @@ export function TransformationDetailsCarousel() {
 
             {/* Right Arrow - Desktop */}
             <button
-              className="flex flex-shrink-0 w-12 h-12 rounded-full items-center justify-center backdrop-blur-[20px] saturate-[180%] bg-[#37322F]/10 shadow-lg disabled:opacity-40 disabled:cursor-not-allowed hover:enabled:scale-110 hover:enabled:bg-[#37322F]/20 active:enabled:scale-95 transition-all duration-200"
+              className="flex flex-shrink-0 w-12 h-12 rounded-full items-center justify-center bg-white/90 shadow-lg disabled:opacity-40 disabled:cursor-not-allowed hover:enabled:scale-110 hover:enabled:bg-white active:enabled:scale-95 transition-all duration-200"
               disabled={currentIndex === transformations.length - 1}
               onClick={handleNextClick}
               aria-label="Next transformation"
@@ -463,7 +486,7 @@ export function TransformationDetailsCarousel() {
 
               {/* Navigation arrows - vertically centered */}
               <button
-                className="absolute left-2 top-1/2 -translate-y-1/2 z-20 flex w-10 h-10 rounded-full items-center justify-center backdrop-blur-[20px] saturate-[180%] bg-white/80 shadow-lg disabled:opacity-40 disabled:cursor-not-allowed hover:enabled:scale-110 hover:enabled:bg-white active:enabled:scale-95 transition-all duration-200"
+                className="absolute left-2 top-1/2 -translate-y-1/2 z-20 flex w-10 h-10 rounded-full items-center justify-center bg-white/90 shadow-lg disabled:opacity-40 disabled:cursor-not-allowed hover:enabled:scale-110 hover:enabled:bg-white active:enabled:scale-95 transition-all duration-200"
                 disabled={currentIndex === 0}
                 onClick={handlePrevClick}
                 aria-label="Previous transformation"
@@ -473,7 +496,7 @@ export function TransformationDetailsCarousel() {
                 </svg>
               </button>
               <button
-                className="absolute right-2 top-1/2 -translate-y-1/2 z-20 flex w-10 h-10 rounded-full items-center justify-center backdrop-blur-[20px] saturate-[180%] bg-white/80 shadow-lg disabled:opacity-40 disabled:cursor-not-allowed hover:enabled:scale-110 hover:enabled:bg-white active:enabled:scale-95 transition-all duration-200"
+                className="absolute right-2 top-1/2 -translate-y-1/2 z-20 flex w-10 h-10 rounded-full items-center justify-center bg-white/90 shadow-lg disabled:opacity-40 disabled:cursor-not-allowed hover:enabled:scale-110 hover:enabled:bg-white active:enabled:scale-95 transition-all duration-200"
                 disabled={currentIndex === transformations.length - 1}
                 onClick={handleNextClick}
                 aria-label="Next transformation"
@@ -509,13 +532,16 @@ export function TransformationDetailsCarousel() {
                             <video
                               ref={(el) => { mobileVideoRefs.current[cardIndex * 2] = el }}
                               src={`${BASE_URL}${item.beforeVideo}`}
+                              poster={getPosterUrl(item.beforeVideo)}
                               autoPlay={cardIndex === currentIndex}
                               muted
                               loop
                               playsInline
+                              preload="auto"
+                              onTimeUpdate={(e) => handleTimeUpdate(e.currentTarget)}
                               className="absolute inset-0 w-full h-full object-cover"
                             />
-                            <div className="absolute top-2 left-2 bg-[#37322F]/80 backdrop-blur-sm px-2 py-1 rounded-md">
+                            <div className="absolute top-2 left-2 bg-[#37322F]/90 px-2 py-1 rounded-md">
                               <span className="text-white text-xs font-semibold tracking-wide">
                                 BEFORE
                               </span>
@@ -527,13 +553,16 @@ export function TransformationDetailsCarousel() {
                             <video
                               ref={(el) => { mobileVideoRefs.current[cardIndex * 2 + 1] = el }}
                               src={`${BASE_URL}${item.afterVideo}`}
+                              poster={getPosterUrl(item.afterVideo)}
                               autoPlay={cardIndex === currentIndex}
                               muted
                               loop
                               playsInline
+                              preload="auto"
+                              onTimeUpdate={(e) => handleTimeUpdate(e.currentTarget)}
                               className="absolute inset-0 w-full h-full object-cover"
                             />
-                            <div className="absolute top-2 right-2 bg-[#37322F]/80 backdrop-blur-sm px-2 py-1 rounded-md">
+                            <div className="absolute top-2 right-2 bg-[#37322F]/90 px-2 py-1 rounded-md">
                               <span className="text-white text-xs font-semibold tracking-wide">
                                 AFTER
                               </span>

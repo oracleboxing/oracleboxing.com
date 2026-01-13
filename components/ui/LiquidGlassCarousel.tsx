@@ -199,7 +199,7 @@ export function LiquidGlassCarousel({ items = defaultItems }: LiquidGlassCarouse
           </div>
 
           <button
-            className="absolute top-1/2 left-4 -translate-y-1/2 z-10 w-10 h-10 rounded-full flex items-center justify-center backdrop-blur-[20px] saturate-[180%] bg-slate-50/75 shadow-lg disabled:opacity-40 disabled:cursor-not-allowed opacity-70 hover:enabled:scale-110 hover:enabled:opacity-100 active:enabled:scale-95 transition-all duration-200"
+            className="absolute top-1/2 left-4 -translate-y-1/2 z-10 w-10 h-10 rounded-full flex items-center justify-center bg-slate-50/90 shadow-lg disabled:opacity-40 disabled:cursor-not-allowed opacity-70 hover:enabled:scale-110 hover:enabled:opacity-100 active:enabled:scale-95 transition-all duration-200"
             disabled={currentIndex === 0}
             onClick={handlePrevClick}
             aria-label="Previous video"
@@ -210,7 +210,7 @@ export function LiquidGlassCarousel({ items = defaultItems }: LiquidGlassCarouse
           </button>
 
           <button
-            className="absolute top-1/2 right-4 -translate-y-1/2 z-10 w-10 h-10 rounded-full flex items-center justify-center backdrop-blur-[20px] saturate-[180%] bg-slate-50/75 shadow-lg disabled:opacity-40 disabled:cursor-not-allowed opacity-70 hover:enabled:scale-110 hover:enabled:opacity-100 active:enabled:scale-95 transition-all duration-200"
+            className="absolute top-1/2 right-4 -translate-y-1/2 z-10 w-10 h-10 rounded-full flex items-center justify-center bg-slate-50/90 shadow-lg disabled:opacity-40 disabled:cursor-not-allowed opacity-70 hover:enabled:scale-110 hover:enabled:opacity-100 active:enabled:scale-95 transition-all duration-200"
             disabled={currentIndex === items.length - 1}
             onClick={handleNextClick}
             aria-label="Next video"

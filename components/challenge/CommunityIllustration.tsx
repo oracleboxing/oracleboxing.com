@@ -49,7 +49,7 @@ export default function CommunityIllustration({ width = 400, height = 250, class
               />
               {/* Play overlay */}
               <div className="relative z-10 flex flex-col items-center gap-2">
-                <div className="w-10 h-10 rounded-full bg-black/40 backdrop-blur-sm flex items-center justify-center">
+                <div className="w-10 h-10 rounded-full bg-black/60 flex items-center justify-center">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
                     <path d="M5 3L19 12L5 21V3Z" fill="white"/>
                   </svg>

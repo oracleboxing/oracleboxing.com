@@ -47,7 +47,7 @@ export function LiquidGlassButton({
   return (
     <button
       onClick={handleClick}
-      className={`rounded-full backdrop-blur-[20px] saturate-[180%] ${variantClasses[variant].base} border font-semibold transition-all duration-200 ${
+      className={`rounded-full ${variantClasses[variant].base} border font-semibold transition-all duration-200 ${
         isMagnified ? 'scale-105' : `hover:scale-[1.02] ${variantClasses[variant].hover}`
       } ${sizeClasses[size]} ${className}`}
       style={{

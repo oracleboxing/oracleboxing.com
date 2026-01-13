@@ -103,6 +103,16 @@ function LiveCoachingCalendar() {
           filter: blur(8px);
           animation: headerDrift 6s ease-in-out infinite;
         }
+        @media (max-width: 768px) {
+          .header-ribbon {
+            display: none;
+          }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .header-ribbon {
+            display: none;
+          }
+        }
         @keyframes headerDrift {
           0%, 100% {
             transform: translateX(-20%);
@@ -169,6 +179,16 @@ function FeedbackIllustration() {
           filter: blur(8px);
           animation: feedbackDrift 7s ease-in-out infinite;
         }
+        @media (max-width: 768px) {
+          .feedback-header-ribbon {
+            display: none;
+          }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .feedback-header-ribbon {
+            display: none;
+          }
+        }
         @keyframes feedbackDrift {
           0%, 100% {
             transform: translateX(-25%);
@@ -193,7 +213,7 @@ function FeedbackIllustration() {
           />
           {/* Play Button */}
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-10 h-10 md:w-12 md:h-12 bg-black/30 backdrop-blur-sm rounded-full flex items-center justify-center">
+            <div className="w-10 h-10 md:w-12 md:h-12 bg-black/50 rounded-full flex items-center justify-center">
               <svg className="w-5 h-5 md:w-6 md:h-6 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M8 5v14l11-7z" />
               </svg>
@@ -282,6 +302,16 @@ function ChallengeProgressIllustration() {
           );
           filter: blur(8px);
           animation: progressDrift 5s ease-in-out infinite;
+        }
+        @media (max-width: 768px) {
+          .progress-header-ribbon {
+            display: none;
+          }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .progress-header-ribbon {
+            display: none;
+          }
         }
         @keyframes progressDrift {
           0%, 100% {

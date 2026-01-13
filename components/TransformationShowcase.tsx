@@ -1,22 +1,124 @@
 'use client'
 
+import { useEffect, useRef, useState } from 'react'
+
+// Lazy video component that only loads when visible
+function LazyVideo({
+  src,
+  poster,
+  className,
+  label,
+  labelPosition
+}: {
+  src: string
+  poster: string
+  className: string
+  label: string
+  labelPosition: 'left' | 'right'
+}) {
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
+  const [isVisible, setIsVisible] = useState(false)
+
+  useEffect(() => {
+    const container = containerRef.current
+    if (!container) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true)
+          // Once visible, we can stop observing
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.1, rootMargin: '100px' }
+    )
+
+    observer.observe(container)
+    return () => observer.disconnect()
+  }, [])
+
+  // Play/pause based on visibility
+  useEffect(() => {
+    const video = videoRef.current
+    if (!video || !isVisible) return
+
+    const playObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          video.play().catch(() => {})
+        } else {
+          video.pause()
+        }
+      },
+      { threshold: 0.3 }
+    )
+
+    playObserver.observe(video)
+    return () => playObserver.disconnect()
+  }, [isVisible])
+
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 1024
+  const labelClasses = labelPosition === 'left'
+    ? `absolute top-${isMobile ? '2' : '3'} left-${isMobile ? '2' : '3'} bg-[#37322F]/80 px-${isMobile ? '2' : '3'} py-${isMobile ? '1' : '1.5'} rounded-md`
+    : `absolute top-${isMobile ? '2' : '3'} right-${isMobile ? '2' : '3'} bg-[#37322F]/80 px-${isMobile ? '2' : '3'} py-${isMobile ? '1' : '1.5'} rounded-md`
+
+  return (
+    <div ref={containerRef} className={`relative overflow-hidden aspect-[9/16] bg-[#37322F] ${labelPosition === 'left' ? 'rounded-l-lg' : 'rounded-r-lg'}`}>
+      {isVisible ? (
+        <video
+          ref={videoRef}
+          src={src}
+          poster={poster}
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          className={className}
+        />
+      ) : (
+        // Show poster as placeholder
+        <img
+          src={poster}
+          alt=""
+          className={className}
+          loading="lazy"
+        />
+      )}
+      <div className={labelPosition === 'left'
+        ? 'absolute top-2 left-2 lg:top-3 lg:left-3 bg-[#37322F]/80 px-2 py-1 lg:px-3 lg:py-1.5 rounded-md'
+        : 'absolute top-2 right-2 lg:top-3 lg:right-3 bg-[#37322F]/80 px-2 py-1 lg:px-3 lg:py-1.5 rounded-md'
+      }>
+        <span className="text-white text-[10px] lg:text-xs lg:md:text-sm font-semibold tracking-wide">
+          {label}
+        </span>
+      </div>
+    </div>
+  )
+}
+
 export function TransformationShowcase() {
   const benefits = [
     {
-      title: "Self-Mastery",
-      description: "Watch yourself improve every day and build real confidence."
+      title: "Structure & Clarity",
+      description: "Know exactly what to work on and see measurable progress every week."
     },
     {
-      title: "Self-Defence",
-      description: "Know you can protect yourself if you ever need to."
+      title: "Learn Properly",
+      description: "Build real fundamentals, not bad habits you'll spend years trying to fix."
     },
     {
       title: "Get In Shape",
       description: "Burn fat, build muscle, and feel stronger than ever."
     },
     {
-      title: "Mental Toughness",
-      description: "Push past your comfort zone and grow resilience."
+      title: "Prove Something To Yourself",
+      description: "Show up for 21 days and discover what you're capable of."
+    },
+    {
+      title: "Real Feedback",
+      description: "Every rep gets watched. Every mistake gets caught and corrected."
     },
   ]
 
@@ -28,19 +130,17 @@ export function TransformationShowcase() {
           className="relative overflow-hidden rounded-2xl"
           style={{ padding: '8px' }}
         >
-          {/* Pattern border background */}
+          {/* Pattern border background - hidden on mobile for performance */}
           <div className="absolute inset-0 bg-[#37322F] overflow-hidden rounded-2xl">
-            {/* Animated flowing ribbons/orbs */}
-            <div className="ribbon ribbon-1" />
-            <div className="ribbon ribbon-2" />
-            <div className="ribbon ribbon-3" />
-            <div className="ribbon ribbon-4" />
-            <div className="ribbon ribbon-5" />
-            <div className="ribbon ribbon-6" />
-            <div className="ribbon ribbon-7" />
-            <div className="ribbon ribbon-8" />
-            <div className="ribbon ribbon-9" />
-            <div className="ribbon ribbon-10" />
+            {/* Animated flowing ribbons/orbs - desktop only */}
+            <div className="hidden md:block">
+              <div className="ribbon ribbon-1" />
+              <div className="ribbon ribbon-2" />
+              <div className="ribbon ribbon-3" />
+              <div className="ribbon ribbon-4" />
+              <div className="ribbon ribbon-5" />
+              <div className="ribbon ribbon-6" />
+            </div>
           </div>
 
           {/* Inner white card */}
@@ -66,80 +166,38 @@ export function TransformationShowcase() {
 
               {/* Shalyn transformation - Middle columns (spans 4 cols) */}
               <div className="grid grid-cols-2 gap-0 lg:col-span-4">
-                {/* Before Video */}
-                <div className="relative overflow-hidden aspect-[9/16] bg-[#37322F] rounded-l-lg">
-                  <video
-                    src="https://sb.oracleboxing.com/transfo-v2/shalyn_before.webm"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    className="absolute inset-0 w-[120%] h-full object-cover left-1/2 -translate-x-1/2"
-                  />
-                  {/* BEFORE label - top left */}
-                  <div className="absolute top-3 left-3 bg-[#37322F]/80 backdrop-blur-sm px-3 py-1.5 rounded-md">
-                    <span className="text-white text-xs md:text-sm font-semibold tracking-wide">
-                      BEFORE
-                    </span>
-                  </div>
-                </div>
-
-                {/* After Video */}
-                <div className="relative overflow-hidden aspect-[9/16] bg-[#37322F] rounded-r-lg">
-                  <video
-                    src="https://sb.oracleboxing.com/transfo-v2/shalyn_after.webm"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    className="absolute inset-0 w-[120%] h-full object-cover left-1/2 -translate-x-1/2"
-                  />
-                  {/* AFTER label - top right */}
-                  <div className="absolute top-3 right-3 bg-[#37322F]/80 backdrop-blur-sm px-3 py-1.5 rounded-md">
-                    <span className="text-white text-xs md:text-sm font-semibold tracking-wide">
-                      AFTER
-                    </span>
-                  </div>
-                </div>
+                <LazyVideo
+                  src="https://sb.oracleboxing.com/transfo-v2/shalyn_before.webm"
+                  poster="https://sb.oracleboxing.com/transfo-v2/shalyn_before_poster.webp"
+                  className="absolute inset-0 w-[120%] h-full object-cover left-1/2 -translate-x-1/2"
+                  label="BEFORE"
+                  labelPosition="left"
+                />
+                <LazyVideo
+                  src="https://sb.oracleboxing.com/transfo-v2/shalyn_after.webm"
+                  poster="https://sb.oracleboxing.com/transfo-v2/shalyn_after_poster.webp"
+                  className="absolute inset-0 w-[120%] h-full object-cover left-1/2 -translate-x-1/2"
+                  label="AFTER"
+                  labelPosition="right"
+                />
               </div>
 
               {/* Keli transformation - Right columns (spans 4 cols) */}
               <div className="grid grid-cols-2 gap-0 lg:col-span-4">
-                {/* Before Video */}
-                <div className="relative overflow-hidden aspect-[9/16] bg-[#37322F] rounded-l-lg">
-                  <video
-                    src="https://sb.oracleboxing.com/transfo-v2/keli_before.webm"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    className="absolute inset-0 w-[120%] h-full object-cover left-1/2 -translate-x-1/2"
-                  />
-                  {/* BEFORE label - top left */}
-                  <div className="absolute top-3 left-3 bg-[#37322F]/80 backdrop-blur-sm px-3 py-1.5 rounded-md">
-                    <span className="text-white text-xs md:text-sm font-semibold tracking-wide">
-                      BEFORE
-                    </span>
-                  </div>
-                </div>
-
-                {/* After Video */}
-                <div className="relative overflow-hidden aspect-[9/16] bg-[#37322F] rounded-r-lg">
-                  <video
-                    src="https://sb.oracleboxing.com/transfo-v2/keli_after.webm"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    className="absolute inset-0 w-[120%] h-full object-cover left-1/2 -translate-x-1/2"
-                  />
-                  {/* AFTER label - top right */}
-                  <div className="absolute top-3 right-3 bg-[#37322F]/80 backdrop-blur-sm px-3 py-1.5 rounded-md">
-                    <span className="text-white text-xs md:text-sm font-semibold tracking-wide">
-                      AFTER
-                    </span>
-                  </div>
-                </div>
+                <LazyVideo
+                  src="https://sb.oracleboxing.com/transfo-v2/keli_before.webm"
+                  poster="https://sb.oracleboxing.com/transfo-v2/keli_before_poster.webp"
+                  className="absolute inset-0 w-[120%] h-full object-cover left-1/2 -translate-x-1/2"
+                  label="BEFORE"
+                  labelPosition="left"
+                />
+                <LazyVideo
+                  src="https://sb.oracleboxing.com/transfo-v2/keli_after.webm"
+                  poster="https://sb.oracleboxing.com/transfo-v2/keli_after_poster.webp"
+                  className="absolute inset-0 w-[120%] h-full object-cover left-1/2 -translate-x-1/2"
+                  label="AFTER"
+                  labelPosition="right"
+                />
               </div>
             </div>
 
@@ -147,80 +205,38 @@ export function TransformationShowcase() {
             <div className="lg:hidden flex flex-col gap-4">
               {/* Shalyn transformation - on top */}
               <div className="grid grid-cols-2 gap-0">
-                {/* Before Video */}
-                <div className="relative overflow-hidden aspect-[9/16] bg-[#37322F] rounded-l-lg">
-                  <video
-                    src="https://sb.oracleboxing.com/transfo-v2/shalyn_before.webm"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    className="absolute inset-0 w-[120%] h-full object-cover left-1/2 -translate-x-1/2"
-                  />
-                  {/* BEFORE label - top left */}
-                  <div className="absolute top-2 left-2 bg-[#37322F]/80 backdrop-blur-sm px-2 py-1 rounded-md">
-                    <span className="text-white text-[10px] font-semibold tracking-wide">
-                      BEFORE
-                    </span>
-                  </div>
-                </div>
-
-                {/* After Video */}
-                <div className="relative overflow-hidden aspect-[9/16] bg-[#37322F] rounded-r-lg">
-                  <video
-                    src="https://sb.oracleboxing.com/transfo-v2/shalyn_after.webm"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    className="absolute inset-0 w-[120%] h-full object-cover left-1/2 -translate-x-1/2"
-                  />
-                  {/* AFTER label - top right */}
-                  <div className="absolute top-2 right-2 bg-[#37322F]/80 backdrop-blur-sm px-2 py-1 rounded-md">
-                    <span className="text-white text-[10px] font-semibold tracking-wide">
-                      AFTER
-                    </span>
-                  </div>
-                </div>
+                <LazyVideo
+                  src="https://sb.oracleboxing.com/transfo-v2/shalyn_before.webm"
+                  poster="https://sb.oracleboxing.com/transfo-v2/shalyn_before_poster.webp"
+                  className="absolute inset-0 w-[120%] h-full object-cover left-1/2 -translate-x-1/2"
+                  label="BEFORE"
+                  labelPosition="left"
+                />
+                <LazyVideo
+                  src="https://sb.oracleboxing.com/transfo-v2/shalyn_after.webm"
+                  poster="https://sb.oracleboxing.com/transfo-v2/shalyn_after_poster.webp"
+                  className="absolute inset-0 w-[120%] h-full object-cover left-1/2 -translate-x-1/2"
+                  label="AFTER"
+                  labelPosition="right"
+                />
               </div>
 
               {/* Keli transformation - below */}
               <div className="grid grid-cols-2 gap-0">
-                {/* Before Video */}
-                <div className="relative overflow-hidden aspect-[9/16] bg-[#37322F] rounded-l-lg">
-                  <video
-                    src="https://sb.oracleboxing.com/transfo-v2/keli_before.webm"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    className="absolute inset-0 w-[120%] h-full object-cover left-1/2 -translate-x-1/2"
-                  />
-                  {/* BEFORE label - top left */}
-                  <div className="absolute top-2 left-2 bg-[#37322F]/80 backdrop-blur-sm px-2 py-1 rounded-md">
-                    <span className="text-white text-[10px] font-semibold tracking-wide">
-                      BEFORE
-                    </span>
-                  </div>
-                </div>
-
-                {/* After Video */}
-                <div className="relative overflow-hidden aspect-[9/16] bg-[#37322F] rounded-r-lg">
-                  <video
-                    src="https://sb.oracleboxing.com/transfo-v2/keli_after.webm"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    className="absolute inset-0 w-[120%] h-full object-cover left-1/2 -translate-x-1/2"
-                  />
-                  {/* AFTER label - top right */}
-                  <div className="absolute top-2 right-2 bg-[#37322F]/80 backdrop-blur-sm px-2 py-1 rounded-md">
-                    <span className="text-white text-[10px] font-semibold tracking-wide">
-                      AFTER
-                    </span>
-                  </div>
-                </div>
+                <LazyVideo
+                  src="https://sb.oracleboxing.com/transfo-v2/keli_before.webm"
+                  poster="https://sb.oracleboxing.com/transfo-v2/keli_before_poster.webp"
+                  className="absolute inset-0 w-[120%] h-full object-cover left-1/2 -translate-x-1/2"
+                  label="BEFORE"
+                  labelPosition="left"
+                />
+                <LazyVideo
+                  src="https://sb.oracleboxing.com/transfo-v2/keli_after.webm"
+                  poster="https://sb.oracleboxing.com/transfo-v2/keli_after_poster.webp"
+                  className="absolute inset-0 w-[120%] h-full object-cover left-1/2 -translate-x-1/2"
+                  label="AFTER"
+                  labelPosition="right"
+                />
               </div>
 
               {/* Benefits text below videos on mobile */}
@@ -308,38 +324,6 @@ export function TransformationShowcase() {
           transform: rotate(3deg);
           animation: drift3 16s ease-in-out infinite;
           animation-delay: -10s;
-        }
-        .ribbon-7 {
-          top: 35%;
-          left: -110%;
-          height: 100px;
-          transform: rotate(-6deg);
-          animation: drift1 13s ease-in-out infinite;
-          animation-delay: -6s;
-        }
-        .ribbon-8 {
-          top: 55%;
-          left: -90%;
-          height: 85px;
-          transform: rotate(4deg);
-          animation: drift2 9s ease-in-out infinite;
-          animation-delay: -7s;
-        }
-        .ribbon-9 {
-          top: 75%;
-          left: -170%;
-          height: 95px;
-          transform: rotate(-3deg);
-          animation: drift3 11s ease-in-out infinite;
-          animation-delay: -2s;
-        }
-        .ribbon-10 {
-          top: 90%;
-          left: -80%;
-          height: 70px;
-          transform: rotate(6deg);
-          animation: drift1 8s ease-in-out infinite;
-          animation-delay: -4s;
         }
         @keyframes drift1 {
           0%, 100% {

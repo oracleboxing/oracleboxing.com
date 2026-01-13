@@ -1,10 +1,63 @@
 "use client";
 
+import { useEffect, useRef, useState } from 'react';
 import { EpicCTAButton } from '@/components/EpicCTAButton';
 
 interface TestimonialsWithMediaSectionProps {
   onCTAClick?: () => void;
   onOpenPricing?: () => void;
+}
+
+// Lazy video that only loads and plays when visible
+function LazyTestimonialVideo({ src, poster }: { src: string; poster: string }) {
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
+  const [isVisible, setIsVisible] = useState(false)
+
+  useEffect(() => {
+    const container = containerRef.current
+    if (!container) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting)
+        if (entry.isIntersecting && videoRef.current) {
+          videoRef.current.play().catch(() => {})
+        } else if (!entry.isIntersecting && videoRef.current) {
+          videoRef.current.pause()
+        }
+      },
+      { threshold: 0.3, rootMargin: '100px' }
+    )
+
+    observer.observe(container)
+    return () => observer.disconnect()
+  }, [])
+
+  return (
+    <div ref={containerRef} className="relative aspect-video rounded-xl overflow-hidden lg:max-w-md lg:mx-auto">
+      {isVisible ? (
+        <video
+          ref={videoRef}
+          className="w-full h-full object-cover"
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          poster={poster}
+        >
+          <source src={src} type="video/webm" />
+        </video>
+      ) : (
+        <img
+          src={poster}
+          alt=""
+          className="w-full h-full object-cover"
+          loading="lazy"
+        />
+      )}
+    </div>
+  )
 }
 
 export default function TestimonialsWithMediaSection({ onCTAClick, onOpenPricing }: TestimonialsWithMediaSectionProps) {
@@ -56,18 +109,11 @@ export default function TestimonialsWithMediaSection({ onCTAClick, onOpenPricing
 
         {/* Torey Testimonial - Live Coaching */}
         <div className="grid grid-cols-1 gap-8 items-center lg:grid-cols-2 mb-12 sm:mb-16 lg:mb-12">
-          <div className="relative aspect-video rounded-xl overflow-hidden order-2 lg:order-1 lg:max-w-md lg:mx-auto">
-            <video
-              className="w-full h-full object-cover"
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="auto"
+          <div className="order-2 lg:order-1">
+            <LazyTestimonialVideo
+              src="https://sb.oracleboxing.com/Website/optimized/videos/obcoachingcall-optimized.webm"
               poster="https://sb.oracleboxing.com/Website/obcoachingcall-frame.jpg"
-            >
-              <source src="https://sb.oracleboxing.com/Website/optimized/videos/obcoachingcall-optimized.webm" type="video/webm" />
-            </video>
+            />
           </div>
           <div className="flex gap-8 flex-col order-1 lg:order-2">
             <div className="lg:pl-6">
@@ -121,19 +167,10 @@ export default function TestimonialsWithMediaSection({ onCTAClick, onOpenPricing
               </div>
             </div>
           </div>
-          <div className="relative aspect-video rounded-xl overflow-hidden lg:max-w-md lg:mx-auto">
-            <video
-              className="w-full h-full object-cover"
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="auto"
-              poster="https://sb.oracleboxing.com/Website/online_rating-frame.jpg"
-            >
-              <source src="https://sb.oracleboxing.com/Website/optimized/videos/online_rating-optimized.webm" type="video/webm" />
-            </video>
-          </div>
+          <LazyTestimonialVideo
+            src="https://sb.oracleboxing.com/Website/optimized/videos/online_rating-optimized.webm"
+            poster="https://sb.oracleboxing.com/Website/online_rating-frame.jpg"
+          />
         </div>
 
         {/* Final CTA Button */}
