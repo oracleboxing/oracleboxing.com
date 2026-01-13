@@ -96,25 +96,25 @@ export function CheckoutForm({ onSubmit, isLoading, error, currency }: CheckoutF
       </a>
 
       {/* Card */}
-      <div className="w-full max-w-md lg:max-w-3xl bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl p-8 lg:p-12 relative z-10">
+      <div className="w-full max-w-md lg:max-w-3xl bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl p-5 sm:p-8 lg:p-12 relative z-10">
         <form onSubmit={handleSubmit} className="max-w-xl mx-auto">
           {/* Logo */}
-          <div className="flex justify-start mb-8">
+          <div className="flex justify-start mb-4 sm:mb-8">
             <img
               src="https://sb.oracleboxing.com/logo/icon_dark.webp"
               alt="Oracle Boxing"
-              className="w-10 h-auto"
+              className="w-8 sm:w-10 h-auto"
             />
           </div>
 
           {/* Heading */}
-          <h1 className="text-left text-3xl md:text-4xl font-normal leading-tight mb-6" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
+          <h1 className="text-left text-2xl sm:text-3xl md:text-4xl font-normal leading-tight mb-3 sm:mb-6" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
             <span className="text-[#37322F]">Start your</span><br />
             <span className="text-[#9CABA8]">Transformation</span>
           </h1>
 
           {/* Description */}
-          <p className="text-left text-[#605A57] text-sm md:text-base font-normal leading-relaxed mb-8">
+          <p className="text-left text-[#605A57] text-xs sm:text-sm md:text-base font-normal leading-relaxed mb-5 sm:mb-8">
             Join the 21-Day Challenge and prove you have what it takes. Show up, put in the work, and earn your place in Oracle Boxing.
           </p>
 
@@ -126,9 +126,9 @@ export function CheckoutForm({ onSubmit, isLoading, error, currency }: CheckoutF
           )}
 
           {/* Name Inputs - Side by Side */}
-          <div className="grid grid-cols-2 gap-4 mb-4">
+          <div className="grid grid-cols-2 gap-3 sm:gap-4 mb-3 sm:mb-4">
             <div>
-              <label htmlFor="firstName" className="block text-sm font-medium text-[#49423D] mb-2">
+              <label htmlFor="firstName" className="block text-xs sm:text-sm font-medium text-[#49423D] mb-1.5 sm:mb-2">
                 First Name *
               </label>
               <input
@@ -136,7 +136,7 @@ export function CheckoutForm({ onSubmit, isLoading, error, currency }: CheckoutF
                 id="firstName"
                 value={customerInfo.firstName}
                 onChange={(e) => setCustomerInfo({ ...customerInfo, firstName: e.target.value })}
-                className="w-full px-5 py-3 bg-white border border-[rgba(55,50,47,0.20)] rounded-lg focus:ring-2 focus:ring-[#37322F] focus:border-transparent transition-all"
+                className="w-full px-4 sm:px-5 py-2.5 sm:py-3 text-sm sm:text-base bg-white border border-[rgba(55,50,47,0.20)] rounded-lg focus:ring-2 focus:ring-[#37322F] focus:border-transparent transition-all"
                 placeholder="John"
                 required
                 disabled={isLoading}
@@ -144,7 +144,7 @@ export function CheckoutForm({ onSubmit, isLoading, error, currency }: CheckoutF
               />
             </div>
             <div>
-              <label htmlFor="lastName" className="block text-sm font-medium text-[#49423D] mb-2">
+              <label htmlFor="lastName" className="block text-xs sm:text-sm font-medium text-[#49423D] mb-1.5 sm:mb-2">
                 Last Name *
               </label>
               <input
@@ -152,7 +152,7 @@ export function CheckoutForm({ onSubmit, isLoading, error, currency }: CheckoutF
                 id="lastName"
                 value={customerInfo.lastName}
                 onChange={(e) => setCustomerInfo({ ...customerInfo, lastName: e.target.value })}
-                className="w-full px-5 py-3 bg-white border border-[rgba(55,50,47,0.20)] rounded-lg focus:ring-2 focus:ring-[#37322F] focus:border-transparent transition-all"
+                className="w-full px-4 sm:px-5 py-2.5 sm:py-3 text-sm sm:text-base bg-white border border-[rgba(55,50,47,0.20)] rounded-lg focus:ring-2 focus:ring-[#37322F] focus:border-transparent transition-all"
                 placeholder="Doe"
                 required
                 disabled={isLoading}
@@ -162,8 +162,8 @@ export function CheckoutForm({ onSubmit, isLoading, error, currency }: CheckoutF
           </div>
 
           {/* Email Input */}
-          <div className="mb-4">
-            <label htmlFor="email" className="block text-sm font-medium text-[#49423D] mb-2">
+          <div className="mb-3 sm:mb-4">
+            <label htmlFor="email" className="block text-xs sm:text-sm font-medium text-[#49423D] mb-1.5 sm:mb-2">
               Email *
             </label>
             <input
@@ -171,7 +171,7 @@ export function CheckoutForm({ onSubmit, isLoading, error, currency }: CheckoutF
               id="email"
               value={customerInfo.email}
               onChange={(e) => setCustomerInfo({ ...customerInfo, email: e.target.value })}
-              className="w-full px-5 py-3 bg-white border border-[rgba(55,50,47,0.20)] rounded-lg focus:ring-2 focus:ring-[#37322F] focus:border-transparent transition-all"
+              className="w-full px-4 sm:px-5 py-2.5 sm:py-3 text-sm sm:text-base bg-white border border-[rgba(55,50,47,0.20)] rounded-lg focus:ring-2 focus:ring-[#37322F] focus:border-transparent transition-all"
               placeholder="your@email.com"
               required
               disabled={isLoading}
@@ -180,8 +180,8 @@ export function CheckoutForm({ onSubmit, isLoading, error, currency }: CheckoutF
           </div>
 
           {/* Phone Input */}
-          <div className="mb-8">
-            <label htmlFor="phone" className="block text-sm font-medium text-[#49423D] mb-2">
+          <div className="mb-5 sm:mb-8">
+            <label htmlFor="phone" className="block text-xs sm:text-sm font-medium text-[#49423D] mb-1.5 sm:mb-2">
               Phone Number *
             </label>
             <PhoneInput

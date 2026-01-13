@@ -168,6 +168,28 @@ const transformations: TransformationItem[] = [
       { before: 'Moving too much throwing', after: 'Rotating on axis, planted' },
     ],
   },
+  {
+    id: 9,
+    name: 'Ilya',
+    beforeVideo: 'ilya_before2.webm',
+    afterVideo: 'ilya_after.webm',
+    duration: '6 MONTHS',
+    corrections: [
+      { before: 'No kinetic linkage', after: 'Full body connection' },
+      { before: 'Weight shifting forward', after: 'Centred, balanced weight' },
+    ],
+  },
+  {
+    id: 10,
+    name: 'Rod',
+    beforeVideo: 'rod_before.webm',
+    afterVideo: 'rod_after.webm',
+    duration: '6 MONTHS',
+    corrections: [
+      { before: 'Not fully extending punches', after: 'Full punch extension' },
+      { before: 'Unorthodox timing, no rhythm', after: 'Smooth, rhythmic flow' },
+    ],
+  },
 ]
 
 export function TransformationDetailsCarousel() {
@@ -177,19 +199,16 @@ export function TransformationDetailsCarousel() {
   const [dragStartX, setDragStartX] = useState(0)
   const [dragOffset, setDragOffset] = useState(0)
   const desktopCarouselRef = useRef<HTMLDivElement>(null)
-  const mobileCarouselRef = useRef<HTMLDivElement>(null)
   const desktopVideoRefs = useRef<(HTMLVideoElement | null)[]>([])
-  const mobileVideoRefs = useRef<(HTMLVideoElement | null)[]>([])
 
   // Counting animations for header
   const { count: daysCount, elementRef: daysRef } = useCountUp(21, 1500)
   const { count: monthsCount, elementRef: monthsRef } = useCountUp(6, 1500)
 
   const updateTranslate = useCallback((index: number) => {
-    // Use whichever carousel is visible
-    const carouselRef = window.innerWidth >= 768 ? desktopCarouselRef : mobileCarouselRef
-    if (!carouselRef.current) return
-    const containerWidth = carouselRef.current.offsetWidth
+    // Only used for desktop carousel with swipe
+    if (!desktopCarouselRef.current) return
+    const containerWidth = desktopCarouselRef.current.offsetWidth
     setTranslateX(-index * containerWidth)
   }, [])
 
@@ -209,25 +228,18 @@ export function TransformationDetailsCarousel() {
     }
   }, [])
 
-  // Handle video playback for both desktop and mobile
+  // Handle video playback for desktop
   useEffect(() => {
-    const playVideos = (refs: (HTMLVideoElement | null)[]) => {
-      refs.forEach((video, index) => {
-        if (video) {
-          // Ensure preload for smoother playback
-          video.preload = 'auto'
-
-          if (Math.floor(index / 2) === currentIndex) {
-            video.play().catch(() => {})
-          } else {
-            video.pause()
-            video.currentTime = 0
-          }
+    desktopVideoRefs.current.forEach((video, index) => {
+      if (video) {
+        if (Math.floor(index / 2) === currentIndex) {
+          video.play().catch(() => {})
+        } else {
+          video.pause()
+          video.currentTime = 0
         }
-      })
-    }
-    playVideos(desktopVideoRefs.current)
-    playVideos(mobileVideoRefs.current)
+      }
+    })
   }, [currentIndex])
 
   const handlePrevClick = () => {
@@ -472,150 +484,128 @@ export function TransformationDetailsCarousel() {
             </button>
           </div>
 
-          {/* Mobile Carousel - full width with fixed background */}
-          <div className="md:hidden">
-            {/* Fixed dark background with animated ribbons - fixed height container */}
-            <div className="relative overflow-hidden bg-[#37322F] flex items-center justify-center" style={{ minHeight: '580px' }}>
-              {/* Animated flowing ribbons/orbs - stays fixed */}
-              <div className="ribbon ribbon-1" />
-              <div className="ribbon ribbon-2" />
-              <div className="ribbon ribbon-3" />
-              <div className="ribbon ribbon-4" />
-              <div className="ribbon ribbon-5" />
-              <div className="ribbon ribbon-6" />
+          {/* Mobile Carousel - simple card with buttons, no swipe */}
+          <div className="md:hidden px-4">
+            {/* Current card only */}
+            {(() => {
+              const item = transformations[currentIndex]
+              return (
+                <div className="relative bg-white p-4 rounded-xl border border-[rgba(55,50,47,0.12)] shadow-sm">
+                  {/* Row 1: Before/After Videos */}
+                  <div className="grid grid-cols-2 gap-0 mb-4">
+                    {/* Before Video */}
+                    <div className="relative overflow-hidden aspect-[9/16] bg-[#37322F] rounded-l-lg">
+                      <video
+                        key={`mobile-before-${currentIndex}`}
+                        src={`${BASE_URL}${item.beforeVideo}`}
+                        poster={getPosterUrl(item.beforeVideo)}
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        preload="metadata"
+                        onTimeUpdate={(e) => handleTimeUpdate(e.currentTarget)}
+                        className="absolute inset-0 w-full h-full object-cover"
+                      />
+                      <div className="absolute top-2 left-2 bg-[#37322F]/90 px-2 py-1 rounded-md">
+                        <span className="text-white text-xs font-semibold tracking-wide">
+                          BEFORE
+                        </span>
+                      </div>
+                    </div>
 
-              {/* Navigation arrows - vertically centered */}
+                    {/* After Video */}
+                    <div className="relative overflow-hidden aspect-[9/16] bg-[#37322F] rounded-r-lg">
+                      <video
+                        key={`mobile-after-${currentIndex}`}
+                        src={`${BASE_URL}${item.afterVideo}`}
+                        poster={getPosterUrl(item.afterVideo)}
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        preload="metadata"
+                        onTimeUpdate={(e) => handleTimeUpdate(e.currentTarget)}
+                        className="absolute inset-0 w-full h-full object-cover"
+                      />
+                      <div className="absolute top-2 right-2 bg-[#37322F]/90 px-2 py-1 rounded-md">
+                        <span className="text-white text-xs font-semibold tracking-wide">
+                          AFTER
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Row 2: Duration with line */}
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="flex-1 h-px bg-[#37322F]/20" />
+                    <span
+                      className="text-[#37322F] text-sm font-semibold tracking-wider"
+                      style={{ fontFamily: 'ClashDisplay, sans-serif' }}
+                    >
+                      {item.duration}
+                    </span>
+                    <div className="flex-1 h-px bg-[#37322F]/20" />
+                  </div>
+
+                  {/* Row 3: Technique Corrections */}
+                  <div className="space-y-2">
+                    {item.corrections.map((correction, corrIndex) => (
+                      <div key={corrIndex} className="grid grid-cols-2 gap-3">
+                        <div className="flex items-start gap-1.5">
+                          <span className="text-red-500 mt-0.5 flex-shrink-0">
+                            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                              <circle cx="8" cy="8" r="6" stroke="currentColor" strokeWidth="1.5" />
+                              <path d="M6 6L10 10M10 6L6 10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                            </svg>
+                          </span>
+                          <span className="text-[#49423D] text-xs leading-relaxed">
+                            {correction.before}
+                          </span>
+                        </div>
+                        <div className="flex items-start gap-1.5">
+                          <span className="text-green-600 mt-0.5 flex-shrink-0">
+                            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                              <circle cx="8" cy="8" r="6" stroke="currentColor" strokeWidth="1.5" />
+                              <path d="M5.5 8L7 9.5L10.5 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                          </span>
+                          <span className="text-[#49423D] text-xs leading-relaxed">
+                            {correction.after}
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )
+            })()}
+
+            {/* Navigation buttons below card */}
+            <div className="flex items-center justify-center gap-4 mt-4">
               <button
-                className="absolute left-2 top-1/2 -translate-y-1/2 z-20 flex w-10 h-10 rounded-full items-center justify-center bg-white/90 shadow-lg disabled:opacity-40 disabled:cursor-not-allowed hover:enabled:scale-110 hover:enabled:bg-white active:enabled:scale-95 transition-all duration-200"
+                className="flex w-10 h-10 rounded-full items-center justify-center bg-[#37322F] text-white disabled:opacity-40 disabled:cursor-not-allowed active:scale-95 transition-all duration-200"
                 disabled={currentIndex === 0}
                 onClick={handlePrevClick}
                 aria-label="Previous transformation"
               >
-                <svg className="w-5 h-5 text-[#37322F]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                 </svg>
               </button>
+              <span className="text-[#49423D] text-sm font-medium">
+                {currentIndex + 1} / {transformations.length}
+              </span>
               <button
-                className="absolute right-2 top-1/2 -translate-y-1/2 z-20 flex w-10 h-10 rounded-full items-center justify-center bg-white/90 shadow-lg disabled:opacity-40 disabled:cursor-not-allowed hover:enabled:scale-110 hover:enabled:bg-white active:enabled:scale-95 transition-all duration-200"
+                className="flex w-10 h-10 rounded-full items-center justify-center bg-[#37322F] text-white disabled:opacity-40 disabled:cursor-not-allowed active:scale-95 transition-all duration-200"
                 disabled={currentIndex === transformations.length - 1}
                 onClick={handleNextClick}
                 aria-label="Next transformation"
               >
-                <svg className="w-5 h-5 text-[#37322F]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
               </button>
-
-              {/* Sliding carousel of white cards - full width on mobile */}
-              <div
-                ref={mobileCarouselRef}
-                className="relative overflow-hidden touch-pan-y w-full px-12"
-                onTouchStart={handleTouchStart}
-                onTouchMove={handleTouchMove}
-                onTouchEnd={handleTouchEnd}
-              >
-                <div
-                  className="flex will-change-transform"
-                  style={{
-                    transform: `translateX(${translateX + dragOffset}px)`,
-                    transition: isDragging ? 'none' : 'transform 0.4s ease-out',
-                  }}
-                >
-                  {transformations.map((item, cardIndex) => (
-                    <div key={item.id} className="flex-shrink-0 w-full px-1">
-                      {/* White card - slides */}
-                      <div className="relative bg-white p-4 rounded-xl">
-                        {/* Row 1: Before/After Videos */}
-                        <div className="grid grid-cols-2 gap-0 mb-4">
-                          {/* Before Video */}
-                          <div className="relative overflow-hidden aspect-[9/16] bg-[#37322F] rounded-l-lg">
-                            <video
-                              ref={(el) => { mobileVideoRefs.current[cardIndex * 2] = el }}
-                              src={cardIndex === currentIndex ? `${BASE_URL}${item.beforeVideo}` : undefined}
-                              poster={getPosterUrl(item.beforeVideo)}
-                              autoPlay={cardIndex === currentIndex}
-                              muted
-                              loop
-                              playsInline
-                              preload={cardIndex === currentIndex ? "metadata" : "none"}
-                              onTimeUpdate={(e) => handleTimeUpdate(e.currentTarget)}
-                              className="absolute inset-0 w-full h-full object-cover"
-                            />
-                            <div className="absolute top-2 left-2 bg-[#37322F]/90 px-2 py-1 rounded-md">
-                              <span className="text-white text-xs font-semibold tracking-wide">
-                                BEFORE
-                              </span>
-                            </div>
-                          </div>
-
-                          {/* After Video */}
-                          <div className="relative overflow-hidden aspect-[9/16] bg-[#37322F] rounded-r-lg">
-                            <video
-                              ref={(el) => { mobileVideoRefs.current[cardIndex * 2 + 1] = el }}
-                              src={cardIndex === currentIndex ? `${BASE_URL}${item.afterVideo}` : undefined}
-                              poster={getPosterUrl(item.afterVideo)}
-                              autoPlay={cardIndex === currentIndex}
-                              muted
-                              loop
-                              playsInline
-                              preload={cardIndex === currentIndex ? "metadata" : "none"}
-                              onTimeUpdate={(e) => handleTimeUpdate(e.currentTarget)}
-                              className="absolute inset-0 w-full h-full object-cover"
-                            />
-                            <div className="absolute top-2 right-2 bg-[#37322F]/90 px-2 py-1 rounded-md">
-                              <span className="text-white text-xs font-semibold tracking-wide">
-                                AFTER
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* Row 2: Duration with line */}
-                        <div className="flex items-center gap-3 mb-4">
-                          <div className="flex-1 h-px bg-[#37322F]/20" />
-                          <span
-                            className="text-[#37322F] text-sm font-semibold tracking-wider"
-                            style={{ fontFamily: 'ClashDisplay, sans-serif' }}
-                          >
-                            {item.duration}
-                          </span>
-                          <div className="flex-1 h-px bg-[#37322F]/20" />
-                        </div>
-
-                        {/* Row 3: Technique Corrections */}
-                        <div className="space-y-2">
-                          {item.corrections.map((correction, corrIndex) => (
-                            <div key={corrIndex} className="grid grid-cols-2 gap-3">
-                              <div className="flex items-start gap-1.5">
-                                <span className="text-red-500 mt-0.5 flex-shrink-0">
-                                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-                                    <circle cx="8" cy="8" r="6" stroke="currentColor" strokeWidth="1.5" />
-                                    <path d="M6 6L10 10M10 6L6 10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                                  </svg>
-                                </span>
-                                <span className="text-[#49423D] text-xs leading-relaxed">
-                                  {correction.before}
-                                </span>
-                              </div>
-                              <div className="flex items-start gap-1.5">
-                                <span className="text-green-600 mt-0.5 flex-shrink-0">
-                                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-                                    <circle cx="8" cy="8" r="6" stroke="currentColor" strokeWidth="1.5" />
-                                    <path d="M5.5 8L7 9.5L10.5 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                  </svg>
-                                </span>
-                                <span className="text-[#49423D] text-xs leading-relaxed">
-                                  {correction.after}
-                                </span>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
             </div>
           </div>
         </div>

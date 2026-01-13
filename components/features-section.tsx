@@ -1,12 +1,14 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { CoursesIllustration, CoachingIllustration, CommunityIllustration } from "./feature-illustrations"
 
 export default function FeaturesSection() {
   const [activeCard, setActiveCard] = useState(0)
   const [animationKey, setAnimationKey] = useState(0)
   const [isPaused, setIsPaused] = useState(false)
+  const [isVisible, setIsVisible] = useState(false)
+  const sectionRef = useRef<HTMLDivElement>(null)
 
   const cards = [
     {
@@ -23,8 +25,24 @@ export default function FeaturesSection() {
     },
   ]
 
+  // Only run auto-cycle when section is visible
   useEffect(() => {
-    if (isPaused) return
+    const section = sectionRef.current
+    if (!section) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting)
+      },
+      { threshold: 0.3 }
+    )
+
+    observer.observe(section)
+    return () => observer.disconnect()
+  }, [])
+
+  useEffect(() => {
+    if (isPaused || !isVisible) return
 
     const interval = setInterval(() => {
       setActiveCard((prev) => (prev + 1) % cards.length)
@@ -32,7 +50,7 @@ export default function FeaturesSection() {
     }, 5000)
 
     return () => clearInterval(interval)
-  }, [cards.length, isPaused])
+  }, [cards.length, isPaused, isVisible])
 
   const handleCardClick = (index: number) => {
     setActiveCard(index)
@@ -41,7 +59,7 @@ export default function FeaturesSection() {
   }
 
   return (
-    <div className="w-full flex flex-col justify-center items-center">
+    <div ref={sectionRef} className="w-full flex flex-col justify-center items-center">
       {/* Content Section */}
       <div className="self-stretch px-4 md:px-9 overflow-hidden flex justify-center items-center">
         <div className="flex-1 py-8 md:py-11 flex flex-col justify-center items-center gap-6 max-w-3xl mx-auto">
