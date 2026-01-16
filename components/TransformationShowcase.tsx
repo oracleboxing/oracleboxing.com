@@ -116,10 +116,6 @@ export function TransformationShowcase() {
       title: "Prove Something To Yourself",
       description: "Show up for 21 days and discover what you're capable of."
     },
-    {
-      title: "Real Feedback",
-      description: "Every rep gets watched. Every mistake gets caught and corrected."
-    },
   ]
 
   return (
@@ -146,9 +142,9 @@ export function TransformationShowcase() {
           {/* Inner white card */}
           <div className="relative bg-white p-3 md:p-4 lg:p-5 rounded-xl">
             {/* Desktop layout */}
-            <div className="hidden lg:grid lg:grid-cols-10 gap-4 lg:gap-6 items-stretch">
+            <div className="hidden xl:grid xl:grid-cols-10 gap-4 xl:gap-6 items-stretch">
               {/* Left column - Benefits (spans 2 cols) */}
-              <div className="flex flex-col lg:col-span-2 lg:pl-4 lg:pr-4">
+              <div className="flex flex-col xl:col-span-2 xl:pl-4 xl:pr-4">
                 {benefits.map((benefit, index) => (
                   <div key={index} className={`py-4 ${index !== benefits.length - 1 ? 'border-b border-[#37322F]/15' : ''}`}>
                     <h4
@@ -165,7 +161,7 @@ export function TransformationShowcase() {
               </div>
 
               {/* Shalyn transformation - Middle columns (spans 4 cols) */}
-              <div className="grid grid-cols-2 gap-0 lg:col-span-4">
+              <div className="grid grid-cols-2 gap-0 xl:col-span-4">
                 <LazyVideo
                   src="https://sb.oracleboxing.com/transfo-v2/shalyn_before.webm"
                   poster="https://sb.oracleboxing.com/transfo-v2/shalyn_before_poster.webp"
@@ -183,7 +179,7 @@ export function TransformationShowcase() {
               </div>
 
               {/* Keli transformation - Right columns (spans 4 cols) */}
-              <div className="grid grid-cols-2 gap-0 lg:col-span-4">
+              <div className="grid grid-cols-2 gap-0 xl:col-span-4">
                 <LazyVideo
                   src="https://sb.oracleboxing.com/transfo-v2/keli_before.webm"
                   poster="https://sb.oracleboxing.com/transfo-v2/keli_before_poster.webp"
@@ -201,8 +197,8 @@ export function TransformationShowcase() {
               </div>
             </div>
 
-            {/* Mobile layout - Videos stacked, then text */}
-            <div className="lg:hidden flex flex-col gap-4">
+            {/* Mobile/tablet layout - Videos stacked, then text */}
+            <div className="xl:hidden flex flex-col gap-4">
               {/* Shalyn transformation - on top */}
               <div className="grid grid-cols-2 gap-0">
                 <LazyVideo

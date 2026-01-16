@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import FooterSection from '@/components/footer-section'
 
 interface FormErrors {
   name?: string
@@ -16,7 +15,7 @@ export default function ProgressTrackerPage() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    weeklyTarget: 4,
+    weeklyTarget: 2,
   })
   const [errors, setErrors] = useState<FormErrors>({})
 
@@ -94,7 +93,7 @@ export default function ProgressTrackerPage() {
 
       if (response.ok && data.ok) {
         setSubmitted(true)
-        setFormData({ name: '', email: '', weeklyTarget: 4 })
+        setFormData({ name: '', email: '', weeklyTarget: 2 })
       } else {
         setServerError(data.error || 'Something went wrong. Please try again.')
       }
@@ -107,151 +106,131 @@ export default function ProgressTrackerPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white flex overflow-x-hidden">
-      <div className="hidden sm:block sm:w-4 md:w-8 lg:w-12 flex-shrink-0 border-r border-[rgba(55,50,47,0.12)]"></div>
-      <main className="flex-1 min-w-0">
+    <div className="min-h-screen bg-white">
+      {/* Header */}
+      <header className="border-b border-gray-200 py-4 px-6">
+        <h1 className="text-lg font-semibold text-[#37322F] font-sans">Progress Tracker</h1>
+      </header>
 
-        {/* Hero Section */}
-        <section className="relative pt-[120px] md:pt-[160px] pb-16 border-b border-[rgba(55,50,47,0.12)]">
-          <div className="max-w-[1060px] mx-auto px-4">
-            <div className="flex flex-col items-center gap-6">
-              <h1 className="max-w-[900px] text-center text-[#37322f] text-4xl md:text-[64px] font-normal leading-tight md:leading-[1.15] font-serif">
-                Progress Tracker
-              </h1>
-              <p className="max-w-[700px] text-center text-[#37322f]/80 text-lg md:text-xl font-medium leading-7 font-sans">
-                Set your weekly live call target and we'll help you stay accountable to your training goals.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Form Section */}
-        <section className="py-16 md:py-24 border-b border-[rgba(55,50,47,0.12)]">
-          <div className="max-w-[500px] mx-auto px-4">
-            {submitted ? (
-              <div className="bg-white rounded-2xl p-8 border border-[rgba(55,50,47,0.12)] text-center">
-                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <svg className="w-8 h-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                </div>
-                <h2 className="text-[#37322F] text-2xl md:text-3xl font-normal font-serif mb-3">Tracker Request Received</h2>
-                <p className="text-[rgba(73,66,61,0.70)] text-base font-sans">
-                  Check your inbox shortly for next steps.
-                </p>
+      {/* Main Content */}
+      <div className="p-6">
+        {submitted ? (
+          <div className="space-y-6">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                <svg className="w-5 h-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
               </div>
-            ) : (
-              <div className="bg-white rounded-2xl p-8 border border-[rgba(55,50,47,0.12)]">
-                <form onSubmit={handleSubmit} className="space-y-6" noValidate>
-                  {/* Full Name */}
-                  <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-[#37322F] mb-2 font-sans">
-                      Full Name <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      className={`w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#37322F]/20 focus:border-[#37322F] transition-all bg-white text-[#37322F] font-sans ${
-                        errors.name ? 'border-red-500' : 'border-[rgba(55,50,47,0.12)]'
-                      }`}
-                      placeholder="John Doe"
-                      required
-                      disabled={isLoading}
-                      aria-invalid={errors.name ? 'true' : 'false'}
-                      aria-describedby={errors.name ? 'name-error' : undefined}
-                    />
-                    {errors.name && (
-                      <p id="name-error" className="mt-1 text-sm text-red-600 font-sans">
-                        {errors.name}
-                      </p>
-                    )}
-                  </div>
+              <div>
+                <h2 className="text-[#37322F] text-lg font-semibold font-sans">Request Received</h2>
+                <p className="text-gray-500 text-sm font-sans">Check your inbox for next steps.</p>
+              </div>
+            </div>
+            <button
+              onClick={() => setSubmitted(false)}
+              className="text-sm text-gray-500 hover:text-[#37322F] font-sans underline"
+            >
+              Submit another
+            </button>
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit} className="space-y-6">
+            {/* Row 1: Name and Email */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label htmlFor="name" className="block text-sm font-medium text-[#37322F] mb-1.5 font-sans">
+                  Full Name
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  className={`w-full h-12 px-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#37322F]/20 focus:border-[#37322F] bg-white text-[#37322F] font-sans text-sm ${
+                    errors.name ? 'border-red-500' : 'border-gray-200'
+                  }`}
+                  placeholder="John Doe"
+                  required
+                  disabled={isLoading}
+                />
+                {errors.name && (
+                  <p className="mt-1 text-sm text-red-600 font-sans">{errors.name}</p>
+                )}
+              </div>
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium text-[#37322F] mb-1.5 font-sans">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className={`w-full h-12 px-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#37322F]/20 focus:border-[#37322F] bg-white text-[#37322F] font-sans text-sm ${
+                    errors.email ? 'border-red-500' : 'border-gray-200'
+                  }`}
+                  placeholder="john@example.com"
+                  required
+                  disabled={isLoading}
+                />
+                {errors.email && (
+                  <p className="mt-1 text-sm text-red-600 font-sans">{errors.email}</p>
+                )}
+              </div>
+            </div>
 
-                  {/* Email */}
-                  <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-[#37322F] mb-2 font-sans">
-                      Email <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      className={`w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#37322F]/20 focus:border-[#37322F] transition-all bg-white text-[#37322F] font-sans ${
-                        errors.email ? 'border-red-500' : 'border-[rgba(55,50,47,0.12)]'
-                      }`}
-                      placeholder="john@example.com"
-                      required
-                      disabled={isLoading}
-                      aria-invalid={errors.email ? 'true' : 'false'}
-                      aria-describedby={errors.email ? 'email-error' : undefined}
-                    />
-                    {errors.email && (
-                      <p id="email-error" className="mt-1 text-sm text-red-600 font-sans">
-                        {errors.email}
-                      </p>
-                    )}
-                  </div>
+            {/* Row 2: Weekly Target */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label htmlFor="weeklyTarget" className="block text-sm font-medium text-[#37322F] mb-1.5 font-sans">
+                  Weekly Live Call Target
+                </label>
+                <input
+                  type="number"
+                  id="weeklyTarget"
+                  name="weeklyTarget"
+                  value={formData.weeklyTarget}
+                  onChange={handleChange}
+                  min={1}
+                  max={7}
+                  className={`w-full h-12 px-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#37322F]/20 focus:border-[#37322F] bg-white text-[#37322F] font-sans text-sm ${
+                    errors.weeklyTarget ? 'border-red-500' : 'border-gray-200'
+                  }`}
+                  required
+                  disabled={isLoading}
+                />
+                <p className="mt-1 text-xs text-gray-400 font-sans">
+                  Calls per week (1-7)
+                </p>
+                {errors.weeklyTarget && (
+                  <p className="mt-1 text-sm text-red-600 font-sans">{errors.weeklyTarget}</p>
+                )}
+              </div>
+            </div>
 
-                  {/* Weekly Target */}
-                  <div>
-                    <label htmlFor="weeklyTarget" className="block text-sm font-medium text-[#37322F] mb-2 font-sans">
-                      Weekly Live Call Target <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      type="number"
-                      id="weeklyTarget"
-                      name="weeklyTarget"
-                      value={formData.weeklyTarget}
-                      onChange={handleChange}
-                      min={1}
-                      max={7}
-                      className={`w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#37322F]/20 focus:border-[#37322F] transition-all bg-white text-[#37322F] font-sans ${
-                        errors.weeklyTarget ? 'border-red-500' : 'border-[rgba(55,50,47,0.12)]'
-                      }`}
-                      required
-                      disabled={isLoading}
-                      aria-invalid={errors.weeklyTarget ? 'true' : 'false'}
-                      aria-describedby={errors.weeklyTarget ? 'target-error' : 'target-hint'}
-                    />
-                    <p id="target-hint" className="mt-1 text-sm text-[rgba(73,66,61,0.50)] font-sans">
-                      How many live calls do you want to attend each week? (1-7)
-                    </p>
-                    {errors.weeklyTarget && (
-                      <p id="target-error" className="mt-1 text-sm text-red-600 font-sans">
-                        {errors.weeklyTarget}
-                      </p>
-                    )}
-                  </div>
-
-                  {/* Server Error */}
-                  {serverError && (
-                    <div className="p-4 bg-red-50 border border-red-200 rounded-xl">
-                      <p className="text-sm text-red-700 font-sans">{serverError}</p>
-                    </div>
-                  )}
-
-                  {/* Submit Button */}
-                  <button
-                    type="submit"
-                    disabled={isLoading}
-                    className="w-full py-4 bg-[#37322F] text-white rounded-full font-semibold text-lg font-sans cursor-pointer hover:bg-[#49423D] transition-colors shadow-[0px_2px_4px_rgba(55,50,47,0.12)] disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    {isLoading ? 'Submitting...' : 'Start Tracking'}
-                  </button>
-                </form>
+            {/* Server Error */}
+            {serverError && (
+              <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
+                <p className="text-sm text-red-700 font-sans">{serverError}</p>
               </div>
             )}
-          </div>
-        </section>
 
-        <FooterSection />
-      </main>
-      <div className="hidden sm:block sm:w-4 md:w-8 lg:w-12 flex-shrink-0 border-l border-[rgba(55,50,47,0.12)]"></div>
+            {/* Submit Button */}
+            <div className="pt-2">
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="w-full sm:w-auto h-12 px-8 bg-[#37322F] text-white rounded-lg font-semibold text-sm font-sans cursor-pointer hover:bg-[#49423D] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {isLoading ? 'Submitting...' : 'Start Tracking'}
+              </button>
+            </div>
+          </form>
+        )}
+      </div>
     </div>
   )
 }

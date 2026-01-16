@@ -2,9 +2,11 @@
 
 import { useState, useEffect } from 'react'
 import { toast } from 'sonner'
-import { Loader2 } from 'lucide-react'
+import { Loader2, Clock } from 'lucide-react'
 import { Currency, formatPrice, getProductPrice } from '@/lib/currency'
 import { PhoneInput, getFullPhoneNumber, COUNTRIES } from '@/components/ui/phone-input'
+import { CAMPAIGN_ACTIVE, getCurrentSpots, getEnrollmentDeadlineText, CAMPAIGN_CONFIG } from '@/lib/campaign'
+import CampaignSpotCounter from '@/components/CampaignSpotCounter'
 
 interface CheckoutFormProps {
   onSubmit: (info: { firstName: string; lastName: string; email: string; phone: string }) => Promise<void>
@@ -79,7 +81,7 @@ export function CheckoutForm({ onSubmit, isLoading, error, currency }: CheckoutF
   }
 
   return (
-    <div className="min-h-screen bg-[#37322F] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+    <div className="min-h-screen bg-[#37322F] flex items-center justify-center py-6 sm:py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
       {/* Animated flowing ribbons background */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="ribbon ribbon-1" />
@@ -96,10 +98,10 @@ export function CheckoutForm({ onSubmit, isLoading, error, currency }: CheckoutF
       </a>
 
       {/* Card */}
-      <div className="w-full max-w-md lg:max-w-3xl bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl p-5 sm:p-8 lg:p-12 relative z-10">
+      <div className="w-full max-w-md lg:max-w-3xl bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl p-4 sm:p-8 lg:p-12 relative z-10">
         <form onSubmit={handleSubmit} className="max-w-xl mx-auto">
           {/* Logo */}
-          <div className="flex justify-start mb-4 sm:mb-8">
+          <div className="flex justify-start mb-3 sm:mb-8">
             <img
               src="https://sb.oracleboxing.com/logo/icon_dark.webp"
               alt="Oracle Boxing"
@@ -108,15 +110,30 @@ export function CheckoutForm({ onSubmit, isLoading, error, currency }: CheckoutF
           </div>
 
           {/* Heading */}
-          <h1 className="text-left text-2xl sm:text-3xl md:text-4xl font-normal leading-tight mb-3 sm:mb-6" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
+          <h1 className="text-left text-xl sm:text-3xl md:text-4xl font-normal leading-tight mb-2 sm:mb-6" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
             <span className="text-[#37322F]">Start your</span><br />
             <span className="text-[#9CABA8]">Transformation</span>
           </h1>
 
           {/* Description */}
-          <p className="text-left text-[#605A57] text-xs sm:text-sm md:text-base font-normal leading-relaxed mb-5 sm:mb-8">
+          <p className="text-left text-[#605A57] text-xs sm:text-sm md:text-base font-normal leading-relaxed mb-4 sm:mb-6">
             Join the 21-Day Challenge and prove you have what it takes. Show up, put in the work, and earn your place in Oracle Boxing.
           </p>
+
+          {/* Campaign Info Banner */}
+          {CAMPAIGN_ACTIVE && (
+            <div className="mb-4 sm:mb-6 p-3 sm:p-4 bg-white border border-[rgba(55,50,47,0.12)] rounded-lg">
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2 text-[#49423D]">
+                  <Clock className="w-4 h-4 flex-shrink-0" />
+                  <span className="text-xs sm:text-sm font-medium">
+                    Enrollment closes {getEnrollmentDeadlineText()}
+                  </span>
+                </div>
+                <CampaignSpotCounter size="sm" />
+              </div>
+            </div>
+          )}
 
           {/* Error message */}
           {error && (
@@ -180,7 +197,7 @@ export function CheckoutForm({ onSubmit, isLoading, error, currency }: CheckoutF
           </div>
 
           {/* Phone Input */}
-          <div className="mb-5 sm:mb-8">
+          <div className="mb-4 sm:mb-8">
             <label htmlFor="phone" className="block text-xs sm:text-sm font-medium text-[#49423D] mb-1.5 sm:mb-2">
               Phone Number *
             </label>
@@ -262,6 +279,24 @@ export function CheckoutForm({ onSubmit, isLoading, error, currency }: CheckoutF
           <p className="text-left text-[#847971] text-xs mt-4">
             I agree to receive order updates and program reminders via email and SMS. Reply STOP to opt out. Msg & data rates may apply.
           </p>
+
+          {/* Testimonial */}
+          <div className="mt-6 pt-6 border-t border-[rgba(55,50,47,0.12)]">
+            <div className="flex gap-4">
+              <img
+                src="https://sb.oracleboxing.com/Website/chrisd.webp"
+                alt="Chris Diamantis"
+                className="w-14 h-14 rounded-lg object-cover flex-shrink-0"
+              />
+              <div className="flex-1 min-w-0">
+                <p className="text-[#49423D] text-xs sm:text-sm leading-relaxed">
+                  "The strong emphasis on the basics such as stance and shape as well as kinetic linkage, flow and the connection between defence and offence means that committed students cannot fail to improve."
+                </p>
+                <p className="text-[#37322F] text-xs font-medium mt-2">Chris Diamantis</p>
+                <p className="text-[#847971] text-xs">Managing Director</p>
+              </div>
+            </div>
+          </div>
         </form>
       </div>
 

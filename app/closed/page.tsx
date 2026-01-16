@@ -109,7 +109,7 @@ export default function ClosedPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#37322F] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+    <div className="min-h-screen bg-[#37322F] flex items-center justify-center py-6 sm:py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
       {/* Animated flowing ribbons background */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="ribbon ribbon-1" />
@@ -126,7 +126,7 @@ export default function ClosedPage() {
       </a>
 
       {/* Card */}
-      <div className="w-full max-w-md lg:max-w-3xl bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl p-8 lg:p-12 relative z-10">
+      <div className="w-full max-w-md lg:max-w-3xl bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl p-4 sm:p-8 lg:p-12 relative z-10">
         {isSubmitted ? (
           <div className="max-w-xl mx-auto text-center">
             {/* Logo */}
@@ -157,29 +157,29 @@ export default function ClosedPage() {
         ) : (
           <form onSubmit={handleSubmit} className="max-w-xl mx-auto">
             {/* Logo */}
-            <div className="flex justify-start mb-8">
+            <div className="flex justify-start mb-3 sm:mb-8">
               <img
                 src="https://sb.oracleboxing.com/logo/icon_dark.webp"
                 alt="Oracle Boxing"
-                className="w-10 h-auto"
+                className="w-8 sm:w-10 h-auto"
               />
             </div>
 
             {/* Heading */}
-            <h1 className="text-left text-3xl md:text-4xl font-normal leading-tight mb-6" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
+            <h1 className="text-left text-xl sm:text-3xl md:text-4xl font-normal leading-tight mb-2 sm:mb-6" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
               <span className="text-[#37322F]">Enrolment</span><br />
               <span className="text-[#9CABA8]">Currently Closed</span>
             </h1>
 
             {/* Description */}
-            <p className="text-left text-[#605A57] text-sm md:text-base font-normal leading-relaxed mb-8">
+            <p className="text-left text-[#605A57] text-xs sm:text-sm md:text-base font-normal leading-relaxed mb-4 sm:mb-8">
               Please enter your name and email address so we can notify you when spots re-open again. Should be in a couple of weeks or so.
             </p>
 
             {/* Name Inputs - Side by Side */}
-            <div className="grid grid-cols-2 gap-4 mb-4">
+            <div className="grid grid-cols-2 gap-3 sm:gap-4 mb-3 sm:mb-4">
               <div>
-                <label htmlFor="firstName" className="block text-sm font-medium text-[#49423D] mb-2">
+                <label htmlFor="firstName" className="block text-xs sm:text-sm font-medium text-[#49423D] mb-1.5 sm:mb-2">
                   First Name *
                 </label>
                 <input
@@ -187,7 +187,7 @@ export default function ClosedPage() {
                   id="firstName"
                   value={customerInfo.firstName}
                   onChange={(e) => setCustomerInfo({ ...customerInfo, firstName: e.target.value })}
-                  className="w-full px-5 py-3 bg-white border border-[rgba(55,50,47,0.20)] rounded-lg focus:ring-2 focus:ring-[#37322F] focus:border-transparent transition-all"
+                  className="w-full px-4 sm:px-5 py-2.5 sm:py-3 text-sm sm:text-base bg-white border border-[rgba(55,50,47,0.20)] rounded-lg focus:ring-2 focus:ring-[#37322F] focus:border-transparent transition-all"
                   placeholder="John"
                   required
                   disabled={isLoading}
@@ -195,7 +195,7 @@ export default function ClosedPage() {
                 />
               </div>
               <div>
-                <label htmlFor="lastName" className="block text-sm font-medium text-[#49423D] mb-2">
+                <label htmlFor="lastName" className="block text-xs sm:text-sm font-medium text-[#49423D] mb-1.5 sm:mb-2">
                   Last Name *
                 </label>
                 <input
@@ -203,7 +203,7 @@ export default function ClosedPage() {
                   id="lastName"
                   value={customerInfo.lastName}
                   onChange={(e) => setCustomerInfo({ ...customerInfo, lastName: e.target.value })}
-                  className="w-full px-5 py-3 bg-white border border-[rgba(55,50,47,0.20)] rounded-lg focus:ring-2 focus:ring-[#37322F] focus:border-transparent transition-all"
+                  className="w-full px-4 sm:px-5 py-2.5 sm:py-3 text-sm sm:text-base bg-white border border-[rgba(55,50,47,0.20)] rounded-lg focus:ring-2 focus:ring-[#37322F] focus:border-transparent transition-all"
                   placeholder="Doe"
                   required
                   disabled={isLoading}
@@ -213,8 +213,8 @@ export default function ClosedPage() {
             </div>
 
             {/* Email Input */}
-            <div className="mb-4">
-              <label htmlFor="email" className="block text-sm font-medium text-[#49423D] mb-2">
+            <div className="mb-3 sm:mb-4">
+              <label htmlFor="email" className="block text-xs sm:text-sm font-medium text-[#49423D] mb-1.5 sm:mb-2">
                 Email *
               </label>
               <input
@@ -222,7 +222,7 @@ export default function ClosedPage() {
                 id="email"
                 value={customerInfo.email}
                 onChange={(e) => setCustomerInfo({ ...customerInfo, email: e.target.value })}
-                className="w-full px-5 py-3 bg-white border border-[rgba(55,50,47,0.20)] rounded-lg focus:ring-2 focus:ring-[#37322F] focus:border-transparent transition-all"
+                className="w-full px-4 sm:px-5 py-2.5 sm:py-3 text-sm sm:text-base bg-white border border-[rgba(55,50,47,0.20)] rounded-lg focus:ring-2 focus:ring-[#37322F] focus:border-transparent transition-all"
                 placeholder="your@email.com"
                 required
                 disabled={isLoading}
@@ -231,8 +231,8 @@ export default function ClosedPage() {
             </div>
 
             {/* Phone Input */}
-            <div className="mb-8">
-              <label htmlFor="phone" className="block text-sm font-medium text-[#49423D] mb-2">
+            <div className="mb-4 sm:mb-8">
+              <label htmlFor="phone" className="block text-xs sm:text-sm font-medium text-[#49423D] mb-1.5 sm:mb-2">
                 Phone Number <span className="text-[#847971] font-normal">(optional)</span>
               </label>
               <PhoneInput
