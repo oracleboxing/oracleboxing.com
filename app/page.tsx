@@ -10,6 +10,13 @@ import { TestimonialsSection } from "@/components/TestimonialPair"
 import { ScrollQuote } from "@/components/ScrollQuote"
 import PricingSection from "@/components/PricingSection"
 import { FadeInOnScroll } from "@/components/FadeInOnScroll"
+import WhyOnlineSection from "@/components/WhyOnlineSection"
+import FundamentalsWarningSection from "@/components/FundamentalsWarningSection"
+import CampaignBanner from "@/components/CampaignBanner"
+import { CAMPAIGN_ACTIVE } from "@/lib/campaign"
+
+// Banner height for layout adjustment (36px on mobile, 40px on desktop)
+const BANNER_HEIGHT = CAMPAIGN_ACTIVE ? 40 : 0
 
 const testimonialData = {
   krisSaville: {
@@ -71,14 +78,21 @@ const testimonialData = {
     name: "Thomas Haeusle",
     role: "Managing Director / CSO",
     image: "https://sb.oracleboxing.com/Website/thomas.webp"
+  },
+  chrisDiamantis: {
+    quote: "The strong emphasis in classes and in feedback on posted videos on the basics such as stance and shape as well as kinetic linkage, flow and the connection between defence and offence from the phenomenal coaches as well as the continual support of other members, means that committed students cannot fail to improve.",
+    name: "Chris Diamantis",
+    role: "Managing Director",
+    image: "https://sb.oracleboxing.com/Website/chrisd.webp"
   }
 }
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-white flex flex-col overflow-x-hidden">
+      {CAMPAIGN_ACTIVE && <CampaignBanner />}
       <HomepageHeader />
-      <div className="flex flex-1 pt-[72px]">
+      <div className={`flex flex-1 ${CAMPAIGN_ACTIVE ? 'pt-[112px]' : 'pt-[72px]'}`}>
         <div className="hidden sm:block sm:w-4 md:w-8 lg:w-12 flex-shrink-0 border-r border-[rgba(55,50,47,0.12)]"></div>
         <main className="flex-1 min-w-0">
         <HeroSection />
@@ -92,6 +106,12 @@ export default function Home() {
 reclaim what I lost.`} />
         <FadeInOnScroll>
           <WhoIsForSection />
+        </FadeInOnScroll>
+        <FadeInOnScroll>
+          <FundamentalsWarningSection />
+        </FadeInOnScroll>
+        <FadeInOnScroll>
+          <WhyOnlineSection />
         </FadeInOnScroll>
         <FadeInOnScroll>
           <TeamSection />

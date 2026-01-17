@@ -575,7 +575,7 @@ export function TransformationDetailsCarousel() {
                   {/* Row 3: Technique Corrections */}
                   <div className="space-y-2">
                     {item.corrections.map((correction, corrIndex) => (
-                      <div key={corrIndex} className="grid grid-cols-2 gap-3">
+                      <div key={corrIndex} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-2 sm:gap-3">
                         <div className="flex items-start gap-1.5">
                           <span className="text-red-500 mt-0.5 flex-shrink-0">
                             <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
