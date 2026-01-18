@@ -98,8 +98,7 @@ export async function POST(req: NextRequest) {
       // Pricing metadata from calculation
       ...pricingMetadata,
 
-      // Override type to 'closed_coaching' (must come after spread)
-      type: 'closed_coaching',
+      // Keep type as 'coaching' from pricingMetadata for consistency
 
       // Tracking params (referrer and UTM)
       referrer: trackingParams?.referrer || 'internal_coaching_tool',

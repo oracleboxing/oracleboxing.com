@@ -37,7 +37,15 @@ export const MONTHLY_RATES = {
 export const SIX_MONTH_DISCOUNT_PERCENTAGE = 0.10 // 10%
 
 // Stripe product IDs for 1-on-1 coaching (LIVE)
-export const COACHING_PRODUCT_1MONTH = 'prod_TKZFDm6V59aYf7'
+export const COACHING_PRODUCT_TIER_1 = 'prod_TmMdSWue5DSIMP' // Tier 1 Monthly
+export const COACHING_PRODUCT_TIER_2 = 'prod_TmMdpVbncoqN1F' // Tier 2 Monthly
+
+// Stripe price IDs for monthly coaching subscriptions (LIVE)
+export const COACHING_PRICE_TIER_1_MONTHLY = 'price_1SonyzKPvH4Ddlg1BN0tsim4' // $400/month
+export const COACHING_PRICE_TIER_2_MONTHLY = 'price_1Sonz0KPvH4Ddlg1bNZJbS3l' // $600/month
+
+// Legacy product IDs (kept for backward compatibility)
+export const COACHING_PRODUCT_1MONTH = COACHING_PRODUCT_TIER_1
 export const COACHING_PRODUCT_3MONTH = 'prod_TKZE6NZZFeK8SM'
 export const COACHING_PRICE_1MONTH = 'price_1SNu6dKPvH4Ddlg1UbAOpoo4'
 

@@ -3,8 +3,29 @@
 
 import { supabase } from './supabase';
 
+// Test checkout credentials - bypasses all tracking and automations
+const TEST_CHECKOUT_INFO = {
+  email: 'jt@gmail.com',
+  phone: '+12222222222',
+  firstName: 'J',
+  lastName: 'T',
+};
+
+/**
+ * Check if the checkout info is a test checkout that should bypass tracking
+ */
+export function isTestCheckout(email: string, phone?: string): boolean {
+  const normalizedEmail = email.toLowerCase().trim();
+  const normalizedPhone = phone?.replace(/\s/g, '') || '';
+
+  return (
+    normalizedEmail === TEST_CHECKOUT_INFO.email.toLowerCase() ||
+    normalizedPhone === TEST_CHECKOUT_INFO.phone
+  );
+}
+
 const FB_PIXEL_ID = process.env.NEXT_PUBLIC_FB_PIXEL_ID || '1474540100541059';
-const FB_ACCESS_TOKEN = process.env.FB_ACCESS_TOKEN || 'EAA2BabZBcKN4BP7zdm7EBpGJr6oFZCUWcei4YztbHRJXEyb2Ccy062KsatEjbzZAE65tEPZCKSntvC5dWJaT7CZCRdX0ldbpi6J5KadNwnLZACXdzZAhUIw8bYYZBFaE6bIht7qZCyOLcGezNKGxS1FBHqItE8et5dBoMsYYrUHZC5Lb6dSPWtbgWZA1dvH3Wgbw01i6wZDZD';
+const FB_ACCESS_TOKEN = process.env.FB_ACCESS_TOKEN || '';
 const FB_CONVERSIONS_API_URL = `https://graph.facebook.com/v18.0/${FB_PIXEL_ID}/events`;
 
 export interface PageViewData {
@@ -137,17 +158,15 @@ function getUTMParameters(): {
     };
   }
 
-  const cookies = document.cookie.split(';').reduce((acc, cookie) => {
-    const [key, value] = cookie.trim().split('=');
-    acc[key] = decodeURIComponent(value);
-    return acc;
-  }, {} as Record<string, string>);
+  // UTM params are stored inside the ob_track cookie as JSON, not as separate cookies
+  const cookieData = getTrackingCookie();
 
+  // Prefer first-touch attribution, fall back to last-touch
   return {
-    utmSource: cookies['utm_source'] || null,
-    utmMedium: cookies['utm_medium'] || null,
-    utmCampaign: cookies['utm_campaign'] || null,
-    utmContent: cookies['utm_content'] || null,
+    utmSource: cookieData.first_utm_source || cookieData.last_utm_source || null,
+    utmMedium: cookieData.first_utm_medium || cookieData.last_utm_medium || null,
+    utmCampaign: cookieData.first_utm_campaign || cookieData.last_utm_campaign || null,
+    utmContent: cookieData.first_utm_content || cookieData.last_utm_content || null,
   };
 }
 
@@ -415,6 +434,12 @@ export async function trackPurchase(
     phone?: string;
   }
 ): Promise<void> {
+  // Check if this is a test checkout - bypass all tracking
+  if (customerInfo?.email && isTestCheckout(customerInfo.email, customerInfo.phone)) {
+    console.log('🧪 Test purchase detected - bypassing all tracking');
+    return;
+  }
+
   try {
     const utm = getUTMParameters();
     const country = await getUserCountry();
@@ -538,6 +563,12 @@ export async function trackInitiateCheckout(
   phone?: string,
   paymentIntentId?: string
 ): Promise<void> {
+  // Check if this is a test checkout - bypass all tracking
+  if (isTestCheckout(email, phone)) {
+    console.log('🧪 Test checkout detected - bypassing all tracking and automations');
+    return;
+  }
+
   try {
     // Get all cookie data (will be empty object if no consent)
     const cookieData = getTrackingCookie();

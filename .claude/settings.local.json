@@ -28,7 +28,6 @@
       "Bash(md5:*)",
       "Bash(python3:*)",
       "Bash(node scripts/create-test-products.js:*)",
-      "Bash(STRIPE_SECRET_KEY=sk_test_51SJHAKQNEdHwdojXMOFU2inCjQbxKdM9IK8EC1andJw7MDdIgcDqB8y5Hcvag74JiD7US5f7CoIUYLIKYVPWlWz800YzlzqwU4 node:*)",
       "Bash(lsof:*)",
       "Bash(git push)",
       "Bash(node -e:*)",
@@ -38,7 +37,10 @@
       "Bash(openssl rand:*)",
       "Bash(node scripts/test-abandoned-cart.js:*)",
       "Bash(chmod:*)",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "Bash(npm audit:*)",
+      "Bash(xargs -I {} sh -c 'git log --diff-filter=A --format=\"\"Added: %H %s\"\" -- \"\"{}\"\" | head -1')",
+      "Bash(vercel env:*)"
     ]
   }
 }

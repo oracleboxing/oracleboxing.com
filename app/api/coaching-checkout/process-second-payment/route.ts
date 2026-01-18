@@ -84,6 +84,7 @@ export async function POST(req: NextRequest) {
       }
 
       // Create and confirm the second payment
+      // Copy all metadata from first payment to ensure rich tracking data
       const secondPayment = await stripe.paymentIntents.create({
         amount: secondPaymentAmount,
         currency: 'usd',
@@ -93,7 +94,9 @@ export async function POST(req: NextRequest) {
         confirm: true,
         metadata: {
           ...metadata,
+          type: 'coaching', // Ensure type is set for webhook tracking
           payment_number: '2',
+          total_payments: '2',
           original_payment_intent: paymentIntentId,
           product_name: metadata.product_name?.replace('Payment 1 of 2', 'Payment 2 of 2') || '1-on-1 Coaching (Payment 2 of 2)',
         },
@@ -149,7 +152,10 @@ export async function POST(req: NextRequest) {
         off_session: true,
         confirm: true,
         metadata: {
-          type: 'coaching_second_payment',
+          type: 'coaching', // Consistent type for all coaching payments
+          payment_plan: 'split_2',
+          payment_number: '2',
+          total_payments: '2',
           product_name: '1-on-1 Coaching (Payment 2 of 2)',
         },
       })

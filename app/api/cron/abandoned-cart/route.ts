@@ -2,6 +2,16 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getSupabaseServerClient } from '@/lib/supabase'
 import { stripe } from '@/lib/stripe/client'
 
+// Test checkout credentials - bypasses abandoned cart automations
+const TEST_EMAILS = ['jt@gmail.com']
+const TEST_PHONES = ['+12222222222']
+
+function isTestCheckout(email: string | null, phone: string | null): boolean {
+  if (email && TEST_EMAILS.includes(email.toLowerCase().trim())) return true
+  if (phone && TEST_PHONES.includes(phone.replace(/\s/g, ''))) return true
+  return false
+}
+
 // Vercel cron job endpoint - runs every hour
 // Checks for abandoned carts and sends webhook to Make.com
 // Rate limited: max 1 abandon text per phone number per 14 days
@@ -52,6 +62,12 @@ export async function GET(req: NextRequest) {
 
     for (const checkout of checkouts) {
       try {
+        // Skip test checkouts
+        if (isTestCheckout(checkout.email, checkout.phone)) {
+          console.log(`🧪 Skipping test checkout: ${checkout.email}`)
+          continue
+        }
+
         // Check PaymentIntent status in Stripe
         const paymentIntent = await stripe.paymentIntents.retrieve(checkout.payment_intent_id)
 

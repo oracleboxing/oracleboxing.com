@@ -5,6 +5,8 @@ import { useSearchParams } from 'next/navigation'
 import { loadStripe, Stripe, StripeElements } from '@stripe/stripe-js'
 import { Currency, formatPrice, getProductPrice } from '@/lib/currency'
 import { Loader2, ChevronLeft, ChevronRight, Check, ShieldCheck, Star, X } from 'lucide-react'
+import { CAMPAIGN_ACTIVE } from '@/lib/campaign'
+import CheckoutTimer, { clearCheckoutTimer } from '@/components/CheckoutTimer'
 
 // Initialize Stripe outside component to avoid recreating on each render
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
@@ -442,12 +444,14 @@ export function StripeCheckout({
       if (paymentIntent) {
         if (paymentIntent.status === 'succeeded') {
           // Payment succeeded without redirect (card payments)
+          clearCheckoutTimer() // Clear the reservation timer
           window.location.href = `${window.location.origin}/success?payment_intent=${paymentIntentId}`
           return
         }
 
         if (paymentIntent.status === 'processing') {
           // Payment is processing (bank transfers, etc.) - redirect to success
+          clearCheckoutTimer() // Clear the reservation timer
           window.location.href = `${window.location.origin}/success?payment_intent=${paymentIntentId}`
           return
         }
@@ -625,6 +629,13 @@ export function StripeCheckout({
             className="w-8 h-auto"
           />
         </div>
+
+        {/* Campaign Timer - spot reservation countdown */}
+        {CAMPAIGN_ACTIVE && (
+          <div className="px-4 pb-4">
+            <CheckoutTimer duration={15} />
+          </div>
+        )}
       </header>
 
       <main className="flex-1 overflow-hidden">

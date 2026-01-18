@@ -47,7 +47,7 @@ export default function FundamentalsWarningSection() {
             {/* Right - Illustration */}
             <div className="flex flex-col justify-center items-center w-full h-[240px] sm:h-[280px] md:h-[300px] relative rounded-lg overflow-hidden">
               <Image
-                src="https://sb.oracleboxing.com/Website/habits.webp"
+                src="https://sb.oracleboxing.com/Website/habits-new.webp"
                 alt="Bad habits vs good habits"
                 fill
                 className="object-cover rounded-lg"
@@ -55,19 +55,6 @@ export default function FundamentalsWarningSection() {
             </div>
           </div>
 
-          {/* CTA Button */}
-          <div className="flex justify-center pt-2">
-            <button
-              onClick={() => {
-                document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })
-              }}
-              className="px-8 py-4 bg-[#37322F] hover:bg-[#49423D] transition-colors rounded-full flex justify-center items-center shadow-[0px_2px_4px_rgba(55,50,47,0.12)] cursor-pointer"
-            >
-              <span className="text-[#FBFAF9] text-base sm:text-lg font-semibold font-sans">
-                Choose Your Package
-              </span>
-            </button>
-          </div>
         </div>
 
         {/* Right decorative pattern - CSS gradient instead of DOM elements */}

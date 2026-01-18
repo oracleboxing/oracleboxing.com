@@ -202,9 +202,9 @@ function FeedbackIllustration() {
       `}</style>
 
       {/* Content */}
-      <div className="flex-1 p-3 md:p-4 flex flex-col">
+      <div className="flex-1 p-3 md:p-4 flex flex-col overflow-hidden">
         {/* Video Thumbnail */}
-        <div className="relative w-full h-[120px] sm:h-[140px] md:h-[160px] bg-[#E5E5E5] rounded-lg overflow-hidden mb-3 md:mb-4 flex-shrink-0">
+        <div className="relative w-full aspect-video bg-[#E5E5E5] rounded-lg overflow-hidden mb-3 md:mb-4 flex-shrink-0">
           <Image
             src="https://sb.oracleboxing.com/Website/kris_action.webp"
             alt="Boxing technique video"
@@ -226,18 +226,18 @@ function FeedbackIllustration() {
         </div>
 
         {/* Coach Comments */}
-        <div className="flex-1 flex flex-col gap-2 md:gap-3">
+        <div className="flex-1 flex flex-col gap-2 md:gap-3 min-h-0 overflow-hidden">
           {comments.map((comment, idx) => (
             <div key={idx} className={`flex items-start gap-2.5 ${idx !== comments.length - 1 ? 'pb-2 md:pb-3 border-b border-[#E5E0DB]' : ''}`}>
               {/* Coach Avatar */}
-              <div className="relative w-6 h-6 md:w-8 md:h-8 rounded-full overflow-hidden flex-shrink-0">
+              <div className="relative w-8 h-8 md:w-10 md:h-10 rounded-full overflow-hidden flex-shrink-0">
                 <Image src={comment.image} alt={comment.coach} fill className="object-cover" />
               </div>
               {/* Comment Content */}
               <div className="flex-1 min-w-0">
-                <span className="text-[#37322F] text-[10px] md:text-xs font-semibold">{comment.coach}</span>
-                <span className="text-[#9CA3AF] text-[9px] md:text-[11px]"> – </span>
-                <span className="text-[#6B7280] text-[9px] md:text-[11px] leading-relaxed">
+                <span className="text-[#37322F] text-xs md:text-sm font-semibold">{comment.coach}</span>
+                <span className="text-[#9CA3AF] text-[10px] md:text-xs"> — </span>
+                <span className="text-[#6B7280] text-[10px] md:text-xs leading-relaxed">
                   {comment.feedback}
                 </span>
               </div>
@@ -488,7 +488,7 @@ export default function ChallengeDetailsSection() {
                 Submit 1 video per week and get detailed feedback from our coaches. Watch your technique improve in real time.
               </p>
             </div>
-            <div className="w-full h-[280px] sm:h-[280px] md:h-[300px] rounded-lg flex overflow-hidden items-start">
+            <div className="w-full h-[320px] sm:h-[340px] md:h-[360px] rounded-lg flex overflow-hidden items-start">
               <FeedbackIllustration />
             </div>
           </div>

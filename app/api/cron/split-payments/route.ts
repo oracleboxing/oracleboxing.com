@@ -70,16 +70,17 @@ export async function GET(req: NextRequest) {
 
         console.log(`💳 Creating PaymentIntent for: ${payment.customer_email}`)
 
-        // Get customer's default payment method from the first payment
+        // Get customer's default payment method and metadata from the first payment
         const originalPI = await stripe.paymentIntents.retrieve(payment.first_payment_intent_id)
         const paymentMethodId = originalPI.payment_method as string
+        const originalMetadata = originalPI.metadata || {}
 
         if (!paymentMethodId) {
           throw new Error('No payment method found from first payment')
         }
 
         // Create PaymentIntent (but don't confirm yet - human will confirm via Make.com)
-        // Note: off_session is set when confirming, not when creating
+        // Copy all metadata from first payment and update payment-specific fields
         const secondPaymentIntent = await stripe.paymentIntents.create({
           amount: payment.second_payment_amount,
           currency: 'usd',
@@ -91,15 +92,17 @@ export async function GET(req: NextRequest) {
             allow_redirects: 'never', // Don't allow redirect-based payment methods
           },
           metadata: {
-            type: 'coaching_second_payment',
+            // Copy all metadata from first payment (customer info, pricing, tracking, etc.)
+            ...originalMetadata,
+            // Override/add second payment specific fields
+            type: 'coaching', // Keep consistent type for all coaching payments
             split_payment_id: payment.id,
             original_payment_intent: payment.first_payment_intent_id,
-            customer_email: payment.customer_email,
-            customer_name: payment.customer_name,
-            tier: payment.tier,
-            coach: payment.coach,
             payment_number: '2',
             total_payments: '2',
+            // Update product name to reflect second payment
+            product_name: originalMetadata.product_name?.replace('Payment 1 of 2', 'Payment 2 of 2') ||
+              `1-on-1 Coaching - ${payment.tier === 'tier_1' ? 'Tier 1' : 'Tier 2'} (Payment 2 of 2)`,
           },
         })
 

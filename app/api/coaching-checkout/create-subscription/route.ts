@@ -1,5 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { stripe } from '@/lib/stripe/client'
+import {
+  COACHING_PRODUCT_TIER_1,
+  COACHING_PRODUCT_TIER_2,
+  COACHING_PRICE_TIER_1_MONTHLY,
+  COACHING_PRICE_TIER_2_MONTHLY,
+  MONTHLY_RATES,
+} from '@/lib/coaching-pricing'
 
 export async function POST(req: NextRequest) {
   try {
@@ -60,29 +67,43 @@ export async function POST(req: NextRequest) {
       },
     })
 
-    // Create a price for the subscription
-    const price = await stripe.prices.create({
-      unit_amount: monthlyAmount,
-      currency: 'usd',
-      recurring: { interval: 'month' },
-      product_data: {
-        name: productName,
-        metadata: {
-          type: 'coaching_subscription',
-          tier,
-          coach,
-        },
-      },
-    })
+    // Select product and price based on tier
+    const productId = tier === 'tier_2' ? COACHING_PRODUCT_TIER_2 : COACHING_PRODUCT_TIER_1
+
+    // Use fixed price IDs for standard rates, otherwise create a custom price
+    const standardRate = tier === 'tier_2' ? MONTHLY_RATES.tier_2 * 100 : MONTHLY_RATES.tier_1 * 100
+    const fixedPriceId = tier === 'tier_2' ? COACHING_PRICE_TIER_2_MONTHLY : COACHING_PRICE_TIER_1_MONTHLY
+
+    let priceId: string
+
+    if (monthlyAmount === standardRate) {
+      // Use the pre-created fixed price
+      priceId = fixedPriceId
+    } else {
+      // Create a custom price for non-standard amounts (e.g., with discounts)
+      const customPrice = await stripe.prices.create({
+        unit_amount: monthlyAmount,
+        currency: 'usd',
+        recurring: { interval: 'month' },
+        product: productId,
+      })
+      priceId = customPrice.id
+    }
 
     // Create the subscription - it will charge immediately since payment method is set
+    // Include all metadata from SetupIntent plus ensure type=coaching for invoice events
     const subscription = await stripe.subscriptions.create({
       customer: customerId,
-      items: [{ price: price.id }],
+      items: [{ price: priceId }],
       default_payment_method: paymentMethodId,
       metadata: {
         ...metadata,
+        type: 'coaching', // Ensure type is set for invoice.paid webhook
         setup_intent_id: setupIntentId,
+      },
+      // Add payment_intent_data via subscription_data to ensure PaymentIntent has metadata
+      payment_settings: {
+        payment_method_types: ['card'],
       },
     })
 

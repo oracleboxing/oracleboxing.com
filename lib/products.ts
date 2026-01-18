@@ -186,6 +186,20 @@ Best value for serious boxers committed to long-term excellence.`,
 // ===================================================================
 
 const internalProducts: Product[] = [
+  // Grades 2 & 3 (curriculum course)
+  {
+    id: 'grades-2-3',
+    title: 'Grades 2 & 3',
+    price: 200,
+    type: 'course',
+    metadata: 'grades23',
+    stripe_product_id: 'prod_TmMdHvbqK2B4FR',
+    stripe_price_id: 'price_1SonuVKPvH4Ddlg1dQlf1bQS',
+    image: 'https://sb.oracleboxing.com/Website/bffp_tn_3.webp',
+    description: `Lifetime access to Grade 2 and Grade 3 boxing curriculum`,
+    shortDescription: 'Grade 2 & 3 boxing curriculum',
+    perfectFor: 'Intermediate boxers ready for advanced curriculum',
+  },
   // 21-Day Challenge Products (NEW - Single Funnel Entry)
   {
     id: '21dc-entry',

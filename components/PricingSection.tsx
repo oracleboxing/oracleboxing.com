@@ -4,6 +4,8 @@ import { useCurrency } from '@/contexts/CurrencyContext'
 import { formatPrice, getProductPrice } from '@/lib/currency'
 import { ArrowButton } from '@/components/ui/arrow-button'
 import { ENROLLMENT_CLOSED, getCheckoutUrl } from '@/lib/enrollment'
+import { CAMPAIGN_ACTIVE, getEnrollmentDeadlineText } from '@/lib/campaign'
+import CampaignSpotCounter from '@/components/CampaignSpotCounter'
 
 export default function PricingSection() {
   const { currency } = useCurrency()
@@ -98,6 +100,15 @@ export default function PricingSection() {
                       </span>
                     </div>
                     <p className="text-[#847971] text-sm mt-1">One-time payment</p>
+                    {/* Campaign Info - Spot Counter & Deadline */}
+                    {CAMPAIGN_ACTIVE && (
+                      <div className="mt-3 flex flex-col items-center lg:items-end gap-2">
+                        <CampaignSpotCounter size="md" />
+                        <p className="text-[#847971] text-xs">
+                          Enrollment closes {getEnrollmentDeadlineText()}
+                        </p>
+                      </div>
+                    )}
                   </div>
                 )}
 
