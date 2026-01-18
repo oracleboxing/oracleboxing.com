@@ -13,6 +13,7 @@ import { FadeInOnScroll } from "@/components/FadeInOnScroll"
 import WhyOnlineSection from "@/components/WhyOnlineSection"
 import FundamentalsWarningSection from "@/components/FundamentalsWarningSection"
 import CampaignBanner from "@/components/CampaignBanner"
+import ResearchBenefitsSection from "@/components/ResearchBenefitsSection"
 import { CAMPAIGN_ACTIVE } from "@/lib/campaign"
 
 // Banner height for layout adjustment (36px on mobile, 40px on desktop)
@@ -98,6 +99,9 @@ export default function Home() {
         <HeroSection />
         <FadeInOnScroll>
           <TransformationDetailsCarousel />
+        </FadeInOnScroll>
+        <FadeInOnScroll>
+          <ResearchBenefitsSection />
         </FadeInOnScroll>
         <FadeInOnScroll>
           <ChallengeDetailsSection />
