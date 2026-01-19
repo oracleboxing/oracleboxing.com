@@ -90,33 +90,6 @@ export default function ContactPage() {
       question: "How does the 21-Day Challenge prize work?",
       answer: "Complete the requirements (2 live calls per week, 1 video submission per week, finish Grade 1, attend graduation call) and you may be eligible for a full refund OR credit towards a membership. This is a prize, not a guarantee - approval is at the team's discretion based on genuine participation."
     },
-    // Training & Community
-    {
-      category: 'Training & Community',
-      question: "How do I submit videos for feedback?",
-      answer: "Post in the Weekly Video Submission category on Skool. Include your key takeaways from last week's feedback, your actionables, and your training video (under 5 minutes). You can submit once per week."
-    },
-    {
-      category: 'Training & Community',
-      question: "How does the grading system work?",
-      answer: "There are 3 grades (beginner to advanced). Complete each grade's course and pass a monthly grading call on Zoom to unlock the next level. You'll receive a certificate when you pass. Fast-track 1-on-1 grading calls are available for $50."
-    },
-    {
-      category: 'Training & Community',
-      question: "How do I track my progress?",
-      answer: "Go to oracleboxing.com/progress-tracker and enter your email to get your personal Google Sheet. Log your live call attendance and video submissions to track consistency over time."
-    },
-    {
-      category: 'Training & Community',
-      question: "What are the leaderboard prizes?",
-      answer: "Top 10 for the week = free Weekly Video Feedback Review. Top 10 for the month = free 1-on-1 Coaching Call. Points are earned by creating posts, commenting, and receiving likes."
-    },
-    // Products
-    {
-      category: 'Products',
-      question: "What add-ons are available?",
-      answer: "Boxing from First Principles course ($147), 2025 Call Recording Vault with 620+ recordings ($97), and Oracle Boxing Tracksuit ($187). Purchase at oracleboxing.com/shop."
-    },
     // General
     {
       category: 'General',
