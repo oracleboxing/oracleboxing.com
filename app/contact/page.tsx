@@ -1,8 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { ChevronDown } from 'lucide-react'
-import FooterSection from '@/components/footer-section'
+import { ChevronDown, Mail, MessageCircle } from 'lucide-react'
 import { toast } from 'sonner'
 
 export default function ContactPage() {
@@ -58,197 +57,241 @@ export default function ContactPage() {
   }
 
   const faqs = [
+    // Refunds & Billing
     {
-      question: "How quickly will I hear back?",
-      answer: "We typically respond within 24 hours during business days. For urgent matters, please mention it in your message."
-    },
-    {
+      category: 'Refunds & Billing',
       question: "Do you offer refunds?",
-      answer: "Yes! We offer a 30-day money-back guarantee on our courses and challenges. Check our refund policy for details."
+      answer: "No. All digital courses, add-ons, and memberships are non-refundable. Physical products (like the tracksuit) cannot be returned. The 21-Day Challenge includes a prize opportunity for those who complete the requirements - this is at the team's discretion."
     },
     {
-      question: "Can I try before buying?",
-      answer: "Join our free newsletter to get training tips and updates. We also offer free content on our YouTube channel."
+      category: 'Refunds & Billing',
+      question: "How do I cancel my membership?",
+      answer: "Go to oracleboxing.com/customer-portal to manage your subscription. You can cancel anytime, but cancellations must be made before your next billing date to avoid being charged. You'll keep access until the end of your paid period."
     },
     {
+      category: 'Refunds & Billing',
+      question: "How do I update my payment method?",
+      answer: "Visit oracleboxing.com/customer-portal to update your card or payment method, view invoices, and manage your billing information."
+    },
+    // Membership & Access
+    {
+      category: 'Membership & Access',
+      question: "What's included in the membership?",
+      answer: "Membership includes access to weekly live coaching calls with Oliver & Toni, personalised video feedback on your training, the private Skool community, all digital course materials, and the grading system to track your progress."
+    },
+    {
+      category: 'Membership & Access',
+      question: "What membership options are available?",
+      answer: "We offer Monthly and Annual memberships. Both include the same access - choose based on your commitment preference."
+    },
+    // 21-Day Challenge
+    {
+      category: '21-Day Challenge',
+      question: "How does the 21-Day Challenge prize work?",
+      answer: "Complete the requirements (2 live calls per week, 1 video submission per week, finish Grade 1, attend graduation call) and you may be eligible for a full refund OR credit towards a membership. This is a prize, not a guarantee - approval is at the team's discretion based on genuine participation."
+    },
+    // Training & Community
+    {
+      category: 'Training & Community',
+      question: "How do I submit videos for feedback?",
+      answer: "Post in the Weekly Video Submission category on Skool. Include your key takeaways from last week's feedback, your actionables, and your training video (under 5 minutes). You can submit once per week."
+    },
+    {
+      category: 'Training & Community',
+      question: "How does the grading system work?",
+      answer: "There are 3 grades (beginner to advanced). Complete each grade's course and pass a monthly grading call on Zoom to unlock the next level. You'll receive a certificate when you pass. Fast-track 1-on-1 grading calls are available for $50."
+    },
+    {
+      category: 'Training & Community',
+      question: "How do I track my progress?",
+      answer: "Go to oracleboxing.com/progress-tracker and enter your email to get your personal Google Sheet. Log your live call attendance and video submissions to track consistency over time."
+    },
+    {
+      category: 'Training & Community',
+      question: "What are the leaderboard prizes?",
+      answer: "Top 10 for the week = free Weekly Video Feedback Review. Top 10 for the month = free 1-on-1 Coaching Call. Points are earned by creating posts, commenting, and receiving likes."
+    },
+    // Products
+    {
+      category: 'Products',
+      question: "What add-ons are available?",
+      answer: "Boxing from First Principles course ($147), 2025 Call Recording Vault with 620+ recordings ($97), and Oracle Boxing Tracksuit ($187). Purchase at oracleboxing.com/shop."
+    },
+    // General
+    {
+      category: 'General',
+      question: "How quickly will I hear back?",
+      answer: "We typically respond within 24 hours. For urgent matters, mention it in your message."
+    },
+    {
+      category: 'General',
       question: "Where are you located?",
-      answer: "We're based in the United Kingdom but serve students worldwide with our online courses and coaching."
-    }
+      answer: "Oracle Boxing Ltd is based in Yeovil, United Kingdom, but we serve members worldwide through our online platform."
+    },
   ]
 
+  // Input styling matching admin page
+  const inputClass = "w-full h-12 px-4 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#37322F]/20 focus:border-[#37322F] bg-white text-[#37322F] font-sans text-sm"
+  const selectClass = "w-full h-12 px-4 pr-10 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#37322F]/20 focus:border-[#37322F] bg-white text-[#37322F] font-sans text-sm appearance-none cursor-pointer"
+
   return (
-    <div className="min-h-screen bg-white flex overflow-x-hidden">
-      <div className="hidden sm:block sm:w-4 md:w-8 lg:w-12 flex-shrink-0 border-r border-[rgba(55,50,47,0.12)]"></div>
-      <main className="flex-1 min-w-0">
+    <div className="min-h-screen bg-white">
+      {/* Header */}
+      <header className="border-b border-gray-200 py-6 px-6">
+        <div className="max-w-2xl mx-auto">
+          <h1 className="text-2xl font-semibold text-[#37322F] font-sans flex items-center gap-3">
+            <MessageCircle className="w-6 h-6" />
+            Contact Us
+          </h1>
+          <p className="text-gray-500 text-sm mt-1">Have questions? We typically respond within 24 hours.</p>
+        </div>
+      </header>
 
-        {/* Hero Section */}
-        <section className="relative pt-[120px] md:pt-[160px] pb-16 border-b border-[rgba(55,50,47,0.12)]">
-          <div className="max-w-[1060px] mx-auto px-4">
-            <div className="flex flex-col items-center gap-6">
-              <h1 className="max-w-[900px] text-center text-[#37322f] text-4xl md:text-[64px] font-normal leading-tight md:leading-[1.15] font-serif">
-                Get in Touch
-              </h1>
-              <p className="max-w-[700px] text-center text-[#37322f]/80 text-lg md:text-xl font-medium leading-7 font-sans">
-                Have questions about our courses or coaching? We're here to help.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Contact Form Section */}
-        <section className="py-16 md:py-24 border-b border-[rgba(55,50,47,0.12)]">
-          <div className="max-w-[600px] mx-auto px-4">
-            <div className="bg-white rounded-2xl p-8 border border-[rgba(55,50,47,0.12)]">
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label htmlFor="firstName" className="block text-sm font-medium text-[#37322F] mb-2 font-sans">
-                      First Name
-                    </label>
-                    <input
-                      type="text"
-                      id="firstName"
-                      value={formData.firstName}
-                      onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                      className="w-full px-4 py-3 border border-[rgba(55,50,47,0.12)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#37322F]/20 focus:border-[#37322F] transition-all bg-white text-[#37322F] font-sans"
-                      placeholder="John"
-                      required
-                      disabled={isLoading}
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="lastName" className="block text-sm font-medium text-[#37322F] mb-2 font-sans">
-                      Last Name
-                    </label>
-                    <input
-                      type="text"
-                      id="lastName"
-                      value={formData.lastName}
-                      onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                      className="w-full px-4 py-3 border border-[rgba(55,50,47,0.12)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#37322F]/20 focus:border-[#37322F] transition-all bg-white text-[#37322F] font-sans"
-                      placeholder="Doe"
-                      required
-                      disabled={isLoading}
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-[#37322F] mb-2 font-sans">
-                    Email Address
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full px-4 py-3 border border-[rgba(55,50,47,0.12)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#37322F]/20 focus:border-[#37322F] transition-all bg-white text-[#37322F] font-sans"
-                    placeholder="john@example.com"
-                    required
-                    disabled={isLoading}
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="subject" className="block text-sm font-medium text-[#37322F] mb-2 font-sans">
-                    Subject
-                  </label>
-                  <select
-                    id="subject"
-                    value={formData.subject}
-                    onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                    className="w-full px-4 py-3 border border-[rgba(55,50,47,0.12)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#37322F]/20 focus:border-[#37322F] transition-all bg-white text-[#37322F] font-sans"
-                    required
-                    disabled={isLoading}
-                  >
-                    <option value="">Select a topic</option>
-                    <option value="General Inquiry">General Inquiry</option>
-                    <option value="Technical Support">Technical Support</option>
-                    <option value="Course Information">Course Information</option>
-                    <option value="21-Day Challenge">21-Day Challenge</option>
-                    <option value="Billing & Payments">Billing & Payments</option>
-                    <option value="Partnership & Media">Partnership & Media</option>
-                    <option value="Other">Other</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-[#37322F] mb-2 font-sans">
-                    Message
-                  </label>
-                  <textarea
-                    id="message"
-                    rows={6}
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full px-4 py-3 border border-[rgba(55,50,47,0.12)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#37322F]/20 focus:border-[#37322F] transition-all bg-white text-[#37322F] font-sans resize-none"
-                    placeholder="Tell us more about how we can help..."
-                    required
-                    disabled={isLoading}
-                  />
-                </div>
-
-                <button
-                  type="submit"
+      {/* Main Content */}
+      <div className="max-w-2xl mx-auto p-6">
+        {/* Contact Form */}
+        <div className="mb-12">
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-[#37322F] mb-1.5 font-sans">First Name</label>
+                <input
+                  type="text"
+                  value={formData.firstName}
+                  onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+                  className={inputClass}
+                  placeholder="John"
+                  required
                   disabled={isLoading}
-                  className="w-full py-4 bg-[#37322F] text-white rounded-full font-semibold text-lg font-sans cursor-pointer hover:bg-[#49423D] transition-colors shadow-[0px_2px_4px_rgba(55,50,47,0.12)] disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {isLoading ? 'Sending...' : 'Send Message'}
-                </button>
-              </form>
-
-              {/* Alternative Contact Info */}
-              <div className="mt-8 pt-8 border-t border-[rgba(55,50,47,0.08)]">
-                <p className="text-sm text-[rgba(73,66,61,0.70)] text-center font-sans">
-                  You can also email us directly at{' '}
-                  <a href="mailto:team@oracleboxing.com" className="text-[#37322F] font-semibold hover:underline">
-                    team@oracleboxing.com
-                  </a>
-                </p>
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-[#37322F] mb-1.5 font-sans">Last Name</label>
+                <input
+                  type="text"
+                  value={formData.lastName}
+                  onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
+                  className={inputClass}
+                  placeholder="Doe"
+                  required
+                  disabled={isLoading}
+                />
               </div>
             </div>
+
+            <div>
+              <label className="block text-sm font-medium text-[#37322F] mb-1.5 font-sans">Email</label>
+              <input
+                type="email"
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                className={inputClass}
+                placeholder="john@example.com"
+                required
+                disabled={isLoading}
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-[#37322F] mb-1.5 font-sans">Subject</label>
+              <div className="relative">
+                <select
+                  value={formData.subject}
+                  onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                  className={selectClass}
+                  required
+                  disabled={isLoading}
+                >
+                  <option value="">Select a topic</option>
+                  <option value="General Inquiry">General Inquiry</option>
+                  <option value="Technical Support">Technical Support</option>
+                  <option value="Course Information">Course Information</option>
+                  <option value="21-Day Challenge">21-Day Challenge</option>
+                  <option value="Membership">Membership</option>
+                  <option value="Billing & Payments">Billing & Payments</option>
+                  <option value="Partnership & Media">Partnership & Media</option>
+                  <option value="Other">Other</option>
+                </select>
+                <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-[#37322F] mb-1.5 font-sans">Message</label>
+              <textarea
+                rows={5}
+                value={formData.message}
+                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#37322F]/20 focus:border-[#37322F] bg-white text-[#37322F] font-sans text-sm resize-none"
+                placeholder="How can we help?"
+                required
+                disabled={isLoading}
+              />
+            </div>
+
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="w-full h-12 bg-[#37322F] text-white rounded-lg font-semibold text-sm font-sans cursor-pointer hover:bg-[#49423D] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isLoading ? 'Sending...' : 'Send Message'}
+            </button>
+          </form>
+
+          {/* Direct Email */}
+          <div className="mt-6 pt-6 border-t border-gray-100 flex items-center justify-center gap-2 text-sm text-gray-500">
+            <Mail className="w-4 h-4" />
+            <span>Or email us directly at</span>
+            <a href="mailto:team@oracleboxing.com" className="text-[#37322F] font-medium hover:underline">
+              team@oracleboxing.com
+            </a>
           </div>
-        </section>
+        </div>
 
         {/* FAQ Section */}
-        <section className="py-16 md:py-24 border-b border-[rgba(55,50,47,0.12)]">
-          <div className="max-w-[700px] mx-auto px-4">
-            <h2 className="text-center text-[#37322F] text-2xl md:text-4xl font-normal font-serif mb-12">
-              Questions & Answers
-            </h2>
+        <div>
+          <h2 className="text-lg font-semibold text-[#37322F] font-sans mb-6">
+            Frequently Asked Questions
+          </h2>
 
-            <div className="space-y-3">
-              {faqs.map((faq, index) => (
-                <div key={index} className="bg-white rounded-xl overflow-hidden border border-[rgba(55,50,47,0.12)]">
-                  <button
-                    onClick={() => setOpenFaq(openFaq === index ? null : index)}
-                    className="w-full flex items-center justify-between p-5 text-left hover:bg-[rgba(55,50,47,0.02)] transition-colors"
-                  >
-                    <span className="text-[#37322F] text-base font-medium font-sans pr-4">
+          <div className="space-y-2">
+            {faqs.map((faq, index) => (
+              <div key={index} className="border border-gray-200 rounded-lg overflow-hidden">
+                <button
+                  onClick={() => setOpenFaq(openFaq === index ? null : index)}
+                  className="w-full flex items-center justify-between p-4 text-left hover:bg-gray-50 transition-colors"
+                >
+                  <div className="flex-1 pr-4">
+                    <span className="text-xs text-gray-400 font-medium uppercase tracking-wider">{faq.category}</span>
+                    <p className="text-[#37322F] text-sm font-medium font-sans mt-0.5">
                       {faq.question}
-                    </span>
-                    <ChevronDown
-                      className={`w-5 h-5 text-[rgba(73,66,61,0.50)] flex-shrink-0 transition-transform ${
-                        openFaq === index ? 'rotate-180' : ''
-                      }`}
-                    />
-                  </button>
-                  {openFaq === index && (
-                    <div className="px-5 pb-5">
-                      <p className="text-[rgba(73,66,61,0.90)] text-sm font-sans leading-relaxed">
-                        {faq.answer}
-                      </p>
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
+                    </p>
+                  </div>
+                  <ChevronDown
+                    className={`w-5 h-5 text-gray-400 flex-shrink-0 transition-transform ${
+                      openFaq === index ? 'rotate-180' : ''
+                    }`}
+                  />
+                </button>
+                {openFaq === index && (
+                  <div className="px-4 pb-4">
+                    <p className="text-gray-600 text-sm font-sans leading-relaxed">
+                      {faq.answer}
+                    </p>
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
-        </section>
+        </div>
 
-        <FooterSection />
-      </main>
-      <div className="hidden sm:block sm:w-4 md:w-8 lg:w-12 flex-shrink-0 border-l border-[rgba(55,50,47,0.12)]"></div>
+        {/* Company Info */}
+        <div className="mt-12 pt-8 border-t border-gray-100 text-center text-sm text-gray-400">
+          <p className="font-medium text-gray-500">Oracle Boxing Ltd</p>
+          <p>Unit 5 Artillery 88, Artillery Road</p>
+          <p>Yeovil, BA22 8RP, United Kingdom</p>
+        </div>
+      </div>
     </div>
   )
 }

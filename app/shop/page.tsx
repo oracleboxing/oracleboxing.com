@@ -27,7 +27,7 @@ const SHOP_PRODUCTS: ShopProduct[] = [
     id: 'vault-2025',
     title: '2025 Call Recording Vault',
     description: '620+ coaching call recordings. 200+ group sessions and 420+ one-to-one calls covering footwork, defence, combinations, and more.',
-    priceKey: 'vault-2025',
+    priceKey: 'vault2025',
     image: 'https://sb.oracleboxing.com/Website/2025_call_recording.webp',
   },
   {
