@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { Loader2, ShoppingBag } from 'lucide-react'
 import { toast } from 'sonner'
 import { useCurrency } from '@/contexts/CurrencyContext'
-import { getProductPrice, formatCurrencyValue } from '@/lib/currency'
+import { getProductPrice, formatPrice as formatCurrency } from '@/lib/currency'
 
 interface ShopProduct {
   id: string
@@ -85,10 +85,10 @@ export default function ShopPage() {
     }
   }
 
-  const formatPrice = (priceKey: string) => {
+  const displayPrice = (priceKey: string) => {
     const price = getProductPrice(priceKey, currency)
     if (!price) return '—'
-    return formatCurrencyValue(price, currency)
+    return formatCurrency(price, currency)
   }
 
   if (currencyLoading) {
@@ -144,7 +144,7 @@ export default function ShopPage() {
                 {/* Price and CTA */}
                 <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
                   <span className="text-xl font-bold text-[#37322F]">
-                    {formatPrice(product.priceKey)}
+                    {displayPrice(product.priceKey)}
                   </span>
                   <button
                     onClick={() => handleBuy(product)}
