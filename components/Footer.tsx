@@ -87,6 +87,11 @@ export function Footer() {
                   Money-Back Guarantee
                 </Link>
               </li>
+              <li>
+                <Link to="/customer-portal" className="text-gray-400 hover:text-[#F5F5F5] transition-colors text-sm">
+                  Customer Portal
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
