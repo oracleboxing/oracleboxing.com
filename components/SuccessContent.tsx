@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState, useRef } from 'react'
+import { useRouter } from 'next/navigation'
 import { useAnalytics } from '@/hooks/useAnalytics'
 import { trackPurchase as trackPurchaseToSupabase } from '@/lib/webhook-tracking'
 import { convertToUSD, Currency } from '@/lib/currency'
@@ -95,8 +96,10 @@ function markPurchaseAsTracked(sessionId: string): void {
 export function SuccessContent({ sessionId, isPaymentIntent = false, isSubscription = false }: SuccessContentProps) {
   const [session, setSession] = useState<any>(null)
   const [isLoading, setIsLoading] = useState(true)
+  const [countdown, setCountdown] = useState(4)
   const { trackPurchase } = useAnalytics()
   const hasFetchedRef = useRef(false)
+  const router = useRouter()
 
   useEffect(() => {
     // Prevent multiple fetches due to React strict mode or re-renders
@@ -304,6 +307,35 @@ export function SuccessContent({ sessionId, isPaymentIntent = false, isSubscript
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sessionId, isPaymentIntent])
 
+  // Countdown and redirect effect
+  useEffect(() => {
+    if (isLoading || !session) return
+
+    const timer = setInterval(() => {
+      setCountdown((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer)
+          // Build redirect URL with customer info
+          const customerEmail = session?.customerEmail || session?.customer_details?.email || ''
+          const customerName = session?.customer_details?.name ||
+            (session?.metadata?.customer_first_name && session?.metadata?.customer_last_name
+              ? `${session.metadata.customer_first_name} ${session.metadata.customer_last_name}`
+              : '')
+
+          const params = new URLSearchParams()
+          if (customerEmail) params.set('email', customerEmail)
+          if (customerName) params.set('name', customerName)
+
+          router.push(`/onboarding${params.toString() ? '?' + params.toString() : ''}`)
+          return 0
+        }
+        return prev - 1
+      })
+    }, 1000)
+
+    return () => clearInterval(timer)
+  }, [isLoading, session, router])
+
   if (isLoading) {
     return (
       <div className="flex-1 flex items-center justify-center py-20">
@@ -320,10 +352,13 @@ export function SuccessContent({ sessionId, isPaymentIntent = false, isSubscript
         <h1 className="text-3xl font-bold text-[#37322F] mb-4" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
           Purchase Successful
         </h1>
-        <p className="text-[rgba(73,66,61,0.90)] text-lg leading-relaxed">
+        <p className="text-[rgba(73,66,61,0.90)] text-lg leading-relaxed mb-6">
           We will email your receipt and further instructions to{' '}
           <span className="font-medium text-[#37322F]">{customerEmail}</span>.
         </p>
+        <div className="text-[#847971] text-sm">
+          Redirecting to onboarding in <span className="font-semibold text-[#37322F]">{countdown}</span>...
+        </div>
       </div>
     </div>
   )
