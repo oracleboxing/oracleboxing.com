@@ -1,65 +1,96 @@
 'use client'
 
-import { Check, Mail } from 'lucide-react'
-
 export default function OnboardingStep2Page() {
   return (
     <div className="min-h-screen bg-white">
-      {/* Main Content */}
-      <div className="max-w-2xl mx-auto px-6 py-20">
-        {/* Success Icon */}
-        <div className="flex justify-center mb-8">
-          <div className="w-20 h-20 rounded-full bg-green-100 flex items-center justify-center">
-            <Check className="w-10 h-10 text-green-600" strokeWidth={3} />
-          </div>
-        </div>
+      {/* Main layout with gutters */}
+      <div className="flex min-h-screen">
+        {/* Left gutter - diagonal stripes */}
+        <div
+          className="hidden sm:block sm:w-4 md:w-8 lg:w-12 flex-shrink-0"
+          style={{
+            backgroundImage: `repeating-linear-gradient(
+              -45deg,
+              transparent,
+              transparent 11px,
+              rgba(55,50,47,0.06) 11px,
+              rgba(55,50,47,0.06) 12px
+            )`
+          }}
+        />
 
-        {/* Header */}
-        <h1 className="text-3xl font-bold text-[#37322F] text-center mb-4" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
-          You&apos;re All Set!
-        </h1>
-
-        <p className="text-lg text-[#605A57] text-center mb-10">
-          Your graduation call has been booked.
-        </p>
-
-        {/* Email instruction card */}
-        <div className="bg-[#f9f8f6] border border-[#e5e2dc] rounded-xl p-8 mb-8">
-          <div className="flex items-start gap-4">
-            <div className="w-12 h-12 rounded-full bg-[#37322F] flex items-center justify-center flex-shrink-0">
-              <Mail className="w-6 h-6 text-white" />
+        {/* Main content */}
+        <div className="flex-1 min-w-0">
+          <div className="max-w-[600px] mx-auto px-6 py-16 sm:py-24">
+            {/* Success indicator - simple checkmark */}
+            <div className="flex justify-center mb-6">
+              <span className="text-4xl text-[#37322F]">✓</span>
             </div>
-            <div>
-              <h2 className="text-lg font-semibold text-[#37322F] mb-2">
+
+            {/* Header */}
+            <h1
+              className="text-3xl sm:text-4xl text-[#37322F] text-center mb-3"
+              style={{ fontFamily: 'ClashDisplay, sans-serif' }}
+            >
+              You&apos;re all set
+            </h1>
+
+            <p className="text-lg text-[#605A57] text-center mb-12">
+              Your graduation call has been booked.
+            </p>
+
+            {/* Email instruction */}
+            <div className="border border-[rgba(55,50,47,0.12)] rounded-lg p-6 sm:p-8 mb-6">
+              <h2
+                className="text-lg sm:text-xl text-[#37322F] mb-2"
+                style={{ fontFamily: 'ClashDisplay, sans-serif' }}
+              >
                 Check your email
               </h2>
               <p className="text-[#605A57] leading-relaxed">
-                Go to your email and <span className="font-medium text-[#37322F]">accept the most recent invite to Oracle Boxing</span>. This will unlock your course content.
+                Accept the invite to Oracle Boxing in your inbox. This will unlock your course content and get you started.
               </p>
+            </div>
+
+            <p className="text-sm text-[#847971] text-center mb-12">
+              Purchased additional courses? You&apos;ll have separate invites for those.
+            </p>
+
+            {/* Divider */}
+            <div className="border-t border-[rgba(55,50,47,0.12)] my-10" />
+
+            {/* What's next section */}
+            <div>
+              <p className="text-xs font-medium text-[#847971] uppercase tracking-wider mb-6 text-center">
+                What happens next
+              </p>
+              <div className="space-y-4">
+                <div className="flex gap-4">
+                  <span className="text-[#37322F] font-medium w-6 flex-shrink-0">1.</span>
+                  <span className="text-[#605A57]">Accept the Skool invite in your email</span>
+                </div>
+                <div className="flex gap-4">
+                  <span className="text-[#37322F] font-medium w-6 flex-shrink-0">2.</span>
+                  <span className="text-[#605A57]">Watch the introduction video to get started</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Additional courses note */}
-        <div className="text-center">
-          <p className="text-sm text-[#847971]">
-            If you also purchased additional courses, you&apos;ll have separate invites to unlock those.
-          </p>
-        </div>
-
-        {/* Divider */}
-        <div className="border-t border-gray-200 my-10" />
-
-        {/* What's next section */}
-        <div className="text-center">
-          <p className="text-xs font-medium text-[#847971] uppercase tracking-wider mb-4">
-            What happens next
-          </p>
-          <div className="space-y-3 text-[#605A57]">
-            <p>1. Accept the Skool invite in your email</p>
-            <p>2. Watch the introduction video</p>
-          </div>
-        </div>
+        {/* Right gutter - diagonal stripes */}
+        <div
+          className="hidden sm:block sm:w-4 md:w-8 lg:w-12 flex-shrink-0"
+          style={{
+            backgroundImage: `repeating-linear-gradient(
+              -45deg,
+              transparent,
+              transparent 11px,
+              rgba(55,50,47,0.06) 11px,
+              rgba(55,50,47,0.06) 12px
+            )`
+          }}
+        />
       </div>
     </div>
   )
