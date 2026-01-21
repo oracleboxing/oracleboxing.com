@@ -441,9 +441,11 @@ export async function trackPurchase(
   }
 
   try {
+    // Get cookie data for first-touch attribution
+    const cookieData = getTrackingCookie();
     const utm = getUTMParameters();
     const country = await getUserCountry();
-    const eventId = generateEventId();
+    const eventId = cookieData.event_id || generateEventId();
     const eventTime = Date.now();
     const fbclid = getFbclid();
 
@@ -451,7 +453,7 @@ export async function trackPurchase(
       eventType: 'purchase',
       eventId,
       date: new Date(eventTime).toISOString(),
-      sessionId,
+      sessionId: cookieData.session_id || sessionId,
       name: customerInfo?.name || null,
       email: customerInfo?.email || null,
       phone: customerInfo?.phone || null,
@@ -466,6 +468,8 @@ export async function trackPurchase(
     };
 
     // Send to Supabase (non-blocking)
+    // Use first-touch attribution from cookie (most valuable for ads attribution)
+    // Fall back to last-touch if first-touch not available
     supabase
       .from('purchases')
       .insert({
@@ -478,10 +482,12 @@ export async function trackPurchase(
         amount: data.value,
         product: data.products.join(', '),
         country: data.country,
-        referrer: null,
-        utm_source: data.utmSource,
-        utm_medium: data.utmMedium,
-        utm_content: data.utmContent,
+        referrer: cookieData.first_referrer || null,
+        // Use first-touch attribution (what ad brought them), fallback to last-touch
+        utm_source: cookieData.first_utm_source || data.utmSource,
+        utm_medium: cookieData.first_utm_medium || data.utmMedium,
+        utm_campaign: cookieData.first_utm_campaign || data.utmCampaign,
+        utm_content: cookieData.first_utm_content || data.utmContent,
       })
       .then(({ error }) => {
         if (error) {
@@ -627,6 +633,8 @@ export async function trackInitiateCheckout(
     console.log('💰 Initiate Checkout - Complete Data Being Sent:', JSON.stringify(data, null, 2));
 
     // Send to Supabase (non-blocking)
+    // Use first-touch attribution from cookie (most valuable for ads attribution)
+    // Fall back to last-touch if first-touch not available
     const insertData = {
       date: data.date,
       session_id: data.sessionId,
@@ -640,10 +648,12 @@ export async function trackInitiateCheckout(
       funnel: data.funnel,
       source: data.source,
       country: data.country,
-      referrer: data.initialReferrer,
-      utm_source: data.utmSource,
-      utm_medium: data.utmMedium,
-      utm_content: data.utmContent,
+      referrer: cookieData.first_referrer || data.initialReferrer,
+      // Use first-touch attribution (what ad brought them), fallback to last-touch
+      utm_source: cookieData.first_utm_source || data.utmSource,
+      utm_medium: cookieData.first_utm_medium || data.utmMedium,
+      utm_campaign: cookieData.first_utm_campaign || data.utmCampaign,
+      utm_content: cookieData.first_utm_content || data.utmContent,
       payment_intent_id: paymentIntentId || null,
     };
 

@@ -8,6 +8,7 @@ import { CheckoutForm } from '@/components/checkout-v2/CheckoutForm'
 import { StripeCheckout } from '@/components/checkout-v2/StripeCheckout'
 import { trackInitiateCheckout } from '@/lib/webhook-tracking'
 import { getProductPrice } from '@/lib/currency'
+import { useAnalytics } from '@/hooks/useAnalytics'
 
 export const dynamic = 'force-dynamic'
 
@@ -53,6 +54,7 @@ export default function CheckoutV2Page() {
 function CheckoutV2Content() {
   const searchParams = useSearchParams()
   const { currency, isLoading: currencyLoading } = useCurrency()
+  const { trackInitiateCheckoutEnriched } = useAnalytics()
   const [step, setStep] = useState<'info' | 'payment'>('info')
   const [customerInfo, setCustomerInfo] = useState<CustomerInfo | null>(null)
   const [selectedAddOns, setSelectedAddOns] = useState<string[]>([])
@@ -258,6 +260,19 @@ function CheckoutV2Content() {
         info.phone,
         piId // Pass paymentIntentId for abandoned cart cron job
       )
+
+      // Track InitiateCheckout in Vercel Analytics
+      trackInitiateCheckoutEnriched({
+        value: priceInUserCurrency,
+        currency: currency,
+        products: ['21dc-entry'],
+        product_names: ['21-Day Challenge'],
+        order_bumps: [],
+        order_bump_names: [],
+        funnel: '21dc',
+        has_order_bumps: false,
+        total_items: 1,
+      })
 
       setStep('payment')
     } catch (err: any) {

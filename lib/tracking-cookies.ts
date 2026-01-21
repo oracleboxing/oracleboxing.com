@@ -180,12 +180,11 @@ export function truncateIP(ip: string): string {
 
 /**
  * Check if user has given consent for tracking cookies
+ * NOTE: Always returns true - we auto-consent for essential tracking
+ * UTM/attribution data is from the user's URL, not generated tracking
  */
 export function hasTrackingConsent(): boolean {
-  if (typeof window === 'undefined') return false;
-
-  const consentCookie = getCookie('ob_consent');
-  return consentCookie === 'accepted' || consentCookie === true;
+  return true;
 }
 
 /**
@@ -212,11 +211,6 @@ export function getOrInitTrackingData(): TrackingData {
   }
 
   trackingData = trackingData || {};
-
-  // If no consent, return existing data (may contain UTM params) but don't initialize new session
-  if (!hasTrackingConsent()) {
-    return trackingData;
-  }
 
   const updates: Partial<TrackingData> = {};
   const now = new Date().toISOString();
@@ -328,15 +322,10 @@ async function fetchAndSetLocation(trackingData: TrackingData): Promise<void> {
 }
 
 /**
- * Update tracking data in cookie (only if consent given)
+ * Update tracking data in cookie
  * FIXED: Uses atomic update to protect first-touch attribution
  */
 export function updateTrackingData(updates: Partial<TrackingData>): void {
-  if (!hasTrackingConsent()) {
-    console.warn('Cannot update tracking data: No consent given');
-    return;
-  }
-
   // Use atomic update to ensure first-touch is never overwritten
   atomicUpdateTrackingData(updates);
 }

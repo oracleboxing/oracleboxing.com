@@ -6,7 +6,7 @@ import { captureUTMParameters } from '@/lib/tracking-cookies'
 
 /**
  * Client-side UTM parameter tracker
- * Captures UTM parameters immediately - cookie storage gated by consent
+ * Captures UTM parameters immediately on every page navigation
  * Re-captures on every navigation to track referrer changes
  */
 export function UTMTracker() {
@@ -16,17 +16,6 @@ export function UTMTracker() {
     // Capture UTM parameters on every page navigation
     // This ensures document.referrer is captured correctly
     captureUTMParameters()
-
-    // Also capture when consent is given (to save to cookies)
-    const handleConsentGiven = () => {
-      captureUTMParameters()
-    }
-
-    window.addEventListener('cookieConsentGiven', handleConsentGiven)
-
-    return () => {
-      window.removeEventListener('cookieConsentGiven', handleConsentGiven)
-    }
   }, [pathname]) // Re-run on navigation
 
   // This component renders nothing
