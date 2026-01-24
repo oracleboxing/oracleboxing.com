@@ -7,8 +7,14 @@ import { TransformationShowcase } from "./TransformationShowcase"
 import { MemberQuotes } from "./MemberQuotes"
 import { ENROLLMENT_CLOSED, getCheckoutUrl } from "@/lib/enrollment"
 import { trackAddToCart } from "@/lib/webhook-tracking"
+import { CAMPAIGN_ACTIVE, getCurrentSpots, CAMPAIGN_CONFIG } from "@/lib/campaign"
+import { useCurrency } from "@/contexts/CurrencyContext"
+import { formatPrice, getProductPrice } from "@/lib/currency"
 
 export function HeroSection() {
+  const { currency } = useCurrency()
+  const price = getProductPrice('21dc_entry', currency) || 147
+  const spots = getCurrentSpots()
   const [activeCard, setActiveCard] = useState(0)
   const [animationKey, setAnimationKey] = useState(0)
   const [isPaused, setIsPaused] = useState(false)
@@ -57,23 +63,44 @@ export function HeroSection() {
           <div className="max-w-[937px] flex flex-col items-center gap-3">
             <div className="flex flex-col items-center gap-6">
               <h1 className="max-w-[900px] text-center text-[#37322f] text-3xl sm:text-4xl md:text-[64px] font-normal leading-tight md:leading-[1.15]" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
-                <span className="block tracking-tight">Become The Fighter</span>
-                <span className="block tracking-wide">You Were Born To Be</span>
+                <span className="block tracking-tight">Master the 3 Pillars</span>
+                <span className="block tracking-wide">of Boxing in 21 Days</span>
               </h1>
               <p className="max-w-[900px] text-center text-[#37322f]/80 text-lg sm:text-xl md:text-2xl font-medium leading-7 sm:leading-8">
-                The online boxing school that transforms more than your technique.
+                Live coaching • Video feedback • Money-back guarantee
               </p>
+              {/* Price and campaign info */}
+              {CAMPAIGN_ACTIVE && !ENROLLMENT_CLOSED && (
+                <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-[#49423D]">
+                  <span className="text-2xl sm:text-3xl font-semibold" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
+                    {formatPrice(price, currency)}
+                  </span>
+                  <span className="hidden sm:block text-[#49423D]/40">•</span>
+                  <span className="text-sm sm:text-base font-medium text-[#49423D]/80">
+                    {spots}/{CAMPAIGN_CONFIG.totalSpots} spots remaining
+                  </span>
+                </div>
+              )}
             </div>
           </div>
 
           {/* CTA Button */}
-          <div className="flex justify-center">
+          <div className="flex flex-col items-center gap-3">
             <ArrowButton
               href={getCheckoutUrl()}
-              onClick={() => !ENROLLMENT_CLOSED && trackAddToCart('21dc-entry', '21-Day Challenge', 147, 'USD', 'hero')}
+              onClick={() => !ENROLLMENT_CLOSED && trackAddToCart('21dc-entry', '21-Day Challenge', price, currency, 'hero')}
             >
-              {ENROLLMENT_CLOSED ? 'Join the Waitlist' : 'Start Now'}
+              {ENROLLMENT_CLOSED ? 'Join the Waitlist' : `Join Now – Only ${spots} Spots Left`}
             </ArrowButton>
+            {/* Trust signal */}
+            {!ENROLLMENT_CLOSED && (
+              <p className="text-[#49423D]/60 text-xs sm:text-sm flex items-center gap-2">
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
+                </svg>
+                30-day money-back guarantee
+              </p>
+            )}
           </div>
         </div>
       </div>

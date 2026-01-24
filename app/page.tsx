@@ -14,6 +14,7 @@ import WhyOnlineSection from "@/components/WhyOnlineSection"
 import FundamentalsWarningSection from "@/components/FundamentalsWarningSection"
 import CampaignBanner from "@/components/CampaignBanner"
 import ResearchBenefitsSection from "@/components/ResearchBenefitsSection"
+import StickyMobileCTA from "@/components/StickyMobileCTA"
 import { CAMPAIGN_ACTIVE } from "@/lib/campaign"
 
 // Banner height for layout adjustment (36px on mobile, 40px on desktop)
@@ -93,6 +94,7 @@ export default function Home() {
     <div className="min-h-screen bg-white flex flex-col overflow-x-hidden">
       {CAMPAIGN_ACTIVE && <CampaignBanner />}
       <HomepageHeader />
+      <StickyMobileCTA />
       <div className={`flex flex-1 ${CAMPAIGN_ACTIVE ? 'pt-[112px]' : 'pt-[72px]'}`}>
         <div className="hidden sm:block sm:w-4 md:w-8 lg:w-12 flex-shrink-0 border-r border-[rgba(55,50,47,0.12)]"></div>
         <main className="flex-1 min-w-0">
