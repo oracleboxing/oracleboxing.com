@@ -55,9 +55,9 @@ export default function HomepageHeader() {
           <Image
             src="https://sb.oracleboxing.com/logo/long_dark.webp"
             alt="Oracle Boxing"
-            width={100}
-            height={20}
-            className="h-5 w-auto"
+            width={80}
+            height={16}
+            className="h-4 w-auto"
           />
         </Link>
 
