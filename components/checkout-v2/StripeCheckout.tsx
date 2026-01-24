@@ -8,6 +8,19 @@ import { Loader2, ChevronLeft, ChevronRight, Check, ShieldCheck, Star, X } from 
 import { CAMPAIGN_ACTIVE } from '@/lib/campaign'
 import CheckoutTimer, { clearCheckoutTimer } from '@/components/CheckoutTimer'
 
+// Storage key for checkout session persistence (must match page.tsx)
+const CHECKOUT_SESSION_KEY = 'ob_checkout_session'
+
+// Clear checkout session from storage (call on success)
+function clearCheckoutSession() {
+  try {
+    sessionStorage.removeItem(CHECKOUT_SESSION_KEY)
+    console.log('🗑️ Checkout session cleared from storage')
+  } catch (e) {
+    console.warn('Failed to clear checkout session:', e)
+  }
+}
+
 // Initialize Stripe outside component to avoid recreating on each render
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
 
@@ -258,13 +271,17 @@ export function StripeCheckout({
       console.log('🔄 Payment redirect detected:', { redirectStatus, returnedPaymentIntent })
 
       if (redirectStatus === 'succeeded') {
-        // Payment succeeded - redirect to success page
+        // Payment succeeded - clear session and redirect to success page
+        clearCheckoutSession()
+        clearCheckoutTimer()
         window.location.href = `${window.location.origin}/success?payment_intent=${returnedPaymentIntent}`
       } else if (redirectStatus === 'failed') {
         // Payment failed - show error message, allow retry
         setError('Payment failed. Please try again with a different payment method.')
       } else if (redirectStatus === 'processing') {
-        // Payment is still processing - redirect to success (will show processing message)
+        // Payment is still processing - clear session and redirect to success
+        clearCheckoutSession()
+        clearCheckoutTimer()
         window.location.href = `${window.location.origin}/success?payment_intent=${returnedPaymentIntent}`
       }
       // For 'requires_payment_method' or other statuses, user can retry
@@ -444,6 +461,7 @@ export function StripeCheckout({
       if (paymentIntent) {
         if (paymentIntent.status === 'succeeded') {
           // Payment succeeded without redirect (card payments)
+          clearCheckoutSession() // Clear the checkout session
           clearCheckoutTimer() // Clear the reservation timer
           window.location.href = `${window.location.origin}/success?payment_intent=${paymentIntentId}`
           return
@@ -451,6 +469,7 @@ export function StripeCheckout({
 
         if (paymentIntent.status === 'processing') {
           // Payment is processing (bank transfers, etc.) - redirect to success
+          clearCheckoutSession() // Clear the checkout session
           clearCheckoutTimer() // Clear the reservation timer
           window.location.href = `${window.location.origin}/success?payment_intent=${paymentIntentId}`
           return

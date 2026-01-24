@@ -51,6 +51,17 @@ export default function CheckoutV2Page() {
   )
 }
 
+// Storage key for checkout session persistence
+const CHECKOUT_SESSION_KEY = 'ob_checkout_session'
+
+interface StoredCheckoutSession {
+  customerInfo: CustomerInfo
+  clientSecret: string
+  paymentIntentId: string
+  selectedAddOns: string[]
+  timestamp: number
+}
+
 function CheckoutV2Content() {
   const searchParams = useSearchParams()
   const { currency, isLoading: currencyLoading } = useCurrency()
@@ -69,6 +80,7 @@ function CheckoutV2Content() {
   const [isAutoSubmitting, setIsAutoSubmitting] = useState(false)
   const autoSubmitRef = useRef(false)
   const redirectCheckedRef = useRef(false)
+  const sessionRestoredRef = useRef(false)
 
   // Debounce timer ref for add-on changes
   const addOnDebounceRef = useRef<NodeJS.Timeout | null>(null)
@@ -88,8 +100,9 @@ function CheckoutV2Content() {
     if (returnedPaymentIntent) {
       // We have a payment_intent in URL - this is a redirect return
       if (redirectStatus === 'succeeded' || redirectStatus === 'processing') {
-        // Payment succeeded - redirect to success page immediately
+        // Payment succeeded - clear session and redirect to success page
         console.log('✅ Payment succeeded, redirecting to success page')
+        sessionStorage.removeItem(CHECKOUT_SESSION_KEY)
         window.location.href = `${window.location.origin}/success?payment_intent=${returnedPaymentIntent}`
       } else if (redirectStatus === 'failed' || !redirectStatus) {
         // Payment failed OR cancelled (no status) - recover and show retry
@@ -98,6 +111,68 @@ function CheckoutV2Content() {
       }
     }
   }, [searchParams])
+
+  // Restore checkout session from sessionStorage on page load/refresh
+  // This allows users to refresh the page and stay on step 2
+  useEffect(() => {
+    if (sessionRestoredRef.current) return
+    sessionRestoredRef.current = true
+
+    // Don't restore if we're handling a redirect (payment return)
+    const redirectStatus = searchParams.get('redirect_status')
+    const returnedPaymentIntent = searchParams.get('payment_intent')
+    if (returnedPaymentIntent || redirectStatus) return
+
+    // Don't restore if we have URL params for auto-submit (abandoned cart recovery)
+    const fn = searchParams.get('fn')
+    const email = searchParams.get('email')
+    if (fn && email) return
+
+    try {
+      const stored = sessionStorage.getItem(CHECKOUT_SESSION_KEY)
+      if (!stored) return
+
+      const session: StoredCheckoutSession = JSON.parse(stored)
+
+      // Check if session is less than 45 minutes old (match checkout timer)
+      const sessionAge = Date.now() - session.timestamp
+      const maxAge = 45 * 60 * 1000 // 45 minutes in ms
+
+      if (sessionAge > maxAge) {
+        // Session expired, clear it
+        sessionStorage.removeItem(CHECKOUT_SESSION_KEY)
+        console.log('🕐 Stored checkout session expired, starting fresh')
+        return
+      }
+
+      // Restore the session
+      console.log('🔄 Restoring checkout session from storage')
+      setCustomerInfo(session.customerInfo)
+      setClientSecret(session.clientSecret)
+      setPaymentIntentId(session.paymentIntentId)
+      setSelectedAddOns(session.selectedAddOns)
+      setStep('payment')
+      console.log('✅ Checkout session restored, showing payment form')
+    } catch (err) {
+      console.warn('Failed to restore checkout session:', err)
+      sessionStorage.removeItem(CHECKOUT_SESSION_KEY)
+    }
+  }, [searchParams])
+
+  // Save checkout session to sessionStorage when we have a valid payment session
+  useEffect(() => {
+    if (step === 'payment' && customerInfo && clientSecret && paymentIntentId) {
+      const session: StoredCheckoutSession = {
+        customerInfo,
+        clientSecret,
+        paymentIntentId,
+        selectedAddOns,
+        timestamp: Date.now(),
+      }
+      sessionStorage.setItem(CHECKOUT_SESSION_KEY, JSON.stringify(session))
+      console.log('💾 Checkout session saved to storage')
+    }
+  }, [step, customerInfo, clientSecret, paymentIntentId, selectedAddOns])
 
   // Recover a failed payment so user can retry
   const recoverFailedPayment = async (piId: string, secret: string | null) => {
