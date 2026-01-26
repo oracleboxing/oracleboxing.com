@@ -6,6 +6,7 @@ import { Analytics } from "@vercel/analytics/react"
 import { CurrencyProvider } from "@/contexts/CurrencyContext"
 import PageViewTracker from "@/components/PageViewTracker"
 import EngagementTracker from "@/components/EngagementTracker"
+import { UTMTracker } from "@/components/UTMTracker"
 
 const FAVICON_BASE = "https://sb.oracleboxing.com/favicons"
 const FAVICON_VERSION = "v=3" // Cache buster - increment to force refresh
@@ -81,6 +82,7 @@ export default function RootLayout({
       <body className="font-sans antialiased">
         <CurrencyProvider>
           <Analytics />
+          <UTMTracker />
           <PageViewTracker />
           <EngagementTracker />
           {children}

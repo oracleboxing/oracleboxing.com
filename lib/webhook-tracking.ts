@@ -432,6 +432,13 @@ export async function trackPurchase(
     name?: string;
     email?: string;
     phone?: string;
+  },
+  utmFallback?: {
+    utm_source?: string;
+    utm_medium?: string;
+    utm_campaign?: string;
+    utm_content?: string;
+    utm_term?: string;
   }
 ): Promise<void> {
   // Check if this is a test checkout - bypass all tracking
@@ -483,11 +490,11 @@ export async function trackPurchase(
         product: data.products.join(', '),
         country: data.country,
         referrer: cookieData.first_referrer || null,
-        // Use first-touch attribution (what ad brought them), fallback to last-touch
-        utm_source: cookieData.first_utm_source || data.utmSource,
-        utm_medium: cookieData.first_utm_medium || data.utmMedium,
-        utm_campaign: cookieData.first_utm_campaign || data.utmCampaign,
-        utm_content: cookieData.first_utm_content || data.utmContent,
+        // Use first-touch attribution (what ad brought them), fallback to last-touch, then Stripe metadata
+        utm_source: cookieData.first_utm_source || data.utmSource || utmFallback?.utm_source || null,
+        utm_medium: cookieData.first_utm_medium || data.utmMedium || utmFallback?.utm_medium || null,
+        utm_campaign: cookieData.first_utm_campaign || data.utmCampaign || utmFallback?.utm_campaign || null,
+        utm_content: cookieData.first_utm_content || data.utmContent || utmFallback?.utm_content || null,
       })
       .then(({ error }) => {
         if (error) {

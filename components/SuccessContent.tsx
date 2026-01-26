@@ -290,7 +290,15 @@ export function SuccessContent({ sessionId, isPaymentIntent = false, isSubscript
             name: customerName,
             email: customerEmail,
             phone: customerPhone,
-          }
+          },
+          // Pass UTM from Stripe metadata as fallback when cookies are missing
+          sessionData.trackingParams ? {
+            utm_source: sessionData.trackingParams.utm_source,
+            utm_medium: sessionData.trackingParams.utm_medium,
+            utm_campaign: sessionData.trackingParams.utm_campaign,
+            utm_content: sessionData.trackingParams.utm_content,
+            utm_term: sessionData.trackingParams.utm_term,
+          } : undefined
         );
         console.log('✅ Purchase tracked to Supabase (amount in USD:', amountInUSD, ')');
 

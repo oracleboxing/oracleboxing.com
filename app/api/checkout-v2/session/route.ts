@@ -6,21 +6,21 @@ import { extractFacebookParams } from '@/lib/fb-param-builder'
 import Stripe from 'stripe'
 
 // Helper function to flatten cookie data into individual Stripe metadata fields
+// NOTE: PaymentIntent metadata has a 50-key limit (not 500 like Checkout Sessions)
 function prepareCookieDataForStripe(cookieData: any, existingKeyCount: number = 0): Record<string, string> {
   if (!cookieData) return {};
 
   const flattenedCookieData: Record<string, string> = {};
-  const MAX_METADATA_KEYS = 500;
+  // FIXED: PaymentIntent has 50-key limit, not 500
+  const MAX_METADATA_KEYS = 50;
   const MAX_VALUE_LENGTH = 500;
-  const RESERVED_KEYS = 50;
+  const RESERVED_KEYS = 5; // Reserve for line_items, product_descriptions, tax_inclusive
   const availableKeys = MAX_METADATA_KEYS - existingKeyCount - RESERVED_KEYS;
 
+  // Only include the most critical fields for attribution
+  // Skip cookie_ prefix fields since baseMetadata already has first_utm_* and last_utm_*
   const priorityFields = [
-    'session_id', 'event_id', 'landing_time',
-    'first_utm_source', 'first_utm_medium', 'first_utm_campaign', 'first_utm_content', 'first_utm_term',
-    'last_utm_source', 'last_utm_medium', 'last_utm_campaign', 'last_utm_content', 'last_utm_term',
-    'first_referrer', 'first_referrer_time', 'last_referrer', 'last_referrer_time',
-    '_fbc', '_fbp', 'country_code', 'currency', 'consent_given',
+    '_fbc', '_fbp', // Facebook cookies (not duplicated in baseMetadata)
   ];
 
   let keysAdded = 0;
@@ -32,19 +32,6 @@ function prepareCookieDataForStripe(cookieData: any, existingKeyCount: number = 
         value = value.substring(0, MAX_VALUE_LENGTH);
       }
       flattenedCookieData[`cookie_${key}`] = value;
-      keysAdded++;
-    }
-  }
-
-  for (const [key, value] of Object.entries(cookieData)) {
-    if (keysAdded >= availableKeys) break;
-    if (priorityFields.includes(key)) continue;
-    if (value !== null && value !== undefined) {
-      let stringValue = String(value);
-      if (stringValue.length > MAX_VALUE_LENGTH) {
-        stringValue = stringValue.substring(0, MAX_VALUE_LENGTH);
-      }
-      flattenedCookieData[`cookie_${key}`] = stringValue;
       keysAdded++;
     }
   }

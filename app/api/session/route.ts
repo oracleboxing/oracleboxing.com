@@ -138,10 +138,12 @@ async function handleSubscription(subscriptionId: string) {
       product_metadata: 'coaching_subscription',
     },
     trackingParams: {
-      referrer: metadata.referrer || 'direct',
-      utm_source: metadata.utm_source || undefined,
-      utm_medium: metadata.utm_medium || undefined,
-      utm_campaign: metadata.utm_campaign || undefined,
+      referrer: metadata.first_referrer || metadata.referrer || 'direct',
+      utm_source: metadata.first_utm_source || metadata.utm_source || undefined,
+      utm_medium: metadata.first_utm_medium || metadata.utm_medium || undefined,
+      utm_campaign: metadata.first_utm_campaign || metadata.utm_campaign || undefined,
+      utm_term: metadata.first_utm_term || undefined,
+      utm_content: metadata.first_utm_content || undefined,
     },
     metadata,
     amount_total: amount,
@@ -295,14 +297,14 @@ export async function GET(req: NextRequest) {
       funnel: session.metadata?.funnel_type || 'course'
     };
 
-    // Extract tracking params from metadata
+    // Extract tracking params from metadata (check first_utm_* fields first for first-touch attribution)
     const trackingParams = {
-      referrer: session.metadata?.referrer || 'direct',
-      utm_source: session.metadata?.utm_source || undefined,
-      utm_medium: session.metadata?.utm_medium || undefined,
-      utm_campaign: session.metadata?.utm_campaign || undefined,
-      utm_term: session.metadata?.utm_term || undefined,
-      utm_content: session.metadata?.utm_content || undefined,
+      referrer: session.metadata?.first_referrer || session.metadata?.referrer || 'direct',
+      utm_source: session.metadata?.first_utm_source || session.metadata?.utm_source || undefined,
+      utm_medium: session.metadata?.first_utm_medium || session.metadata?.utm_medium || undefined,
+      utm_campaign: session.metadata?.first_utm_campaign || session.metadata?.utm_campaign || undefined,
+      utm_term: session.metadata?.first_utm_term || session.metadata?.utm_term || undefined,
+      utm_content: session.metadata?.first_utm_content || session.metadata?.utm_content || undefined,
     };
 
     // Return full session data for Purchase event tracking
