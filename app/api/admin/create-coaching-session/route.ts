@@ -286,9 +286,9 @@ export async function POST(req: NextRequest) {
       { status: 400 }
     )
   } catch (error: any) {
-    console.error('❌ Error creating coaching session:', error)
+    console.error('Route /api/admin/create-coaching-session failed:', error)
     return NextResponse.json(
-      { error: error.message || 'Failed to create coaching session' },
+      { error: 'Internal server error' },
       { status: 500 }
     )
   }

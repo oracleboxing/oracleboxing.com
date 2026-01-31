@@ -65,20 +65,19 @@ function CoachingCheckoutContent() {
   const paymentIntentId = searchParams.get('pi')
   const setupIntentId = searchParams.get('setup')
   const isMonthlySetup = searchParams.get('monthly') === 'true'
-  const clientSecret = searchParams.get('secret')
 
   // Determine which intent we're working with
   const intentId = paymentIntentId || setupIntentId
 
-  // Fetch coaching details AND initialize Stripe in parallel
+  // Fetch coaching details, client secret, AND initialize Stripe in parallel
   useEffect(() => {
-    if (hasInitializedRef.current || !intentId || !clientSecret) return
+    if (hasInitializedRef.current || !intentId) return
     hasInitializedRef.current = true
 
     const initializeCheckout = async () => {
       try {
-        // Fetch details and load Stripe in parallel
-        const [detailsResult, stripeInstance] = await Promise.all([
+        // Fetch details, client secret, and load Stripe in parallel
+        const [detailsResult, secretResult, stripeInstance] = await Promise.all([
           // Fetch coaching details
           (async () => {
             const endpoint = setupIntentId
@@ -93,9 +92,25 @@ function CoachingCheckoutContent() {
             }
             return data as CoachingDetails
           })(),
+          // Fetch client secret via API (not from URL params)
+          (async () => {
+            const secretEndpoint = setupIntentId
+              ? `/api/payment-intent?setup=${setupIntentId}`
+              : `/api/payment-intent?pi=${paymentIntentId}`
+
+            const response = await fetch(secretEndpoint)
+            const data = await response.json()
+
+            if (!response.ok) {
+              throw new Error(data.error || 'Failed to retrieve payment session')
+            }
+            return data.clientSecret as string
+          })(),
           // Load Stripe
           stripePromise
         ])
+
+        const clientSecret = secretResult
 
         if (!stripeInstance) {
           throw new Error('Stripe failed to load')
@@ -174,7 +189,7 @@ function CoachingCheckoutContent() {
     }
 
     initializeCheckout()
-  }, [intentId, clientSecret, paymentIntentId, setupIntentId])
+  }, [intentId, paymentIntentId, setupIntentId])
 
   // Handle payment confirmation
   const handleConfirm = async () => {
@@ -371,7 +386,7 @@ function CoachingCheckoutContent() {
   }
 
   // Show error if no payment intent or setup intent
-  if (!intentId || !clientSecret) {
+  if (!intentId) {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center p-6">
         <div className="text-center max-w-md">
