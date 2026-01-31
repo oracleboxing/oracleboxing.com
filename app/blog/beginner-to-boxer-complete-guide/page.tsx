@@ -88,13 +88,13 @@ export default function BeginnerToBoxerGuidePage() {
             Step 2: Build Your Shape
           </h2>
           <p>
-            Shape is how you hold your upper body within your stance. Shoulders up to protect your chin. Hands at cheek level. Elbows tucked. And critically: your lead shoulder should sit lower than your rear shoulder.
+            Shape is how you hold your upper body within your stance. Round your shoulders forward - like you&apos;ve got bad posture. Bring your chin down so it&apos;s tucked and protected. Keep your back rounded and your chest concave - this makes you a smaller target. Rear hand at cheekbone height, lead hand at mouth height so you can see over it. Elbows tucked in front of your body where you can see them.
           </p>
           <p>
-            This isn&apos;t just a guard - it&apos;s built-in defence. When your lead shoulder is lower, your head naturally moves off the centre line. Your opponent has to work harder to line up their punches. As one Oracle Boxing coach puts it: &ldquo;When I see someone set up with both shoulders level, I know the jab is going to be easy to land. And everything else comes off the jab.&rdquo;
+            Critically, your lead shoulder should sit lower than your rear shoulder. This isn&apos;t just a guard - it&apos;s built-in defence. When your lead shoulder is lower, your head naturally moves off the centre line. Your opponent has to work harder to line up their punches. To get into this position, hinge at the back hip and make sure the weight goes through the back leg. As one Oracle Boxing coach puts it: &ldquo;When I see someone set up with both shoulders level, I know the jab is going to be easy to land. And everything else comes off the jab.&rdquo;
           </p>
           <p>
-            Shape small. Shoulder to chin. That&apos;s the position you drill until it becomes second nature.
+            Shape small. Chin down to shoulder, chest concave, back rounded. Don&apos;t bring your shoulders up to your chin - bring your chin down to your shoulder and concave your stomach to make yourself a smaller target. That&apos;s the position you drill until it becomes second nature.
           </p>
 
           <h2

@@ -169,7 +169,7 @@ export default function HeadMovementDrillsPage() {
             The goal isn&apos;t to look flashy. The goal is to make these movements automatic. When someone throws at you in sparring, you shouldn&apos;t have to think about which defence to use. Your body should react based on what it&apos;s drilled. That only happens with volume and repetition.
           </p>
           <p>
-            And remember - all of this starts with the right shape. If you&apos;re standing square with your shoulders level and your weight 50/50, no amount of head movement will save you. Get the foundation right first. Then the movement becomes the easy part.
+            And remember - all of this starts with the right shape. Chin down, back rounded, chest concave, shoulders relaxed and rounded forward - not raised up. If you&apos;re standing square with your shoulders level and your weight 50/50, no amount of head movement will save you. Get the foundation right first. Then the movement becomes the easy part.
           </p>
 
           {/* CTA */}

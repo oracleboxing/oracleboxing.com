@@ -8,11 +8,10 @@
 - **Tailwind Utility**: `bg-[#F5F5F5]` or `text-[#F5F5F5]`
 - **Usage**: Main background color, replacing pure white (#FFFFFF)
 
-### CTA Yellow (Accent & Highlights)
+### ~~CTA Yellow~~ (DEPRECATED - DO NOT USE)
 - **Hex**: `#fef9c3`
-- **CSS Variable**: `--color-ob-yellow` or `--color-cta-yellow`
-- **Tailwind Utility**: `bg-[#fef9c3]` or `text-[#fef9c3]`
-- **Usage**: Call-to-action buttons, highlights, energy elements
+- **Status**: ❌ REMOVED — Jordan dislikes this colour. Do NOT use in any new designs, ads, or generated content.
+- **Replacement**: Use Whitesmoke (#F5F5F5) on dark backgrounds, or Dark (#171717) on light backgrounds for CTAs. Keep it clean black/white.
 
 ### Header/Footer Dark (Navigation & Footers)
 - **Hex**: `#171717`

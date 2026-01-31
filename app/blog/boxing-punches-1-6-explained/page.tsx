@@ -75,7 +75,7 @@ export default function BoxingPunches16Page() {
             Everything comes off rotation - from about 0° through to 180°. A jab is a small rotation. A cross is a bigger one. Hooks and uppercuts use different axes entirely. But none of that works if your stance and shape aren&apos;t set up properly.
           </p>
           <p>
-            Most beginners set up with their shoulders at the same height and weight distributed 50/50. This looks correct from the outside, but it gives you no built-in defence. Your head sits right on the centre line where it&apos;s easiest to hit. The fix is your lead shoulder should sit lower than your rear shoulder. This naturally moves your head further away from your opponent and creates a line of defence before you&apos;ve even thrown a punch.
+            Most beginners set up with their shoulders at the same height and weight distributed 50/50. This looks correct from the outside, but it gives you no built-in defence. Your head sits right on the centre line where it&apos;s easiest to hit. The fix: drop your lead shoulder lower than your rear shoulder, round your back, keep your chest concave, and bring your chin down - not your shoulders up. Hinge at the back hip so your weight loads through the rear leg. This naturally moves your head further away from your opponent and creates a line of defence before you&apos;ve even thrown a punch.
           </p>
 
           <h2
@@ -85,10 +85,10 @@ export default function BoxingPunches16Page() {
             Punch 1: The Jab
           </h2>
           <p>
-            The jab is your most important punch. Everything else sets up off of it. From your stance, extend your lead hand straight out while rotating your lead shoulder slightly forward. Your rear hand stays glued to your chin.
+            The jab is your most important punch. Everything else sets up off of it. From your stance, extend your lead hand straight out while rotating your lead shoulder slightly forward. Start with your pinkies facing your opponent so you only need a half-turn of the wrist as you extend - knuckles rolling down and over onto the target. Your rear hand stays glued to your cheekbone. Keep your chest concave as you jab - don&apos;t open up or lean forward.
           </p>
           <p>
-            The power doesn&apos;t come from your arm - it comes from a small push through your lead foot and a subtle rotation of your hips. Keep it snappy. The jab that sits out there too long is the jab that gets you countered. Throw it and bring it straight back to your chin.
+            The power doesn&apos;t come from your arm - it comes from a small push through your lead foot and a subtle rotation of your hips. Keep it snappy. The jab that sits out there too long is the jab that gets you countered. Throw it and bring it straight back.
           </p>
 
           <h2

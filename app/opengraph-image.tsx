@@ -1,40 +1,41 @@
-import { ImageResponse } from 'next/og'
+import { ImageResponse } from "next/og"
 
-export const runtime = 'edge'
-export const alt = 'Oracle Boxing - Master Old School Boxing'
+export const runtime = "edge"
+export const alt = "Oracle Boxing"
 export const size = {
   width: 1200,
   height: 630,
 }
-export const contentType = 'image/png'
+export const contentType = "image/png"
+
+const OG_IMAGE = "https://sb.oracleboxing.com/Website/skool_art2.webp"
 
 export default async function Image() {
+  // Next will use /opengraph-image whenever it decides it needs a default OG image.
+  // We render the intended brand share image here so social previews are consistent.
   return new ImageResponse(
     (
       <div
         style={{
-          background: 'linear-gradient(to bottom, #000000, #1a1a1a)',
-          width: '100%',
-          height: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          fontFamily: 'system-ui',
+          width: "100%",
+          height: "100%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          backgroundColor: "#000",
         }}
       >
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <h1 style={{ fontSize: 72, fontWeight: 'bold', color: '#FEF08A', margin: 0 }}>
-            ORACLE BOXING
-          </h1>
-          <p style={{ fontSize: 36, color: 'white', margin: '20px 0 0 0' }}>
-            Master Old School Boxing Anytime, Anywhere
-          </p>
-        </div>
+        <img
+          src={OG_IMAGE}
+          alt={alt}
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+          }}
+        />
       </div>
     ),
-    {
-      ...size,
-    }
+    size
   )
 }

@@ -6,12 +6,12 @@
 export const CAMPAIGN_ACTIVE = true
 
 export const CAMPAIGN_CONFIG = {
-  name: 'February 2026 21-Day Challenge',
+  name: 'February 2026 21-Day Challenge (Extended)',
 
   // Enrollment window (ISO 8601 format)
   // Use 'Z' suffix for UTC or specify timezone offset
   enrollmentStart: '2026-01-22T00:00:00Z',      // Jan 22nd midnight UTC
-  enrollmentEnd: '2026-01-31T23:59:59+00:00',   // Jan 31st 11:59:59 PM UK time
+  enrollmentEnd: '2026-02-02T11:00:00+00:00',   // Feb 2nd 7:00 PM Bali time (extended)
 
   totalSpots: 30,
 
@@ -29,13 +29,15 @@ export const CAMPAIGN_CONFIG = {
     { date: '2026-01-28', spots: 9 },
     { date: '2026-01-29', spots: 5 },
     { date: '2026-01-30', spots: 3 },
-    { date: '2026-01-31', spots: 1 },  // Last spot stays until midnight UK
+    { date: '2026-01-31', spots: 11 }, // Extended: +10 spots added
+    { date: '2026-02-01', spots: 7 },
+    { date: '2026-02-02', spots: 3 },  // Final day
   ],
 
   // Display text for the banner
   bannerText: {
-    title: '21-DAY CHALLENGE NOW OPEN',
-    deadline: 'ENROLLMENT CLOSES JAN 31ST MIDNIGHT',
+    title: 'THE 21-DAY CHALLENGE - NOW OPEN',
+    deadline: 'CLOSES IN',
   }
 }
 

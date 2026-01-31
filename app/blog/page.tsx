@@ -6,6 +6,30 @@ import FooterSection from "@/components/footer-section"
 
 const blogPosts = [
   {
+    slug: "science-of-punching-power",
+    title: "The Science of Punching Power: Why Relaxation Beats Muscle Every Time",
+    excerpt:
+      "Punching power doesn't come from your arms. Learn how rotation, the kinetic chain, and relaxation generate real knockout power in boxing.",
+    date: "2025-07-18",
+    thumbnail: "https://sb.oracleboxing.com/Website/skool_art2.webp",
+  },
+  {
+    slug: "boxing-mistakes-beginners-make",
+    title: "7 Boxing Mistakes That Ruin Your Fundamentals (And How to Fix Them)",
+    excerpt:
+      "The real mistakes holding back your boxing aren't the obvious ones. Weight distribution, hip mechanics, shape, and relaxation - here's what's actually going wrong.",
+    date: "2025-07-18",
+    thumbnail: "https://sb.oracleboxing.com/Website/skool_art2.webp",
+  },
+  {
+    slug: "boxing-footwork-fundamentals",
+    title: "Boxing Footwork Fundamentals: How to Move Like a Real Boxer",
+    excerpt:
+      "Boxing is a game of inches. Learn the movement patterns, pivots, angles, and the petal drill that will transform how you move in the ring.",
+    date: "2025-07-18",
+    thumbnail: "https://sb.oracleboxing.com/Website/skool_art2.webp",
+  },
+  {
     slug: "boxing-punches-1-6-explained",
     title: "Boxing Punches 1-6 Explained: Perfect Technique for Beginners",
     excerpt:
@@ -84,31 +108,37 @@ export default function BlogIndexPage() {
               className="group block"
             >
               <div className="rounded-xl overflow-hidden border border-[#37322F]/10 transition-all duration-200 hover:border-[#37322F]/25 hover:shadow-lg">
-                {/* YouTube Thumbnail */}
+                {/* Thumbnail */}
                 <div className="relative aspect-video bg-[#37322F]/5">
                   <Image
-                    src={`https://img.youtube.com/vi/${post.videoId}/maxresdefault.jpg`}
+                    src={
+                      post.videoId
+                        ? `https://img.youtube.com/vi/${post.videoId}/maxresdefault.jpg`
+                        : (post as any).thumbnail || "https://sb.oracleboxing.com/Website/skool_art2.webp"
+                    }
                     alt={post.title}
                     fill
                     className="object-cover"
                   />
-                  {/* Play button overlay */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-12 h-12 bg-[#37322F]/80 rounded-full flex items-center justify-center group-hover:bg-[#37322F] transition-colors">
-                      <svg
-                        width="18"
-                        height="20"
-                        viewBox="0 0 18 20"
-                        fill="none"
-                        className="ml-1"
-                      >
-                        <path
-                          d="M17 10L1 19.5V0.5L17 10Z"
-                          fill="white"
-                        />
-                      </svg>
+                  {/* Play button overlay (only for video posts) */}
+                  {post.videoId && (
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="w-12 h-12 bg-[#37322F]/80 rounded-full flex items-center justify-center group-hover:bg-[#37322F] transition-colors">
+                        <svg
+                          width="18"
+                          height="20"
+                          viewBox="0 0 18 20"
+                          fill="none"
+                          className="ml-1"
+                        >
+                          <path
+                            d="M17 10L1 19.5V0.5L17 10Z"
+                            fill="white"
+                          />
+                        </svg>
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </div>
 
                 <div className="p-5">
