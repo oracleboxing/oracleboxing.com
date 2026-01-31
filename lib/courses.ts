@@ -45,7 +45,7 @@ All 2024–2025 replays (Jan → Oct) + archives from the Boxing Clinic category
     id: 'boxing-from-first-principles',
     title: 'Boxing Masterclass',
     price: 297,
-    image: 'https://sb.oracleboxing.com/Website/optimized/products/bffp_tn.webp',
+    image: 'https://sb.oracleboxing.com/Website/bffp-checkout.jpg',
     description: `**SENTIENCE — The Mind of the Fighter**
 Learn how to think, feel, and perform like a boxer. Shift your paradigm for success, build mental clarity, and access flow on command. Understand emotional control, meditation, and how to enter the zone during performance.
 *Focus: Identity · Flow State · Presence · Mental Resilience*
@@ -85,7 +85,7 @@ Build the engine that powers it all. Train breathing, conditioning, nervous syst
     id: 'complete-bundle',
     title: 'Complete Bundle',
     price: 397,
-    image: 'https://sb.oracleboxing.com/Website/optimized/products/bffp_tn.webp',
+    image: 'https://sb.oracleboxing.com/Website/bffp-checkout.jpg',
     description: `**Get everything. Master the complete boxing system from fundamentals to real application.**
 
 **This bundle includes:**

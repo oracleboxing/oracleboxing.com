@@ -19,7 +19,7 @@ const SHOP_PRODUCTS: ShopProduct[] = [
     title: 'Boxing from First Principles',
     description: '26 lessons across 5 modules. Learn how boxing really works — from mental game to power generation to ring IQ.',
     price: '$147',
-    image: 'https://sb.oracleboxing.com/Website/bffp_tn_3.webp',
+    image: 'https://sb.oracleboxing.com/Website/bffp-checkout.jpg',
     paymentLink: 'https://checkout.oracleboxing.com/b/5kQeVefokeAXfkD5ZrgQE2O',
   },
   {
