@@ -1,9 +1,12 @@
 import type { NextAuthOptions } from 'next-auth'
 import GoogleProvider from 'next-auth/providers/google'
 
-// Admin email allowlist
+// Admin email allowlist - individual emails or @domain for whole org
 const ADMIN_EMAILS = [
   'jordan@oracleboxing.com',
+]
+const ADMIN_DOMAINS = [
+  'oracleboxing.com',
 ]
 
 export const authOptions: NextAuthOptions = {
@@ -25,7 +28,9 @@ export const authOptions: NextAuthOptions = {
      */
     async signIn({ user }) {
       if (!user.email) return false
-      return ADMIN_EMAILS.includes(user.email.toLowerCase())
+      const email = user.email.toLowerCase()
+      const domain = email.split('@')[1]
+      return ADMIN_EMAILS.includes(email) || ADMIN_DOMAINS.includes(domain)
     },
 
     /**

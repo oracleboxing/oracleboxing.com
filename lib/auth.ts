@@ -2,9 +2,12 @@ import { getServerSession as getNextAuthSession } from 'next-auth'
 import { NextResponse } from 'next/server'
 import { authOptions } from '@/lib/auth-options'
 
-// Email allowlist for admin access
+// Email allowlist for admin access - individual emails or @domain for whole org
 const ADMIN_EMAILS = [
   'jordan@oracleboxing.com',
+]
+const ADMIN_DOMAINS = [
+  'oracleboxing.com',
 ]
 
 /**
@@ -12,7 +15,9 @@ const ADMIN_EMAILS = [
  */
 export function isAdminEmail(email: string | null | undefined): boolean {
   if (!email) return false
-  return ADMIN_EMAILS.includes(email.toLowerCase())
+  const lower = email.toLowerCase()
+  const domain = lower.split('@')[1]
+  return ADMIN_EMAILS.includes(lower) || ADMIN_DOMAINS.includes(domain)
 }
 
 /**
