@@ -151,7 +151,7 @@ export async function GET() {
     console.error('Error setting up tables:', error)
     return NextResponse.json({
       success: false,
-      error: error.message,
+      error: 'Internal server error',
       message: 'Failed to create tables. Please create them manually in Supabase dashboard.',
       sql: getCreateTableSQL()
     }, { status: 500 })

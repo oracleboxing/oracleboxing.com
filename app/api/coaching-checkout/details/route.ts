@@ -135,9 +135,9 @@ export async function GET(req: NextRequest) {
       monthlyAmount,
     })
   } catch (error: any) {
-    console.error('Error fetching coaching details:', error)
+    console.error('Route /api/coaching-checkout/details failed:', error)
     return NextResponse.json(
-      { error: error.message || 'Failed to fetch coaching details' },
+      { error: 'Internal server error' },
       { status: 500 }
     )
   }

@@ -120,9 +120,9 @@ export async function POST(req: NextRequest) {
       status: subscription.status,
     })
   } catch (error: any) {
-    console.error('Error creating subscription:', error)
+    console.error('Route /api/coaching-checkout/create-subscription failed:', error)
     return NextResponse.json(
-      { error: error.message || 'Failed to create subscription' },
+      { error: 'Internal server error' },
       { status: 500 }
     )
   }

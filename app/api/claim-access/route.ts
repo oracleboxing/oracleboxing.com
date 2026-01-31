@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-const CLAIM_ACCESS_WEBHOOK_URL = 'https://hook.eu2.make.com/hexi6o7yyepx8v99rqd7pfqky7oig922'
+const CLAIM_ACCESS_WEBHOOK_URL = process.env.MAKE_CLAIM_ACCESS_WEBHOOK_URL!
 
 export async function POST(req: NextRequest) {
   try {
@@ -45,7 +45,7 @@ export async function POST(req: NextRequest) {
   } catch (error: any) {
     console.error('❌ Failed to send course access claim:', error)
     return NextResponse.json(
-      { error: error.message || 'Failed to process request' },
+      { error: 'Internal server error' },
       { status: 500 }
     )
   }

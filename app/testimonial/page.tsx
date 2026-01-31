@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { toast } from 'sonner'
 import FooterSection from '@/components/footer-section'
 
-const TESTIMONIAL_WEBHOOK_URL = 'https://hook.eu2.make.com/2ik4knuikxwg8xljes2uwo7rdyjdvpj4'
+const TESTIMONIAL_WEBHOOK_URL = process.env.NEXT_PUBLIC_MAKE_TESTIMONIAL_WEBHOOK!
 
 export default function TestimonialPage() {
   const [isLoading, setIsLoading] = useState(false)

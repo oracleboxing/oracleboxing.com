@@ -353,7 +353,7 @@ export async function GET(req: NextRequest) {
     }
 
     return NextResponse.json(
-      { error: error.message || 'Failed to retrieve session' },
+      { error: 'Internal server error' },
       { status: 500 }
     );
   }

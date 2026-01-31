@@ -20,7 +20,7 @@ export default function ContactPage() {
     setIsLoading(true)
 
     try {
-      const response = await fetch('https://hook.eu2.make.com/e9y5273eqsxw5odmoxor8u717ihlsu2t', {
+      const response = await fetch(process.env.NEXT_PUBLIC_MAKE_CONTACT_WEBHOOK!, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

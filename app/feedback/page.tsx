@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { toast } from 'sonner'
 import FooterSection from '@/components/footer-section'
 
-const FEEDBACK_WEBHOOK_URL = 'https://hook.eu2.make.com/pf28dwgf6kfn106vn4vkwygq37xsqlxi'
+const FEEDBACK_WEBHOOK_URL = process.env.NEXT_PUBLIC_MAKE_FEEDBACK_WEBHOOK!
 
 export default function FeedbackPage() {
   const [isLoading, setIsLoading] = useState(false)

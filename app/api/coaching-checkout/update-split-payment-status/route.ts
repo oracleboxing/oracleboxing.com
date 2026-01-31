@@ -81,9 +81,9 @@ export async function POST(req: NextRequest) {
       status: data.second_payment_status,
     })
   } catch (error: any) {
-    console.error('❌ Error in update-split-payment-status:', error)
+    console.error('Route /api/coaching-checkout/update-split-payment-status failed:', error)
     return NextResponse.json(
-      { error: error.message || 'Failed to update payment status' },
+      { error: 'Internal server error' },
       { status: 500 }
     )
   }

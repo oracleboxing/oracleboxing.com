@@ -113,7 +113,7 @@ export async function GET(req: NextRequest) {
         const recoveryUrl = `https://oracleboxing.com/sms?${recoveryParams.toString()}`
 
         // Send to Make.com webhook
-        const webhookResponse = await fetch('https://hook.eu2.make.com/6yxyxeuqeowhk7st10oqqmofcezmu928', {
+        const webhookResponse = await fetch(process.env.MAKE_NOTIFICATION_WEBHOOK_URL!, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -157,9 +157,9 @@ export async function GET(req: NextRequest) {
       skipped_cooldown: skippedCooldown,
     })
   } catch (error: any) {
-    console.error('Abandoned cart cron error:', error)
+    console.error('Route /api/cron/abandoned-cart failed:', error)
     return NextResponse.json(
-      { error: error.message || 'Cron job failed' },
+      { error: 'Internal server error' },
       { status: 500 }
     )
   }

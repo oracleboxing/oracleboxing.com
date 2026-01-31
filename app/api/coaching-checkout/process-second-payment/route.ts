@@ -180,15 +180,13 @@ export async function POST(req: NextRequest) {
         {
           error: 'Payment failed',
           code: error.code,
-          message: error.message,
-          decline_code: error.decline_code,
         },
         { status: 402 }
       )
     }
 
     return NextResponse.json(
-      { error: error.message || 'Failed to process second payment' },
+      { error: 'Internal server error' },
       { status: 500 }
     )
   }

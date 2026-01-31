@@ -6,7 +6,7 @@ import { stripe } from '@/lib/stripe/client'
 // Checks for split payments due today, creates PaymentIntent, and sends to Make.com for human confirmation
 
 // Make.com webhook URL for split payment processing
-const MAKE_WEBHOOK_URL = process.env.MAKE_SPLIT_PAYMENT_WEBHOOK_URL || 'https://hook.eu2.make.com/k9j5170tks2qesi73e13njkmg5r04bt6'
+const MAKE_WEBHOOK_URL = process.env.MAKE_SPLIT_PAYMENT_WEBHOOK_URL!
 
 // Max retries before marking as permanently failed
 const MAX_RETRY_COUNT = 5
@@ -215,9 +215,9 @@ export async function GET(req: NextRequest) {
       failed: failCount,
     })
   } catch (error: any) {
-    console.error('Split payments cron error:', error)
+    console.error('Route /api/cron/split-payments failed:', error)
     return NextResponse.json(
-      { error: error.message || 'Cron job failed' },
+      { error: 'Internal server error' },
       { status: 500 }
     )
   }

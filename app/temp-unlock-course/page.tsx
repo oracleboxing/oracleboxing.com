@@ -14,7 +14,7 @@ export default function TempUnlockCoursePage() {
     setLoading(true)
 
     try {
-      const response = await fetch('https://hook.eu2.make.com/fkpq3ykpvy5mjlenwln14b189aqxwz3d', {
+      const response = await fetch(process.env.NEXT_PUBLIC_MAKE_UNLOCK_COURSE_WEBHOOK!, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

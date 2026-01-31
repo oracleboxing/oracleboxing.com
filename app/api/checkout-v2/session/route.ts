@@ -232,7 +232,7 @@ export async function POST(req: NextRequest) {
   } catch (error: any) {
     console.error('Checkout-v2 session creation failed:', error)
     return NextResponse.json(
-      { error: error.message || 'Failed to create checkout session' },
+      { error: 'Internal server error' },
       { status: 500 }
     )
   }

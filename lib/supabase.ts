@@ -1,19 +1,38 @@
 import { createClient } from '@supabase/supabase-js'
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY
-
 // Browser client (uses anon key - for client-side tracking)
-export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+// Uses lazy initialization to avoid build errors when env vars aren't set
+let _supabase: ReturnType<typeof createClient> | null = null
+
+export function getSupabase() {
+  if (!_supabase) {
+    const url = process.env.NEXT_PUBLIC_SUPABASE_URL
+    const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+    if (!url || !key) throw new Error('Supabase credentials not configured')
+    _supabase = createClient(url, key)
+  }
+  return _supabase
+}
+
+// Backwards-compatible export (lazy getter)
+export const supabase = new Proxy({} as ReturnType<typeof createClient>, {
+  get(_target, prop) {
+    return (getSupabase() as any)[prop]
+  },
+})
 
 // Server client (uses service key - for API routes and migrations)
 // Only use this on the server side
+let _supabaseServer: ReturnType<typeof createClient> | null = null
+
 export function getSupabaseServerClient() {
-  if (!supabaseServiceKey) {
-    throw new Error('SUPABASE_SERVICE_KEY is not set')
+  if (!_supabaseServer) {
+    const url = process.env.NEXT_PUBLIC_SUPABASE_URL
+    const serviceKey = process.env.SUPABASE_SERVICE_KEY
+    if (!url || !serviceKey) throw new Error('SUPABASE_SERVICE_KEY is not set')
+    _supabaseServer = createClient(url, serviceKey)
   }
-  return createClient(supabaseUrl, supabaseServiceKey)
+  return _supabaseServer
 }
 
 // Database types for tracking events

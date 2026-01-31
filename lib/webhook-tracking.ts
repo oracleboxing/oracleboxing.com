@@ -695,7 +695,7 @@ export async function trackInitiateCheckout(
     const recoveryUrl = `https://oracleboxing.com/checkout-v2?${recoveryParams.toString()}`
 
     // Send to Make.com webhook (non-blocking)
-    fetch('https://hook.eu2.make.com/6yxyxeuqeowhk7st10oqqmofcezmu928', {
+    fetch(process.env.NEXT_PUBLIC_MAKE_NOTIFICATION_WEBHOOK!, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -367,9 +367,7 @@ export async function POST(req: NextRequest) {
       )
     }
   } catch (error: any) {
-    console.error('❌ UPSELL: Error occurred:', error.message)
-    console.error('❌ UPSELL: Error type:', error.type)
-    console.error('❌ UPSELL: Full error:', error)
+    console.error('Route /api/upsell/charge failed:', error)
 
     // Handle specific Stripe errors
     if (error.type === 'StripeCardError') {
@@ -384,7 +382,7 @@ export async function POST(req: NextRequest) {
     }
 
     return NextResponse.json(
-      { error: error.message || 'Failed to process upsell' },
+      { error: 'Internal server error' },
       { status: 500 }
     )
   }

@@ -86,9 +86,9 @@ export async function POST(req: NextRequest) {
       amount: totalAmount,
     })
   } catch (error: any) {
-    console.error('PaymentIntent update failed:', error)
+    console.error('Route /api/checkout-v2/update failed:', error)
     return NextResponse.json(
-      { error: error.message || 'Failed to update payment' },
+      { error: 'Internal server error' },
       { status: 500 }
     )
   }

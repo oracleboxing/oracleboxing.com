@@ -45,7 +45,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({
         success: true,
         message: 'Split payment already recorded',
-        id: existing.id,
+        id: (existing as any).id,
       })
     }
 
@@ -73,7 +73,7 @@ export async function POST(req: NextRequest) {
 
     const { data, error } = await supabase
       .from('coaching_split_payments')
-      .insert(record)
+      .insert(record as any)
       .select()
       .single()
 
@@ -85,17 +85,17 @@ export async function POST(req: NextRequest) {
       )
     }
 
-    console.log('✅ Split payment saved to Supabase:', data.id)
+    console.log('✅ Split payment saved to Supabase:', (data as any).id)
 
     return NextResponse.json({
       success: true,
-      id: data.id,
+      id: (data as any).id,
       dueDate: dueDate.toISOString(),
     })
   } catch (error: any) {
-    console.error('❌ Error in save-split-payment:', error)
+    console.error('Route /api/coaching-checkout/save-split-payment failed:', error)
     return NextResponse.json(
-      { error: error.message || 'Failed to save split payment' },
+      { error: 'Internal server error' },
       { status: 500 }
     )
   }

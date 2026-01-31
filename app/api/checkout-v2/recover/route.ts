@@ -56,9 +56,9 @@ export async function GET(req: NextRequest) {
       clientSecret: paymentIntent.client_secret, // Include client secret for recovery
     })
   } catch (error: any) {
-    console.error('Failed to recover PaymentIntent:', error)
+    console.error('Route /api/checkout-v2/recover failed:', error)
     return NextResponse.json(
-      { error: error.message || 'Failed to recover payment' },
+      { error: 'Internal server error' },
       { status: 500 }
     )
   }

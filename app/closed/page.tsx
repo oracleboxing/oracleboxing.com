@@ -69,7 +69,7 @@ export default function ClosedPage() {
 
     try {
       // Send to Make.com webhook
-      const response = await fetch('https://hook.eu2.make.com/6yxyxeuqeowhk7st10oqqmofcezmu928', {
+      const response = await fetch(process.env.NEXT_PUBLIC_MAKE_NOTIFICATION_WEBHOOK!, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

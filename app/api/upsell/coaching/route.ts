@@ -122,9 +122,9 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ url: session.url });
   } catch (error: any) {
-    console.error('Coaching upsell error:', error);
+    console.error('Route /api/upsell/coaching failed:', error);
     return NextResponse.json(
-      { error: error.message || 'Failed to create upsell session' },
+      { error: 'Internal server error' },
       { status: 500 }
     );
   }
