@@ -12,8 +12,13 @@ import {
   getTierDisplayName,
   formatPrice,
 } from '@/lib/coaching-pricing'
+import { requireAdmin } from '@/lib/auth'
 
 export async function POST(req: NextRequest) {
+  // Require admin authentication
+  const authError = await requireAdmin()
+  if (authError) return authError
+
   try {
     const body = await req.json()
     const {
@@ -188,14 +193,13 @@ export async function POST(req: NextRequest) {
       console.log('✅ PaymentIntent created:', paymentIntent.id)
 
       // Build custom checkout URL with payment intent info
-      const checkoutUrl = `${baseUrl}/coaching-checkout?pi=${paymentIntent.id}&secret=${paymentIntent.client_secret}`
+      const checkoutUrl = `${baseUrl}/coaching-checkout?pi=${paymentIntent.id}`
 
       console.log('🔗 Custom Checkout URL:', checkoutUrl)
 
       return NextResponse.json({
         url: checkoutUrl,
         paymentIntentId: paymentIntent.id,
-        clientSecret: paymentIntent.client_secret,
         calculation,
         useCustomCheckout: true,
       })
@@ -228,14 +232,13 @@ export async function POST(req: NextRequest) {
       console.log('✅ Split Pay PaymentIntent created:', paymentIntent.id)
 
       // Build custom checkout URL with payment intent info
-      const checkoutUrl = `${baseUrl}/coaching-checkout?pi=${paymentIntent.id}&secret=${paymentIntent.client_secret}`
+      const checkoutUrl = `${baseUrl}/coaching-checkout?pi=${paymentIntent.id}`
 
       console.log('🔗 Custom Checkout URL:', checkoutUrl)
 
       return NextResponse.json({
         url: checkoutUrl,
         paymentIntentId: paymentIntent.id,
-        clientSecret: paymentIntent.client_secret,
         calculation,
         useCustomCheckout: true,
         splitPayment: true,
@@ -265,14 +268,13 @@ export async function POST(req: NextRequest) {
       console.log('✅ SetupIntent created for subscription:', setupIntent.id)
 
       // Build custom checkout URL with setup intent info
-      const checkoutUrl = `${baseUrl}/coaching-checkout?setup=${setupIntent.id}&secret=${setupIntent.client_secret}&monthly=true`
+      const checkoutUrl = `${baseUrl}/coaching-checkout?setup=${setupIntent.id}&monthly=true`
 
       console.log('🔗 Custom Checkout URL:', checkoutUrl)
 
       return NextResponse.json({
         url: checkoutUrl,
         setupIntentId: setupIntent.id,
-        clientSecret: setupIntent.client_secret,
         calculation,
         useCustomCheckout: true,
         setupForSubscription: true,

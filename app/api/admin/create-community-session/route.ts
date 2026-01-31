@@ -10,8 +10,13 @@ import {
   isDiscountEligible,
   COMMUNITY_PRODUCT_ID,
 } from '@/lib/community-pricing'
+import { requireAdmin } from '@/lib/auth'
 
 export async function POST(req: NextRequest) {
+  // Require admin authentication
+  const authError = await requireAdmin()
+  if (authError) return authError
+
   try {
     const body = await req.json()
     const {
