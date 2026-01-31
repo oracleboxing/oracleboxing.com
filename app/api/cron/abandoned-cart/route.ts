@@ -113,7 +113,7 @@ export async function GET(req: NextRequest) {
         const recoveryUrl = `https://oracleboxing.com/sms?${recoveryParams.toString()}`
 
         // Send to Make.com webhook
-        const webhookResponse = await fetch(process.env.MAKE_NOTIFICATION_WEBHOOK_URL!, {
+        const webhookResponse = await fetch((process.env.MAKE_NOTIFICATION_WEBHOOK_URL || '').replace(/^["'\s]+|["'\s]+$/g, ''), {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

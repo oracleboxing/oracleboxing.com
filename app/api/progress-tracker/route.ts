@@ -115,8 +115,8 @@ export async function POST(req: NextRequest) {
       )
     }
 
-    // Get webhook URL from environment variable
-    const webhookUrl = process.env.MAKE_PROGRESS_TRACKER_WEBHOOK_URL
+    // Get webhook URL from environment variable (strip quotes/whitespace if present)
+    const webhookUrl = process.env.MAKE_PROGRESS_TRACKER_WEBHOOK_URL?.replace(/^["'\s]+|["'\s]+$/g, '')
     if (!webhookUrl) {
       console.error('MAKE_PROGRESS_TRACKER_WEBHOOK_URL environment variable is not set')
       return NextResponse.json(
@@ -156,10 +156,9 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ ok: true })
   } catch (error) {
-    const errMsg = error instanceof Error ? error.message : 'Unknown error'
-    console.error('Progress tracker API error:', errMsg)
+    console.error('Progress tracker API error:', error instanceof Error ? error.message : 'Unknown error')
     return NextResponse.json(
-      { ok: false, error: 'Failed to process request', debug: errMsg },
+      { ok: false, error: 'Failed to process request' },
       { status: 500 }
     )
   }

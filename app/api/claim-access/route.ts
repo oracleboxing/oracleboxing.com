@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-const CLAIM_ACCESS_WEBHOOK_URL = process.env.MAKE_CLAIM_ACCESS_WEBHOOK_URL!
+const CLAIM_ACCESS_WEBHOOK_URL = process.env.MAKE_CLAIM_ACCESS_WEBHOOK_URL?.replace(/^["'\s]+|["'\s]+$/g, '') || ''
 
 export async function POST(req: NextRequest) {
   try {

@@ -8,13 +8,22 @@ const ADMIN_EMAILS = [
 ]
 
 // Routes that require admin authentication
-const PROTECTED_PATHS = [
+const PROTECTED_API_PATHS = [
   '/api/admin/',
   '/api/supabase/setup-tables',
 ]
 
-function isProtectedRoute(pathname: string): boolean {
-  return PROTECTED_PATHS.some((path) => pathname.startsWith(path))
+// Page routes that require admin authentication
+const PROTECTED_PAGE_PATHS = [
+  '/admin',
+]
+
+function isProtectedApi(pathname: string): boolean {
+  return PROTECTED_API_PATHS.some((path) => pathname.startsWith(path))
+}
+
+function isProtectedPage(pathname: string): boolean {
+  return PROTECTED_PAGE_PATHS.some((path) => pathname.startsWith(path))
 }
 
 export async function middleware(request: NextRequest) {
@@ -30,8 +39,22 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(url, { status: 301 })
   }
 
-  // Protect admin API routes with NextAuth JWT check
-  if (isProtectedRoute(pathname)) {
+  // Protect admin pages — redirect to Google sign-in if not authenticated
+  if (isProtectedPage(pathname)) {
+    const token = await getToken({
+      req: request,
+      secret: process.env.NEXTAUTH_SECRET,
+    })
+
+    if (!token?.email || !ADMIN_EMAILS.includes((token.email as string).toLowerCase())) {
+      const signInUrl = new URL('/api/auth/signin', request.url)
+      signInUrl.searchParams.set('callbackUrl', request.url)
+      return NextResponse.redirect(signInUrl)
+    }
+  }
+
+  // Protect admin API routes — return 401 JSON
+  if (isProtectedApi(pathname)) {
     const token = await getToken({
       req: request,
       secret: process.env.NEXTAUTH_SECRET,

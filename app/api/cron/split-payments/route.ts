@@ -6,7 +6,7 @@ import { stripe } from '@/lib/stripe/client'
 // Checks for split payments due today, creates PaymentIntent, and sends to Make.com for human confirmation
 
 // Make.com webhook URL for split payment processing
-const MAKE_WEBHOOK_URL = process.env.MAKE_SPLIT_PAYMENT_WEBHOOK_URL!
+const MAKE_WEBHOOK_URL = (process.env.MAKE_SPLIT_PAYMENT_WEBHOOK_URL || '').replace(/^["'\s]+|["'\s]+$/g, '')
 
 // Max retries before marking as permanently failed
 const MAX_RETRY_COUNT = 5
