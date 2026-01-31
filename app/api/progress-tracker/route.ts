@@ -156,10 +156,10 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ ok: true })
   } catch (error) {
-    // Log error without exposing sensitive data
-    console.error('Progress tracker API error:', error instanceof Error ? error.message : 'Unknown error')
+    const errMsg = error instanceof Error ? error.message : 'Unknown error'
+    console.error('Progress tracker API error:', errMsg)
     return NextResponse.json(
-      { ok: false, error: 'Failed to process request' },
+      { ok: false, error: 'Failed to process request', debug: errMsg },
       { status: 500 }
     )
   }
