@@ -3,7 +3,7 @@
 // Set CAMPAIGN_ACTIVE = true when a campaign is running
 // Update the dates and spot schedule for each campaign
 
-export const CAMPAIGN_ACTIVE = true
+export const CAMPAIGN_ACTIVE = false
 
 export const CAMPAIGN_CONFIG = {
   name: 'February 2026 21-Day Challenge (Extended)',
