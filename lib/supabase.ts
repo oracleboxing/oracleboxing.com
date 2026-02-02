@@ -7,8 +7,8 @@ let _supabase: any = null
 
 export function getSupabase(): any {
   if (!_supabase) {
-    const url = process.env.NEXT_PUBLIC_SUPABASE_URL
-    const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+    const url = process.env.NEXT_PUBLIC_SUPABASE_URL?.trim()
+    const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY?.trim()
     if (!url || !key) throw new Error('Supabase credentials not configured')
     _supabase = createClient(url, key)
   }
@@ -30,8 +30,8 @@ let _supabaseServer: any = null
 
 export function getSupabaseServerClient(): any {
   if (!_supabaseServer) {
-    const url = process.env.NEXT_PUBLIC_SUPABASE_URL
-    const serviceKey = process.env.SUPABASE_SERVICE_KEY
+    const url = process.env.NEXT_PUBLIC_SUPABASE_URL?.trim()
+    const serviceKey = process.env.SUPABASE_SERVICE_KEY?.trim()
     if (!url || !serviceKey) throw new Error('SUPABASE_SERVICE_KEY is not set')
     _supabaseServer = createClient(url, serviceKey)
   }
