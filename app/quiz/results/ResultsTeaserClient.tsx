@@ -4,12 +4,19 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { EmailCaptureForm } from '../components/EmailCaptureForm'
 import Link from 'next/link'
 import QuizHeader from '../components/QuizHeader'
+import { questions } from '@/lib/quiz-data'
 
 interface TeaserData {
   level_name: string;
   total: number;
   scores: Record<string, number>;
 }
+
+// Calculate max score per dimension from actual questions
+const dimMaxScores: Record<string, number> = {}
+questions.forEach((q) => {
+  dimMaxScores[q.category] = (dimMaxScores[q.category] || 0) + 4
+})
 
 export default function ResultsTeaserClient() {
   const searchParams = useSearchParams()
@@ -84,7 +91,7 @@ export default function ResultsTeaserClient() {
                   <div className="blur-[6px] pointer-events-none select-none">
                     <div className="space-y-2.5">
                       {Object.entries(teaser.scores).map(([skill, score]) => {
-                        const maxPerDim = skill === 'Ring IQ' || skill === 'Training Habits' ? 4 : 8
+                        const maxPerDim = dimMaxScores[skill] || 8
                         const pct = Math.round((score / maxPerDim) * 100)
                         return (
                           <div key={skill} className="flex items-center gap-3">

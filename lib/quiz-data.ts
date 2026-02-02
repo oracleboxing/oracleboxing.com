@@ -93,13 +93,13 @@ export const questions: QuizQuestion[] = [
   },
   {
     id: 9,
-    category: 'Ring IQ',
-    question: 'When things aren\'t going your way in a round, what do you do?',
+    category: 'Offense',
+    question: 'How well do you attack the body?',
     options: [
-      { label: 'Panic, freeze up, or just keep doing the same thing', value: 1 },
-      { label: 'I try to survive and hope it gets better', value: 2 },
-      { label: "I make adjustments — change range, use my jab, or tie up to reset", value: 3 },
-      { label: 'I stay calm, identify what they\'re exploiting, and change my approach within seconds', value: 4 },
+      { label: "I rarely throw body shots — I mostly aim at the head", value: 1 },
+      { label: "I throw them occasionally but they feel awkward or slow", value: 2 },
+      { label: "I mix head and body shots in my combinations and use them to break down opponents", value: 3 },
+      { label: "Body work is a weapon — I use it to set up headshots, slow opponents down, and steal rounds", value: 4 },
     ],
   },
   {

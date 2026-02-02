@@ -41,6 +41,27 @@ export default function QuizLandingPage() {
           </div>
         </section>
 
+        {/* How It Works */}
+        <section className="px-4 py-8">
+          <div className="max-w-xl mx-auto">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-center gap-4 sm:gap-8">
+              {[
+                { step: '1', label: 'Answer 10 questions' },
+                { step: '2', label: 'Get your skill radar' },
+                { step: '3', label: 'See what to work on' },
+              ].map((item, i) => (
+                <div key={item.step} className="flex items-center gap-3 sm:flex-col sm:text-center">
+                  <div className="w-8 h-8 rounded-full bg-neutral-900 text-white flex items-center justify-center text-sm font-bold flex-shrink-0">
+                    {item.step}
+                  </div>
+                  <span className="text-sm font-medium text-neutral-700">{item.label}</span>
+                  {i < 2 && <span className="hidden sm:block text-neutral-300 ml-4">→</span>}
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* What You'll Get */}
         <section className="px-4 py-10">
           <div className="max-w-2xl mx-auto">

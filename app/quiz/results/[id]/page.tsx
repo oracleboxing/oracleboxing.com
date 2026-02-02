@@ -1,9 +1,37 @@
 import React from 'react'
+import type { Metadata } from 'next'
 import { getSupabaseServerClient } from '@/lib/supabase'
 import { questions, levels, dimensionDescriptions } from '@/lib/quiz-data'
 import { ResultsChart } from '../../components/ResultsChart'
 import Link from 'next/link'
 import QuizHeader from '../../components/QuizHeader'
+
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+  const { id } = await params
+  const supabase = getSupabaseServerClient()
+  const { data } = await supabase
+    .from('quiz_results')
+    .select('total, level_name')
+    .eq('id', id)
+    .single()
+
+  if (!data) {
+    return { title: 'Quiz Results | Oracle Boxing' }
+  }
+
+  const levelInfo = levels.find((lv) => lv.name === data.level_name || data.level_name.includes(lv.name))
+  const levelName = levelInfo?.name || data.level_name
+
+  return {
+    title: `${levelName} — Boxing Level Quiz Results | Oracle Boxing`,
+    description: `I scored ${data.total}/40 on the Oracle Boxing quiz. My boxing level: ${levelName}. Take the quiz to find out yours!`,
+    openGraph: {
+      title: `I'm a "${levelName}" — What's Your Boxing Level?`,
+      description: `Scored ${data.total}/40 across Technique, Movement, Defense, Offense, Ring IQ & Training Habits. Take the free 2-minute quiz!`,
+      type: 'website',
+    },
+  }
+}
 
 export default async function FullResultsPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
@@ -56,12 +84,12 @@ export default async function FullResultsPage({ params }: { params: Promise<{ id
   const topStrength = sorted[0]
   const topWeakness = sorted[sorted.length - 1]
 
-  // Get dimension feedback
+  // Get dimension feedback based on percentage score
   function getDimensionFeedback(skill: string, pct: number): string {
     const dim = dimensionDescriptions[skill]
     if (!dim) return ''
-    if (pct <= 37) return dim.low
-    if (pct <= 75) return dim.mid
+    if (pct <= 33) return dim.low
+    if (pct <= 66) return dim.mid
     return dim.high
   }
 
