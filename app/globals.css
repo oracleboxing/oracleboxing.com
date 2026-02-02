@@ -201,3 +201,62 @@
 .backdrop-blur-custom {
   backdrop-filter: blur(8.25px);
 }
+
+/* Oracle Boxing Button System */
+.ob-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  font-size: 0.9375rem;
+  line-height: 1.4;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  text-decoration: none;
+  border: 2px solid transparent;
+}
+
+.ob-btn:disabled {
+  cursor: not-allowed;
+}
+
+.ob-btn-primary {
+  background-color: #171717;
+  color: #F5F5F5;
+  border-color: #171717;
+}
+
+.ob-btn-primary:hover:not(:disabled) {
+  background-color: #333;
+  border-color: #333;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.ob-btn-primary:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.ob-btn-secondary {
+  background-color: transparent;
+  color: #171717;
+  border-color: #d4d4d4;
+}
+
+.ob-btn-secondary:hover:not(:disabled) {
+  border-color: #171717;
+  background-color: #fafafa;
+}
+
+.ob-btn-outline {
+  background-color: transparent;
+  color: #171717;
+  border-color: #171717;
+}
+
+.ob-btn-outline:hover:not(:disabled) {
+  background-color: #171717;
+  color: #F5F5F5;
+}

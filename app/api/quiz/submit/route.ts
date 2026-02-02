@@ -11,7 +11,7 @@ export async function POST(request: Request): Promise<NextResponse> {
     }
     // Validate each question response (1-10 between 1 and 4)
     for (let i = 1; i <= 10; i++) {
-      const val = (responses as any)[i]
+      const val = (responses as Record<string, unknown>)[i]
       if (typeof val !== 'number' || val < 1 || val > 4) {
         return NextResponse.json({ error: `Invalid response for question ${i}` }, { status: 400 })
       }
@@ -28,7 +28,7 @@ export async function POST(request: Request): Promise<NextResponse> {
       level_description: level.description,
     })
     if (error) throw error
-    return NextResponse.json({ id })
+    return NextResponse.json({ id, level_name: level.name })
   } catch (e) {
     console.error('Error saving quiz result', e)
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 })

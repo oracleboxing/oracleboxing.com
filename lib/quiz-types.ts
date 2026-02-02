@@ -36,6 +36,12 @@ export interface QuizLevel {
   min: number;
   max: number;
   description: string;
+  detailedAdvice: string;
+  ctaText: string;
+  ctaUrl: string;
+  ctaDescription: string;
+  emoji: string;
+  color: string;
 }
 
 /**
