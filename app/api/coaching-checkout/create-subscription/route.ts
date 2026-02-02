@@ -1,11 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { stripe } from '@/lib/stripe/client'
 import {
+  Coach,
+  CoachingTier,
   COACHING_PRODUCT_TIER_1,
   COACHING_PRODUCT_TIER_2,
-  COACHING_PRICE_TIER_1_MONTHLY,
-  COACHING_PRICE_TIER_2_MONTHLY,
-  MONTHLY_RATES,
+  MONTHLY_RATES_BY_COACH,
+  MONTHLY_PRICE_IDS_BY_COACH,
 } from '@/lib/coaching-pricing'
 
 export async function POST(req: NextRequest) {
@@ -49,8 +50,8 @@ export async function POST(req: NextRequest) {
     }
 
     const monthlyAmount = parseInt(metadata.monthly_amount || '0', 10)
-    const tier = metadata.tier || 'tier_1'
-    const coach = metadata.coach || 'Toni'
+    const tier = (metadata.tier || 'tier_1') as CoachingTier
+    const coach = (metadata.coach || 'Toni') as Coach
     const productName = metadata.product_name || '1-on-1 Coaching (Monthly)'
 
     if (!monthlyAmount) {
@@ -70,14 +71,14 @@ export async function POST(req: NextRequest) {
     // Select product and price based on tier
     const productId = tier === 'tier_2' ? COACHING_PRODUCT_TIER_2 : COACHING_PRODUCT_TIER_1
 
-    // Use fixed price IDs for standard rates, otherwise create a custom price
-    const standardRate = tier === 'tier_2' ? MONTHLY_RATES.tier_2 * 100 : MONTHLY_RATES.tier_1 * 100
-    const fixedPriceId = tier === 'tier_2' ? COACHING_PRICE_TIER_2_MONTHLY : COACHING_PRICE_TIER_1_MONTHLY
+    // Use fixed price IDs for standard rates (coach-aware), otherwise create a custom price
+    const standardRate = MONTHLY_RATES_BY_COACH[coach][tier] * 100
+    const fixedPriceId = MONTHLY_PRICE_IDS_BY_COACH[coach][tier]
 
     let priceId: string
 
     if (monthlyAmount === standardRate) {
-      // Use the pre-created fixed price
+      // Use the pre-created fixed price for this coach
       priceId = fixedPriceId
     } else {
       // Create a custom price for non-standard amounts (e.g., with discounts)

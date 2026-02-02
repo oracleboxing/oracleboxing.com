@@ -9,11 +9,14 @@ export type CustomerDiscount = 'none' | 'challenge_winner'
 export type PaymentPlan = 'full' | 'split_2' | 'monthly'
 export type Coach = 'Toni' | 'Charlie'
 
-// Base pricing structure
-export const TIER_PRICES = {
-  tier_1: 1200,
-  tier_2: 1800,
-} as const
+// Coach-specific pricing structure
+export const TIER_PRICES_BY_COACH: Record<Coach, Record<CoachingTier, number>> = {
+  Toni: { tier_1: 1200, tier_2: 1800 },
+  Charlie: { tier_1: 1000, tier_2: 1500 },
+}
+
+// Backward-compatible default (Toni's prices)
+export const TIER_PRICES = TIER_PRICES_BY_COACH.Toni
 
 // Customer discount amounts
 export const CUSTOMER_DISCOUNTS = {
@@ -21,17 +24,23 @@ export const CUSTOMER_DISCOUNTS = {
   challenge_winner: 147,
 } as const
 
-// Split pay rates - (base price - 10%) / 2 for 6-month commitment
-export const SPLIT_PAY_RATES = {
-  tier_1: 540,  // ($1200 * 0.9) / 2
-  tier_2: 810,  // ($1800 * 0.9) / 2
-} as const
+// Coach-specific split pay rates - (base price * 0.9) / 2 for 6-month commitment
+export const SPLIT_PAY_RATES_BY_COACH: Record<Coach, Record<CoachingTier, number>> = {
+  Toni: { tier_1: 540, tier_2: 810 },   // ($1200 * 0.9) / 2, ($1800 * 0.9) / 2
+  Charlie: { tier_1: 450, tier_2: 675 }, // ($1000 * 0.9) / 2, ($1500 * 0.9) / 2
+}
 
-// Monthly subscription rates (3 month commitment)
-export const MONTHLY_RATES = {
-  tier_1: 400,
-  tier_2: 600,
-} as const
+// Backward-compatible default
+export const SPLIT_PAY_RATES = SPLIT_PAY_RATES_BY_COACH.Toni
+
+// Coach-specific monthly subscription rates (3 month commitment)
+export const MONTHLY_RATES_BY_COACH: Record<Coach, Record<CoachingTier, number>> = {
+  Toni: { tier_1: 400, tier_2: 600 },
+  Charlie: { tier_1: 333, tier_2: 500 },
+}
+
+// Backward-compatible default
+export const MONTHLY_RATES = MONTHLY_RATES_BY_COACH.Toni
 
 // 6-month commitment discount percentage
 export const SIX_MONTH_DISCOUNT_PERCENTAGE = 0.10 // 10%
@@ -41,8 +50,25 @@ export const COACHING_PRODUCT_TIER_1 = 'prod_TmMdSWue5DSIMP' // Tier 1 Monthly
 export const COACHING_PRODUCT_TIER_2 = 'prod_TmMdpVbncoqN1F' // Tier 2 Monthly
 
 // Stripe price IDs for monthly coaching subscriptions (LIVE)
-export const COACHING_PRICE_TIER_1_MONTHLY = 'price_1SonyzKPvH4Ddlg1BN0tsim4' // $400/month
-export const COACHING_PRICE_TIER_2_MONTHLY = 'price_1Sonz0KPvH4Ddlg1bNZJbS3l' // $600/month
+// Toni's prices
+export const COACHING_PRICE_TIER_1_MONTHLY = 'price_1SonyzKPvH4Ddlg1BN0tsim4' // Toni $400/month
+export const COACHING_PRICE_TIER_2_MONTHLY = 'price_1Sonz0KPvH4Ddlg1bNZJbS3l' // Toni $600/month
+
+// Charlie's prices
+export const COACHING_PRICE_CHARLIE_TIER_1_MONTHLY = 'price_1SwLraKPvH4Ddlg1OnBMVSAC' // Charlie $333/month
+export const COACHING_PRICE_CHARLIE_TIER_2_MONTHLY = 'price_1SwLraKPvH4Ddlg1r5SzuFPi' // Charlie $500/month
+
+// Coach-specific monthly price ID lookup
+export const MONTHLY_PRICE_IDS_BY_COACH: Record<Coach, Record<CoachingTier, string>> = {
+  Toni: {
+    tier_1: COACHING_PRICE_TIER_1_MONTHLY,
+    tier_2: COACHING_PRICE_TIER_2_MONTHLY,
+  },
+  Charlie: {
+    tier_1: COACHING_PRICE_CHARLIE_TIER_1_MONTHLY,
+    tier_2: COACHING_PRICE_CHARLIE_TIER_2_MONTHLY,
+  },
+}
 
 // Legacy product IDs (kept for backward compatibility)
 export const COACHING_PRODUCT_1MONTH = COACHING_PRODUCT_TIER_1
@@ -67,16 +93,21 @@ interface PricingCalculation {
 
 /**
  * Calculate final pricing based on selections
+ * @param coach - defaults to 'Toni' for backward compatibility
  */
 export function calculateCoachingPrice(
   tier: CoachingTier,
   customerDiscount: CustomerDiscount,
   sixMonthCommitment: boolean,
-  paymentPlan: PaymentPlan
+  paymentPlan: PaymentPlan,
+  coach: Coach = 'Toni'
 ): PricingCalculation {
+  // Get coach-specific tier price
+  const tierPrice = TIER_PRICES_BY_COACH[coach][tier]
+
   // Base price for selected tier
   // For 6-month commitment, base price is 2x the tier price (paying for 2 months upfront)
-  const basePrice = sixMonthCommitment ? TIER_PRICES[tier] * 2 : TIER_PRICES[tier]
+  const basePrice = sixMonthCommitment ? tierPrice * 2 : tierPrice
 
   // Apply customer discount
   const discountAmount = CUSTOMER_DISCOUNTS[customerDiscount]
@@ -100,8 +131,8 @@ export function calculateCoachingPrice(
       ? Math.round(finalPrice / 2)
       : Math.round(subtotal / 2)
   } else if (paymentPlan === 'monthly') {
-    // Monthly: Divide tier price by 3 (no discounts applied for monthly)
-    monthlyAmount = MONTHLY_RATES[tier]
+    // Monthly: Use coach-specific monthly rate
+    monthlyAmount = MONTHLY_RATES_BY_COACH[coach][tier]
   }
 
   return {

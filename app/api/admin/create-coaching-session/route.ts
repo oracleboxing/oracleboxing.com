@@ -7,7 +7,7 @@ import {
   Coach,
   calculateCoachingPrice,
   createCoachingMetadata,
-  TIER_PRICES,
+  TIER_PRICES_BY_COACH,
   CUSTOMER_DISCOUNTS,
   getTierDisplayName,
   formatPrice,
@@ -67,12 +67,13 @@ export async function POST(req: NextRequest) {
       )
     }
 
-    // Calculate pricing
+    // Calculate pricing (coach-aware)
     const calculation = calculateCoachingPrice(
       tier,
       customerDiscount || 'none',
       sixMonthCommitment || false,
-      paymentPlan
+      paymentPlan,
+      coach
     )
 
     console.log('💰 Price calculation:', calculation)
@@ -124,7 +125,7 @@ export async function POST(req: NextRequest) {
 
     // Build detailed product description with price breakdown
     const tierName = getTierDisplayName(tier)
-    const tierPrice = TIER_PRICES[tier]
+    const tierPrice = TIER_PRICES_BY_COACH[coach][tier]
 
     let description = `${tierName} 1-on-1 Coaching\n\n`
 

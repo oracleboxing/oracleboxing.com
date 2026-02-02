@@ -10,7 +10,7 @@ import {
   Coach,
   calculateCoachingPrice,
   formatPrice,
-  TIER_PRICES,
+  TIER_PRICES_BY_COACH,
   CUSTOMER_DISCOUNTS,
 } from '@/lib/coaching-pricing'
 
@@ -28,8 +28,11 @@ export default function AdminCoachingCheckout() {
   const [sixMonthCommitment, setSixMonthCommitment] = useState(false)
   const [coach, setCoach] = useState<Coach>('Toni')
 
-  // Calculate pricing whenever selections change
-  const calculation = calculateCoachingPrice(tier, customerDiscount, sixMonthCommitment, paymentPlan)
+  // Get coach-specific tier prices
+  const coachTierPrices = TIER_PRICES_BY_COACH[coach]
+
+  // Calculate pricing whenever selections change (coach-aware)
+  const calculation = calculateCoachingPrice(tier, customerDiscount, sixMonthCommitment, paymentPlan, coach)
 
   // Reset discounts and 6-month when monthly is selected
   useEffect(() => {
@@ -257,8 +260,8 @@ export default function AdminCoachingCheckout() {
                     onChange={(e) => setTier(e.target.value as CoachingTier)}
                     className={selectClass}
                   >
-                    <option value="tier_1">Tier 1 — {formatPrice(TIER_PRICES.tier_1)}</option>
-                    <option value="tier_2">Tier 2 — {formatPrice(TIER_PRICES.tier_2)}</option>
+                    <option value="tier_1">Tier 1 — {formatPrice(coachTierPrices.tier_1)}</option>
+                    <option value="tier_2">Tier 2 — {formatPrice(coachTierPrices.tier_2)}</option>
                   </select>
                   <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
                 </div>
