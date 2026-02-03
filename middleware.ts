@@ -2,10 +2,13 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { getToken } from 'next-auth/jwt'
 
-// Admin email allowlist (must match lib/auth.ts)
-const ADMIN_EMAILS = [
-  'jordan@oracleboxing.com',
-]
+// Admin domain allowlist - any @oracleboxing.com email can access admin
+const ADMIN_DOMAIN = 'oracleboxing.com'
+
+function isAdminEmail(email: string): boolean {
+  const domain = email.toLowerCase().split('@')[1]
+  return domain === ADMIN_DOMAIN
+}
 
 // Routes that require admin authentication
 const PROTECTED_API_PATHS = [
@@ -46,7 +49,7 @@ export async function middleware(request: NextRequest) {
       secret: process.env.NEXTAUTH_SECRET,
     })
 
-    if (!token?.email || !ADMIN_EMAILS.includes((token.email as string).toLowerCase())) {
+    if (!token?.email || !isAdminEmail(token.email as string)) {
       const signInUrl = new URL('/api/auth/signin', request.url)
       signInUrl.searchParams.set('callbackUrl', request.url)
       return NextResponse.redirect(signInUrl)
@@ -60,7 +63,7 @@ export async function middleware(request: NextRequest) {
       secret: process.env.NEXTAUTH_SECRET,
     })
 
-    if (!token?.email || !ADMIN_EMAILS.includes((token.email as string).toLowerCase())) {
+    if (!token?.email || !isAdminEmail(token.email as string)) {
       return NextResponse.json(
         { error: 'Unauthorized — admin access required' },
         { status: 401 }
