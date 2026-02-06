@@ -496,6 +496,12 @@ function ResultsContent() {
           setResult(serverResult);
           // Cache in sessionStorage for this session
           try { sessionStorage.setItem('ob-diagnostic-result', JSON.stringify(serverResult)); } catch {}
+          // Auto-unlock if they already provided their email
+          if (data.name && data.email) {
+            setCapturedName(data.name);
+            setCapturedEmail(data.email);
+            setUnlocked(true);
+          }
         }
       })
       .catch(() => {})
