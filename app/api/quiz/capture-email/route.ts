@@ -40,7 +40,7 @@ async function sendResultsEmail(email: string, firstName: string, resultId: stri
     html: `
       <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 520px; margin: 0 auto; padding: 40px 20px;">
         <div style="text-align: center; margin-bottom: 32px;">
-          <img src="https://sb.oracleboxing.com/logo/long_dark.webp" alt="Oracle Boxing" style="height: 40px;" />
+          <img src="https://sb.oracleboxing.com/logo/long_dark.webp" alt="Oracle Boxing" width="200" height="40" style="height: 40px; width: auto; max-width: 200px;" />
         </div>
         <h1 style="font-size: 24px; color: #1a1a1a; margin-bottom: 16px;">Thanks for taking the quiz, ${firstName}.</h1>
         <p style="font-size: 16px; color: #525252; line-height: 1.6; margin-bottom: 24px;">
@@ -56,7 +56,7 @@ async function sendResultsEmail(email: string, firstName: string, resultId: stri
         </p>
         <hr style="border: none; border-top: 1px solid #e5e5e5; margin: 32px 0;" />
         <p style="font-size: 12px; color: #a3a3a3; text-align: center;">
-          Oracle Boxing &middot; <a href="https://oracleboxing.com" style="color: #a3a3a3;">oracleboxing.com</a>
+          <a href="https://oracleboxing.com" style="color: #a3a3a3;">oracleboxing.com</a>
         </p>
       </div>
     `,
