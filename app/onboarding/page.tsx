@@ -3,14 +3,12 @@
 import { Suspense, useEffect, useMemo } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { getCalApi } from '@calcom/embed-react'
-import { ArrowButton } from '@/components/ui/arrow-button'
 
 function OnboardingContent() {
   const searchParams = useSearchParams()
   const email = searchParams.get('email') || ''
   const name = searchParams.get('name') || ''
 
-  // Extract first name from full name
   const firstName = name.split(' ')[0] || 'there'
 
   // Calculate graduation date (today + 21 days)
@@ -21,7 +19,6 @@ function OnboardingContent() {
       weekday: 'long',
       month: 'long',
       day: 'numeric',
-      year: 'numeric'
     })
   }, [])
 
@@ -35,9 +32,8 @@ function OnboardingContent() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Main layout with gutters */}
       <div className="flex min-h-screen">
-        {/* Left gutter - diagonal stripes */}
+        {/* Left gutter */}
         <div
           className="hidden sm:block sm:w-4 md:w-8 lg:w-12 flex-shrink-0"
           style={{
@@ -52,103 +48,82 @@ function OnboardingContent() {
         />
 
         {/* Main content */}
-        <div className="flex-1 min-w-0">
-          {/* Header */}
-          <header className="pt-12 sm:pt-16 md:pt-20 pb-8 px-6">
-            <div className="max-w-[700px] mx-auto text-center">
+        <div className="flex-1 min-w-0 flex items-center justify-center px-6 py-16">
+          <div className="max-w-[560px] w-full">
+            {/* Header */}
+            <div className="text-center mb-10">
+              <p className="text-xs font-medium text-[#847971] uppercase tracking-wider mb-3">
+                Welcome to Oracle Boxing
+              </p>
               <h1
-                className="text-3xl sm:text-4xl md:text-5xl text-[#37322F] tracking-tight"
+                className="text-3xl sm:text-4xl md:text-5xl text-[#37322F] tracking-tight mb-4"
                 style={{ fontFamily: 'ClashDisplay, sans-serif' }}
               >
-                Welcome, {firstName}
+                Hey {firstName}, let&apos;s get you started
               </h1>
-              <p className="mt-3 text-[#605A57] text-lg">
-                Let&apos;s get you set up for the challenge
+              <p className="text-lg text-[#605A57]">
+                There&apos;s one thing you need to do right now.
               </p>
             </div>
-          </header>
 
-          {/* Content */}
-          <div className="max-w-[700px] mx-auto px-6 pb-16">
-            {/* Video Section */}
-            <section className="mb-14">
-              <p className="text-xs font-medium text-[#847971] uppercase tracking-wider mb-4">
-                First, watch this
-              </p>
-
+            {/* The key message */}
+            <div className="bg-[#37322F] text-white rounded-2xl p-6 sm:p-8 mb-6">
               <h2
-                className="text-xl sm:text-2xl text-[#37322F] mb-3"
+                className="text-xl sm:text-2xl font-bold mb-4 leading-snug"
                 style={{ fontFamily: 'ClashDisplay, sans-serif' }}
               >
-                Your Quick Start Video
+                Book your graduation call
               </h2>
-              <p className="text-[#605A57] mb-6">
-                This 3-minute video covers everything you need to know to get the most out of your challenge.
-              </p>
 
-              {/* Video container */}
-              <div className="border border-[rgba(55,50,47,0.12)] rounded-lg overflow-hidden bg-[#fafaf9]">
-                <video
-                  className="w-full aspect-video"
-                  controls
-                  playsInline
-                  preload="metadata"
-                  poster="https://sb.oracleboxing.com/Website/onboarding_thumbnail.webp"
-                >
-                  <source src="https://sb.oracleboxing.com/Website/onboarding_1.webm" type="video/webm" />
-                  Your browser does not support the video tag.
-                </video>
-              </div>
-            </section>
-
-            {/* Divider */}
-            <div className="border-t border-[rgba(55,50,47,0.12)] my-10" />
-
-            {/* Book Call Section */}
-            <section>
-              <p className="text-xs font-medium text-[#847971] uppercase tracking-wider mb-4">
-                Then, book your call
-              </p>
-
-              <h2
-                className="text-xl sm:text-2xl text-[#37322F] mb-3"
-                style={{ fontFamily: 'ClashDisplay, sans-serif' }}
-              >
-                Schedule Your Graduation Call
-              </h2>
-              <p className="text-[#605A57] mb-2">
-                Pick a time for your 1-on-1 graduation call with a coach. Aim for{' '}
-                <span className="font-medium text-[#37322F]">{graduationDate}</span>{' '}
-                or as close to that date as you can.
-              </p>
-              <p className="text-[#605A57] mb-8">
-                This is where you&apos;ll review your progress and receive your certificate.
-              </p>
-
-              {/* Cal.com booking button */}
-              <div
-                data-cal-namespace="challenge-graduation"
-                data-cal-link="team/oracle-boxing/challenge-graduation"
-                data-cal-config={JSON.stringify({
-                  layout: 'month_view',
-                  theme: 'light',
-                  email: email,
-                })}
-                className="inline-block cursor-pointer"
-              >
-                <ArrowButton>Book Your Graduation Call</ArrowButton>
+              <div className="space-y-4 text-[#d4d0cd] text-[15px] leading-relaxed">
+                <p>
+                  Your graduation call is a 1-on-1 session with a coach at the end of your challenge. It&apos;s a <span className="text-white font-medium">requirement</span> to complete the program.
+                </p>
+                <p>
+                  Once you book it, we&apos;ll send you an invite to the <span className="text-white font-medium">Skool community</span> where everything lives: your courses, the coaching calls, and everyone else on the challenge.
+                </p>
+                <p>
+                  No booking = no community access. So please do this now.
+                </p>
               </div>
 
-              <p className="text-sm text-[#847971] mt-6">
-                This booking is required to unlock your course content.
-                <br />
-                <span className="text-[#605A57]">Don&apos;t worry — you can reschedule later if needed.</span>
+              {/* Target date */}
+              <div className="mt-6 bg-white/10 rounded-xl p-4">
+                <p className="text-sm text-[#a09a96] mb-1">Book it for around</p>
+                <p className="text-xl sm:text-2xl font-bold text-white">{graduationDate}</p>
+                <p className="text-sm text-[#a09a96] mt-1">A few days either side is fine. You can always reschedule.</p>
+              </div>
+            </div>
+
+            {/* CTA Button */}
+            <div
+              data-cal-namespace="challenge-graduation"
+              data-cal-link="team/oracle-boxing/challenge-graduation"
+              data-cal-config={JSON.stringify({
+                layout: 'month_view',
+                theme: 'light',
+                email: email,
+              })}
+              className="cursor-pointer"
+            >
+              <button className="w-full bg-[#37322F] text-white font-bold text-lg py-5 rounded-xl hover:bg-[#49423D] transition-colors border-2 border-[#37322F] hover:border-[#49423D] shadow-lg shadow-[#37322F]/20">
+                Book Your Graduation Call
+              </button>
+            </div>
+
+            {/* Important note */}
+            <div className="mt-5 text-center space-y-2">
+              <p className="text-sm text-[#605A57]">
+                Use the <span className="font-medium text-[#37322F]">same email address</span> you purchased with.
               </p>
-            </section>
+              <p className="text-xs text-[#847971]">
+                Need to reschedule later? No problem. Just book something now to unlock your access.
+              </p>
+            </div>
           </div>
         </div>
 
-        {/* Right gutter - diagonal stripes */}
+        {/* Right gutter */}
         <div
           className="hidden sm:block sm:w-4 md:w-8 lg:w-12 flex-shrink-0"
           style={{
@@ -177,4 +152,3 @@ export default function OnboardingPage() {
     </Suspense>
   )
 }
-
