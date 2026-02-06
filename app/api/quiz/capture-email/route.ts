@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import sgMail from '@sendgrid/mail'
 import client from '@sendgrid/client'
+import { getSupabaseServerClient } from '@/lib/supabase'
 
 const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY || ''
 const SLACK_BOT_TOKEN = process.env.SLACK_BOT_TOKEN || ''
@@ -90,6 +91,10 @@ export async function POST(request: Request): Promise<NextResponse> {
     }
 
     const firstName = name.trim().split(' ')[0]
+
+    // Update Supabase record with name/email
+    const supabase = getSupabaseServerClient()
+    supabase.from('quiz_results').update({ name, email }).eq('id', id).then(() => {}).catch(() => {})
 
     // Run all async operations in parallel
     await Promise.allSettled([

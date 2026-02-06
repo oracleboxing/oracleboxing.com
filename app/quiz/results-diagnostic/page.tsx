@@ -474,16 +474,32 @@ function ResultsContent() {
     const id = searchParams.get('id');
     if (!id) { setLoading(false); return; }
 
+    // Try sessionStorage first
     try {
       const raw = sessionStorage.getItem('ob-diagnostic-result');
       if (raw) {
         const data = JSON.parse(raw);
         if (data.id === id) {
           setResult(data);
+          setLoading(false);
+          return;
         }
       }
     } catch {}
-    setLoading(false);
+
+    // Fall back to server
+    fetch(`/api/quiz/get-result?id=${encodeURIComponent(id)}`)
+      .then(r => r.json())
+      .then(data => {
+        if (data.result) {
+          const serverResult = { ...data.result, id };
+          setResult(serverResult);
+          // Cache in sessionStorage for this session
+          try { sessionStorage.setItem('ob-diagnostic-result', JSON.stringify(serverResult)); } catch {}
+        }
+      })
+      .catch(() => {})
+      .finally(() => setLoading(false));
   }, [searchParams]);
 
   if (loading) {

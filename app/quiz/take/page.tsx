@@ -119,18 +119,27 @@ export default function QuizTakePage() {
     }, isCorrect ? 800 : 1800);
   }, [q, current, total, showFeedback]);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setSubmitting(true);
     try {
       const calcResult = calculateDiagnosticResults(responses);
-      const id = Math.random().toString(36).slice(2, 10);
+      const id = crypto.randomUUID();
       const result = {
         ...calcResult,
+        responses,
         id,
         createdAt: new Date().toISOString(),
       };
       sessionStorage.setItem('ob-diagnostic-result', JSON.stringify(result));
       clearProgress();
+
+      // Save to server so email links work
+      fetch('/api/quiz/save-result', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, result }),
+      }).catch(() => {});
+
       router.push(`/quiz/results-diagnostic?id=${id}`);
     } catch {
       alert('Failed to submit. Please try again.');
