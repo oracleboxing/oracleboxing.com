@@ -154,9 +154,27 @@ export function gtagBeginCheckout(params: {
 }
 
 /**
- * Google Ads conversion label for purchases
+ * Track sign-up / lead conversion (checkout step 1 info submit)
+ */
+export function gtagSignupConversion(params?: {
+  value?: number
+  currency?: string
+}): void {
+  if (!isGtagReady() || !GA_ADS_ID) return
+
+  window.gtag('event', 'conversion', {
+    send_to: `${GA_ADS_ID}/${SIGNUP_CONVERSION_LABEL}`,
+    value: params?.value ?? 1.0,
+    currency: params?.currency ?? 'GBP',
+  })
+  console.log('📊 Google Ads Sign-up conversion sent')
+}
+
+/**
+ * Google Ads conversion labels
  */
 const PURCHASE_CONVERSION_LABEL = '8856CNzq5PUbEI2KkL5B'
+const SIGNUP_CONVERSION_LABEL = '1RwjCL-y4_UbEI2KkL5B'
 
 /**
  * Track purchase event + Google Ads conversion

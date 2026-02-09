@@ -367,9 +367,9 @@ function CheckoutV2Content() {
         total_items: 1,
       })
 
-      // Track begin_checkout in Google Ads gtag
+      // Track begin_checkout + sign-up conversion in Google Ads
       try {
-        const { gtagBeginCheckout, gtagSetUserData } = await import('@/lib/gtag')
+        const { gtagBeginCheckout, gtagSetUserData, gtagSignupConversion } = await import('@/lib/gtag')
 
         // Set user data for enhanced conversions
         gtagSetUserData({
@@ -388,6 +388,12 @@ function CheckoutV2Content() {
             price: priceInUserCurrency,
             quantity: 1,
           }],
+        })
+
+        // Fire sign-up/lead conversion
+        gtagSignupConversion({
+          value: priceInUserCurrency,
+          currency: currency,
         })
       } catch (e) {
         console.warn('Failed to send Google Ads begin_checkout:', e)
