@@ -8,7 +8,7 @@ export const size = {
 }
 export const contentType = "image/png"
 
-const OG_IMAGE = "https://sb.oracleboxing.com/Website/skool_art2.webp"
+const OG_IMAGE = "https://sb.oracleboxing.com/Website/skool_art2.jpg"
 
 export default async function Image() {
   // Next will use /opengraph-image whenever it decides it needs a default OG image.
@@ -28,6 +28,8 @@ export default async function Image() {
         <img
           src={OG_IMAGE}
           alt={alt}
+          width={1200}
+          height={630}
           style={{
             width: "100%",
             height: "100%",

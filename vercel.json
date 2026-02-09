@@ -7,6 +7,10 @@
     {
       "path": "/api/cron/split-payments",
       "schedule": "0 9 * * *"
+    },
+    {
+      "path": "/api/workflows/split-payment/trigger",
+      "schedule": "0 9 * * *"
     }
   ]
 }
