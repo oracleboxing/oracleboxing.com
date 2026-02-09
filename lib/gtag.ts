@@ -154,7 +154,12 @@ export function gtagBeginCheckout(params: {
 }
 
 /**
- * Track purchase event
+ * Google Ads conversion label for purchases
+ */
+const PURCHASE_CONVERSION_LABEL = '8856CNzq5PUbEI2KkL5B'
+
+/**
+ * Track purchase event + Google Ads conversion
  */
 export function gtagPurchase(params: {
   transaction_id: string
@@ -167,10 +172,20 @@ export function gtagPurchase(params: {
     quantity: number
   }>
 }): void {
+  // Standard purchase event (for GA4 / GTM)
   gtagEvent('purchase', {
     transaction_id: params.transaction_id,
     value: params.value,
     currency: params.currency,
     items: params.items,
   })
+
+  // Google Ads conversion event
+  if (GA_ADS_ID && PURCHASE_CONVERSION_LABEL) {
+    gtagConversion(PURCHASE_CONVERSION_LABEL, {
+      value: params.value,
+      currency: params.currency,
+      transaction_id: params.transaction_id,
+    })
+  }
 }
