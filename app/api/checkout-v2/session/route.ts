@@ -6,7 +6,7 @@ import { extractFacebookParams } from '@/lib/fb-param-builder'
 import { notifyOps } from '@/lib/slack-notify'
 import { createWorkflowLogger } from '@/lib/workflow-logger'
 import { start } from 'workflow/api'
-import { abandonedCartRecovery } from '@/app/api/workflows/abandoned-cart/route'
+import { abandonedCartRecovery } from '@/app/api/workflows/abandoned-cart/workflow'
 import Stripe from 'stripe'
 
 // Helper function to flatten cookie data into individual Stripe metadata fields

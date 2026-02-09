@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { start } from 'workflow/api'
 import { getSupabaseServerClient } from '@/lib/supabase'
-import { processSplitPayment } from '../route'
+import { processSplitPayment } from '../workflow'
 
 export async function GET(req: NextRequest) {
   try {

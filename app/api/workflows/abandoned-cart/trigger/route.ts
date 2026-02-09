@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { start } from 'workflow/api'
-import { abandonedCartRecovery } from '../route'
+import { abandonedCartRecovery } from '../workflow'
 
 interface CheckoutData {
   paymentIntentId: string
