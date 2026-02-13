@@ -86,10 +86,6 @@ export function Header() {
 
   const coaching = [
     {
-      name: 'Full Access Membership',
-      href: '/membership',
-    },
-    {
       name: '6-Week Challenge',
       href: '/6wc',
     },

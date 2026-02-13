@@ -44,11 +44,9 @@ export const PRODUCT_PRICES: Record<string, Record<Currency, number>> = {
   ltbrdmp: { USD: 97, GBP: 77, EUR: 90, AUD: 145, CAD: 132, AED: 355 },
   bffp: { USD: 147, GBP: 118, EUR: 137, AUD: 225, CAD: 200, AED: 541 },
   brdmp: { USD: 147, GBP: 117, EUR: 136, AUD: 220, CAD: 199, AED: 540 },
-  clnc: { USD: 97, GBP: 77, EUR: 90, AUD: 145, CAD: 132, AED: 355 },
   obm: { USD: 397, GBP: 317, EUR: 365, AUD: 595, CAD: 538, AED: 1465 },
   '6wm': { USD: 97, GBP: 77, EUR: 90, AUD: 145, CAD: 132, AED: 355 },
   coach1: { USD: 397, GBP: 317, EUR: 365, AUD: 595, CAD: 538, AED: 1465 },
-  coach3: { USD: 1500, GBP: 1197, EUR: 1380, AUD: 2247, CAD: 2033, AED: 5532 },
   coach_archive: { USD: 67, GBP: 54, EUR: 62, AUD: 100, CAD: 90, AED: 250 },
   // Membership pricing (using same exchange rates as other products)
   memq: { USD: 297, GBP: 237, EUR: 274, AUD: 448, CAD: 403, AED: 1093 },

@@ -31,8 +31,8 @@ export const CoachingUpsell: React.FC<CoachingUpsellProps> = ({
   // Get the currency-converted prices using the charge currency
   const displayPrice = getProductPrice('coach1', chargeCurrency) || discountedPrice;
 
-  // Regular price for 3 months coaching
-  const regularPrice = getProductPrice('coach3', chargeCurrency) || 1500;
+  // Regular price for 3 months coaching (USD base)
+  const regularPrice = 1500;
 
   const savings = regularPrice - displayPrice;
 
