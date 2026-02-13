@@ -55,8 +55,24 @@ Create `.env.local` with the following:
 | `NEXTAUTH_SECRET` | Server | NextAuth JWT signing |
 | `NEXTAUTH_URL` | Server | NextAuth callback URL |
 | `SENDGRID_API_KEY` | Server | Transactional email |
-| `SLACK_BOT_TOKEN` | Server | Slack notifications (optional) |
-| `OPS_DASHBOARD_BASE_URL` | Server | Workflow proxy target (optional) |
+| `NEXT_PUBLIC_BASE_URL` | Client | Base URL for frontend links |
+| `NEXT_PUBLIC_GOOGLE_ADS_ID` | Client | Google Ads conversion tracking |
+| `NEXT_PUBLIC_MAKE_NOTIFICATION_WEBHOOK` | Client | Make.com notification webhook |
+| `NEXT_PUBLIC_MAKE_CONTACT_WEBHOOK` | Client | Make.com contact form webhook |
+| `NEXT_PUBLIC_MAKE_FEEDBACK_WEBHOOK` | Client | Make.com feedback form webhook |
+| `NEXT_PUBLIC_MAKE_TESTIMONIAL_WEBHOOK` | Client | Make.com testimonial webhook |
+| `NEXT_PUBLIC_MAKE_UNLOCK_COURSE_WEBHOOK` | Client | Make.com course unlock webhook |
+| `NEXT_PUBLIC_MAKE_CHALLENGE_SIGNUP_WEBHOOK` | Client | Make.com challenge signup webhook |
+| `NEXT_PUBLIC_MAKE_INITIATED_CHECKOUT_WEBHOOK` | Client | Make.com checkout initiation webhook |
+| `SLACK_BOT_TOKEN` | Server | Slack notifications |
+| `SLACK_OPS_CHANNEL_ID` | Server | Slack ops channel ID |
+| `OPS_DASHBOARD_BASE_URL` | Server | Workflow proxy target |
+| `INTERNAL_API_TOKEN` | Server | Internal API auth token |
+| `MAKE_CLAIM_ACCESS_WEBHOOK_URL` | Server | Make.com course claim webhook |
+| `MAKE_PROGRESS_TRACKER_WEBHOOK_URL` | Server | Make.com progress tracker webhook |
+| `MAKE_NOTIFICATION_WEBHOOK_URL` | Server | Make.com server-side notifications |
+| `PAYMENT_INTENT_TOKEN_REQUIRED` | Server | Feature flag for intent token security |
+| `PAYMENT_INTENT_PROOF_SECRET` | Server | Payment intent proof HMAC secret |
 
 ---
 
@@ -74,11 +90,12 @@ oracleboxing.com/
 │   ├── onboarding/         # Multi-step onboarding
 │   ├── blog/               # SEO blog articles
 │   └── api/                # API routes (see below)
-├── components/             # 50+ React components
+├── components/             # 110+ React components
 │   ├── ui/                 # shadcn/ui base components
 │   ├── checkout-v2/        # Checkout form + Stripe elements
 │   ├── challenge/          # Challenge illustrations
 │   └── quiz/               # Quiz components
+├── content/                # Course page copy (markdown)
 ├── contexts/               # React context providers
 │   ├── CartContext.tsx      # Shopping cart (localStorage)
 │   └── CurrencyContext.tsx  # Currency detection
@@ -90,10 +107,10 @@ oracleboxing.com/
 │   ├── purchase-tracking.ts# Purchase event tracking
 │   ├── webhook-tracking.ts # Supabase event logging
 │   ├── workflow-logger.ts  # WDK workflow logging
+│   ├── gtag.ts             # Google Ads / GTM integration
 │   ├── stripe/             # Stripe client & checkout logic
 │   ├── supabase.ts         # Supabase client init
 │   └── security/           # Request validation, intent tokens
-├── content/                # Course page copy (markdown)
 ├── public/                 # Fonts, images, favicons
 └── tests/                  # Playwright e2e tests
 ```
@@ -121,6 +138,11 @@ oracleboxing.com/
 | `/contact` | Contact form |
 | `/feedback` | Feedback form |
 | `/testimonial` | Testimonial submission |
+| `/closed` | Enrollment closed / waitlist signup |
+| `/why-online` | Why train online (marketing) |
+| `/sms` | SMS integration |
+| `/youtube-banner` | YouTube banner / CTR page |
+| `/temp-unlock-course` | Temporary course unlock |
 | `/terms`, `/privacy`, `/refund` | Legal pages |
 
 ### Admin Pages (NextAuth protected)
@@ -137,6 +159,7 @@ oracleboxing.com/
 
 | Endpoint | Method | Purpose |
 |----------|--------|---------|
+| `/api/checkout/session` | POST | Create Stripe checkout session (legacy) |
 | `/api/checkout-v2/session` | POST | Create PaymentIntent |
 | `/api/checkout-v2/update` | POST | Update amount on add-on change |
 | `/api/checkout-v2/update-address` | POST | Update shipping address |
@@ -144,6 +167,7 @@ oracleboxing.com/
 | `/api/payment-intent` | POST | Create payment intent (legacy) |
 | `/api/coaching-checkout/*` | POST | Coaching subscriptions & split payments |
 | `/api/upsell/charge` | POST | Process post-purchase upsell |
+| `/api/upsell/coaching` | POST | Coaching-specific upsell |
 
 **Tracking & Analytics**
 
@@ -178,7 +202,9 @@ oracleboxing.com/
 | `/api/detect-location` | GET | CloudFlare IP geolocation |
 | `/api/claim-access` | POST | Claim course access |
 | `/api/session` | GET | Session info |
-| `/api/admin/*` | POST | Admin session creation |
+| `/api/proxy-image` | GET | Image proxy / optimization |
+| `/api/admin/create-coaching-session` | POST | Create coaching session (protected) |
+| `/api/admin/create-community-session` | POST | Create community session (protected) |
 
 ---
 
@@ -203,18 +229,30 @@ All products live in `lib/products.ts` with Stripe Price IDs, metadata codes, an
 
 **Metadata codes** (short identifiers used in Stripe metadata and webhooks):
 
-| Code | Product |
-|------|---------|
-| `bffp` | Boxing from First Principles |
-| `roadmap` | Boxing Roadmap |
-| `obm` | Oracle Boxing Bundle |
-| `6wc` | 6-Week Challenge |
-| `21dc_entry` | 21-Day Challenge |
-| `mem_monthly` | Monthly Membership |
-| `mema` | Annual Membership |
-| `coach1` | 1-on-1 Coaching |
-| `vault2025` | 2025 Call Recording Vault |
-| `tracksuit` | Tracksuit (merch) |
+| Code | Product | Public |
+|------|---------|--------|
+| `obm` | Oracle Boxing Bundle | Yes |
+| `bffp` | Boxing from First Principles | Yes |
+| `brdmp` | Boxing Roadmap | Yes |
+| `mem_monthly` | Monthly Membership | Yes |
+| `mema` | Annual Membership | Yes |
+| `memq` | Quarterly Membership | Legacy |
+| `mem6` | 6-Month Membership | Legacy |
+| `21dc_entry` | 21-Day Challenge | Internal |
+| `6wc` | 6-Week Challenge | Legacy |
+| `grades23` | Grades 2 & 3 Curriculum | Internal |
+| `rcv` | Recordings Vault Access | Internal |
+| `vault2025` | 2025 Call Recording Vault | Internal |
+| `ltbffp` | Lifetime Boxing Masterclass | Internal |
+| `ltbrdmp` | Lifetime Boxing Roadmap | Internal |
+| `ltall_297` | Lifetime All Courses (Monthly) | Internal |
+| `ltall_197` | Lifetime All Courses (6M/Annual) | Internal |
+| `6wm` | 6-Week Membership Pass | Internal |
+| `coach1` | 1-on-1 Coaching | Internal |
+| `coach_archive` | Coaching Recordings Archive | Internal |
+| `bfc` | Black Friday Challenge | Internal |
+| `bfc_vip` | Black Friday Challenge VIP | Internal |
+| `tracksuit` | Oracle Boxing Tracksuit | Internal |
 
 ### Multi-Currency Pricing
 
@@ -255,6 +293,15 @@ Dual tracking for maximum attribution coverage:
 - **Client-side** (`lib/fbpixel.ts`): PageView, AddToCart, InitiateCheckout, Purchase
 - **Server-side** (`/api/facebook-*`): Facebook Conversions API (CAPI)
 - **Deduplication**: Shared `eventID` prevents double-counting between client and server
+
+### Google Ads
+
+`lib/gtag.ts` + `components/GoogleAdsTag.tsx` — Google Ads conversion tracking:
+
+- **GTM container** loaded via `GoogleAdsTag` component
+- **Conversion events**: sign-up/lead (checkout step 1) + purchase
+- **Enhanced conversions**: hashed user data (`email`, `phone`, `name`, `address`)
+- **E-commerce events**: `view_item`, `add_to_cart`, `begin_checkout`, `purchase`
 
 ### Stripe Integration
 
@@ -342,6 +389,8 @@ npm run lint             # ESLint
 npm run typecheck        # tsc --noEmit
 npm run check            # lint + typecheck combined
 npm run test:e2e         # Playwright end-to-end tests
+npm run test:e2e:public  # Public route tests only
+npm run test:e2e:headed  # Tests in headed browser mode
 npm run secrets:scan     # Pre-commit secret scanning
 ```
 
@@ -353,7 +402,41 @@ npm run secrets:scan     # Pre-commit secret scanning
 vercel --prod
 ```
 
-Deployed to Vercel with custom domain `oracleboxing.com`. The `next.config.mjs` includes UTM short-link redirects (`/yt-bio`, `/ig-bio`, `/tt-bio`) and a Stripe customer portal redirect (`/customer-portal`).
+Deployed to Vercel with custom domain `oracleboxing.com`.
+
+**UTM short-link redirects** (in `next.config.mjs`):
+
+| Short Link | Destination |
+|------------|-------------|
+| `/yt-bio` | `/?utm_source=youtube&utm_medium=bio` |
+| `/yt-desc` | `/?utm_source=youtube&utm_medium=desc` |
+| `/ig-bio` | `/?utm_source=ig&utm_medium=bio` |
+| `/tt-bio` | `/?utm_source=tiktok&utm_medium=bio` |
+| `/customer-portal` | Stripe hosted customer login |
+
+**Cron job** (in `vercel.json`):
+
+| Schedule | Endpoint | Purpose |
+|----------|----------|---------|
+| `0 9 * * *` (daily 9 AM UTC) | `/api/workflows/split-payment/trigger` | Process pending split payments |
+
+---
+
+## Documentation
+
+Detailed guides live alongside the codebase:
+
+| File | Purpose |
+|------|---------|
+| `CHECKOUT_ROUTING_GUIDE.md` | Funnel routing logic (which products → which checkout flow) |
+| `BLOG_GUIDE.md` | Blog publishing workflow |
+| `COLOR_PALETTE.md` | Design system colors |
+| `FACEBOOK_PURCHASE_TRACKING.md` | FB Pixel + Conversions API implementation |
+| `METADATA_TRACKING_SUMMARY.md` | Stripe metadata structure reference |
+| `product_upsell_matrix.md` | Cross-sell / upsell logic |
+| `UTM_TRACKING_IMPLEMENTATION.md` | UTM tracking details |
+| `QUICK_START.md` | Quick start guide |
+| `docs/split-payments-table.sql` | Split payments Supabase schema |
 
 ---
 
