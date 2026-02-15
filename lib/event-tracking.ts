@@ -2,6 +2,7 @@
 // Stores events in Supabase 'events' table
 
 import { supabase } from './supabase'
+import { getExperimentCookie } from './tracking-cookies'
 
 export type EventName =
   | 'button_click'      // CTA button clicks
@@ -144,6 +145,10 @@ export async function trackEvent(data: EventData): Promise<void> {
       metadata: data.metadata,
     }
 
+    // Get A/B experiment assignments for this user
+    const experiments = getExperimentCookie()
+    const hasExperiments = Object.keys(experiments).length > 0
+
     // Non-blocking insert to Supabase
     supabase
       .from('events')
@@ -162,6 +167,7 @@ export async function trackEvent(data: EventData): Promise<void> {
         utm_source: event.utm_source,
         utm_medium: event.utm_medium,
         utm_campaign: event.utm_campaign,
+        experiments: hasExperiments ? experiments : null,
       })
       .then(({ error }: { error: any }) => {
         if (error) {

@@ -1,6 +1,17 @@
 'use client'
 
 import { track } from '@vercel/analytics'
+import { getExperimentCookie } from '@/lib/tracking-cookies'
+
+/** Get experiment assignments formatted for Vercel Analytics (flat key-value pairs) */
+function getExperimentProps(): Record<string, string> {
+  const assignments = getExperimentCookie()
+  const props: Record<string, string> = {}
+  for (const [testId, variant] of Object.entries(assignments)) {
+    props[`exp_${testId}`] = variant
+  }
+  return props
+}
 
 // AddToCart event - fires when user clicks to go to checkout
 interface AddToCartEventData {
@@ -105,6 +116,7 @@ export const useAnalytics = () => {
         currency: data.currency,
         button_location: data.button_location,
         funnel: data.funnel,
+        ...getExperimentProps(),
       });
       console.log('Vercel Analytics add_to_cart event sent');
     } catch (error) {
@@ -127,6 +139,7 @@ export const useAnalytics = () => {
         funnel: data.funnel,
         has_order_bumps: data.has_order_bumps,
         total_items: data.total_items,
+        ...getExperimentProps(),
       });
       console.log('Vercel Analytics initiate_checkout event sent');
     } catch (error) {
@@ -137,7 +150,7 @@ export const useAnalytics = () => {
   // Legacy: Track InitiateCheckout (kept for backward compatibility)
   const trackInitiateCheckout = (data: CheckoutEventData) => {
     // Track in Vercel Analytics
-    track('initiate_checkout', { ...data })
+    track('initiate_checkout', { ...data, ...getExperimentProps() })
   }
 
   const trackPurchase = (data: PurchaseEventData) => {
@@ -161,7 +174,7 @@ export const useAnalytics = () => {
       if (data.has_order_bumps !== undefined) vercelData.has_order_bumps = data.has_order_bumps;
       if (data.order_bumps) vercelData.order_bumps = data.order_bumps.join(',');
 
-      track('purchase', vercelData);
+      track('purchase', { ...vercelData, ...getExperimentProps() });
       console.log('Vercel Analytics purchase event sent');
     } catch (error) {
       console.error('Failed to send Vercel Analytics purchase event:', error);
@@ -174,7 +187,7 @@ export const useAnalytics = () => {
 
     try {
       // Track in Vercel Analytics
-      track('button_click', { ...data });
+      track('button_click', { ...data, ...getExperimentProps() });
     } catch (error) {
       console.error('Failed to track button click:', error);
     }
@@ -199,7 +212,7 @@ export const useAnalytics = () => {
       if (data.original_purchase) vercelData.original_purchase = data.original_purchase.join(',');
       if (data.original_value !== undefined) vercelData.original_value = data.original_value;
 
-      track(eventName, vercelData);
+      track(eventName, { ...vercelData, ...getExperimentProps() });
     } catch (error) {
       console.error(`Failed to track upsell ${data.action}:`, error);
     }
@@ -210,7 +223,7 @@ export const useAnalytics = () => {
 
     try {
       // Track in Vercel Analytics
-      track('social_click', { ...data });
+      track('social_click', { ...data, ...getExperimentProps() });
     } catch (error) {
       console.error('Failed to track social click:', error);
     }
@@ -218,17 +231,17 @@ export const useAnalytics = () => {
 
   const trackStoryClick = (data: StoryClickData) => {
     // Track in Vercel Analytics
-    track('story_click', { ...data })
+    track('story_click', { ...data, ...getExperimentProps() })
   }
 
   const trackFAQExpand = (data: FAQEventData) => {
     // Track in Vercel Analytics
-    track('faq_expand', { ...data })
+    track('faq_expand', { ...data, ...getExperimentProps() })
   }
 
   const trackPageView = (page: string) => {
     // Track in Vercel Analytics
-    track('page_view', { page })
+    track('page_view', { page, ...getExperimentProps() })
   }
 
   const trackWaitlistSignup = (data: WaitlistSignupData) => {
@@ -240,6 +253,7 @@ export const useAnalytics = () => {
         first_name: data.first_name,
         last_name: data.last_name,
         source: data.source || 'closed_page',
+        ...getExperimentProps(),
       });
       console.log('Vercel Analytics waitlist_signup event sent');
     } catch (error) {

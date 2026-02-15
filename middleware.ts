@@ -71,7 +71,91 @@ export async function middleware(request: NextRequest) {
     }
   }
 
-  return NextResponse.next()
+  // --- A/B Experiment Variant Assignment ---
+  // Only run on page routes, not API routes or static assets
+  const response = NextResponse.next()
+  const isPageRoute = !pathname.startsWith('/api/') && !pathname.startsWith('/_next/')
+
+  if (!isPageRoute) return response
+
+  try {
+    // Read existing experiment cookie
+    const abCookieRaw = request.cookies.get('ob_ab')?.value
+    let existingAssignments: Record<string, string> = {}
+    if (abCookieRaw) {
+      try {
+        existingAssignments = JSON.parse(decodeURIComponent(abCookieRaw))
+      } catch {
+        existingAssignments = {}
+      }
+    }
+
+    // Fetch active tests (edge-cached, 60s TTL)
+    const origin = request.nextUrl.origin
+    const activeRes = await fetch(`${origin}/api/experiments/active`, {
+      next: { revalidate: 60 },
+    })
+
+    if (activeRes.ok) {
+      const { tests } = await activeRes.json()
+
+      if (tests && tests.length > 0) {
+        // Check if we need to assign any new variants
+        let needsUpdate = false
+        const assignments = { ...existingAssignments }
+
+        for (const test of tests) {
+          if (test.status === 'completed' && test.winner) {
+            if (assignments[test.id] !== test.winner) {
+              assignments[test.id] = test.winner
+              needsUpdate = true
+            }
+            continue
+          }
+
+          if (test.status === 'active' && !assignments[test.id]) {
+            // Weighted random assignment
+            const variants = test.variants || []
+            const totalWeight = variants.reduce((sum: number, v: any) => sum + (v.weight || 0), 0)
+            let random = Math.random() * totalWeight
+            let assignedVariant = variants[0]?.id || 'control'
+            for (const v of variants) {
+              random -= (v.weight || 0)
+              if (random <= 0) {
+                assignedVariant = v.id
+                break
+              }
+            }
+            assignments[test.id] = assignedVariant
+            needsUpdate = true
+          }
+        }
+
+        // Clean up stale test assignments
+        const activeTestIds = new Set(tests.map((t: any) => t.id))
+        for (const testId of Object.keys(assignments)) {
+          if (!activeTestIds.has(testId)) {
+            delete assignments[testId]
+            needsUpdate = true
+          }
+        }
+
+        if (needsUpdate) {
+          const expires = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
+          response.cookies.set('ob_ab', JSON.stringify(assignments), {
+            expires,
+            path: '/',
+            sameSite: 'lax',
+          })
+        }
+      }
+    }
+  } catch (error) {
+    // Graceful degradation — don't block page load if experiment fetch fails
+    console.warn('A/B experiment assignment failed (non-blocking):', error)
+  }
+
+  return response
 }
 
 // Configure which paths the middleware should run on

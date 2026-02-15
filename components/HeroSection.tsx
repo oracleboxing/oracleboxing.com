@@ -1,44 +1,30 @@
 'use client'
 
-import { useState, useEffect } from 'react'
 import { WeeklyCountdown } from '@/components/WeeklyCountdown'
 import WistiaVideo from '@/components/WistiaVideo'
 import { EpicCTAButton } from '@/components/EpicCTAButton'
+import { useExperiment } from '@/contexts/ExperimentContext'
+
+// Default headlines (used as control and when no experiment is active)
+const DEFAULT_HEADLINE = {
+  main: 'I\'ll pay you to get better at boxing',
+  sub: 'Train with us for 6 weeks. Do what we ask. Get your money back when you finish. That\'s it.'
+}
+
 interface HeroSectionProps {
   onCTAClick?: (location: string) => void
   onOpenPricing?: () => void
 }
 
 export default function HeroSection({ onCTAClick, onOpenPricing }: HeroSectionProps) {
-  const [variant, setVariant] = useState<'A' | 'B'>('A')
+  // A/B test: if 'hero-headline' experiment is active, use its config
+  // Config shape: { headline: string, sub: string }
+  const { config } = useExperiment('hero-headline')
 
-  useEffect(() => {
-    // Split test between two headlines
-    const storedVariant = localStorage.getItem('hero-headline-variant')
-    if (storedVariant === 'A' || storedVariant === 'B') {
-      setVariant(storedVariant)
-    } else {
-      const randomVariant = Math.random() < 0.5 ? 'A' : 'B'
-      setVariant(randomVariant)
-      localStorage.setItem('hero-headline-variant', randomVariant)
-    }
-  }, [])
-
-  // A/B Test Headlines
-  const headlines = {
-    A: {
-      badge: 'FOR BEGINNERS & LATE STARTERS',
-      main: 'I\'ll pay you to get better at boxing',
-      sub: 'Train with us for 6 weeks. Do what we ask. Get your money back when you finish. That\'s it.'
-    },
-    B: {
-      badge: 'FOR BEGINNERS & LATE STARTERS',
-      main: 'I\'ll pay you to get better at boxing',
-      sub: 'Train with us for 6 weeks. Do what we ask. Get your money back when you finish. That\'s it.'
-    }
+  const headline = {
+    main: config?.headline || DEFAULT_HEADLINE.main,
+    sub: config?.sub || DEFAULT_HEADLINE.sub,
   }
-
-  const headline = headlines[variant]
 
   // Handle CTA click
   const handleCTAClick = () => {

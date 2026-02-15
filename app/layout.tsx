@@ -4,6 +4,7 @@ import "./globals.css"
 import { Toaster } from "sonner"
 import { Analytics } from "@vercel/analytics/react"
 import { CurrencyProvider } from "@/contexts/CurrencyContext"
+import { ExperimentProvider } from "@/contexts/ExperimentContext"
 import PageViewTracker from "@/components/PageViewTracker"
 import EngagementTracker from "@/components/EngagementTracker"
 import { UTMTracker } from "@/components/UTMTracker"
@@ -166,13 +167,15 @@ export default function RootLayout({
           />
         </noscript>
         <CurrencyProvider>
-          <Analytics />
-          <GoogleAdsTag />
-          <UTMTracker />
-          <PageViewTracker />
-          <EngagementTracker />
-          {children}
-          <Toaster position="top-center" richColors />
+          <ExperimentProvider>
+            <Analytics />
+            <GoogleAdsTag />
+            <UTMTracker />
+            <PageViewTracker />
+            <EngagementTracker />
+            {children}
+            <Toaster position="top-center" richColors />
+          </ExperimentProvider>
         </CurrencyProvider>
       </body>
     </html>

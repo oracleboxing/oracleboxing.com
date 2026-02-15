@@ -713,6 +713,28 @@ export function getFacebookFbi(): string | undefined {
   return trackingData?._fbi;
 }
 
+// --- A/B Experiment Cookie Helpers ---
+// Cookie name: ob_ab, same 30-day TTL as ob_track
+// Shape: { "hero-headline-feb": "control", "pricing-cta": "challenger" }
+
+/**
+ * Get experiment variant assignments from ob_ab cookie
+ */
+export function getExperimentCookie(): Record<string, string> {
+  const data = getCookie('ob_ab');
+  if (data && typeof data === 'object' && !Array.isArray(data)) {
+    return data as Record<string, string>;
+  }
+  return {};
+}
+
+/**
+ * Set experiment variant assignments in ob_ab cookie
+ */
+export function setExperimentCookie(assignments: Record<string, string>): boolean {
+  return setCookie('ob_ab', assignments, 30);
+}
+
 export function setFacebookFbi(fbi: string): void {
   // Set standard _fbi cookie
   setCookie('_fbi', fbi, 90); // 90 days as per Facebook spec

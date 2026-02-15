@@ -2,6 +2,7 @@
 // Stores tracking data in Supabase and sends to Facebook Pixel/CAPI
 
 import { supabase } from './supabase';
+import { getExperimentCookie } from './tracking-cookies';
 
 // Test checkout credentials - bypasses all tracking and automations
 const TEST_CHECKOUT_INFO = {
@@ -337,6 +338,10 @@ export async function trackPageView(page: string, referrer: string): Promise<voi
       cookieData, // Include full cookie data
     };
 
+    // Get A/B experiment assignments
+    const experiments = getExperimentCookie()
+    const hasExperiments = Object.keys(experiments).length > 0
+
     // Send to Supabase (non-blocking)
     supabase
       .from('page_views')
@@ -351,6 +356,7 @@ export async function trackPageView(page: string, referrer: string): Promise<voi
         utm_medium: data.utmMedium,
         utm_campaign: data.utmCampaign,
         utm_content: data.utmContent,
+        experiments: hasExperiments ? experiments : null,
       })
       .then(({ error }: { error: any }) => {
         if (error) {
@@ -474,6 +480,10 @@ export async function trackPurchase(
       country,
     };
 
+    // Get A/B experiment assignments
+    const purchaseExperiments = getExperimentCookie()
+    const hasPurchaseExperiments = Object.keys(purchaseExperiments).length > 0
+
     // Send to Supabase (non-blocking)
     // Use first-touch attribution from cookie (most valuable for ads attribution)
     // Fall back to last-touch if first-touch not available
@@ -495,6 +505,7 @@ export async function trackPurchase(
         utm_medium: cookieData.first_utm_medium || data.utmMedium || utmFallback?.utm_medium || null,
         utm_campaign: cookieData.first_utm_campaign || data.utmCampaign || utmFallback?.utm_campaign || null,
         utm_content: cookieData.first_utm_content || data.utmContent || utmFallback?.utm_content || null,
+        experiments: hasPurchaseExperiments ? purchaseExperiments : null,
       })
       .then(({ error }: { error: any }) => {
         if (error) {
@@ -639,6 +650,10 @@ export async function trackInitiateCheckout(
     // Log the complete data being sent
     console.log('💰 Initiate Checkout - Complete Data Being Sent:', JSON.stringify(data, null, 2));
 
+    // Get A/B experiment assignments
+    const checkoutExperiments = getExperimentCookie();
+    const hasCheckoutExperiments = Object.keys(checkoutExperiments).length > 0;
+
     // Send to Supabase (non-blocking)
     // Use first-touch attribution from cookie (most valuable for ads attribution)
     // Fall back to last-touch if first-touch not available
@@ -662,6 +677,7 @@ export async function trackInitiateCheckout(
       utm_campaign: cookieData.first_utm_campaign || data.utmCampaign,
       utm_content: cookieData.first_utm_content || data.utmContent,
       payment_intent_id: paymentIntentId || null,
+      experiments: hasCheckoutExperiments ? checkoutExperiments : null,
     };
 
     console.log('📦 Supabase insert data:', insertData);
