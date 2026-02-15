@@ -45,6 +45,7 @@ export async function POST(req: NextRequest) {
       items: [
         {
           product: product,
+          price_id: product.stripe_price_id,
           quantity: 1,
           metadata: {},
         },
