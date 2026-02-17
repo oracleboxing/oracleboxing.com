@@ -3,6 +3,7 @@
 import Image from "next/image"
 import { ArrowButton } from "@/components/ui/arrow-button"
 import { ENROLLMENT_CLOSED, getCheckoutUrl } from "@/lib/enrollment"
+import { getClientSiteMode, getHeroButtonText, getHeroButtonLink } from "@/lib/site-mode"
 import { trackAddToCart } from "@/lib/webhook-tracking"
 import { useCurrency } from "@/contexts/CurrencyContext"
 import { getProductPrice } from "@/lib/currency"
@@ -228,6 +229,9 @@ function PlatformVisual() {
 export default function NewHeroSection() {
   const { currency } = useCurrency()
   const price = getProductPrice("21dc_entry", currency) || 147
+  const siteMode = getClientSiteMode()
+  const heroButtonText = getHeroButtonText(siteMode)
+  const heroButtonLink = getHeroButtonLink(siteMode)
 
   return (
     <section className="relative w-full h-[100svh] md:min-h-[100vh] md:h-auto overflow-hidden flex items-center">
@@ -305,13 +309,13 @@ export default function NewHeroSection() {
               </div>
 
               <ArrowButton
-                href={getCheckoutUrl()}
+                href={ENROLLMENT_CLOSED ? getCheckoutUrl() : heroButtonLink}
                 onClick={() =>
                   !ENROLLMENT_CLOSED &&
                   trackAddToCart("21dc-entry", "21-Day Challenge", price, currency, "hero")
                 }
               >
-                {ENROLLMENT_CLOSED ? "Join the Waitlist" : "Start Your 21-Day Challenge"}
+                {ENROLLMENT_CLOSED ? "Join the Waitlist" : heroButtonText}
               </ArrowButton>
 
               {!ENROLLMENT_CLOSED && (
@@ -354,13 +358,13 @@ export default function NewHeroSection() {
           </div>
 
           <ArrowButton
-            href={getCheckoutUrl()}
+            href={ENROLLMENT_CLOSED ? getCheckoutUrl() : heroButtonLink}
             onClick={() =>
               !ENROLLMENT_CLOSED &&
               trackAddToCart("21dc-entry", "21-Day Challenge", price, currency, "hero")
             }
           >
-            {ENROLLMENT_CLOSED ? "Join the Waitlist" : "Start Your 21-Day Challenge"}
+            {ENROLLMENT_CLOSED ? "Join the Waitlist" : heroButtonText}
           </ArrowButton>
 
           {!ENROLLMENT_CLOSED && (

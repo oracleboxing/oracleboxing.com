@@ -22,7 +22,18 @@ function clearCheckoutSession() {
 }
 
 // Initialize Stripe outside component to avoid recreating on each render
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
+function getPublishableKey(): string {
+  const mode = process.env.NEXT_PUBLIC_SITE_MODE || 'challenge'
+  if (mode === 'test' && process.env.NEXT_PUBLIC_STRIPE_TEST_PUBLISHABLE_KEY) {
+    return process.env.NEXT_PUBLIC_STRIPE_TEST_PUBLISHABLE_KEY
+  }
+  if (mode !== 'test' && process.env.NEXT_PUBLIC_STRIPE_LIVE_PUBLISHABLE_KEY) {
+    return process.env.NEXT_PUBLIC_STRIPE_LIVE_PUBLISHABLE_KEY
+  }
+  return process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
+}
+
+const stripePromise = loadStripe(getPublishableKey())
 
 // Module type for course products
 interface CourseModule {

@@ -20,6 +20,7 @@ import MembershipPricingSection from "@/components/MembershipPricingSection"
 import ResearchBenefitsSection from "@/components/ResearchBenefitsSection"
 import CoursePreviewSection from "@/components/CoursePreviewSection"
 import StickyMobileCTA from "@/components/StickyMobileCTA"
+import { getSiteMode, showChallengeDetails, showCoursePreview, showChallengePricing, showMembershipPricing } from "@/lib/site-mode"
 // import { CAMPAIGN_ACTIVE } from "@/lib/campaign"
 
 // Banner height for layout adjustment (36px on mobile, 40px on desktop)
@@ -95,6 +96,8 @@ const testimonialData = {
 }
 
 export default function Home() {
+  const mode = getSiteMode()
+
   return (
     <div className="min-h-screen bg-white flex flex-col" style={{ overflowX: 'clip' }}>
       {/* Campaign banner removed */}
@@ -111,18 +114,26 @@ export default function Home() {
           <TransformationDetailsCarousel />
         </FadeInOnScroll>
         <div className="w-full h-24 md:h-32" />
-        <FadeInOnScroll>
-          <ChallengeDetailsSection />
-        </FadeInOnScroll>
-        <FadeInOnScroll>
-          <CoursePreviewSection />
-        </FadeInOnScroll>
-        <FadeInOnScroll>
-          <PricingSection />
-        </FadeInOnScroll>
-        <FadeInOnScroll>
-          <MembershipPricingSection />
-        </FadeInOnScroll>
+        {showChallengeDetails(mode) && (
+          <FadeInOnScroll>
+            <ChallengeDetailsSection />
+          </FadeInOnScroll>
+        )}
+        {showCoursePreview(mode) && (
+          <FadeInOnScroll>
+            <CoursePreviewSection />
+          </FadeInOnScroll>
+        )}
+        {showChallengePricing(mode) && (
+          <FadeInOnScroll>
+            <PricingSection />
+          </FadeInOnScroll>
+        )}
+        {showMembershipPricing(mode) && (
+          <FadeInOnScroll>
+            <MembershipPricingSection />
+          </FadeInOnScroll>
+        )}
         <FadeInOnScroll>
           <TeamSection />
         </FadeInOnScroll>

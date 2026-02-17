@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { ENROLLMENT_CLOSED, getCheckoutUrl } from "@/lib/enrollment"
+import { getClientSiteMode, getHeaderButtonLink } from "@/lib/site-mode"
 // Campaign removed
 // CampaignSpotCounter removed
 import { trackAddToCart } from "@/lib/webhook-tracking"
@@ -19,6 +20,7 @@ const navLinks = [
 export default function HomepageHeader() {
   const { currency } = useCurrency()
   const [isScrolled, setIsScrolled] = useState(false)
+  const headerLink = getHeaderButtonLink(getClientSiteMode())
 
   // Track scroll position to hide mobile header when sticky footer appears
   useEffect(() => {
@@ -72,7 +74,7 @@ export default function HomepageHeader() {
 
         {/* Mobile: Join Now button on right */}
         <Link
-          href={getCheckoutUrl()}
+          href={ENROLLMENT_CLOSED ? getCheckoutUrl() : headerLink}
           onClick={handleJoinNowClick}
           className="md:hidden h-8 px-4 bg-[#37322f] hover:bg-[#37322f]/90 text-white rounded-xl font-medium text-xs inline-flex items-center justify-center transition-all"
         >
@@ -97,7 +99,7 @@ export default function HomepageHeader() {
         <div className="hidden md:flex items-center gap-3">
           {/* Join Now Button */}
           <Link
-            href={getCheckoutUrl()}
+            href={ENROLLMENT_CLOSED ? getCheckoutUrl() : headerLink}
             onClick={handleJoinNowClick}
             className="h-10 px-6 bg-[#37322f] hover:bg-[#37322f]/90 text-white rounded-xl font-medium text-body inline-flex items-center justify-center transition-all"
           >

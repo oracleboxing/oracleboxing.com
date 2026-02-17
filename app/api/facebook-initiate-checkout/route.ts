@@ -128,11 +128,11 @@ export async function POST(request: NextRequest) {
         }
 
         console.log('✅ Facebook CAPI InitiateCheckout success:', result);
-        notifyOps(`📊 FB Initiate Checkout event fired - ${email}`)
+        // notifyOps(`📊 FB Initiate Checkout event fired - ${email}`)
         return NextResponse.json({ success: true, result });
     } catch (error) {
         console.error('Error sending InitiateCheckout to Facebook CAPI:', error);
-        notifyOps(`❌ FB Initiate Checkout event failed - ${String(error)}`)
+        // notifyOps(`❌ FB Initiate Checkout event failed - ${String(error)}`)
         return NextResponse.json(
             { success: false, error: 'Internal server error' },
             { status: 500 }

@@ -100,11 +100,11 @@ export async function POST(request: NextRequest) {
     }
 
     console.log('Facebook CAPI AddToCart success:', result);
-    notifyOps(`📊 FB Add to Cart event fired - ${content_name || content_ids?.join(', ') || 'unknown'}`)
+    // notifyOps(`📊 FB Add to Cart event fired - ${content_name || content_ids?.join(', ') || 'unknown'}`)
     return NextResponse.json({ success: true, result });
   } catch (error) {
     console.error('Error sending AddToCart to Facebook CAPI:', error);
-    notifyOps(`❌ FB Add to Cart event failed - ${String(error)}`)
+    // notifyOps(`❌ FB Add to Cart event failed - ${String(error)}`)
     return NextResponse.json(
       { success: false, error: 'Internal server error' },
       { status: 500 }
