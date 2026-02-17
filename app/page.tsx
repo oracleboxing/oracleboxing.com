@@ -1,24 +1,29 @@
 import { HeroSection } from "@/components/hero-section"
+import NewHeroSection from "@/components/NewHeroSection"
+import { MemberQuotes } from "@/components/MemberQuotes"
+import PillarsSection from "@/components/PillarsSection"
 import ChallengeDetailsSection from "@/components/ChallengeDetailsSection"
 import FooterSection from "@/components/footer-section"
 import WhoIsForSection from "@/components/WhoIsForSection"
 import ChallengeFAQSection from "@/components/ChallengeFAQSection"
 import TeamSection from "@/components/TeamSection"
 import HomepageHeader from "@/components/HomepageHeader"
+import { TestimonialMarquee } from "@/components/TestimonialMarquee"
 import TransformationDetailsCarousel from "@/components/TransformationDetailsCarousel"
 import { TestimonialsSection } from "@/components/TestimonialPair"
 import { ScrollQuote } from "@/components/ScrollQuote"
 import PricingSection from "@/components/PricingSection"
 import { FadeInOnScroll } from "@/components/FadeInOnScroll"
 import WhyOnlineSection from "@/components/WhyOnlineSection"
-import FundamentalsWarningSection from "@/components/FundamentalsWarningSection"
-import CampaignBanner from "@/components/CampaignBanner"
+import MembershipPricingSection from "@/components/MembershipPricingSection"
+// import CampaignBanner from "@/components/CampaignBanner"
 import ResearchBenefitsSection from "@/components/ResearchBenefitsSection"
+import CoursePreviewSection from "@/components/CoursePreviewSection"
 import StickyMobileCTA from "@/components/StickyMobileCTA"
-import { CAMPAIGN_ACTIVE } from "@/lib/campaign"
+// import { CAMPAIGN_ACTIVE } from "@/lib/campaign"
 
 // Banner height for layout adjustment (36px on mobile, 40px on desktop)
-const BANNER_HEIGHT = CAMPAIGN_ACTIVE ? 40 : 0
+const BANNER_HEIGHT = 0
 
 const testimonialData = {
   krisSaville: {
@@ -91,60 +96,41 @@ const testimonialData = {
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-white flex flex-col overflow-x-hidden">
-      {CAMPAIGN_ACTIVE && <CampaignBanner />}
+    <div className="min-h-screen bg-white flex flex-col" style={{ overflowX: 'clip' }}>
+      {/* Campaign banner removed */}
       <HomepageHeader />
       <StickyMobileCTA />
-      <div className={`flex flex-1 ${CAMPAIGN_ACTIVE ? 'pt-[112px]' : 'pt-[72px]'}`}>
-        <div className="hidden sm:block sm:w-4 md:w-8 lg:w-12 flex-shrink-0 border-r border-[rgba(55,50,47,0.12)]"></div>
+
+      {/* Hero - full bleed, no side margins, header floats over it */}
+      <NewHeroSection />
+
+      <div className="flex-1">
         <main className="flex-1 min-w-0">
-        <HeroSection />
+        <TestimonialMarquee />
         <FadeInOnScroll>
           <TransformationDetailsCarousel />
         </FadeInOnScroll>
-        <FadeInOnScroll>
-          <ResearchBenefitsSection />
-        </FadeInOnScroll>
+        <div className="w-full h-24 md:h-32" />
         <FadeInOnScroll>
           <ChallengeDetailsSection />
         </FadeInOnScroll>
-        <ScrollQuote quote={`Boxing is allowing me to
-reclaim what I lost.`} />
         <FadeInOnScroll>
-          <WhoIsForSection />
+          <CoursePreviewSection />
         </FadeInOnScroll>
         <FadeInOnScroll>
-          <FundamentalsWarningSection />
-        </FadeInOnScroll>
-        <FadeInOnScroll>
-          <WhyOnlineSection />
+          <PricingSection />
         </FadeInOnScroll>
         <FadeInOnScroll>
           <TeamSection />
         </FadeInOnScroll>
         <FadeInOnScroll>
-          <TestimonialsSection testimonials={[
-            testimonialData.krisSaville,
-            testimonialData.krisQually,
-            testimonialData.brunoMartins,
-            testimonialData.antonPolyakov,
-            testimonialData.meiyanC,
-            testimonialData.mikeForouzanfar,
-            testimonialData.leoCarrillo,
-            testimonialData.thomasHaeusle,
-            testimonialData.rodKeher,
-            testimonialData.pascalPerau,
-          ]} />
-        </FadeInOnScroll>
-        <FadeInOnScroll>
-          <PricingSection />
+          <MembershipPricingSection />
         </FadeInOnScroll>
         <FadeInOnScroll>
           <ChallengeFAQSection />
         </FadeInOnScroll>
         <FooterSection />
         </main>
-        <div className="hidden sm:block sm:w-4 md:w-8 lg:w-12 flex-shrink-0 border-l border-[rgba(55,50,47,0.12)]"></div>
       </div>
     </div>
   )

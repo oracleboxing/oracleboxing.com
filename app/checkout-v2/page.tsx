@@ -8,6 +8,7 @@ import { getTrackingParams, getCookie } from '@/lib/tracking-cookies'
 import { CheckoutForm } from '@/components/checkout-v2/CheckoutForm'
 import { trackInitiateCheckout } from '@/lib/webhook-tracking'
 import { getProductPrice } from '@/lib/currency'
+import { getProductById } from '@/lib/products'
 import { useAnalytics } from '@/hooks/useAnalytics'
 import { Loader2 } from 'lucide-react'
 import { CheckoutFormSkeleton } from '@/components/ui/skeleton'
@@ -84,6 +85,11 @@ function CheckoutV2Content() {
   const searchParams = useSearchParams()
   const { currency, isLoading: currencyLoading } = useCurrency()
   const { trackInitiateCheckoutEnriched } = useAnalytics()
+
+  // Detect membership checkout
+  const isMembership = searchParams.get('product') === 'membership'
+  const membershipPlan = (searchParams.get('plan') === 'annual' ? 'annual' : 'monthly') as 'monthly' | 'annual'
+
   const [step, setStep] = useState<'info' | 'payment'>('info')
   const [customerInfo, setCustomerInfo] = useState<CustomerInfo | null>(null)
   const [selectedAddOns, setSelectedAddOns] = useState<string[]>([])
@@ -99,6 +105,21 @@ function CheckoutV2Content() {
   const autoSubmitRef = useRef(false)
   const redirectCheckedRef = useRef(false)
   const sessionRestoredRef = useRef(false)
+
+  // New state for product type
+  const [product, setProduct] = useState<'21dc' | 'membership'>('21dc');
+  const [membershipPlan, setMembershipPlan] = useState<'monthly' | 'annual'>('monthly');
+
+  useEffect(() => {
+    const productParam = searchParams.get('product');
+    const planParam = searchParams.get('plan');
+    if (productParam === 'membership') {
+      setProduct('membership');
+      if (planParam === 'annual') {
+        setMembershipPlan('annual');
+      }
+    }
+  }, [searchParams]);
 
   // Debounce timer ref for add-on changes
   const addOnDebounceRef = useRef<NodeJS.Timeout | null>(null)
@@ -290,8 +311,8 @@ function CheckoutV2Content() {
     }
   }, [currencyLoading, searchParams])
 
-  // Create initial session
-  const createSession = useCallback(async (info: CustomerInfo) => {
+  // Create 21DC session
+  const create21DCSession = useCallback(async (info: CustomerInfo) => {
     const cookieData = getCookie('ob_track')
 
     const response = await fetch('/api/checkout-v2/session', {
@@ -321,92 +342,123 @@ function CheckoutV2Content() {
     return { clientSecret: data.clientSecret, paymentIntentId: data.paymentIntentId }
   }, [currency, trackingParams])
 
-  // Handle Step 1 submission - create initial Stripe session (no add-ons)
+  // Create Membership session
+  const createMembershipSession = useCallback(async (info: CustomerInfo, plan: 'monthly' | 'annual', addOns: string[]) => {
+    const cookieData = getCookie('ob_track');
+    const response = await fetch('/api/checkout-v2/membership-session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            customerInfo: info,
+            plan,
+            addOns,
+            trackingParams,
+            cookieData,
+        }),
+    });
+    const data = await response.json();
+    if (!response.ok || !data.checkoutUrl) {
+        throw new Error(data.error || 'Failed to create membership session');
+    }
+    return data;
+  }, [trackingParams]);
+
+  // Handle Step 1 submission
   const handleInfoSubmit = async (info: CustomerInfo) => {
-    setCustomerInfo(info)
-    setIsCreatingSession(true)
-    setError(null)
+    setCustomerInfo(info);
+    setIsCreatingSession(true);
+    setError(null);
 
     try {
-      // Create Stripe session first to get paymentIntentId
-      const { clientSecret: secret, paymentIntentId: piId } = await createSession(info)
-      setClientSecret(secret)
-      setPaymentIntentId(piId)
+      if (product === 'membership') {
+        // Membership flow
+        const membershipProductId = membershipPlan === 'annual' ? 'membership-annual' : 'membership-monthly';
+        const productDetails = getProductById(membershipProductId);
 
-      // Track InitiateCheckout to Supabase and Facebook (non-blocking)
-      // Now includes paymentIntentId for abandoned cart tracking
-      const fullName = `${info.firstName} ${info.lastName}`.trim()
-      const priceInUserCurrency = getProductPrice('21dc_entry', currency) || 147
+        if (productDetails) {
+            trackInitiateCheckout(
+                `${info.firstName} ${info.lastName}`,
+                info.email,
+                productDetails.price,
+                [productDetails.id],
+                '/checkout-v2',
+                trackingParams.referrer || 'direct',
+                { funnel: 'membership', currency: 'USD', source: 'checkout-v2' },
+                info.phone
+            );
+            trackInitiateCheckoutEnriched({
+                value: productDetails.price,
+                currency: 'USD',
+                products: [productDetails.id],
+                product_names: [productDetails.title],
+                funnel: 'membership',
+            });
+            try {
+                const { gtagBeginCheckout, gtagSetUserData } = await import('@/lib/gtag');
+                gtagSetUserData({ email: info.email, phone_number: info.phone, first_name: info.firstName, last_name: info.lastName });
+                gtagBeginCheckout({
+                    value: productDetails.price,
+                    currency: 'USD',
+                    items: [{ item_id: productDetails.id, item_name: productDetails.title, price: productDetails.price, quantity: 1 }],
+                });
+            } catch (e) {
+                console.warn('Failed to send Google Ads begin_checkout for membership:', e);
+            }
+        }
+        
+        const { checkoutUrl } = await createMembershipSession(info, membershipPlan, selectedAddOns);
+        window.location.href = checkoutUrl;
+      } else {
+        // 21DC flow
+        const { clientSecret: secret, paymentIntentId: piId } = await create21DCSession(info);
+        setClientSecret(secret);
+        setPaymentIntentId(piId);
 
-      trackInitiateCheckout(
-        fullName,
-        info.email,
-        priceInUserCurrency,
-        ['21dc-entry'],
-        '/checkout-v2',
-        trackingParams.referrer || 'direct',
-        {
-          funnel: '21dc',
-          currency: currency,
-          source: 'checkout-v2',
-        },
-        info.phone,
-        piId // Pass paymentIntentId for abandoned cart cron job
-      )
+        // Tracking for 21DC
+        const fullName = `${info.firstName} ${info.lastName}`.trim();
+        const priceInUserCurrency = getProductPrice('21dc-entry', currency) || 147;
 
-      // Track InitiateCheckout in Vercel Analytics
-      trackInitiateCheckoutEnriched({
-        value: priceInUserCurrency,
-        currency: currency,
-        products: ['21dc-entry'],
-        product_names: ['21-Day Challenge'],
-        order_bumps: [],
-        order_bump_names: [],
-        funnel: '21dc',
-        has_order_bumps: false,
-        total_items: 1,
-      })
+        trackInitiateCheckout(
+          fullName,
+          info.email,
+          priceInUserCurrency,
+          ['21dc-entry'],
+          '/checkout-v2',
+          trackingParams.referrer || 'direct',
+          { funnel: '21dc', currency: currency, source: 'checkout-v2' },
+          info.phone,
+          piId
+        );
+        trackInitiateCheckoutEnriched({
+            value: priceInUserCurrency,
+            currency: currency,
+            products: ['21dc-entry'],
+            product_names: ['21-Day Challenge'],
+            funnel: '21dc',
+        });
+        
+        try {
+            const { gtagBeginCheckout, gtagSetUserData, gtagSignupConversion } = await import('@/lib/gtag');
+            gtagSetUserData({ email: info.email, phone_number: info.phone, first_name: info.firstName, last_name: info.lastName });
+            gtagBeginCheckout({
+                value: priceInUserCurrency,
+                currency: currency,
+                items: [{ item_id: '21dc-entry', item_name: '21-Day Challenge', price: priceInUserCurrency, quantity: 1 }],
+            });
+            gtagSignupConversion({ value: priceInUserCurrency, currency: currency });
+        } catch (e) {
+            console.warn('Failed to send Google Ads begin_checkout:', e);
+        }
 
-      // Track begin_checkout + sign-up conversion in Google Ads
-      try {
-        const { gtagBeginCheckout, gtagSetUserData, gtagSignupConversion } = await import('@/lib/gtag')
-
-        // Set user data for enhanced conversions
-        gtagSetUserData({
-          email: info.email,
-          phone_number: info.phone,
-          first_name: info.firstName,
-          last_name: info.lastName,
-        })
-
-        gtagBeginCheckout({
-          value: priceInUserCurrency,
-          currency: currency,
-          items: [{
-            item_id: '21dc-entry',
-            item_name: '21-Day Challenge',
-            price: priceInUserCurrency,
-            quantity: 1,
-          }],
-        })
-
-        // Fire sign-up/lead conversion
-        gtagSignupConversion({
-          value: priceInUserCurrency,
-          currency: currency,
-        })
-      } catch (e) {
-        console.warn('Failed to send Google Ads begin_checkout:', e)
+        setStep('payment');
       }
-
-      setStep('payment')
     } catch (err: any) {
-      console.error('Session creation error:', err)
-      setError(err.message || 'Something went wrong. Please try again.')
+      console.error('Session creation error:', err);
+      setError(err.message || 'Something went wrong. Please try again.');
     } finally {
-      setIsCreatingSession(false)
+      setIsCreatingSession(false);
     }
-  }
+  };
 
   // Handle add-on changes on Step 2 - update PaymentIntent amount (no new session)
   const handleAddOnsChange = useCallback((newAddOns: string[]) => {
@@ -463,6 +515,8 @@ function CheckoutV2Content() {
           isLoading={isCreatingSession}
           error={error}
           currency={currency}
+          product={product}
+          membershipPlan={membershipPlan}
         />
       )}
 

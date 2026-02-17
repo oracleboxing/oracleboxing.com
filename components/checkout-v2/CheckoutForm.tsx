@@ -5,17 +5,18 @@ import { toast } from 'sonner'
 import { Loader2, Clock } from 'lucide-react'
 import { Currency, formatPrice, getProductPrice } from '@/lib/currency'
 import { PhoneInput, getFullPhoneNumber, COUNTRIES } from '@/components/ui/phone-input'
-import { CAMPAIGN_ACTIVE, getCurrentSpots, getEnrollmentDeadlineText, CAMPAIGN_CONFIG } from '@/lib/campaign'
-import CampaignSpotCounter from '@/components/CampaignSpotCounter'
+// Campaign imports removed
 
 interface CheckoutFormProps {
   onSubmit: (info: { firstName: string; lastName: string; email: string; phone: string }) => Promise<void>
   isLoading: boolean
   error: string | null
   currency: Currency
+  product: '21dc' | 'membership'
+  membershipPlan?: 'monthly' | 'annual'
 }
 
-export function CheckoutForm({ onSubmit, isLoading, error, currency }: CheckoutFormProps) {
+export function CheckoutForm({ onSubmit, isLoading, error, currency, product, membershipPlan }: CheckoutFormProps) {
   const [detectedCountry, setDetectedCountry] = useState('US')
   const [phoneCountry, setPhoneCountry] = useState('US')
   const [customerInfo, setCustomerInfo] = useState({
@@ -79,9 +80,9 @@ export function CheckoutForm({ onSubmit, isLoading, error, currency }: CheckoutF
   }
 
   return (
-    <div className="min-h-screen bg-[#37322F] flex items-center justify-center py-6 sm:py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+    <div className="min-h-screen bg-white md:bg-[#37322F] flex items-start md:items-center justify-center py-0 md:py-12 px-0 md:px-6 lg:px-8 relative overflow-hidden">
       {/* Animated flowing ribbons background */}
-      <div className="absolute inset-0 overflow-hidden">
+      <div className="absolute inset-0 overflow-hidden hidden md:block">
         <div className="ribbon ribbon-1" />
         <div className="ribbon ribbon-2" />
         <div className="ribbon ribbon-3" />
@@ -90,61 +91,53 @@ export function CheckoutForm({ onSubmit, isLoading, error, currency }: CheckoutF
         <div className="ribbon ribbon-6" />
       </div>
 
-      {/* Back link - positioned below campaign banner + header on mobile */}
-      <a href="/" className="absolute top-14 sm:top-4 left-2 sm:left-4 text-white/70 text-sm font-medium hover:text-white active:text-white transition-colors z-30 py-2 px-3 rounded-lg">
-        &larr; Back
-      </a>
-
       {/* Card */}
-      <div className="w-full max-w-md lg:max-w-3xl bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl p-4 sm:p-8 lg:p-12 relative z-10">
+      <div className="w-full max-w-md lg:max-w-3xl bg-white md:bg-white/95 md:backdrop-blur-xl md:rounded-2xl md:shadow-2xl px-4 pt-8 pb-4 sm:p-8 lg:p-12 relative z-10">
         <form onSubmit={handleSubmit} className="max-w-xl mx-auto">
+          {/* Logo */}
+          <div className="flex justify-center mb-4 sm:mb-6">
+            <a href="/">
+              <img
+                src="https://sb.oracleboxing.com/logo/long_dark.webp"
+                alt="Oracle Boxing"
+                className="h-5 sm:h-6 w-auto"
+              />
+            </a>
+          </div>
+
           {/* Progress Indicator */}
           <div className="flex items-center justify-center gap-2 mb-4 sm:mb-6">
             <div className="flex items-center gap-1.5">
-              <div className="w-6 h-6 rounded-full bg-[#37322F] text-white text-xs font-medium flex items-center justify-center">1</div>
               <span className="text-xs sm:text-sm font-medium text-[#37322F]">Your Details</span>
             </div>
             <div className="w-8 h-[2px] bg-[rgba(55,50,47,0.12)]" />
             <div className="flex items-center gap-1.5">
-              <div className="w-6 h-6 rounded-full bg-[rgba(55,50,47,0.12)] text-[#847971] text-xs font-medium flex items-center justify-center">2</div>
               <span className="text-xs sm:text-sm font-medium text-[#847971]">Payment</span>
             </div>
           </div>
 
-          {/* Logo */}
-          <div className="flex justify-start mb-3 sm:mb-8">
-            <img
-              src="https://sb.oracleboxing.com/logo/icon_dark.webp"
-              alt="Oracle Boxing"
-              className="w-8 sm:w-10 h-auto"
-            />
-          </div>
-
           {/* Heading */}
-          <h1 className="text-left text-xl sm:text-3xl md:text-4xl font-normal leading-tight mb-2 sm:mb-6" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
-            <span className="text-[#37322F]">Start your</span><br />
-            <span className="text-[#9CABA8]">Transformation</span>
+          <h1 className="text-left text-section font-normal leading-tight mb-2 sm:mb-6">
+            {product === 'membership' ? (
+              <>
+                <span className="text-[#37322F]">Join the</span><br />
+                <span className="text-[#9CABA8]">Full Access Membership</span>
+              </>
+            ) : (
+              <>
+                <span className="text-[#37322F]">Start your</span><br />
+                <span className="text-[#9CABA8]">Transformation</span>
+              </>
+            )}
           </h1>
 
           {/* Description */}
-          <p className="text-left text-[#605A57] text-xs sm:text-sm md:text-base font-normal leading-relaxed mb-4 sm:mb-6">
-            Join the 21-Day Challenge and prove you have what it takes. Show up, put in the work, and earn your place in Oracle Boxing.
+          <p className="text-left text-[#605A57] text-body font-normal leading-relaxed mb-4 sm:mb-6">
+            {product === 'membership' 
+              ? `You've selected the ${membershipPlan === 'annual' ? 'Annual' : 'Monthly'} plan. Complete your details to get instant access to all courses, coaching, and the community.`
+              : 'Join the 21-Day Challenge and prove you have what it takes. Show up, put in the work, and earn your place in Oracle Boxing.'
+            }
           </p>
-
-          {/* Campaign Info Banner */}
-          {CAMPAIGN_ACTIVE && (
-            <div className="mb-4 sm:mb-6 p-3 sm:p-4 bg-white border border-[rgba(55,50,47,0.12)] rounded-lg">
-              <div className="flex items-center justify-between gap-3">
-                <div className="flex items-center gap-2 text-[#49423D]">
-                  <Clock className="w-4 h-4 flex-shrink-0" />
-                  <span className="text-xs sm:text-sm font-medium">
-                    Enrollment closes {getEnrollmentDeadlineText()}
-                  </span>
-                </div>
-                <CampaignSpotCounter size="sm" />
-              </div>
-            </div>
-          )}
 
           {/* Error message */}
           {error && (
