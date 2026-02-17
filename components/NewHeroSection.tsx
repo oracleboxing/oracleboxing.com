@@ -7,6 +7,7 @@ import { getClientSiteMode, getHeroButtonText, getHeroButtonLink } from "@/lib/s
 import { trackAddToCart } from "@/lib/webhook-tracking"
 import { useCurrency } from "@/contexts/CurrencyContext"
 import { getProductPrice } from "@/lib/currency"
+import { useExperiment } from "@/contexts/ExperimentContext"
 
 /* ─────────────────────────────────────────────
    Liquid Glass Card Wrapper
@@ -232,6 +233,10 @@ export default function NewHeroSection() {
   const siteMode = getClientSiteMode()
   const heroButtonText = getHeroButtonText(siteMode)
   const heroButtonLink = getHeroButtonLink(siteMode)
+  const { config: heroConfig } = useExperiment('hero-headline-v2')
+  const heroHeadline = heroConfig?.headline || 'Learn to box'
+  const heroAccent = heroConfig?.headlineAccent || 'properly, online.'
+  const heroSub = heroConfig?.sub || 'Structured courses, live coaching calls, and a community of dedicated boxers. Learn the fundamentals the right way.'
 
   return (
     <section className="relative w-full h-[100svh] md:min-h-[100vh] md:h-auto overflow-x-clip overflow-y-clip md:overflow-y-visible flex items-center">
@@ -276,14 +281,14 @@ export default function NewHeroSection() {
           {/* Left - Text + CTA */}
           <div className="flex-1 flex flex-col items-center lg:items-start gap-4 sm:gap-6 text-center lg:text-left max-w-[540px]">
             <h1 className="text-[#37322F] text-[8vw] sm:text-5xl md:text-6xl lg:text-[4.5rem] font-normal leading-[1.08] tracking-tight">
-              Learn to box
+              {heroHeadline}
               <span className="block bg-gradient-to-r from-[#8C7560] via-[#7A6B5E] to-[#6B5D52] bg-clip-text text-transparent">
-                properly, online.
+                {heroAccent}
               </span>
             </h1>
 
             <p className="text-[#605A57] text-[3.5vw] sm:text-base md:text-lg lg:text-xl leading-relaxed max-w-[460px]">
-              Structured courses, live coaching calls, and a community of dedicated boxers. Learn the fundamentals the right way.
+              {heroSub}
             </p>
 
             {/* CTA + Social proof - hidden on mobile, shown on desktop */}
@@ -318,14 +323,7 @@ export default function NewHeroSection() {
                 {ENROLLMENT_CLOSED ? "Join the Waitlist" : heroButtonText}
               </ArrowButton>
 
-              {!ENROLLMENT_CLOSED && (
-                <p className="text-[#847971] text-sm flex items-center gap-2">
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z" />
-                  </svg>
-                  Money-back guarantee. Do the work, get a refund.
-                </p>
-              )}
+{/* Money-back guarantee removed */}
             </div>
           </div>
 
