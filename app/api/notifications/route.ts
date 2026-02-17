@@ -41,10 +41,21 @@ async function addToSendGridList(listId: string, contact: { email: string; first
   return response.statusCode
 }
 
+function verifyInternalToken(req: NextRequest): boolean {
+  const authHeader = req.headers.get('authorization')
+  const token = authHeader?.replace('Bearer ', '')
+  return !!token && token === process.env.INTERNAL_API_TOKEN
+}
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json()
     const { type } = body
+
+    // Abandon type sends SMS - require auth
+    if (type === 'abandon' && !verifyInternalToken(req)) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
 
     if (type === 'waitlist') {
       // Add to SendGrid waitlist + notify Slack
@@ -87,6 +98,6 @@ export async function POST(req: NextRequest) {
     }
   } catch (error: any) {
     console.error('Notification route error:', error)
-    return NextResponse.json({ error: error.message }, { status: 500 })
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 }

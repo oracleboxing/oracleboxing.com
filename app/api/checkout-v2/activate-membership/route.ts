@@ -90,6 +90,6 @@ export async function POST(req: NextRequest) {
   } catch (error: any) {
     console.error('Activate membership failed:', error)
     notifyOps(`❌ Membership activation failed - ${error.message}`)
-    return NextResponse.json({ error: error.message }, { status: 500 })
+    return NextResponse.json({ error: 'Activation failed. Please contact support.' }, { status: 500 })
   }
 }

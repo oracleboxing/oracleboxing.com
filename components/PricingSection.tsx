@@ -42,7 +42,7 @@ export default function PricingSection() {
   ]
 
   return (
-    <section className="w-full min-h-screen flex flex-col justify-center py-16 md:py-24 px-4 md:px-8 bg-[#37322F] relative overflow-hidden">
+    <section className="w-full min-h-screen flex flex-col justify-center py-0 md:py-24 px-0 md:px-8 bg-white md:bg-[#37322F] relative overflow-hidden">
       {/* Animated flowing ribbons background */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="ribbon ribbon-1" />
@@ -53,9 +53,9 @@ export default function PricingSection() {
         <div className="ribbon ribbon-6" />
       </div>
 
-      <div className="max-w-lg mx-auto relative z-10">
+      <div className="max-w-lg mx-auto relative z-10 w-full">
         {/* Inner white card - vertically stacked, centered */}
-        <div className="bg-white rounded-2xl shadow-2xl p-8 md:p-12 text-center">
+        <div className="bg-white rounded-none md:rounded-2xl shadow-none md:shadow-2xl p-8 md:p-12 text-center">
           {/* Title */}
           <h2 className="text-3xl md:text-4xl font-normal leading-tight mb-2">
             <span className="text-[#37322F]">21-Day </span>

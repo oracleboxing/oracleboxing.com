@@ -94,39 +94,27 @@ export function CheckoutForm({ onSubmit, isLoading, error, currency, product, me
       {/* Card */}
       <div className="w-full max-w-md lg:max-w-3xl bg-white md:bg-white/95 md:backdrop-blur-xl md:rounded-2xl md:shadow-2xl px-4 pt-8 pb-4 sm:p-8 lg:p-12 relative z-10">
         <form onSubmit={handleSubmit} className="max-w-xl mx-auto">
-          {/* Logo + Progress Indicator - same row */}
-          <div className="flex items-center justify-between mb-4 sm:mb-6">
-            {/* Logo - left */}
-            <a href="/">
-              <img
-                src="https://sb.oracleboxing.com/logo/long_dark.webp"
-                alt="Oracle Boxing"
-                className="h-4 sm:h-5 w-auto"
-              />
-            </a>
-
-            {/* Progress Indicator - right */}
-            <div className="flex items-center gap-2">
-              <span className="text-xs sm:text-sm font-medium text-[#37322F]">Your Details</span>
+          {/* Heading + Progress Indicator - same line */}
+          <div className="flex items-start justify-between mb-2 sm:mb-6">
+            <h1 className="text-left text-section font-normal leading-tight">
+              {product === 'membership' ? (
+                <>
+                  <span className="text-[#37322F]">Join the</span><br />
+                  <span className="text-[#9CABA8]">Full Access Membership</span>
+                </>
+              ) : (
+                <>
+                  <span className="text-[#37322F]">Start your</span><br />
+                  <span className="text-[#9CABA8]">Transformation</span>
+                </>
+              )}
+            </h1>
+            <div className="flex items-center gap-2 flex-shrink-0 pt-2">
+              <span className="text-xs sm:text-sm font-medium text-[#37322F] whitespace-nowrap">Your Details</span>
               <div className="w-8 h-[2px] bg-[rgba(55,50,47,0.12)]" />
               <span className="text-xs sm:text-sm font-medium text-[#847971]">Payment</span>
             </div>
           </div>
-
-          {/* Heading */}
-          <h1 className="text-left text-section font-normal leading-tight mb-2 sm:mb-6">
-            {product === 'membership' ? (
-              <>
-                <span className="text-[#37322F]">Join the</span><br />
-                <span className="text-[#9CABA8]">Full Access Membership</span>
-              </>
-            ) : (
-              <>
-                <span className="text-[#37322F]">Start your</span><br />
-                <span className="text-[#9CABA8]">Transformation</span>
-              </>
-            )}
-          </h1>
 
           {/* Description */}
           <p className="text-left text-[#605A57] text-body font-normal leading-relaxed mb-4 sm:mb-6">
@@ -212,7 +200,7 @@ export function CheckoutForm({ onSubmit, isLoading, error, currency, product, me
               placeholder="7912345678"
             />
             <p className="text-[#847971] text-xs mt-1.5">
-              For class reminders via SMS. You can add this later.
+              For class reminders via SMS.
             </p>
           </div>
 
@@ -312,6 +300,7 @@ export function CheckoutForm({ onSubmit, isLoading, error, currency, product, me
               </div>
             </div>
           </div>
+
         </form>
       </div>
 

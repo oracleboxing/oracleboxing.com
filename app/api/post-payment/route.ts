@@ -6,6 +6,13 @@ import { handle21DCPayment, handleMembershipPayment, handleCoachingPayment } fro
 // Handles SendGrid lists, Slack notifications, Attio CRM
 export async function POST(req: NextRequest) {
   try {
+    // Auth: require internal API token
+    const authHeader = req.headers.get('authorization')
+    const token = authHeader?.replace('Bearer ', '')
+    if (!token || token !== process.env.INTERNAL_API_TOKEN) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+
     const { paymentIntentId } = await req.json()
 
     if (!paymentIntentId) {
@@ -34,6 +41,6 @@ export async function POST(req: NextRequest) {
     }
   } catch (error: any) {
     console.error('Post-payment handler error:', error)
-    return NextResponse.json({ error: error.message }, { status: 500 })
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 }

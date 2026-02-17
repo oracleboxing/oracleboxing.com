@@ -8,5 +8,5 @@ export const CLOSED_URL = '/closed'
 
 // Helper function to get the checkout URL based on enrollment status
 export function getCheckoutUrl(): string {
-  return ENROLLMENT_CLOSED ? CLOSED_URL : '/checkout-v2'
+  return ENROLLMENT_CLOSED ? CLOSED_URL : '/checkout-v2?product=21dc'
 }
