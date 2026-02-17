@@ -334,7 +334,7 @@ export default function NewHeroSection() {
         </div>
 
         {/* Mobile CTA - centred below both columns */}
-        <div className="flex lg:hidden flex-col items-center gap-3 mt-32 relative z-30">
+        <div className="flex lg:hidden flex-col items-center gap-3 mt-8 relative z-30">
           {/* Social proof */}
           <div className="flex items-center gap-2">
             <div className="flex -space-x-1.5">
