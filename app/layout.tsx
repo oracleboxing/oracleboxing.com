@@ -24,10 +24,10 @@ const FAVICON_VERSION = "v=3" // Cache buster - increment to force refresh
 export const metadata: Metadata = {
   title: "Oracle Boxing",
   description:
-    "Learn the fundamental pillars of boxing so that your technique just looks right. 21 days to master what matters.",
+    "Online boxing coaching with structured courses, grading system, and personal feedback from expert coaches. Train smarter, move better.",
   openGraph: {
     title: "Oracle Boxing",
-    description: "Learn the fundamental pillars of boxing so that your technique just looks right. 21 days to master what matters.",
+    description: "Online boxing coaching with structured courses, grading system, and personal feedback from expert coaches. Train smarter, move better.",
     url: "https://oracleboxing.com",
     siteName: "Oracle Boxing",
     locale: "en_US",
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Oracle Boxing",
-    description: "Learn the fundamental pillars of boxing so that your technique just looks right. 21 days to master what matters.",
+    description: "Online boxing coaching with structured courses, grading system, and personal feedback from expert coaches. Train smarter, move better.",
     images: ["https://sb.oracleboxing.com/Website/skool_art2.jpg"],
   },
   icons: {

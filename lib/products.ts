@@ -630,15 +630,18 @@ const TEST_PRICE_OVERRIDES: Record<string, { stripe_price_id: string; stripe_pro
   }
 };
 
-// Patch products with test prices
-for (const p of [...products, ...internalProducts]) {
-  const override = TEST_PRICE_OVERRIDES[p.id];
-  if (override) {
-    p.stripe_price_id = override.stripe_price_id;
-    p.stripe_product_id = override.stripe_product_id;
-    // Clear price_ids so it uses the main stripe_price_id
-    if (p.price_ids) p.price_ids = {};
-    if (p.prices) p.prices = {};
+// Patch products with test prices (only in test mode)
+const siteMode = process.env.NEXT_PUBLIC_SITE_MODE || 'challenge';
+if (siteMode === 'test') {
+  for (const p of [...products, ...internalProducts]) {
+    const override = TEST_PRICE_OVERRIDES[p.id];
+    if (override) {
+      p.stripe_price_id = override.stripe_price_id;
+      p.stripe_product_id = override.stripe_product_id;
+      // Clear price_ids so it uses the main stripe_price_id
+      if (p.price_ids) p.price_ids = {};
+      if (p.prices) p.prices = {};
+    }
   }
 }
 

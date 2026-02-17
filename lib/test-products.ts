@@ -83,6 +83,10 @@ export type TestProductId = keyof typeof TEST_PRODUCTS
  * Check if we're in test mode based on the Stripe key
  */
 export function isTestMode(): boolean {
+  const siteMode = process.env.NEXT_PUBLIC_SITE_MODE || 'challenge'
+  if (siteMode === 'test') return true
+  if (siteMode === 'challenge' || siteMode === 'membership') return false
+  // Fallback: check publishable key
   const stripeKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || ''
   return stripeKey.startsWith('pk_test_')
 }
