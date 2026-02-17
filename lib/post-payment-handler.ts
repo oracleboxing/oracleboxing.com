@@ -17,7 +17,7 @@ const WAITLIST_LIST_ID = '3a1ba08c-6247-4684-86a2-7b652bf60e5b'
 const NEW_CLIENTS_CHANNEL = 'C080YRDSCBB' // #new-clients
 
 // Current campaign name
-const CURRENT_CAMPAIGN = 'feb21dc'
+const CURRENT_CAMPAIGN = process.env.CURRENT_CAMPAIGN || 'feb21dc'
 
 // Country code to name mapping
 const COUNTRY_MAP: Record<string, string> = {
@@ -109,19 +109,21 @@ const ZAPIER_INVITE_URL = 'https://hooks.zapier.com/hooks/catch/23999001/ucusm4r
 const ZAPIER_UNLOCK_URL = 'https://hooks.zapier.com/hooks/catch/23999001/ugnikfp/'
 
 async function inviteAndUnlockCourses(email: string, courses: { roadmap?: boolean; bffp?: boolean; vault?: boolean; g1?: boolean; g2?: boolean; g3?: boolean }) {
-  await fetch(ZAPIER_INVITE_URL, {
+  const res = await fetch(ZAPIER_INVITE_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email, ...courses }),
   })
+  if (!res.ok) console.error(`Zapier invite failed (${res.status}):`, await res.text().catch(() => ''))
 }
 
 async function unlockCourses(email: string, courses: { roadmap?: boolean; bffp?: boolean; vault?: boolean; g1?: boolean; g2?: boolean; g3?: boolean }) {
-  await fetch(ZAPIER_UNLOCK_URL, {
+  const res = await fetch(ZAPIER_UNLOCK_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email, ...courses }),
   })
+  if (!res.ok) console.error(`Zapier unlock failed (${res.status}):`, await res.text().catch(() => ''))
 }
 
 // Google Sheets - Course unlock sheet
@@ -168,7 +170,7 @@ async function addToCourseSheet(email: string, addOns: string[]) {
   ]
 
   const range = encodeURIComponent(`${COURSE_SHEET_NAME}!A:G`)
-  await fetch(
+  const sheetsRes = await fetch(
     `https://sheets.googleapis.com/v4/spreadsheets/${COURSE_SHEET_ID}/values/${range}:append?valueInputOption=RAW&insertDataOption=INSERT_ROWS`,
     {
       method: 'POST',
@@ -181,6 +183,7 @@ async function addToCourseSheet(email: string, addOns: string[]) {
       }),
     }
   )
+  if (!sheetsRes.ok) console.error(`Sheets append failed (${sheetsRes.status}):`, await sheetsRes.text().catch(() => ''))
 }
 
 function getSendGridClient() {
@@ -230,7 +233,7 @@ async function createAttioPerson(email: string, firstName: string, lastName: str
   }
 
   // Assert (upsert) a person record
-  await fetch('https://api.attio.com/v2/objects/people/records?matching_attribute=email_addresses', {
+  const res = await fetch('https://api.attio.com/v2/objects/people/records?matching_attribute=email_addresses', {
     method: 'PUT',
     headers: {
       Authorization: `Bearer ${attioApiKey}`,
@@ -247,6 +250,7 @@ async function createAttioPerson(email: string, firstName: string, lastName: str
       },
     }),
   })
+  if (!res.ok) console.error(`Attio upsert failed (${res.status}):`, await res.text().catch(() => ''))
 }
 
 async function sendSlackBlock(channel: string, blocks: any[], username: string, iconEmoji: string) {
@@ -256,7 +260,7 @@ async function sendSlackBlock(channel: string, blocks: any[], username: string, 
     return
   }
 
-  await fetch('https://slack.com/api/chat.postMessage', {
+  const res = await fetch('https://slack.com/api/chat.postMessage', {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${token}`,
@@ -269,6 +273,7 @@ async function sendSlackBlock(channel: string, blocks: any[], username: string, 
       icon_emoji: iconEmoji,
     }),
   })
+  if (!res.ok) console.error(`Slack post failed (${res.status}):`, await res.text().catch(() => ''))
 }
 
 // ==========================================
@@ -452,7 +457,7 @@ export async function handleMembershipPayment(pi: Stripe.PaymentIntent) {
   try {
     const attioApiKey = process.env.ATTIO_API_KEY
     if (attioApiKey) {
-      await fetch('https://api.attio.com/v2/objects/people/records?matching_attribute=email_addresses', {
+      const attioRes = await fetch('https://api.attio.com/v2/objects/people/records?matching_attribute=email_addresses', {
         method: 'PUT',
         headers: { Authorization: `Bearer ${attioApiKey}`, 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -463,6 +468,7 @@ export async function handleMembershipPayment(pi: Stripe.PaymentIntent) {
           } },
         }),
       })
+      if (!attioRes.ok) console.error(`Attio membership upsert failed (${attioRes.status}):`, await attioRes.text().catch(() => ''))
     }
   } catch (e: any) { errors.push(`Attio: ${e.message}`) }
 

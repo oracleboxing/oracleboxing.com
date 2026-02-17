@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { notifyOps } from '@/lib/slack-notify'
-const sgClient = require('@sendgrid/client')
-const twilio = require('twilio')
+import sgClient from '@sendgrid/client'
+import twilio from 'twilio'
 
 // SendGrid list IDs
 const WAITLIST_LIST_ID = '3a1ba08c-6247-4684-86a2-7b652bf60e5b'
@@ -90,7 +90,7 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ success: true, messageSid: message.sid })
       } catch (smsErr: any) {
         notifyOps(`❌ Abandoned cart SMS failed - ${first_name} (${body.email}) to ${phone}: ${smsErr.message}`)
-        return NextResponse.json({ success: false, error: smsErr.message }, { status: 500 })
+        return NextResponse.json({ success: false, error: 'SMS delivery failed' }, { status: 500 })
       }
 
     } else {

@@ -70,7 +70,7 @@ export async function POST(req: NextRequest) {
         plan: pi.metadata?.plan || '',
         funnel_type: 'membership',
       },
-    })
+    }, { idempotencyKey: `activate-${paymentIntentId}` })
 
     const amountPaid = (pi.amount || 0) / 100
     const planLabel = (pi.metadata?.plan === 'annual' || pi.metadata?.upgraded_to_annual === 'true') ? 'Annual' : 'Monthly'
