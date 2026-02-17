@@ -239,7 +239,7 @@ export default function NewHeroSection() {
   const heroSub = heroConfig?.sub || 'Structured courses, live coaching calls, and a community of dedicated boxers. Learn the fundamentals the right way.'
 
   return (
-    <section className="relative w-full h-[100svh] md:min-h-[100vh] md:h-auto overflow-x-clip overflow-y-clip md:overflow-y-visible flex items-center">
+    <section className="relative w-full min-h-[100svh] md:min-h-[100vh] md:h-auto overflow-x-clip overflow-y-visible flex items-center">
       {/* Kinso-style gradient: gunmetal/silver left -> white center -> warm brown right */}
       <div
         className="absolute inset-0"
