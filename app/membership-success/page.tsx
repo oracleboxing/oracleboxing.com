@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation'
 import { Suspense } from 'react'
 import { trackPurchase } from '@/lib/webhook-tracking'
 import Link from 'next/link'
+import { EmailSniperLink } from '@/components/EmailSniperLink'
 
 function MembershipSuccessContent() {
   const searchParams = useSearchParams()
@@ -81,6 +82,13 @@ function MembershipSuccessContent() {
         {activating && (
           <p className="text-[#49423D]/40 text-xs mb-4">Setting up your membership...</p>
         )}
+
+        <div className="mb-8">
+          <EmailSniperLink
+            message="We just sent you an email with your community invite."
+            sender="noreply@skool.com"
+          />
+        </div>
 
         <p className="text-[#49423D]/60 text-sm mb-10 whitespace-nowrap">
           If you have any questions, reach out to{' '}

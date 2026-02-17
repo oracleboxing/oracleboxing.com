@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { useAnalytics } from '@/hooks/useAnalytics'
 import { trackPurchase as trackPurchaseToSupabase } from '@/lib/webhook-tracking'
 import { convertToUSD, Currency } from '@/lib/currency'
+import { EmailSniperLink } from '@/components/EmailSniperLink'
 
 interface SuccessContentProps {
   sessionId: string
@@ -401,6 +402,12 @@ export function SuccessContent({ sessionId, isPaymentIntent = false, isSubscript
           We will email your receipt and further instructions to{' '}
           <span className="font-medium text-[#37322F]">{customerEmail}</span>.
         </p>
+        <div className="mt-6 mb-4">
+          <EmailSniperLink
+            message="Check your inbox for your receipt and next steps."
+            sender="noreply@skool.com"
+          />
+        </div>
         <div className="text-[#847971] text-sm">
           Redirecting to onboarding in <span className="font-semibold text-[#37322F]">{countdown}</span>...
         </div>

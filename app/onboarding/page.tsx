@@ -3,6 +3,7 @@
 import { Suspense, useEffect, useMemo } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { getCalApi } from '@calcom/embed-react'
+import { EmailSniperLink } from '@/components/EmailSniperLink'
 
 function OnboardingContent() {
   const searchParams = useSearchParams()
@@ -128,6 +129,14 @@ function OnboardingContent() {
               <p className="text-xs text-[#847971]">
                 Need to reschedule later? No problem. Just book something now to unlock your access.
               </p>
+            </div>
+
+            {/* Email sniper link */}
+            <div className="mt-8">
+              <EmailSniperLink
+                message="Already booked? Check your email for the Skool community invite."
+                sender="noreply@skool.com"
+              />
             </div>
           </div>
         </div>
