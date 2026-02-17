@@ -94,9 +94,9 @@ export function CheckoutForm({ onSubmit, isLoading, error, currency, product, me
       {/* Card */}
       <div className="w-full max-w-md lg:max-w-3xl bg-white md:bg-white/95 md:backdrop-blur-xl md:rounded-2xl md:shadow-2xl px-4 pt-8 pb-4 sm:p-8 lg:p-12 relative z-10">
         <form onSubmit={handleSubmit} className="max-w-xl mx-auto">
-          {/* Heading + Progress Indicator - same line */}
-          <div className="flex items-start justify-between mb-2 sm:mb-6">
-            <h1 className="text-left text-section font-normal leading-tight">
+          {/* Heading */}
+          <div className="mb-2 sm:mb-6">
+            <h1 className="text-left text-section font-normal leading-tight w-full">
               {product === 'membership' ? (
                 <>
                   <span className="text-[#37322F]">Join the</span><br />
@@ -109,11 +109,6 @@ export function CheckoutForm({ onSubmit, isLoading, error, currency, product, me
                 </>
               )}
             </h1>
-            <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0 pt-2">
-              <span className="text-[10px] sm:text-sm font-medium text-[#37322F] whitespace-nowrap">Your Details</span>
-              <div className="w-5 sm:w-8 h-[2px] bg-[rgba(55,50,47,0.12)]" />
-              <span className="text-[10px] sm:text-sm font-medium text-[#847971] whitespace-nowrap">Payment</span>
-            </div>
           </div>
 
           {/* Description */}
@@ -264,12 +259,6 @@ export function CheckoutForm({ onSubmit, isLoading, error, currency, product, me
 
           {/* Trust signal */}
           <div className="flex items-center justify-center gap-4 mt-4 text-[#49423D]/60 text-xs">
-            <span className="flex items-center gap-1.5">
-              <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
-              </svg>
-              Win your money-back guarantee
-            </span>
             <span className="flex items-center gap-1.5">
               <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>

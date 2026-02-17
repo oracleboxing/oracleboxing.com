@@ -364,6 +364,7 @@ export function StripeCheckout({
               fontFamily: 'Inter, system-ui, sans-serif',
               fontSizeBase: '16px',
               spacingUnit: '4px',
+              spacingGridRow: '16px',
               borderRadius: '8px',
             },
             rules: {
