@@ -110,7 +110,7 @@ export default function MembershipPricingSection() {
           >
             {/* Best Value Badge */}
             <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#37322F] text-white px-4 py-1 rounded-full text-sm font-medium">
-              Best Value — Save ${annualSavings}
+              Best Value - Save ${annualSavings}
             </div>
 
             <div className="mb-6">

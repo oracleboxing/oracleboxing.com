@@ -103,7 +103,7 @@ export function HeroSection() {
     <section className="relative bg-white pt-6 sm:pt-8 md:pt-12 pb-12 md:pb-16 overflow-hidden border-b border-[rgba(55,50,47,0.12)]">
       <div className="max-w-[1200px] mx-auto px-4 md:px-8">
         <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
-          {/* Left — Text + CTA */}
+          {/* Left - Text + CTA */}
           <div className="flex-1 flex flex-col items-center lg:items-start gap-5 text-center lg:text-left">
             <h1
               className="max-w-[600px] text-[#37322F] text-hero font-normal leading-tight lg:leading-[1.15]"
@@ -132,7 +132,7 @@ export function HeroSection() {
             </div>
           </div>
 
-          {/* Right — Shalyn Transformation */}
+          {/* Right - Shalyn Transformation */}
           <div className="flex-1 w-full max-w-[480px] lg:max-w-none">
             <div className="grid grid-cols-2 gap-px rounded-lg overflow-hidden lg:h-[min(75vh,600px)]">
               <HeroVideo

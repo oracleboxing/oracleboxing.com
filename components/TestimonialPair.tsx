@@ -149,7 +149,7 @@ export const allTestimonials = {
     image: "https://sb.oracleboxing.com/Website/meiyan.webp"
   },
   mikeForouzanfar: {
-    quote: "Oracle Boxing is all about fun, form, and focus—embedded in a strong, supportive community of coaches and fellow boxing enthusiasts.",
+    quote: "Oracle Boxing is all about fun, form, and focus-embedded in a strong, supportive community of coaches and fellow boxing enthusiasts.",
     name: "Mike Forouzanfar",
     role: "Consultant Urologist & Pelvic-Floor Specialist",
     image: "https://sb.oracleboxing.com/Website/Forouzanfar-M.-Uroloog_LR.webp"
@@ -167,7 +167,7 @@ export const allTestimonials = {
     image: "https://sb.oracleboxing.com/Website/leo.webp"
   },
   pascalPerau: {
-    quote: "Real coaching, real people, real progress — that's what makes this class different.",
+    quote: "Real coaching, real people, real progress - that's what makes this class different.",
     name: "Pascal Perau",
     role: "Software Developer",
     image: "https://sb.oracleboxing.com/Website/pascal.webp"

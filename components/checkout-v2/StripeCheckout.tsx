@@ -156,7 +156,7 @@ const PRODUCT_DETAILS: Record<string, {
       {
         name: 'Kinetic Chain & Power',
         subtitle: '80+ Sessions',
-        description: 'Learn how your body really generates punching power through the kinetic chain—legs, hips, trunk, and arms working as one.',
+        description: 'Learn how your body really generates punching power through the kinetic chain-legs, hips, trunk, and arms working as one.',
         bullets: [
           'Rotation and weight transfer mechanics',
           'Kinetic linkage drills',
@@ -928,7 +928,7 @@ export function StripeCheckout({
                 <p className="text-sm text-[#605A57] leading-relaxed mb-4">
                   {product === 'membership'
                     ? (effectivePlan === 'annual'
-                      ? 'Everything in the monthly membership, plus Boxing from First Principles course, a free 1-on-1 coaching call, and a custom starter workout plan.'
+                      ? 'Everything in the monthly membership, plus Boxing from First Principles course and a free 1-on-1 coaching call.'
                       : 'Full access to weekly coaching calls, course library, private community, personal video feedback, and the grading system.')
                     : 'Prove you have what it takes. Show up twice a week, submit one video, and earn your place in Oracle Boxing. Win your money back if you complete the challenge.'}
                 </p>
@@ -943,7 +943,6 @@ export function StripeCheckout({
                     "Grading System Access",
                     "Boxing from First Principles Course",
                     "Free 1-on-1 Coaching Call",
-                    "Custom 2-Week Starter Workout Plan",
                   ] : [
                     "Weekly Group Coaching Calls",
                     "Full Course Library Access",
@@ -1087,7 +1086,7 @@ export function StripeCheckout({
                           )}
                           <div className="flex items-baseline gap-2 mb-2">
                             <h4 className="font-semibold text-[#37322F]">{currentModule.name}</h4>
-                            <span className="text-xs text-[#847971]">— {currentModule.subtitle}</span>
+                            <span className="text-xs text-[#847971]">- {currentModule.subtitle}</span>
                           </div>
                           <p className="text-sm text-[#605A57] mb-3">{currentModule.description}</p>
                           <ul className="space-y-1.5">

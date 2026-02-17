@@ -39,7 +39,7 @@ const membershipFaqData: FAQItem[] = [
   },
   {
     question: "How does the leaderboard system work?",
-    answer: "Every time you give feedback, share wins, or post videos—you earn points. Top 10 members each week win free 1:1 coaching calls with Oliver or Toni. This keeps the community competitive and generous at the same time."
+    answer: "Every time you give feedback, share wins, or post videos-you earn points. Top 10 members each week win free 1:1 coaching calls with Oliver or Toni. This keeps the community competitive and generous at the same time."
   },
   {
     question: "Can I still get 1-on-1 coaching?",
@@ -51,7 +51,7 @@ const membershipFaqData: FAQItem[] = [
   },
   {
     question: "Do I need to be in the UK?",
-    answer: "No. We have members worldwide. All calls, feedback, and resources are delivered online—your timezone won't hold you back."
+    answer: "No. We have members worldwide. All calls, feedback, and resources are delivered online-your timezone won't hold you back."
   },
   {
     question: "What happens if I miss a few weeks?",
@@ -63,7 +63,7 @@ const membershipFaqData: FAQItem[] = [
   },
   {
     question: "What's the best way to get started?",
-    answer: "Once you join:\n\n• Introduce yourself in the Introductions category (with a short shadowboxing clip)\n• Start the Boxing Masterclass course in the Classroom\n• Book your first live call or post your first clip for feedback\n\nStill have questions?\nEmail team@oracleboxing.com or DM the founders inside Skool — we'll get you sorted."
+    answer: "Once you join:\n\n• Introduce yourself in the Introductions category (with a short shadowboxing clip)\n• Start the Boxing Masterclass course in the Classroom\n• Book your first live call or post your first clip for feedback\n\nStill have questions?\nEmail team@oracleboxing.com or DM the founders inside Skool - we'll get you sorted."
   }
 ]
 

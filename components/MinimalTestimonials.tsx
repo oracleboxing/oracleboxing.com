@@ -36,7 +36,7 @@ const testimonials: Testimonial[] = [
     image: "https://sb.oracleboxing.com/Website/meiyan.webp"
   },
   {
-    quote: "Oracle Boxing is all about fun, form, and focus—embedded in a strong, supportive community of coaches and fellow boxing enthusiasts.",
+    quote: "Oracle Boxing is all about fun, form, and focus-embedded in a strong, supportive community of coaches and fellow boxing enthusiasts.",
     name: "Mike Forouzanfar",
     role: "Consultant Urologist & Pelvic-Floor Specialist",
     image: "https://sb.oracleboxing.com/Website/Forouzanfar-M.-Uroloog_LR.webp"

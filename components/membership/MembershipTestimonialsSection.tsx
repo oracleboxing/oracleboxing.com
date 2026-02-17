@@ -33,7 +33,7 @@ export default function MembershipTestimonialsSection() {
       image: "https://sb.oracleboxing.com/Website/meiyan.webp"
     },
     {
-      quote: "Real coaching, real people, real progress — that's what makes this class different.",
+      quote: "Real coaching, real people, real progress - that's what makes this class different.",
       name: "Pascal Perau",
       role: "Software Developer",
       image: "https://sb.oracleboxing.com/Website/pascal.webp"

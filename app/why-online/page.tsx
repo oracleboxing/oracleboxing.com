@@ -40,7 +40,7 @@ const methods: MethodData[] = [
     ratings: {
       feedback: { rating: "variable", note: "You'll hear 'hands up' or 'good job' but rarely the technical breakdown you need." },
       time: { rating: "variable", note: "Most sessions are conditioning drills. You walk out thinking 'no one taught me a thing.'" },
-      price: { rating: "good", note: "£50-100/month is good value — if you find a proper coach." },
+      price: { rating: "good", note: "£50-100/month is good value - if you find a proper coach." },
       quality: { rating: "variable", note: "As Chris Eubank said: boxing coaches are PE teachers now. The real ones are gold dust." },
       community: { rating: "variable", note: "A great gym feels like family. A bad one reinforces the same mistakes until they become gospel." },
       sparring: { rating: "good", note: "Available, but most gyms throw you in too early. Sparring only helps if you're ready." },
@@ -65,7 +65,7 @@ const methods: MethodData[] = [
       feedback: { rating: "good", note: "Coaches review your footage, give detailed corrections, demonstrate fixes. All recorded to watch back." },
       time: { rating: "good", note: "No travelling, no filler workouts. Every session is focused on skill, not just conditioning." },
       price: { rating: "good", note: "Similar to a gym but with exponentially more coaching. Better cost per rate of progress." },
-      quality: { rating: "good", note: "Online coaches are market-tested. Bad coaches don't survive — the internet calls them out." },
+      quality: { rating: "good", note: "Online coaches are market-tested. Bad coaches don't survive - the internet calls them out." },
       community: { rating: "good", note: "Coaching others is the fastest way to learn yourself. Every member becomes a coach." },
       sparring: { rating: "variable", note: "Prepares you to join a gym with solid fundamentals. Makes sparring productive instead of destructive." },
     },
@@ -140,7 +140,7 @@ export default function WhyOnlinePage() {
                 The Fastest Way to Get Good at Boxing
               </h1>
               <p className="text-[#605A57] text-title max-w-[800px] mx-auto leading-relaxed">
-                If you've ever walked out of training thinking "I just learned absolutely nothing that session" — or you keep getting beaten up by kids half your size in sparring — this is for you.
+                If you've ever walked out of training thinking "I just learned absolutely nothing that session" - or you keep getting beaten up by kids half your size in sparring - this is for you.
               </p>
             </div>
 
@@ -246,7 +246,7 @@ export default function WhyOnlinePage() {
               Ready to Start?
             </h2>
             <p className="text-white/70 text-title mb-8 leading-relaxed">
-              Online coaching takes the best parts of every method and strips away the flaws. It doesn't replace sparring — it makes sparring productive instead of destructive.
+              Online coaching takes the best parts of every method and strips away the flaws. It doesn't replace sparring - it makes sparring productive instead of destructive.
             </p>
             <ArrowButton href={getCheckoutUrl()}>
               Start Now

@@ -15,14 +15,14 @@ interface CourseFAQProps {
 const bffpFaqData: FAQItem[] = [
   {
     question: "What is Boxing Masterclass?",
-    answer: "Boxing Masterclass (BFFP) is Oracle Boxing's flagship course — a complete, step-by-step framework for mastering boxing from the ground up. It teaches the real fundamentals most boxers never learn properly, built around a scientific and first-principles approach."
+    answer: "Boxing Masterclass (BFFP) is Oracle Boxing's flagship course - a complete, step-by-step framework for mastering boxing from the ground up. It teaches the real fundamentals most boxers never learn properly, built around a scientific and first-principles approach."
   },
   {
     question: "Who is this course for?",
     answer: `• Beginners or late starters who want to learn boxing properly at their own pace
 • Self-taught boxers who want to fix bad habits and understand the why behind technique
 • Coaches who want a structured, science-based foundation to improve their teaching
-• Anyone who wants to move, think, and perform like a real boxer — not just hit pads`
+• Anyone who wants to move, think, and perform like a real boxer - not just hit pads`
   },
   {
     question: "What's included in the standalone version?",
@@ -37,12 +37,12 @@ const bffpFaqData: FAQItem[] = [
     question: "What will I learn inside the course?",
     answer: `The course is structured around six principles that form the foundation of all boxing skill:
 
-• Sentience — The Mind of the Fighter: mindset, flow state, and emotional control.
-• Anatomy — The Wiring of Performance: nervous system, fascia, and body connection.
-• FORMIS — The Language of Movement: stance, footwork, defence, and transitions.
-• GAMB1T — The Science of Tactics: positioning, pattern recognition, and deception.
-• Engine — The Physiology of Fighting: breathing, conditioning, and energy systems.
-• Mentorship — The Final Principle: discipline, leadership, and long-term mastery.
+• Sentience - The Mind of the Fighter: mindset, flow state, and emotional control.
+• Anatomy - The Wiring of Performance: nervous system, fascia, and body connection.
+• FORMIS - The Language of Movement: stance, footwork, defence, and transitions.
+• GAMB1T - The Science of Tactics: positioning, pattern recognition, and deception.
+• Engine - The Physiology of Fighting: breathing, conditioning, and energy systems.
+• Mentorship - The Final Principle: discipline, leadership, and long-term mastery.
 
 Each principle builds on the last, guiding you toward complete technical and mental control.`
   },
@@ -52,11 +52,11 @@ Each principle builds on the last, guiding you toward complete technical and men
   },
   {
     question: "How long does it take to complete?",
-    answer: "The course is self-paced — most students complete it within 6–10 weeks by studying 3–5 lessons per week. You can revisit any module as often as you like during your access period."
+    answer: "The course is self-paced - most students complete it within 6–10 weeks by studying 3–5 lessons per week. You can revisit any module as often as you like during your access period."
   },
   {
     question: "Is this the same content used in the 6-Week Challenge or Membership?",
-    answer: "Yes — this is the core curriculum that both the 6-Week Challenge and Membership build upon. The standalone version gives you the entire educational system, without coaching or community features."
+    answer: "Yes - this is the core curriculum that both the 6-Week Challenge and Membership build upon. The standalone version gives you the entire educational system, without coaching or community features."
   },
   {
     question: "Do I need any equipment?",
@@ -75,7 +75,7 @@ Each principle builds on the last, guiding you toward complete technical and men
   },
   {
     question: "Can I rewatch lessons after finishing?",
-    answer: "Yes — you can revisit lessons anytime within your access period (6 months for standalone, lifetime for bundle or membership purchases)."
+    answer: "Yes - you can revisit lessons anytime within your access period (6 months for standalone, lifetime for bundle or membership purchases)."
   },
   {
     question: "Who teaches the course?",
@@ -92,14 +92,14 @@ Each principle builds on the last, guiding you toward complete technical and men
   },
   {
     question: "How do I contact support?",
-    answer: "For access or technical help, email team@oracleboxing.com — we usually reply within 24 hours (Mon–Fri)."
+    answer: "For access or technical help, email team@oracleboxing.com - we usually reply within 24 hours (Mon–Fri)."
   }
 ]
 
 const roadmapFaqData: FAQItem[] = [
   {
     question: "What is the Boxing Roadmap?",
-    answer: "The Boxing Roadmap is a 5-phase training program designed to give you a clear, structured path to skill progression. It shows you exactly what to work on each week — no guesswork, no random drills — just a proven blueprint to build real boxing fundamentals."
+    answer: "The Boxing Roadmap is a 5-phase training program designed to give you a clear, structured path to skill progression. It shows you exactly what to work on each week - no guesswork, no random drills - just a proven blueprint to build real boxing fundamentals."
   },
   {
     question: "Who is this course for?",
@@ -120,11 +120,11 @@ const roadmapFaqData: FAQItem[] = [
   },
   {
     question: "How does the program work?",
-    answer: "Each phase of the Roadmap builds upon the last — covering footwork, defence, combinations, rhythm, range, and ring awareness. You'll follow the weekly plan, watch the corresponding lessons, and practice each round as outlined in the templates."
+    answer: "Each phase of the Roadmap builds upon the last - covering footwork, defence, combinations, rhythm, range, and ring awareness. You'll follow the weekly plan, watch the corresponding lessons, and practice each round as outlined in the templates."
   },
   {
     question: "How long does it take to complete?",
-    answer: "The full roadmap takes around 5 months (20 weeks) to complete if followed as structured. However, you can move at your own pace — faster or slower depending on your training schedule."
+    answer: "The full roadmap takes around 5 months (20 weeks) to complete if followed as structured. However, you can move at your own pace - faster or slower depending on your training schedule."
   },
   {
     question: "Is the Boxing Roadmap beginner-friendly?",
@@ -132,8 +132,8 @@ const roadmapFaqData: FAQItem[] = [
   },
   {
     question: "What's the difference between the Roadmap and Boxing Masterclass (BFFP)?",
-    answer: `• BFFP teaches the deep theory, biomechanics, and principles of boxing — the why.
-• The Roadmap gives you the weekly how — the step-by-step practice plan that turns that theory into habit.
+    answer: `• BFFP teaches the deep theory, biomechanics, and principles of boxing - the why.
+• The Roadmap gives you the weekly how - the step-by-step practice plan that turns that theory into habit.
 
 Many boxers take both: BFFP for understanding, and the Roadmap for consistent daily structure.`
   },
@@ -154,11 +154,11 @@ Many boxers take both: BFFP for understanding, and the Roadmap for consistent da
   },
   {
     question: "Can I rewatch lessons after finishing?",
-    answer: "Yes — you'll keep full access for life."
+    answer: "Yes - you'll keep full access for life."
   },
   {
     question: "Who teaches the course?",
-    answer: "The program is taught by Oliver Betts (founder of Oracle Boxing) — using the same system that's helped hundreds of students master their form and build real boxing skill."
+    answer: "The program is taught by Oliver Betts (founder of Oracle Boxing) - using the same system that's helped hundreds of students master their form and build real boxing skill."
   },
   {
     question: "What results can I expect?",
@@ -178,7 +178,7 @@ Many boxers take both: BFFP for understanding, and the Roadmap for consistent da
 const vaultFaqData: FAQItem[] = [
   {
     question: "What is the Boxing Clinic?",
-    answer: "The Boxing Clinic is Oracle Boxing's on-demand replay library — a collection of recorded live coaching calls, workshops, and sparring reviews led by Oliver, Toni, and guest coaches. It's designed to help you learn through real examples, corrections, and student transformations."
+    answer: "The Boxing Clinic is Oracle Boxing's on-demand replay library - a collection of recorded live coaching calls, workshops, and sparring reviews led by Oliver, Toni, and guest coaches. It's designed to help you learn through real examples, corrections, and student transformations."
   },
   {
     question: "Who is the Boxing Clinic for?",
@@ -196,7 +196,7 @@ const vaultFaqData: FAQItem[] = [
   },
   {
     question: "How are the replays organised?",
-    answer: `All sessions are tagged and sorted by topic — for example:
+    answer: `All sessions are tagged and sorted by topic - for example:
 
 • Footwork & Movement
 • Defence & Reactions
@@ -221,7 +221,7 @@ You can easily search by theme or coach to find what you need.`
   },
   {
     question: "Do I need previous experience?",
-    answer: "No — beginners, intermediates, and even coaches can benefit. Watching real corrections accelerates learning and sharpens your eye for technique."
+    answer: "No - beginners, intermediates, and even coaches can benefit. Watching real corrections accelerates learning and sharpens your eye for technique."
   },
   {
     question: "How do I access the replays?",
@@ -233,7 +233,7 @@ You can easily search by theme or coach to find what you need.`
   },
   {
     question: "Who teaches the sessions?",
-    answer: "Primarily Oliver Betts and Coach Toni, with guest appearances from Coach Dave and advanced Oracle Boxing members. Each coach brings a unique angle — from biomechanics to pro-level ring IQ."
+    answer: "Primarily Oliver Betts and Coach Toni, with guest appearances from Coach Dave and advanced Oracle Boxing members. Each coach brings a unique angle - from biomechanics to pro-level ring IQ."
   },
   {
     question: "How do I get the most out of it?",
@@ -250,22 +250,22 @@ You can easily search by theme or coach to find what you need.`
 const bundleFaqData: FAQItem[] = [
   {
     question: "What is Oracle Boxing Bundle?",
-    answer: "Oracle Boxing Bundle is the complete bundle of all Oracle Boxing courses — a full system that teaches boxing from the ground up through movement, tactics, and mindset. It's the ultimate package for anyone who wants to learn real boxing from first principles."
+    answer: "Oracle Boxing Bundle is the complete bundle of all Oracle Boxing courses - a full system that teaches boxing from the ground up through movement, tactics, and mindset. It's the ultimate package for anyone who wants to learn real boxing from first principles."
   },
   {
     question: "What's included in the bundle?",
     answer: `You get full access to:
 
-• Boxing Masterclass (BFFP) — The foundation of technical skill and understanding.
-• Boxing Roadmap — Your 5-phase training plan to apply what you learn, week by week.
-• Boxing Clinic — Replay library of live coaching calls, corrections, and real sparring analysis.
-• Recordings Vault — Exclusive technical archives and behind-the-scenes training sessions.
+• Boxing Masterclass (BFFP) - The foundation of technical skill and understanding.
+• Boxing Roadmap - Your 5-phase training plan to apply what you learn, week by week.
+• Boxing Clinic - Replay library of live coaching calls, corrections, and real sparring analysis.
+• Recordings Vault - Exclusive technical archives and behind-the-scenes training sessions.
 
-Each course builds on the other to give you a complete, structured system — theory, application, and examples — all in one place.`
+Each course builds on the other to give you a complete, structured system - theory, application, and examples - all in one place.`
   },
   {
     question: "Who is Oracle Boxing Bundle for?",
-    answer: `• Boxers who want to master the fundamentals properly — not just train for fitness.
+    answer: `• Boxers who want to master the fundamentals properly - not just train for fitness.
 • Intermediate fighters who feel stuck and want to rebuild their form and IQ.
 • Coaches looking for a unified, principle-based system to improve their teaching.
 • Anyone serious about developing real skill, precision, and understanding.`
@@ -287,21 +287,21 @@ You'll have everything needed to progress like a coached fighter, even if you tr
   },
   {
     question: "Is this suitable for beginners?",
-    answer: "Yes. The system was designed to help complete beginners build strong foundations — and help experienced fighters rebuild weak ones. You'll move from theory to application step by step."
+    answer: "Yes. The system was designed to help complete beginners build strong foundations - and help experienced fighters rebuild weak ones. You'll move from theory to application step by step."
   },
   {
     question: "What's the difference between this and the 6-Week Challenge or Membership?",
     answer: `• The 6-Week Challenge is a short-term accountability program with live coaching and a refund guarantee.
 • The Full Access Membership includes all courses plus live calls, feedback, and community features.
-• Oracle Boxing Bundle Bundle is courses only — lifetime access to the full educational system, without coaching or community.`
+• Oracle Boxing Bundle Bundle is courses only - lifetime access to the full educational system, without coaching or community.`
   },
   {
     question: "Do I need equipment?",
-    answer: "Just the basics — gloves, wraps, and a safe space to train or shadowbox. A phone or camera helps if you want to film and analyse your form."
+    answer: "Just the basics - gloves, wraps, and a safe space to train or shadowbox. A phone or camera helps if you want to film and analyse your form."
   },
   {
     question: "Who teaches the system?",
-    answer: "All lessons are taught by Oliver Betts (founder), Coach Toni, and Coach Dave — blending old-school craft with modern performance science."
+    answer: "All lessons are taught by Oliver Betts (founder), Coach Toni, and Coach Dave - blending old-school craft with modern performance science."
   },
   {
     question: "How do I access everything after purchase?",
@@ -318,7 +318,7 @@ You'll have everything needed to progress like a coached fighter, even if you tr
   },
   {
     question: "Can I upgrade later to get live coaching?",
-    answer: "Yes — you can upgrade anytime to the Full Access Membership or 1-on-1 Coaching to add live calls, feedback, and mentorship on top of your bundle."
+    answer: "Yes - you can upgrade anytime to the Full Access Membership or 1-on-1 Coaching to add live calls, feedback, and mentorship on top of your bundle."
   },
   {
     question: "How do I contact support?",

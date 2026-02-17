@@ -274,10 +274,7 @@ export default function ChallengeFAQSection() {
                 >
                   <div className="space-y-3">
                     <p>
-                      <span className="text-[#37322F] font-medium">Yes, cancel anytime.</span> Monthly memberships can be cancelled at the end of any billing period. No contracts, no cancellation fees.
-                    </p>
-                    <p>
-                      Annual memberships run for 12 months. You won't be charged again unless you choose to renew.
+                      <span className="text-[#37322F] font-medium">Yes, cancel anytime.</span> Both monthly and annual memberships can be cancelled at the end of any billing period. No contracts, no cancellation fees.
                     </p>
                   </div>
                 </FAQItem>
@@ -292,7 +289,7 @@ export default function ChallengeFAQSection() {
             >
               <div className="space-y-3">
                 <p>
-                  <span className="text-[#37322F] font-medium">Yes—but it's invite-only.</span>
+                  <span className="text-[#37322F] font-medium">Yes-but it's invite-only.</span>
                 </p>
                 <p>
                   If you show potential and commitment, you may be invited to our 1-on-1 Coaching
@@ -316,7 +313,7 @@ export default function ChallengeFAQSection() {
                   If you genuinely can't make any of the live sessions, you can still participate by submitting video of your training for feedback. The coaches review every submission personally.
                 </p>
                 <p>
-                  That said, the live classes are where the real learning happens—real-time corrections, drilling with others, and immediate feedback from coaches.
+                  That said, the live classes are where the real learning happens-real-time corrections, drilling with others, and immediate feedback from coaches.
                 </p>
               </div>
             </FAQItem>
@@ -332,7 +329,7 @@ export default function ChallengeFAQSection() {
                   <span className="text-[#37322F] font-medium">No equipment required to start.</span> You can train with shadowboxing alone.
                 </p>
                 <p>
-                  If you want to level up, a heavy bag, slip bag, or mirror can help—but they're optional. Most members start with nothing and add equipment as they progress.
+                  If you want to level up, a heavy bag, slip bag, or mirror can help-but they're optional. Most members start with nothing and add equipment as they progress.
                 </p>
               </div>
             </FAQItem>

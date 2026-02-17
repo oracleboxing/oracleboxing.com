@@ -40,7 +40,7 @@ export default function FundamentalsWarningSection() {
                 <p>Right now, every time you train without proper fundamentals, you're drilling the wrong movements deeper into your muscle memory.</p>
                 <p>That damage compounds. Week after week, round after round. The longer you wait, the harder it becomes to fix.</p>
                 <p>And eventually, you'll spend more time unlearning mistakes than actually progressing. That's months of wasted effort you can't get back.</p>
-                <p className="text-[#37322F] font-medium">Stop reinforcing bad habits. Build the right foundation now — before it costs you even more time.</p>
+                <p className="text-[#37322F] font-medium">Stop reinforcing bad habits. Build the right foundation now - before it costs you even more time.</p>
               </div>
             </div>
 

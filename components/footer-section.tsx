@@ -69,9 +69,10 @@ export default function FooterSection() {
             <div>
               <h4 className="text-[#37322F] text-xs font-semibold uppercase tracking-wider mb-4">Product</h4>
               <ul className="space-y-2.5">
-                <li><Link href="/#how-it-works" className="text-[#605A57] hover:text-[#37322F] text-sm transition-colors">How it Works</Link></li>
-                <li><Link href="/#testimonials" className="text-[#605A57] hover:text-[#37322F] text-sm transition-colors">Testimonials</Link></li>
-                <li><Link href="/#faq" className="text-[#605A57] hover:text-[#37322F] text-sm transition-colors">FAQs</Link></li>
+                <li><Link href="/#transformations" className="text-[#605A57] hover:text-[#37322F] text-sm transition-colors">Transformations</Link></li>
+                <li><Link href="/#whats-included" className="text-[#605A57] hover:text-[#37322F] text-sm transition-colors">What&apos;s Included</Link></li>
+                <li><Link href="/#pricing" className="text-[#605A57] hover:text-[#37322F] text-sm transition-colors">Pricing</Link></li>
+                <li><Link href="/#faq" className="text-[#605A57] hover:text-[#37322F] text-sm transition-colors">FAQ</Link></li>
               </ul>
             </div>
 

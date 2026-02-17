@@ -50,7 +50,7 @@ const baseFaqData: FAQItem[] = [
   },
   {
     question: "What stuff do I need?",
-    answer: "Just your phone (to record videos) and boxing gear — gloves, hand wraps, and a bag or space to shadowbox. You don't need a gym."
+    answer: "Just your phone (to record videos) and boxing gear - gloves, hand wraps, and a bag or space to shadowbox. You don't need a gym."
   },
   {
     question: "How do I send videos?",
@@ -68,11 +68,11 @@ const baseFaqData: FAQItem[] = [
   },
   {
     question: "What if I don't finish?",
-    answer: "You still get to keep the course, community, and live calls for your 6 weeks — but you won't get your money back."
+    answer: "You still get to keep the course, community, and live calls for your 6 weeks - but you won't get your money back."
   },
   {
     question: "Can I keep going after the challenge?",
-    answer: "Yes — most people join the Full Access Membership after they finish. That gives you more calls, harder training, and all our other programs."
+    answer: "Yes - most people join the Full Access Membership after they finish. That gives you more calls, harder training, and all our other programs."
   },
   {
     question: "How do I get help?",
@@ -94,7 +94,7 @@ const FAQSection = ({ onCTAClick, onOpenPricing }: FAQSectionProps) => {
     baseFaqData[0],
     {
       question: "How does the money-back promise work?",
-      answer: `You pay ${formattedPrice} to join. Do everything we ask — join coaching calls, post training videos, finish the course, and come to both check-in calls — and you'll get all your money back in 1-2 weeks.`
+      answer: `You pay ${formattedPrice} to join. Do everything we ask - join coaching calls, post training videos, finish the course, and come to both check-in calls - and you'll get all your money back in 1-2 weeks.`
     },
     ...baseFaqData.slice(1)
   ]

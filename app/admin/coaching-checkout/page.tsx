@@ -260,8 +260,8 @@ export default function AdminCoachingCheckout() {
                     onChange={(e) => setTier(e.target.value as CoachingTier)}
                     className={selectClass}
                   >
-                    <option value="tier_1">Tier 1 — {formatPrice(coachTierPrices.tier_1)}</option>
-                    <option value="tier_2">Tier 2 — {formatPrice(coachTierPrices.tier_2)}</option>
+                    <option value="tier_1">Tier 1 - {formatPrice(coachTierPrices.tier_1)}</option>
+                    <option value="tier_2">Tier 2 - {formatPrice(coachTierPrices.tier_2)}</option>
                   </select>
                   <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
                 </div>
@@ -291,7 +291,7 @@ export default function AdminCoachingCheckout() {
                     className={selectClass}
                   >
                     <option value="no">No</option>
-                    <option value="yes">Yes — 10% off</option>
+                    <option value="yes">Yes - 10% off</option>
                   </select>
                   <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
                 </div>

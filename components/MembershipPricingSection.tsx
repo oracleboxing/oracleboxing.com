@@ -26,7 +26,7 @@ export default function MembershipPricingSection() {
 
       <div className="max-w-5xl mx-auto relative z-10">
         {/* Section header */}
-        <div className="text-center mb-6 md:mb-10 py-10 md:py-0 bg-[#37322F] md:bg-transparent">
+        <div className="text-center mb-6 md:mb-10 py-10 md:py-0 bg-[#37322F] md:bg-transparent hidden md:block">
           <h2 className="text-3xl md:text-4xl font-normal leading-tight">
             <span className="text-white">Full Access </span>
             <span className="text-white/70">Membership</span>
@@ -83,7 +83,7 @@ export default function MembershipPricingSection() {
 
             <div className="flex flex-col gap-3 mb-10 max-w-xs mx-auto flex-1">
               <p className="text-[#49423D]/70 text-sm text-left italic mb-1">Everything in Monthly, plus:</p>
-              {['Save $267/yr vs monthly', 'Boxing from First Principles course', 'Free 1-on-1 coaching call', 'Custom 2-week starter workout plan'].map((feature, index) => (
+              {['Save $267/yr vs monthly', 'Boxing from First Principles course', 'Free 1-on-1 coaching call'].map((feature, index) => (
                 <div key={index} className="flex items-center gap-3">
                   <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="flex-shrink-0">
                     <circle cx="10" cy="10" r="10" fill="#E8F5E9" />

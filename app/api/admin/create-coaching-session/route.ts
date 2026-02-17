@@ -214,7 +214,7 @@ export async function POST(req: NextRequest) {
       try {
         const { notifyOps } = await import('@/lib/slack-notify');
         await notifyOps(`Coaching link created for ${name}`, { blocks: [
-          { type: 'context', elements: [{ type: 'mrkdwn', text: `🔗 *Coaching link created* — *${name}* (${email}) | ${getTierDisplayName(tier)} w/ ${coach} | $${calculation.finalPrice} full payment` }] }
+          { type: 'context', elements: [{ type: 'mrkdwn', text: `🔗 *Coaching link created* - *${name}* (${email}) | ${getTierDisplayName(tier)} w/ ${coach} | $${calculation.finalPrice} full payment` }] }
         ]});
         await logger.completed(`Coaching session created (full) for ${email}`, { paymentIntentId: paymentIntent.id, email, tier, coach, paymentPlan, amount: calculation.finalPrice });
       } catch {}
@@ -270,7 +270,7 @@ export async function POST(req: NextRequest) {
       try {
         const { notifyOps } = await import('@/lib/slack-notify');
         await notifyOps(`Coaching link created for ${name}`, { blocks: [
-          { type: 'context', elements: [{ type: 'mrkdwn', text: `🔗 *Coaching link created* — *${name}* (${email}) | ${getTierDisplayName(tier)} w/ ${coach} | $${calculation.monthlyAmount} × 2 split` }] }
+          { type: 'context', elements: [{ type: 'mrkdwn', text: `🔗 *Coaching link created* - *${name}* (${email}) | ${getTierDisplayName(tier)} w/ ${coach} | $${calculation.monthlyAmount} × 2 split` }] }
         ]});
         await logger.completed(`Coaching session created (split) for ${email}`, { paymentIntentId: paymentIntent.id, email, tier, coach, paymentPlan, amount: calculation.monthlyAmount });
       } catch {}
@@ -323,7 +323,7 @@ export async function POST(req: NextRequest) {
       try {
         const { notifyOps } = await import('@/lib/slack-notify');
         await notifyOps(`Coaching link created for ${name}`, { blocks: [
-          { type: 'context', elements: [{ type: 'mrkdwn', text: `🔗 *Coaching link created* — *${name}* (${email}) | ${getTierDisplayName(tier)} w/ ${coach} | $${calculation.monthlyAmount}/mo × 3` }] }
+          { type: 'context', elements: [{ type: 'mrkdwn', text: `🔗 *Coaching link created* - *${name}* (${email}) | ${getTierDisplayName(tier)} w/ ${coach} | $${calculation.monthlyAmount}/mo × 3` }] }
         ]});
         await logger.completed(`Coaching session created (monthly) for ${email}`, { setupIntentId: setupIntent.id, email, tier, coach, paymentPlan, monthlyAmount: calculation.monthlyAmount });
       } catch {}

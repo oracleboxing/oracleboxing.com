@@ -31,7 +31,7 @@ export default function TransformationStory({ onCTAClick }: TransformationStoryP
       title: "Week 6! Here you are... and damn that went fast!",
       content: [
         "Even today, while still recovering from a bit of a flu, I somehow found myself waking up at 6:40 AM for a +5km run.",
-        "I can genuinely SEE and FEEL the shift happening — and it's all been sparked by being part of Oracle Boxing.",
+        "I can genuinely SEE and FEEL the shift happening - and it's all been sparked by being part of Oracle Boxing.",
         "The value that the coaches bring is WAY BEYOND what I ever expected when I joined this challenge."
       ],
       hashtag: "#FUCKPLANB"

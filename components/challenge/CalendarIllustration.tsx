@@ -64,7 +64,7 @@ export default function CalendarIllustration({ width = 400, height = 250, classN
                     <div className="text-[7px] text-[#847971] text-center">+{dayData.sessions.length - 3}</div>
                   )}
                   {dayData.sessions.length === 0 && (
-                    <div className="text-[7px] text-[#D1CCC8] text-center">—</div>
+                    <div className="text-[7px] text-[#D1CCC8] text-center">-</div>
                   )}
                 </div>
               </div>

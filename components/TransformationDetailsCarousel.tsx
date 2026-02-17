@@ -200,6 +200,7 @@ export function TransformationDetailsCarousel() {
   const [dragOffset, setDragOffset] = useState(0)
   const desktopCarouselRef = useRef<HTMLDivElement>(null)
   const desktopVideoRefs = useRef<(HTMLVideoElement | null)[]>([])
+  const mobileVideoRefs = useRef<(HTMLVideoElement | null)[]>([])
 
   // Counting animations for header
   const { count: daysCount, elementRef: daysRef } = useCountUp(21, 1500)
@@ -238,6 +239,15 @@ export function TransformationDetailsCarousel() {
           video.pause()
           video.currentTime = 0
         }
+      }
+    })
+  }, [currentIndex])
+
+  // Handle video playback for mobile
+  useEffect(() => {
+    mobileVideoRefs.current.forEach((video) => {
+      if (video) {
+        video.play().catch(() => {})
       }
     })
   }, [currentIndex])
@@ -514,6 +524,7 @@ export function TransformationDetailsCarousel() {
                       {/* Video loads on top */}
                       <video
                         key={`mobile-before-${currentIndex}`}
+                        ref={(el) => { mobileVideoRefs.current[0] = el }}
                         src={`${BASE_URL}${item.beforeVideo}`}
                         autoPlay
                         muted
@@ -541,6 +552,7 @@ export function TransformationDetailsCarousel() {
                       {/* Video loads on top */}
                       <video
                         key={`mobile-after-${currentIndex}`}
+                        ref={(el) => { mobileVideoRefs.current[1] = el }}
                         src={`${BASE_URL}${item.afterVideo}`}
                         autoPlay
                         muted

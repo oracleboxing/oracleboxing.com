@@ -270,7 +270,7 @@ export default function NewHeroSection() {
       {/* Noise texture removed for performance */}
 
       {/* Content */}
-      <div className="relative z-20 w-full max-w-[1400px] mx-auto px-6 md:px-12 lg:pl-16 lg:pr-0 pt-[max(7rem,12vh)] pb-16 md:py-0 overflow-visible">
+      <div className="relative z-20 w-full max-w-[1400px] mx-auto px-6 md:px-12 lg:pl-16 lg:pr-0 pt-[max(7rem,calc(env(safe-area-inset-top)+5rem))] pb-16 md:py-0 overflow-visible">
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20 overflow-visible">
 
           {/* Left - Text + CTA */}

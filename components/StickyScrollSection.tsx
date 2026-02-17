@@ -130,7 +130,7 @@ export function FeedbackIllustration() {
               </div>
               <div className="flex-1 min-w-0">
                 <span className="text-[#37322F] text-body font-semibold">{comment.coach}</span>
-                <span className="text-[#9CA3AF] text-[10px] md:text-xs"> — </span>
+                <span className="text-[#9CA3AF] text-[10px] md:text-xs"> - </span>
                 <span className="text-[#6B7280] text-[10px] md:text-xs leading-relaxed">{comment.feedback}</span>
               </div>
             </div>

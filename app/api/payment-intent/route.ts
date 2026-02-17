@@ -88,7 +88,7 @@ export async function GET(req: NextRequest) {
       try { await logger.completed(`Payment intent retrieved: ${paymentIntentId}`, { paymentIntentId, amount: paymentIntent.amount, currency: paymentIntent.currency }); } catch {}
 
       notifyOps(`Checkout opened by ${clientName}`, { blocks: [
-        { type: 'context', elements: [{ type: 'mrkdwn', text: `👀 *Checkout opened* — *${clientName}* | ${product} | $${amount} ${paymentIntent.currency?.toUpperCase()}` }] }
+        { type: 'context', elements: [{ type: 'mrkdwn', text: `👀 *Checkout opened* - *${clientName}* | ${product} | $${amount} ${paymentIntent.currency?.toUpperCase()}` }] }
       ]})
 
       return NextResponse.json({

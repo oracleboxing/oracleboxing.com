@@ -49,7 +49,7 @@ export default function AboutPage() {
                     Oracle Boxing bridges this gap by combining the best of in-person coaching with the scalability of online education. Our members get daily access to expert instruction, detailed feedback, and a proven curriculum that breaks down complex movements into learnable fundamentals.
                   </p>
                   <p className="text-title text-[#605A57] leading-relaxed">
-                    We're building a global community where serious boxers can learn, improve, and connect — regardless of where they live or their experience level.
+                    We're building a global community where serious boxers can learn, improve, and connect - regardless of where they live or their experience level.
                   </p>
                 </div>
                 <div className="bg-[#F7F5F3] rounded-2xl p-8">
@@ -102,7 +102,7 @@ export default function AboutPage() {
                     Fundamentals First
                   </h3>
                   <p className="text-[#605A57] leading-relaxed">
-                    We teach boxing from first principles — breaking down complex movements into fundamental mechanics you can understand and apply.
+                    We teach boxing from first principles - breaking down complex movements into fundamental mechanics you can understand and apply.
                   </p>
                 </div>
 
