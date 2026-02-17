@@ -80,7 +80,7 @@ export default function HomepageHeader() {
   }
 
   return (
-    <header className={`fixed left-0 right-0 z-50 transition-transform duration-300 top-0 ${pricingVisible ? '-translate-y-full' : isScrolled ? '-translate-y-full md:translate-y-0' : 'translate-y-0'} px-4 sm:px-6 lg:px-8 pt-3 sm:pt-4`}>
+    <header className={`fixed left-0 right-0 z-50 transition-transform duration-300 top-0 ${pricingVisible ? '-translate-y-full' : 'translate-y-0'} px-4 sm:px-6 lg:px-8 pt-3 sm:pt-4`}>
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between rounded-2xl border border-white/60 h-14 md:h-16"
         style={{
           background: 'rgba(255, 255, 255, 0.55)',

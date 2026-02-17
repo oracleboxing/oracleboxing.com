@@ -54,11 +54,11 @@ function PlatformVisual() {
   }
 
   return (
-    <div className="relative w-full max-w-[720px] lg:max-w-[820px] mx-auto lg:mx-0">
+    <div className="relative w-[65vw] sm:w-full sm:max-w-[720px] lg:max-w-[820px] ml-auto mr-[4%] sm:mx-auto lg:mx-0">
       {/* Main app window - the "inbox" equivalent */}
       <GlassCard className="w-full">
         {/* Window chrome */}
-        <div className="flex items-center gap-1.5 px-3 py-2 border-b border-white/30">
+        <div className="flex items-center gap-1.5 px-3 py-1.5 border-b border-white/30">
           <div className="w-2.5 h-2.5 rounded-full bg-[#FF5F57]" />
           <div className="w-2.5 h-2.5 rounded-full bg-[#FEBC2E]" />
           <div className="w-2.5 h-2.5 rounded-full bg-[#28C840]" />
@@ -112,7 +112,7 @@ function PlatformVisual() {
           </div>
 
           {/* Main content area */}
-          <div className="flex-1 p-2.5 md:p-4 flex flex-col bg-white/20">
+          <div className="flex-1 p-1.5 md:p-4 flex flex-col bg-white/20">
             {/* Title moved to window chrome bar */}
             <div className="relative flex-1 bg-black/5 rounded-xl overflow-hidden">
               <Image
@@ -137,7 +137,7 @@ function PlatformVisual() {
       </GlassCard>
 
       {/* Community posts - stacked notification cards, top-right */}
-      <div className="absolute bottom-[-35%] left-[20%] md:-top-8 md:-right-[18%] md:bottom-auto md:left-auto lg:-top-10 lg:-right-[20%] z-30 space-y-1 md:space-y-2 w-[220px] md:w-[320px] lg:w-[360px]">
+      <div className="hidden md:block absolute md:-top-8 md:-right-[18%] md:bottom-auto lg:-top-10 lg:-right-[20%] z-30 space-y-1 md:space-y-2 w-[220px] md:w-[320px] lg:w-[360px]">
           {/* Post 1 - Mike */}
           <GlassCard className="p-2 md:p-2.5">
             <div className="flex items-center gap-2 mb-1.5">
@@ -164,8 +164,8 @@ function PlatformVisual() {
       </div>
 
       {/* Coaching call - mobile device window, bottom-left (large, like Kinso) */}
-      <div className="absolute bottom-[-18%] left-[-20%] md:bottom-[-22%] md:left-[-10%] lg:bottom-[-26%] lg:left-[-12%] z-20">
-        <div className="relative w-[200px] md:w-[240px] lg:w-[280px]">
+      <div className="absolute bottom-[-12%] left-[-35%] md:bottom-[-22%] md:left-[-10%] lg:bottom-[-26%] lg:left-[-12%] z-20">
+        <div className="relative w-[45vw] sm:w-[200px] md:w-[240px] lg:w-[280px]">
           {/* Glass card frame */}
           <div
             className="rounded-2xl overflow-hidden"
@@ -234,7 +234,7 @@ export default function NewHeroSection() {
   const heroButtonLink = getHeroButtonLink(siteMode)
 
   return (
-    <section className="relative w-full h-[100svh] md:min-h-[100vh] md:h-auto overflow-hidden flex items-center">
+    <section className="relative w-full h-[100svh] md:min-h-[100vh] md:h-auto overflow-x-clip overflow-y-clip md:overflow-y-visible flex items-center">
       {/* Kinso-style gradient: gunmetal/silver left -> white center -> warm brown right */}
       <div
         className="absolute inset-0"
@@ -270,19 +270,19 @@ export default function NewHeroSection() {
       {/* Noise texture removed for performance */}
 
       {/* Content */}
-      <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 md:px-12 lg:px-16 pt-28 pb-16 md:py-0">
-        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+      <div className="relative z-20 w-full max-w-[1400px] mx-auto px-6 md:px-12 lg:pl-16 lg:pr-0 pt-[max(7rem,12vh)] pb-16 md:py-0 overflow-visible">
+        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20 overflow-visible">
 
           {/* Left - Text + CTA */}
-          <div className="flex-1 flex flex-col items-center lg:items-start gap-6 text-center lg:text-left max-w-[540px]">
-            <h1 className="text-[#37322F] text-4xl sm:text-5xl md:text-6xl lg:text-[4.5rem] font-normal leading-[1.08] tracking-tight">
+          <div className="flex-1 flex flex-col items-center lg:items-start gap-4 sm:gap-6 text-center lg:text-left max-w-[540px]">
+            <h1 className="text-[#37322F] text-[8vw] sm:text-5xl md:text-6xl lg:text-[4.5rem] font-normal leading-[1.08] tracking-tight">
               Learn to box
               <span className="block bg-gradient-to-r from-[#8C7560] via-[#7A6B5E] to-[#6B5D52] bg-clip-text text-transparent">
                 properly, online.
               </span>
             </h1>
 
-            <p className="text-[#605A57] text-base md:text-lg lg:text-xl leading-relaxed max-w-[460px]">
+            <p className="text-[#605A57] text-[3.5vw] sm:text-base md:text-lg lg:text-xl leading-relaxed max-w-[460px]">
               Structured courses, live coaching calls, and a community of dedicated boxers. Learn the fundamentals the right way.
             </p>
 
@@ -330,13 +330,13 @@ export default function NewHeroSection() {
           </div>
 
           {/* Right - Unified Platform Visual */}
-          <div className="flex-1 w-full translate-x-[20%] lg:translate-x-0 max-w-[100vw] overflow-hidden">
+          <div className="flex-1 w-full max-w-[100vw] overflow-visible">
             <PlatformVisual />
           </div>
         </div>
 
         {/* Mobile CTA - centred below both columns */}
-        <div className="flex lg:hidden flex-col items-center gap-3 mt-32">
+        <div className="flex lg:hidden flex-col items-center gap-3 mt-32 relative z-30">
           {/* Social proof */}
           <div className="flex items-center gap-2">
             <div className="flex -space-x-1.5">
@@ -367,19 +367,11 @@ export default function NewHeroSection() {
             {ENROLLMENT_CLOSED ? "Join the Waitlist" : heroButtonText}
           </ArrowButton>
 
-          {!ENROLLMENT_CLOSED && (
-            <p className="text-[#847971] text-sm flex items-center gap-2">
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z" />
-              </svg>
-              Money-back guarantee. Do the work, get a refund.
-            </p>
-          )}
         </div>
       </div>
 
       {/* Bottom fade to white */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent pointer-events-none z-20" />
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent pointer-events-none z-10" />
 
       {/* Unused float animations removed */}
     </section>

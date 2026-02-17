@@ -1,5 +1,5 @@
 import type React from "react"
-import type { Metadata } from "next"
+import type { Metadata, Viewport } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
 import { Toaster } from "sonner"
@@ -20,6 +20,12 @@ const inter = Inter({
 
 const FAVICON_BASE = "https://sb.oracleboxing.com/favicons"
 const FAVICON_VERSION = "v=3" // Cache buster - increment to force refresh
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+}
 
 export const metadata: Metadata = {
   title: "Oracle Boxing",
