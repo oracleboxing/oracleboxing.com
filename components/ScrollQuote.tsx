@@ -54,12 +54,11 @@ export function ScrollQuote({ quote }: ScrollQuoteProps) {
   const totalWords = allWords.length
 
   return (
-    <section ref={sectionRef} className="w-full py-12 md:py-20 border-b border-[rgba(55,50,47,0.12)]">
+    <section ref={sectionRef} className="w-full py-20 md:py-32 border-b border-[rgba(55,50,47,0.12)]">
       <div className="max-w-[900px] mx-auto px-6">
         <p
-          className="text-center text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-tight md:leading-snug"
+          className="text-center text-hero leading-tight md:leading-snug"
           style={{
-            fontFamily: 'ClashDisplay, sans-serif',
             letterSpacing: '-0.02em',
           }}
         >

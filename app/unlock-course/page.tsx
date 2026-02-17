@@ -58,8 +58,8 @@ export default function ClaimAccessPage() {
                   {/* Mobile: Info card at top */}
                   <div className="lg:hidden mb-6">
                     <div className="bg-[#37322F] rounded-2xl p-6 text-white">
-                      <h3 className="text-lg font-medium mb-1">Claim Your Access</h3>
-                      <p className="text-white/70 text-sm">Enter your email to receive your course invitation</p>
+                      <h3 className="text-title font-medium mb-1">Claim Your Access</h3>
+                      <p className="text-white/70 text-body">Enter your email to receive your course invitation</p>
                     </div>
                   </div>
 
@@ -86,7 +86,7 @@ export default function ClaimAccessPage() {
                       <button
                         type="submit"
                         disabled={loading}
-                        className={`w-full h-14 px-6 rounded-lg font-medium text-base transition-all duration-200 flex items-center justify-center gap-2 ${
+                        className={`w-full h-14 px-6 rounded-lg font-medium text-body transition-all duration-200 flex items-center justify-center gap-2 ${
                           loading
                             ? 'bg-[#847971] cursor-not-allowed'
                             : 'bg-[#37322F] hover:bg-[#37322f]/90 cursor-pointer'
@@ -106,7 +106,7 @@ export default function ClaimAccessPage() {
 
                   {/* Trust Elements */}
                   <div className="mt-6 space-y-4">
-                    <div className="flex items-center justify-center gap-2 text-[#605A57] text-sm">
+                    <div className="flex items-center justify-center gap-2 text-[#605A57] text-body">
                       <ShieldCheck className="w-5 h-5" />
                       <span>Your information is secure</span>
                     </div>
@@ -129,18 +129,18 @@ export default function ClaimAccessPage() {
                     <Check className="w-8 h-8 text-white" />
                   </div>
 
-                  <h2 className="text-2xl font-semibold text-[#37322F] mb-2 text-center">Check your email</h2>
+                  <h2 className="text-sub font-semibold text-[#37322F] mb-2 text-center">Check your email</h2>
                   <p className="text-[#605A57] text-center max-w-sm mb-8">
                     We&apos;ve sent a course access invitation to your email. It can take up to 10 minutes to arrive.
                   </p>
 
-                  <div className="flex items-center gap-2 text-[#847971] text-sm">
+                  <div className="flex items-center gap-2 text-[#847971] text-body">
                     <Mail className="w-4 h-4" />
                     <span>{email}</span>
                   </div>
 
                   <div className="mt-8 pt-8 border-t border-[rgba(55,50,47,0.08)] w-full max-w-sm">
-                    <p className="text-sm text-[#847971] text-center">
+                    <p className="text-body text-[#847971] text-center">
                       Having trouble?{' '}
                       <Link
                         href="mailto:team@oracleboxing.com"
@@ -164,15 +164,15 @@ export default function ClaimAccessPage() {
 
                 {/* Info Card */}
                 <div className="bg-[#37322F] rounded-2xl p-6 mb-6 text-white">
-                  <h3 className="text-lg font-medium mb-1">Claim Your Access</h3>
-                  <p className="text-white/70 text-sm mb-6">Enter your email to receive your course invitation</p>
+                  <h3 className="text-title font-medium mb-1">Claim Your Access</h3>
+                  <p className="text-white/70 text-body mb-6">Enter your email to receive your course invitation</p>
 
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center">
                       <Mail className="w-5 h-5 text-white" />
                     </div>
                     <div>
-                      <p className="text-white/90 text-sm font-medium">Email Invitation</p>
+                      <p className="text-white/90 text-body font-medium">Email Invitation</p>
                       <p className="text-white/50 text-xs">Arrives within 10 minutes</p>
                     </div>
                   </div>
@@ -191,7 +191,7 @@ export default function ClaimAccessPage() {
                         <div className="w-6 h-6 rounded-full bg-[#37322F] text-white text-xs font-medium flex items-center justify-center flex-shrink-0">
                           {index + 1}
                         </div>
-                        <span className="text-sm text-[#605A57] pt-0.5">{step}</span>
+                        <span className="text-body text-[#605A57] pt-0.5">{step}</span>
                       </div>
                     ))}
                   </div>
@@ -205,7 +205,7 @@ export default function ClaimAccessPage() {
                   <p className="text-xs font-medium text-[#847971] uppercase tracking-wider mb-4">
                     Need help? /
                   </p>
-                  <p className="text-sm text-[#605A57]">
+                  <p className="text-body text-[#605A57]">
                     If you&apos;re having trouble accessing your course, contact us at{' '}
                     <Link href="mailto:team@oracleboxing.com" className="text-[#37322F] font-medium hover:underline">
                       team@oracleboxing.com

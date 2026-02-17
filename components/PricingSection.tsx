@@ -4,9 +4,7 @@ import { useEffect, useRef } from 'react'
 import { useCurrency } from '@/contexts/CurrencyContext'
 import { formatPrice, getProductPrice } from '@/lib/currency'
 import { ArrowButton } from '@/components/ui/arrow-button'
-import { ENROLLMENT_CLOSED, getCheckoutUrl } from '@/lib/enrollment'
-import { CAMPAIGN_ACTIVE, getEnrollmentDeadlineText, getCurrentSpots, CAMPAIGN_CONFIG } from '@/lib/campaign'
-import CampaignSpotCounter from '@/components/CampaignSpotCounter'
+import { getCheckoutUrl } from '@/lib/enrollment'
 import { trackAddToCart } from '@/lib/webhook-tracking'
 
 export default function PricingSection() {
@@ -34,19 +32,17 @@ export default function PricingSection() {
     }
   }, [price, currency])
   const checkoutUrl = getCheckoutUrl()
-  const spots = getCurrentSpots()
+  // Campaign spots removed
 
   const includedFeatures = [
-    'Boxing Fundamentals Course',
-    '3 Weekly Feedback Submissions',
-    '21-Day Structured Program',
-    'Graduation Call with Coach',
-    'Community Access',
-    'Money-Back Guarantee',
+    '21-day structured program',
+    '1-on-1 graduation call with coach',
+    'Weekly technique feedback',
+    'Community access',
   ]
 
   return (
-    <section className="w-full py-16 md:py-24 px-4 md:px-8 bg-[#37322F] relative overflow-hidden">
+    <section className="w-full min-h-screen flex flex-col justify-center py-16 md:py-24 px-4 md:px-8 bg-[#37322F] relative overflow-hidden">
       {/* Animated flowing ribbons background */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="ribbon ribbon-1" />
@@ -57,108 +53,66 @@ export default function PricingSection() {
         <div className="ribbon ribbon-6" />
       </div>
 
-      <div className="max-w-4xl mx-auto relative z-10">
-        {/* Inner white card */}
-        <div className="bg-white rounded-2xl shadow-2xl p-6 md:p-10 lg:p-12">
-          <div className="flex flex-col lg:flex-row lg:items-stretch lg:justify-between gap-8 lg:gap-8">
-            {/* Left side - Product info */}
-            <div className="lg:max-w-[420px]">
-                {/* Logo - hidden on mobile */}
-                <div className="hidden md:flex justify-start mb-6">
-                  <img
-                    src="https://sb.oracleboxing.com/logo/icon_dark.webp"
-                    alt="Oracle Boxing"
-                    className="w-10 h-auto"
+      <div className="max-w-lg mx-auto relative z-10">
+        {/* Inner white card - vertically stacked, centered */}
+        <div className="bg-white rounded-2xl shadow-2xl p-8 md:p-12 text-center">
+          {/* Title */}
+          <h2 className="text-3xl md:text-4xl font-normal leading-tight mb-2">
+            <span className="text-[#37322F]">21-Day </span>
+            <span className="text-[#9CABA8]">Challenge</span>
+          </h2>
+
+          {/* Price */}
+          <div className="mt-6 mb-2">
+            <span className="text-[#37322F] text-6xl md:text-7xl font-semibold tracking-tight">
+              {formatPrice(price, currency)}
+            </span>
+          </div>
+          <p className="text-[#847971] text-sm mb-8">One-time payment</p>
+
+          {/* Divider */}
+          <div className="w-12 h-px bg-[#37322F]/10 mx-auto mb-8" />
+
+          {/* Features - single column, left-aligned */}
+          <div className="flex flex-col gap-3 mb-10 max-w-xs mx-auto">
+            {includedFeatures.map((feature, index) => (
+              <div key={index} className="flex items-center gap-3">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  className="flex-shrink-0"
+                >
+                  <circle cx="10" cy="10" r="10" fill="#E8F5E9" />
+                  <path
+                    d="M6 10L9 13L14 7"
+                    stroke="#4CAF50"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                   />
-                </div>
-
-                {/* Heading */}
-                <h2 className="text-left text-2xl md:text-3xl lg:text-4xl font-normal leading-tight mb-4" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
-                  <span className="text-[#37322F]">21-Day</span><br />
-                  <span className="text-[#9CABA8]">Challenge</span>
-                </h2>
-
-                {/* Description */}
-                <p className="text-left text-[#605A57] text-sm md:text-base font-normal leading-relaxed mb-6">
-                  Join the 21-Day Challenge and prove you have what it takes. Show up, put in the work, and earn your place in Oracle Boxing.
-                </p>
-
-                {/* Features list */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {includedFeatures.map((feature, index) => (
-                    <div key={index} className="flex items-center gap-2">
-                      <svg
-                        width="20"
-                        height="20"
-                        viewBox="0 0 20 20"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="flex-shrink-0"
-                      >
-                        <circle cx="10" cy="10" r="10" fill="#E8F5E9" />
-                        <path
-                          d="M6 10L9 13L14 7"
-                          stroke="#4CAF50"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                      <span className="text-[#49423D] text-sm font-medium">{feature}</span>
-                    </div>
-                  ))}
-                </div>
+                </svg>
+                <span className="text-[#49423D] text-sm font-medium text-left">{feature}</span>
               </div>
+            ))}
+          </div>
 
-              {/* Right side - Price and CTA */}
-              <div className="flex-1 flex flex-col items-center lg:items-end lg:justify-between">
-                {/* Price - Top Right (hidden when enrollment closed) */}
-                {!ENROLLMENT_CLOSED && (
-                  <div className="text-center lg:text-right">
-                    <div className="flex items-baseline justify-center lg:justify-end gap-2">
-                      <span
-                        className="text-[#37322F] text-4xl md:text-5xl font-medium"
-                        style={{ fontFamily: 'ClashDisplay, sans-serif' }}
-                      >
-                        {formatPrice(price, currency)}
-                      </span>
-                    </div>
-                    <p className="text-[#847971] text-sm mt-1">One-time payment</p>
-                    {/* Campaign Info - Spot Counter & Deadline */}
-                    {CAMPAIGN_ACTIVE && (
-                      <div className="mt-3 flex flex-col items-center lg:items-end gap-2">
-                        <CampaignSpotCounter size="md" />
-                        <p className="text-[#847971] text-xs">
-                          Enrollment closes {getEnrollmentDeadlineText()}
-                        </p>
-                      </div>
-                    )}
-                  </div>
-                )}
+          {/* CTA Button - full width */}
+          <ArrowButton
+            href={checkoutUrl}
+            onClick={() => trackAddToCart('21dc-entry', '21-Day Challenge', price, currency, 'pricing-section')}
+            className="w-full"
+          >
+            Join Now
+          </ArrowButton>
 
-                {/* Spacer to push button to bottom when price is hidden */}
-                {ENROLLMENT_CLOSED && <div className="flex-1" />}
-
-                {/* CTA Button - Bottom Right */}
-                <div className="flex flex-col items-center lg:items-end gap-4 mt-10 lg:mt-0 pt-6 lg:pt-0">
-                  <ArrowButton
-                    href={checkoutUrl}
-                    onClick={() => !ENROLLMENT_CLOSED && trackAddToCart('21dc-entry', '21-Day Challenge', price, currency, 'pricing-section')}
-                    className="w-full lg:w-auto lg:min-w-[280px]"
-                  >
-                    {ENROLLMENT_CLOSED ? 'Join the Waitlist' : `Join Now - Only ${spots} Spots Left`}
-                  </ArrowButton>
-                  {/* Trust signal */}
-                  {!ENROLLMENT_CLOSED && (
-                    <p className="text-[#49423D]/60 text-xs sm:text-sm flex items-center gap-2">
-                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
-                      </svg>
-                      Win your money-back guarantee (by doing the bare minimum)
-                    </p>
-                  )}
-                </div>
-            </div>
+          {/* Trust badge */}
+          <div className="mt-6 flex items-center justify-center gap-2 text-[#49423D]/50 text-xs sm:text-sm">
+            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
+            </svg>
+            <span>Complete the work, get your money back</span>
           </div>
         </div>
       </div>

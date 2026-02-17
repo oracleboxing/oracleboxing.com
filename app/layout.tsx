@@ -1,5 +1,6 @@
 import type React from "react"
 import type { Metadata } from "next"
+import { Inter } from "next/font/google"
 import "./globals.css"
 import { Toaster } from "sonner"
 import { Analytics } from "@vercel/analytics/react"
@@ -9,6 +10,13 @@ import PageViewTracker from "@/components/PageViewTracker"
 import EngagementTracker from "@/components/EngagementTracker"
 import { UTMTracker } from "@/components/UTMTracker"
 import { GoogleAdsTag } from "@/components/GoogleAdsTag"
+
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "900"],
+  display: "swap",
+  variable: "--font-inter",
+})
 
 const FAVICON_BASE = "https://sb.oracleboxing.com/favicons"
 const FAVICON_VERSION = "v=3" // Cache buster - increment to force refresh
@@ -138,10 +146,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className="antialiased">
+    <html lang="en" className={`${inter.variable} antialiased`}>
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <meta name="theme-color" content="#3d3830" />
         <script
           type="application/ld+json"

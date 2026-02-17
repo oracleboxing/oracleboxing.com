@@ -44,7 +44,7 @@ export default function MembershipHeader() {
             <Link
               key={link.href}
               href={link.href}
-              className="text-[#37322F] text-sm font-medium hover:text-[#37322F]/70 transition-colors"
+              className="text-[#37322F] text-body font-medium hover:text-[#37322F]/70 transition-colors"
             >
               {link.label}
             </Link>
@@ -55,13 +55,13 @@ export default function MembershipHeader() {
         <div className="hidden md:flex items-center gap-3">
           <Link
             href="/pricing"
-            className="h-10 px-6 border border-[#37322F] text-[#37322F] rounded-lg font-medium text-sm inline-flex items-center justify-center hover:bg-[#F7F5F3] transition-colors"
+            className="h-10 px-6 border border-[#37322F] text-[#37322F] rounded-lg font-medium text-body inline-flex items-center justify-center hover:bg-[#F7F5F3] transition-colors"
           >
             View Pricing
           </Link>
           <Link
             href="/membership"
-            className="h-10 px-6 bg-[#37322f] hover:bg-[#37322f]/90 text-white rounded-lg font-medium text-sm inline-flex items-center justify-center transition-all"
+            className="h-10 px-6 bg-[#37322f] hover:bg-[#37322f]/90 text-white rounded-lg font-medium text-body inline-flex items-center justify-center transition-all"
           >
             Get Started
           </Link>
@@ -107,7 +107,7 @@ export default function MembershipHeader() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="text-[#37322F] text-base font-medium hover:text-[#37322F]/70 transition-colors py-2"
+                className="text-[#37322F] text-body font-medium hover:text-[#37322F]/70 transition-colors py-2"
               >
                 {link.label}
               </Link>
@@ -116,14 +116,14 @@ export default function MembershipHeader() {
               <Link
                 href="/pricing"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="block w-full h-10 px-6 border border-[#37322F] text-[#37322F] rounded-lg font-medium text-sm text-center leading-10 hover:bg-[#F7F5F3] transition-colors"
+                className="block w-full h-10 px-6 border border-[#37322F] text-[#37322F] rounded-lg font-medium text-body text-center leading-10 hover:bg-[#F7F5F3] transition-colors"
               >
                 View Pricing
               </Link>
               <Link
                 href="/membership"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="block w-full h-10 px-6 bg-[#37322f] hover:bg-[#37322f]/90 text-white rounded-lg font-medium text-sm text-center leading-10 transition-all"
+                className="block w-full h-10 px-6 bg-[#37322f] hover:bg-[#37322f]/90 text-white rounded-lg font-medium text-body text-center leading-10 transition-all"
               >
                 Get Started
               </Link>

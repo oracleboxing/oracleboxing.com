@@ -10,12 +10,12 @@ export const metadata: Metadata = {
 
 export default function RefundPage() {
   return (
-    <div style={{ fontFamily: 'Arial, sans-serif', backgroundColor: '#FFFFFF', color: '#000000', minHeight: '100vh' }}>
+    <div style={{ backgroundColor: '#FFFFFF', color: '#000000', minHeight: '100vh' }}>
       <div style={{ maxWidth: '800px', margin: '0 auto', padding: '40px 20px' }}>
-        <h1 style={{ fontSize: '32px', fontWeight: 'bold', marginBottom: '8px' }}>Refund Policy</h1>
-        <p style={{ fontSize: '14px', color: '#666666', marginBottom: '32px' }}>Last Updated: January 2026</p>
+        <h1 className="text-section" style={{ fontWeight: 'bold', marginBottom: '8px' }}>Refund Policy</h1>
+        <p className="text-body" style={{ color: '#666666', marginBottom: '32px' }}>Last Updated: January 2026</p>
 
-        <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginTop: '32px', marginBottom: '16px' }}>NO REFUNDS FOR DIGITAL COURSES & ADD-ONS</h2>
+        <h2 className="text-sub" style={{ fontWeight: 'bold', marginTop: '32px', marginBottom: '16px' }}>NO REFUNDS FOR DIGITAL COURSES & ADD-ONS</h2>
         <p style={{ lineHeight: '1.6', marginBottom: '16px' }}>
           All digital course purchases and add-ons are final and non-refundable. This includes:
         </p>
@@ -28,19 +28,19 @@ export default function RefundPage() {
           By purchasing a digital product, you acknowledge that you are receiving immediate access to digital content and agree that no refund will be provided.
         </p>
 
-        <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginTop: '48px', marginBottom: '16px' }}>NO REFUNDS FOR MEMBERSHIPS</h2>
+        <h2 className="text-sub" style={{ fontWeight: 'bold', marginTop: '48px', marginBottom: '16px' }}>NO REFUNDS FOR MEMBERSHIPS</h2>
         <p style={{ lineHeight: '1.6', marginBottom: '16px', fontWeight: 'bold' }}>
           Oracle Boxing does NOT offer refunds for membership purchases under any circumstances.
         </p>
 
-        <h3 style={{ fontSize: '18px', fontWeight: 'bold', marginTop: '24px', marginBottom: '12px' }}>Memberships (No Refunds):</h3>
+        <h3 className="text-title" style={{ fontWeight: 'bold', marginTop: '24px', marginBottom: '12px' }}>Memberships (No Refunds):</h3>
         <ul style={{ lineHeight: '1.6', marginBottom: '16px', marginLeft: '20px' }}>
           <li>Monthly Membership</li>
           <li>Annual Membership (12 months)</li>
           <li>Any other recurring or one-time membership payment</li>
         </ul>
 
-        <h3 style={{ fontSize: '18px', fontWeight: 'bold', marginTop: '24px', marginBottom: '12px' }}>Why No Refunds for Memberships?</h3>
+        <h3 className="text-title" style={{ fontWeight: 'bold', marginTop: '24px', marginBottom: '12px' }}>Why No Refunds for Memberships?</h3>
         <p style={{ lineHeight: '1.6', marginBottom: '16px' }}>
           Oracle Boxing actively budgets and makes critical business decisions based on expected membership revenue. This includes:
         </p>
@@ -54,7 +54,7 @@ export default function RefundPage() {
           Because we rely on membership revenue for operational planning, all membership payments are final and non-refundable.
         </p>
 
-        <h3 style={{ fontSize: '18px', fontWeight: 'bold', marginTop: '24px', marginBottom: '12px' }}>Your Responsibility to Cancel:</h3>
+        <h3 className="text-title" style={{ fontWeight: 'bold', marginTop: '24px', marginBottom: '12px' }}>Your Responsibility to Cancel:</h3>
         <p style={{ lineHeight: '1.6', marginBottom: '16px' }}>
           <strong>It is your responsibility to cancel your membership before it renews if you do not wish to continue.</strong>
         </p>
@@ -68,7 +68,7 @@ export default function RefundPage() {
           We send renewal reminders, but it remains your responsibility to manage your subscription and cancel if desired.
         </p>
 
-        <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginTop: '48px', marginBottom: '16px' }}>NO REFUNDS FOR 1-ON-1 COACHING</h2>
+        <h2 className="text-sub" style={{ fontWeight: 'bold', marginTop: '48px', marginBottom: '16px' }}>NO REFUNDS FOR 1-ON-1 COACHING</h2>
         <p style={{ lineHeight: '1.6', marginBottom: '16px' }}>
           All 1-on-1 coaching purchases are final and non-refundable. Once you book and pay for coaching services, we reserve coach time specifically for you. No refunds will be issued for coaching services.
         </p>
@@ -76,7 +76,7 @@ export default function RefundPage() {
           If you need to reschedule a coaching session, please contact us as soon as possible. We will work with you to find an alternative time, but we cannot guarantee availability and cannot offer refunds.
         </p>
 
-        <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginTop: '48px', marginBottom: '16px' }}>NO RETURNS FOR PHYSICAL PRODUCTS</h2>
+        <h2 className="text-sub" style={{ fontWeight: 'bold', marginTop: '48px', marginBottom: '16px' }}>NO RETURNS FOR PHYSICAL PRODUCTS</h2>
         <p style={{ lineHeight: '1.6', marginBottom: '16px' }}>
           Physical products, including the Oracle Boxing Tracksuit, are final sale. We do not accept returns or provide refunds for physical merchandise.
         </p>
@@ -84,12 +84,12 @@ export default function RefundPage() {
           Please ensure you select the correct size and review product details carefully before placing your order.
         </p>
 
-        <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginTop: '48px', marginBottom: '16px' }}>21-DAY CHALLENGE PRIZE</h2>
+        <h2 className="text-sub" style={{ fontWeight: 'bold', marginTop: '48px', marginBottom: '16px' }}>21-DAY CHALLENGE PRIZE</h2>
         <p style={{ lineHeight: '1.6', marginBottom: '16px' }}>
           The 21-Day Challenge includes a prize opportunity for participants who complete the program requirements. This is a prize, not a guaranteed refund.
         </p>
 
-        <h3 style={{ fontSize: '18px', fontWeight: 'bold', marginTop: '24px', marginBottom: '12px' }}>Prize Requirements:</h3>
+        <h3 className="text-title" style={{ fontWeight: 'bold', marginTop: '24px', marginBottom: '12px' }}>Prize Requirements:</h3>
         <p style={{ lineHeight: '1.6', marginBottom: '16px' }}>
           To be eligible for the 21-Day Challenge prize, participants must complete the following:
         </p>
@@ -100,7 +100,7 @@ export default function RefundPage() {
           <li>Attend a graduation call</li>
         </ul>
 
-        <h3 style={{ fontSize: '18px', fontWeight: 'bold', marginTop: '24px', marginBottom: '12px' }}>Prize Options:</h3>
+        <h3 className="text-title" style={{ fontWeight: 'bold', marginTop: '24px', marginBottom: '12px' }}>Prize Options:</h3>
         <p style={{ lineHeight: '1.6', marginBottom: '16px' }}>
           Participants who successfully complete the requirements may be eligible for one of the following prizes:
         </p>
@@ -109,7 +109,7 @@ export default function RefundPage() {
           <li><strong>Credit towards a full membership</strong> - apply your challenge payment towards ongoing membership</li>
         </ul>
 
-        <h3 style={{ fontSize: '18px', fontWeight: 'bold', marginTop: '24px', marginBottom: '12px' }}>Discretionary Approval:</h3>
+        <h3 className="text-title" style={{ fontWeight: 'bold', marginTop: '24px', marginBottom: '12px' }}>Discretionary Approval:</h3>
         <p style={{ lineHeight: '1.6', marginBottom: '16px' }}>
           <strong>Prize eligibility and approval is entirely at the sole discretion of Oracle Boxing Ltd.</strong> Meeting the above requirements does not guarantee receipt of the prize. The final decision on whether a participant qualifies is made by the Oracle Boxing team based on genuine participation, effort, and engagement with the program.
         </p>
@@ -117,7 +117,7 @@ export default function RefundPage() {
           This discretionary structure maintains the integrity of the challenge while rewarding authentic commitment.
         </p>
 
-        <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginTop: '48px', marginBottom: '16px' }}>Special Circumstances</h2>
+        <h2 className="text-sub" style={{ fontWeight: 'bold', marginTop: '48px', marginBottom: '16px' }}>Special Circumstances</h2>
         <p style={{ lineHeight: '1.6', marginBottom: '16px' }}>
           While our policies are clearly stated above, we understand that exceptional circumstances may arise. If you believe you have a special case, such as:
         </p>
@@ -131,7 +131,7 @@ export default function RefundPage() {
           Please contact our support team at team@oracleboxing.com with detailed documentation. We will review your case individually. However, please note that "special circumstances" do not include forgetting to cancel a membership or changing your mind about a purchase.
         </p>
 
-        <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginTop: '48px', marginBottom: '16px' }}>Disputes and Chargebacks</h2>
+        <h2 className="text-sub" style={{ fontWeight: 'bold', marginTop: '48px', marginBottom: '16px' }}>Disputes and Chargebacks</h2>
         <p style={{ lineHeight: '1.6', marginBottom: '16px' }}>
           If you have any concern about a charge or believe there has been a billing error, please contact us directly at team@oracleboxing.com BEFORE initiating a chargeback with your bank or credit card company.
         </p>
@@ -147,7 +147,7 @@ export default function RefundPage() {
           <li>Inability to make future purchases from Oracle Boxing</li>
         </ul>
 
-        <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginTop: '48px', marginBottom: '16px' }}>Summary of Refund Policy</h2>
+        <h2 className="text-sub" style={{ fontWeight: 'bold', marginTop: '48px', marginBottom: '16px' }}>Summary of Refund Policy</h2>
         <ul style={{ lineHeight: '1.6', marginBottom: '16px', marginLeft: '20px' }}>
           <li><strong>Digital Courses & Add-ons:</strong> NO REFUNDS - all purchases are final</li>
           <li><strong>Memberships:</strong> NO REFUNDS - customer must cancel before renewal</li>
@@ -157,7 +157,7 @@ export default function RefundPage() {
           <li><strong>Special Circumstances:</strong> Technical/billing issues reviewed case-by-case</li>
         </ul>
 
-        <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginTop: '48px', marginBottom: '16px' }}>Contact Us</h2>
+        <h2 className="text-sub" style={{ fontWeight: 'bold', marginTop: '48px', marginBottom: '16px' }}>Contact Us</h2>
         <p style={{ lineHeight: '1.6', marginBottom: '16px' }}>
           For questions about our refund policy or for assistance with billing issues:
         </p>

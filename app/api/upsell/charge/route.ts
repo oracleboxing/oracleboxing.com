@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { stripe } from '@/lib/stripe/client'
 import { products } from '@/lib/products'
-import { notifyOps } from '@/lib/slack-notify'
 import { createWorkflowLogger } from '@/lib/workflow-logger'
 
 // Helper function to flatten cookie data into individual Stripe metadata fields
@@ -200,7 +199,6 @@ export async function POST(req: NextRequest) {
 
       try { await logger.completed(`Upsell subscription created for ${customerEmail}`, { subscriptionId: subscription.id, email: customerEmail, productId: product_id, type: 'subscription' }); } catch {}
 
-      notifyOps(`⬆️ Upsell charge - ${customerEmail} for 6-Week Membership (subscription)`)
 
       return NextResponse.json({
         success: true,
@@ -290,7 +288,6 @@ export async function POST(req: NextRequest) {
 
         try { await logger.completed(`Upsell payment succeeded for ${customerEmail}`, { paymentIntentId: upsellPaymentIntent.id, email: customerEmail, amount: amount / 100, currency, productId: product_id, type: 'one-time' }); } catch {}
 
-        notifyOps(`⬆️ Upsell charge - ${customerEmail} for ${priceObj.nickname || product_id} ($${amount / 100})`)
 
         // Send Facebook Purchase event for upsell
         try {
@@ -394,7 +391,6 @@ export async function POST(req: NextRequest) {
     }
 
     try { await logger.failed(error.message, { type: error.type, code: error.code }); } catch {}
-    notifyOps(`❌ Upsell charge failed - ${error.message}`)
 
     return NextResponse.json(
       { error: 'Internal server error' },

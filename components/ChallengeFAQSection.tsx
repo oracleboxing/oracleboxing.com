@@ -76,7 +76,7 @@ function FAQItem({ question, children, isOpen, onToggle }: FAQItemProps) {
         onClick={onToggle}
         className="w-full py-5 flex items-center justify-between text-left gap-4"
       >
-        <span className="text-[#37322F] text-base md:text-lg font-medium font-sans">
+        <span className="text-[#37322F] text-title font-medium font-sans">
           {question}
         </span>
         <svg
@@ -101,7 +101,7 @@ function FAQItem({ question, children, isOpen, onToggle }: FAQItemProps) {
           isOpen ? "max-h-[1000px] pb-5" : "max-h-0"
         }`}
       >
-        <div className="text-[#605A57] text-sm md:text-base font-normal leading-relaxed font-sans">
+        <div className="text-[#605A57] text-body font-normal leading-relaxed font-sans">
           {children}
         </div>
       </div>
@@ -110,7 +110,7 @@ function FAQItem({ question, children, isOpen, onToggle }: FAQItemProps) {
 }
 
 export default function ChallengeFAQSection() {
-  const [openIndex, setOpenIndex] = useState<number | null>(0)
+  const [openIndex, setOpenIndex] = useState<number | null>(null)
   const [selectedTimezone, setSelectedTimezone] = useState(timezones[0])
 
   const convertedSchedule = schedule.map((item) => {
@@ -132,27 +132,14 @@ export default function ChallengeFAQSection() {
   )
 
   return (
-    <div id="faq" className="w-full border-b border-[rgba(55,50,47,0.12)] flex flex-col justify-center items-center bg-white scroll-mt-16">
+    <div id="faq" className="w-full flex flex-col justify-center items-center bg-white scroll-mt-16">
       {/* FAQ Content */}
       <div className="self-stretch flex justify-center items-start">
-        {/* Left decorative pattern - CSS gradient instead of DOM elements */}
-        <div
-          className="hidden sm:block sm:w-4 md:w-8 lg:w-12 self-stretch relative overflow-hidden"
-          style={{
-            backgroundImage: `repeating-linear-gradient(
-              -45deg,
-              transparent,
-              transparent 11px,
-              rgba(3,7,18,0.08) 11px,
-              rgba(3,7,18,0.08) 12px
-            )`
-          }}
-        />
 
-        <div className="flex-1 min-w-0 sm:border-l sm:border-r border-[rgba(55,50,47,0.12)] bg-white">
+        <div className="flex-1 min-w-0 bg-white">
           <div className="max-w-2xl mx-auto px-4 sm:px-6 md:px-8 py-8 sm:py-12 md:py-16">
             {/* Title */}
-            <h2 className="text-center text-[#49423D] text-xl sm:text-2xl md:text-3xl lg:text-4xl font-normal leading-tight tracking-tight mb-8 sm:mb-10" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
+            <h2 className="text-center text-[#49423D] text-section font-normal leading-tight tracking-tight mb-8 sm:mb-10">
               Frequently Asked Questions
             </h2>
             {/* FAQ 1 - Live Classes */}
@@ -349,19 +336,6 @@ export default function ChallengeFAQSection() {
           </div>
         </div>
 
-        {/* Right decorative pattern - CSS gradient instead of DOM elements */}
-        <div
-          className="hidden sm:block sm:w-4 md:w-8 lg:w-12 self-stretch relative overflow-hidden"
-          style={{
-            backgroundImage: `repeating-linear-gradient(
-              -45deg,
-              transparent,
-              transparent 11px,
-              rgba(3,7,18,0.08) 11px,
-              rgba(3,7,18,0.08) 12px
-            )`
-          }}
-        />
       </div>
     </div>
   )

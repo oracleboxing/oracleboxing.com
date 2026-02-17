@@ -352,9 +352,9 @@ export function SuccessContent({ sessionId, isPaymentIntent = false, isSubscript
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sessionId, isPaymentIntent])
 
-  // Countdown and redirect effect
+  // Countdown and redirect effect - starts once loading is done (even if session fetch failed)
   useEffect(() => {
-    if (isLoading || !session) return
+    if (isLoading) return
 
     const timer = setInterval(() => {
       setCountdown((prev) => {
@@ -389,15 +389,15 @@ export function SuccessContent({ sessionId, isPaymentIntent = false, isSubscript
     )
   }
 
-  const customerEmail = session?.customerEmail || session?.customer_details?.email || 'your email'
+  const customerEmail = session?.customerEmail || session?.customer_details?.email || 'your email address'
 
   return (
     <div className="flex-1 flex items-center justify-center py-20 px-4">
       <div className="text-center max-w-md">
-        <h1 className="text-3xl font-bold text-[#37322F] mb-4" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
+        <h1 className="text-section font-bold text-[#37322F] mb-4">
           Purchase Successful
         </h1>
-        <p className="text-[rgba(73,66,61,0.90)] text-lg leading-relaxed mb-6">
+        <p className="text-[rgba(73,66,61,0.90)] text-title leading-relaxed mb-6">
           We will email your receipt and further instructions to{' '}
           <span className="font-medium text-[#37322F]">{customerEmail}</span>.
         </p>

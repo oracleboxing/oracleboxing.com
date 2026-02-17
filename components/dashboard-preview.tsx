@@ -10,7 +10,7 @@ export function DashboardPreview() {
             <div className="flex items-center gap-3">
               <div className="text-[#37322f] font-semibold">Brillance</div>
               <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-              <span className="text-sm text-[#605a57]">Account</span>
+              <span className="text-body text-[#605a57]">Account</span>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 bg-[#37322f] rounded-full"></div>
@@ -24,7 +24,7 @@ export function DashboardPreview() {
               <nav className="space-y-2">
                 <div className="text-xs font-medium text-[#605a57] uppercase tracking-wide mb-3">Navigation</div>
                 {["Home", "Customers", "Billing", "Schedules", "Invoices", "Products"].map((item) => (
-                  <div key={item} className="text-sm text-[#37322f] py-1 hover:text-[#37322f]/80 cursor-pointer">
+                  <div key={item} className="text-body text-[#37322f] py-1 hover:text-[#37322f]/80 cursor-pointer">
                     {item}
                   </div>
                 ))}
@@ -34,13 +34,13 @@ export function DashboardPreview() {
             {/* Main Content */}
             <div className="flex-1 p-6">
               <div className="flex items-center justify-between mb-6">
-                <h2 className="text-xl font-semibold text-[#37322f]">Schedules</h2>
-                <Button className="bg-[#37322f] hover:bg-[#37322f]/90 text-white text-sm">Create schedule</Button>
+                <h2 className="text-sub font-semibold text-[#37322f]">Schedules</h2>
+                <Button className="bg-[#37322f] hover:bg-[#37322f]/90 text-white text-body">Create schedule</Button>
               </div>
 
               {/* Table Mockup */}
               <div className="bg-white border border-[#e0dedb] rounded-lg overflow-hidden">
-                <div className="grid grid-cols-6 gap-4 p-4 bg-[#fbfaf9] border-b border-[#e0dedb] text-sm font-medium text-[#605a57]">
+                <div className="grid grid-cols-6 gap-4 p-4 bg-[#fbfaf9] border-b border-[#e0dedb] text-body font-medium text-[#605a57]">
                   <div>Customer</div>
                   <div>Status</div>
                   <div>Products</div>
@@ -51,7 +51,7 @@ export function DashboardPreview() {
 
                 {/* Table Rows */}
                 {Array.from({ length: 8 }).map((_, i) => (
-                  <div key={i} className="grid grid-cols-6 gap-4 p-4 border-b border-[#e0dedb] text-sm">
+                  <div key={i} className="grid grid-cols-6 gap-4 p-4 border-b border-[#e0dedb] text-body">
                     <div className="flex items-center gap-2">
                       <div className="w-6 h-6 bg-[#37322f] rounded-full"></div>
                       <span>Hypernise</span>

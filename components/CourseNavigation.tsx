@@ -22,25 +22,25 @@ export function CourseNavigation() {
         <nav className="flex items-center justify-center md:justify-end gap-3 md:gap-8 py-3 md:py-4 overflow-x-auto">
           <button
             onClick={() => scrollToSection('overview')}
-            className="text-xs md:text-sm font-semibold text-gray-700 hover:text-gray-900 transition-colors whitespace-nowrap px-2 md:px-0"
+            className="text-body font-semibold text-gray-700 hover:text-gray-900 transition-colors whitespace-nowrap px-2 md:px-0"
           >
             Overview
           </button>
           <button
             onClick={() => scrollToSection('lessons')}
-            className="text-xs md:text-sm font-semibold text-gray-700 hover:text-gray-900 transition-colors whitespace-nowrap px-2 md:px-0"
+            className="text-body font-semibold text-gray-700 hover:text-gray-900 transition-colors whitespace-nowrap px-2 md:px-0"
           >
             Lessons
           </button>
           <button
             onClick={() => scrollToSection('testimonials')}
-            className="text-xs md:text-sm font-semibold text-gray-700 hover:text-gray-900 transition-colors whitespace-nowrap px-2 md:px-0"
+            className="text-body font-semibold text-gray-700 hover:text-gray-900 transition-colors whitespace-nowrap px-2 md:px-0"
           >
             Testimonials
           </button>
           <button
             onClick={() => scrollToSection('pricing')}
-            className="text-xs md:text-sm font-semibold text-gray-700 hover:text-gray-900 transition-colors whitespace-nowrap px-2 md:px-0"
+            className="text-body font-semibold text-gray-700 hover:text-gray-900 transition-colors whitespace-nowrap px-2 md:px-0"
           >
             Pricing
           </button>

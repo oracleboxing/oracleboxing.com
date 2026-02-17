@@ -92,24 +92,24 @@ export function BlackFridayChallengePopup() {
             </div>
 
             {/* Headline */}
-            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3" style={{ fontFamily: 'Satoshi, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
+            <h2 className="text-section font-bold text-gray-900 mb-3">
               The Black Friday Challenge
             </h2>
 
             {/* Subheadline */}
-            <p className="text-lg sm:text-xl font-bold text-gray-900 mb-4">
+            <p className="text-sub font-bold text-gray-900 mb-4">
               Learn Boxing Fundamentals In 48 Days
             </p>
 
             {/* Description */}
-            <p className="text-base text-gray-700 leading-relaxed mb-4">
+            <p className="text-body text-gray-700 leading-relaxed mb-4">
               6-week structured challenge for beginners. Train from home, get coached over the holidays.
             </p>
 
             {/* Pricing */}
             <div className="flex items-center justify-center gap-3 mb-6">
-              <span className="text-lg text-gray-500 line-through">$197</span>
-              <span className="text-3xl sm:text-4xl font-black text-gray-900">$97</span>
+              <span className="text-title text-gray-500 line-through">$197</span>
+              <span className="text-section font-black text-gray-900">$97</span>
               <span className="inline-block bg-yellow-100 text-black px-3 py-1 rounded-lg text-sm font-black uppercase">
                 50% OFF
               </span>
@@ -122,25 +122,25 @@ export function BlackFridayChallengePopup() {
               </div>
               <div className="grid grid-cols-4 gap-2">
                 <div className="text-center">
-                  <div className="text-2xl font-black mb-0.5 text-gray-900">
+                  <div className="text-sub font-black mb-0.5 text-gray-900">
                     {String(timeLeft.days).padStart(2, '0')}
                   </div>
                   <div className="text-[10px] uppercase opacity-60 font-medium text-gray-600">Days</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-black mb-0.5 text-gray-900">
+                  <div className="text-sub font-black mb-0.5 text-gray-900">
                     {String(timeLeft.hours).padStart(2, '0')}
                   </div>
                   <div className="text-[10px] uppercase opacity-60 font-medium text-gray-600">Hours</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-black mb-0.5 text-gray-900">
+                  <div className="text-sub font-black mb-0.5 text-gray-900">
                     {String(timeLeft.minutes).padStart(2, '0')}
                   </div>
                   <div className="text-[10px] uppercase opacity-60 font-medium text-gray-600">Mins</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-black mb-0.5 text-gray-900">
+                  <div className="text-sub font-black mb-0.5 text-gray-900">
                     {String(timeLeft.seconds).padStart(2, '0')}
                   </div>
                   <div className="text-[10px] uppercase opacity-60 font-medium text-gray-600">Secs</div>
@@ -153,16 +153,14 @@ export function BlackFridayChallengePopup() {
               <Link
                 href="/6wc"
                 onClick={handleClose}
-                className="flex-1 px-6 py-3 bg-white text-black border-4 border-black rounded-xl font-black text-lg uppercase tracking-wide hover:bg-black hover:text-white transition-all text-center"
-                style={{ fontFamily: 'Satoshi' }}
+                className="flex-1 px-6 py-3 bg-white text-black border-4 border-black rounded-xl font-black text-title uppercase tracking-wide hover:bg-black hover:text-white transition-all text-center"
               >
                 Learn More
               </Link>
               <Link
                 href="/checkout?product=bfc&source=popup"
                 onClick={handleClose}
-                className="flex-1 px-6 py-3 bg-yellow-100 text-black border-4 border-black rounded-xl font-black text-lg uppercase tracking-wide hover:bg-black hover:text-yellow-100 transition-all text-center"
-                style={{ fontFamily: 'Satoshi' }}
+                className="flex-1 px-6 py-3 bg-yellow-100 text-black border-4 border-black rounded-xl font-black text-title uppercase tracking-wide hover:bg-black hover:text-yellow-100 transition-all text-center"
               >
                 Buy Now →
               </Link>

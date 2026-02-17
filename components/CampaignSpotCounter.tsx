@@ -56,7 +56,7 @@ export default function CampaignSpotCounter({
     md: {
       container: 'px-3 py-1.5 gap-2',
       ping: 'h-2 w-2',
-      number: 'text-sm',
+      number: 'text-body',
       text: 'text-[10px]',
     },
   }

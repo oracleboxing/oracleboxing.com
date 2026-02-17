@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { notifyOps } from '@/lib/slack-notify'
 import { createWorkflowLogger } from '@/lib/workflow-logger'
 import { z } from 'zod'
 import { validateJsonBody } from '@/lib/security/request-validation'
@@ -43,14 +42,12 @@ export async function POST(req: NextRequest) {
     if (response.ok) {
       console.log('✅ Course access claim sent successfully')
       try { await logger.completed(`Access claimed for ${email}`, { email }); } catch {}
-      notifyOps(`🔓 Access claimed - ${email}`)
       return NextResponse.json({ success: true })
     } else {
       console.error('❌ Webhook responded with error:', response.status)
       const responseText = await response.text()
       console.error('Response:', responseText)
       try { await logger.failed(`Webhook returned ${response.status}`, { email, webhookStatus: response.status }); } catch {}
-      notifyOps(`❌ Claim access failed - ${email} (webhook ${response.status})`)
       return NextResponse.json(
         { error: 'Failed to process request' },
         { status: 500 }
@@ -61,7 +58,6 @@ export async function POST(req: NextRequest) {
     const message = error instanceof Error ? error.message : 'Unknown error'
     const stack = error instanceof Error ? error.stack : undefined
     try { await logger.failed(message, { stack }); } catch {}
-    notifyOps(`❌ Claim access failed - ${message}`)
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }

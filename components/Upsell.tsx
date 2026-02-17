@@ -116,7 +116,7 @@ export function Upsell({ product, sessionId }: UpsellProps) {
     return (
       <div className="bg-green-50 border-2 border-green-600 rounded-xl p-8 text-center">
         <CheckCircle className="w-12 h-12 text-green-600 mx-auto mb-4" />
-        <h3 className="text-2xl font-bold text-gray-900 mb-2">
+        <h3 className="text-sub font-bold text-gray-900 mb-2">
           Added to Your Order!
         </h3>
         <p className="text-gray-600">
@@ -153,7 +153,7 @@ export function Upsell({ product, sessionId }: UpsellProps) {
       <div className="w-full">
         {/* Title */}
         <div className="text-center mb-8 mt-12 px-4">
-          <h2 className="text-3xl font-bold text-gray-900">
+          <h2 className="text-section font-bold text-gray-900">
             Redeem your 20% discount on an Oracle Boxing Tracksuit
           </h2>
         </div>
@@ -180,17 +180,17 @@ export function Upsell({ product, sessionId }: UpsellProps) {
                 <div className="space-y-6">
                   {/* Tracksuit Title */}
                   <div>
-                    <h1 className="text-4xl font-bold text-gray-900 mb-2">
+                    <h1 className="text-section font-bold text-gray-900 mb-2">
                       TRACKSUIT
                     </h1>
                     <div className="flex items-center gap-3">
-                      <p className="text-lg text-gray-500 line-through">
+                      <p className="text-title text-gray-500 line-through">
                         {formatPrice(Math.round(convertedPrice / 0.8), displayCurrency)}
                       </p>
-                      <p className="text-2xl font-bold text-gray-900">
+                      <p className="text-sub font-bold text-gray-900">
                         {formatPrice(convertedPrice, displayCurrency)}
                       </p>
-                      <span className="bg-yellow-100 text-black text-sm font-bold px-2 py-1 rounded">
+                      <span className="bg-yellow-100 text-black text-body font-bold px-2 py-1 rounded">
                         20% OFF
                       </span>
                     </div>
@@ -198,7 +198,7 @@ export function Upsell({ product, sessionId }: UpsellProps) {
 
                   {/* Colour Selector */}
                   <div>
-                    <p className="text-sm font-semibold text-gray-900 mb-2 uppercase">Colour</p>
+                    <p className="text-body font-semibold text-gray-900 mb-2 uppercase">Colour</p>
                     <div className="grid grid-cols-5 gap-1.5">
                       {TRACKSUIT_COLORS.map((color) => (
                         <button
@@ -227,7 +227,7 @@ export function Upsell({ product, sessionId }: UpsellProps) {
                   <button
                     onClick={handleAccept}
                     disabled={isAdding}
-                    className={`w-full py-4 px-6 rounded-full font-bold text-lg transition-colors ${
+                    className={`w-full py-4 px-6 rounded-full font-bold text-title transition-colors ${
                       isAdding
                         ? 'bg-gray-400 cursor-not-allowed text-white'
                         : 'bg-black hover:bg-gray-800 text-white'
@@ -245,17 +245,17 @@ export function Upsell({ product, sessionId }: UpsellProps) {
 
                   {/* Shipping Notice */}
                   <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-                    <p className="text-sm text-gray-900 mb-2">
+                    <p className="text-body text-gray-900 mb-2">
                       <strong>Note:</strong> Prices do not include shipping. Once purchased, you will be redirected to add shipping info, select size and colour, and will require additional payment for shipping from the UK.
                     </p>
                     <button
                       onClick={() => setShowShippingInfo(!showShippingInfo)}
-                      className="text-sm text-blue-600 hover:underline"
+                      className="text-body text-blue-600 hover:underline"
                     >
                       See shipping prices
                     </button>
                     {showShippingInfo && (
-                      <div className="mt-3 text-sm text-gray-700 space-y-1">
+                      <div className="mt-3 text-body text-gray-700 space-y-1">
                         <p>• UK: £5.00</p>
                         <p>• Europe: £9.95</p>
                         <p>• US/Canada: £14.95</p>
@@ -267,7 +267,7 @@ export function Upsell({ product, sessionId }: UpsellProps) {
                   {/* Product Info */}
                   <div className="pt-6 border-t border-gray-200">
                     <p className="font-bold text-gray-900 mb-3">100% PURE COTTON</p>
-                    <div className="space-y-1 text-sm text-gray-700">
+                    <div className="space-y-1 text-body text-gray-700">
                       <p>Made in Britain</p>
                     </div>
                   </div>
@@ -298,14 +298,14 @@ export function Upsell({ product, sessionId }: UpsellProps) {
           <div className="px-4 space-y-6">
             {/* Title and Price */}
             <div>
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">
+              <h1 className="text-section font-bold text-gray-900 mb-2">
                 TRACKSUIT
               </h1>
               <div className="flex items-center gap-2">
-                <p className="text-base text-gray-500 line-through">
+                <p className="text-body text-gray-500 line-through">
                   {formatPrice(Math.round(convertedPrice / 0.8), displayCurrency)}
                 </p>
-                <p className="text-2xl font-bold text-gray-900">
+                <p className="text-sub font-bold text-gray-900">
                   {formatPrice(convertedPrice, displayCurrency)}
                 </p>
                 <span className="bg-yellow-100 text-black text-xs font-bold px-2 py-1 rounded">
@@ -316,7 +316,7 @@ export function Upsell({ product, sessionId }: UpsellProps) {
 
             {/* Colour Selector */}
             <div>
-              <p className="text-sm font-semibold text-gray-900 mb-2 uppercase">Colour</p>
+              <p className="text-body font-semibold text-gray-900 mb-2 uppercase">Colour</p>
               <div className="grid grid-cols-4 gap-1.5">
                 {TRACKSUIT_COLORS.map((color) => (
                   <button
@@ -345,7 +345,7 @@ export function Upsell({ product, sessionId }: UpsellProps) {
             <button
               onClick={handleAccept}
               disabled={isAdding}
-              className={`w-full py-4 px-6 rounded-full font-bold text-lg transition-colors ${
+              className={`w-full py-4 px-6 rounded-full font-bold text-title transition-colors ${
                 isAdding
                   ? 'bg-gray-400 cursor-not-allowed text-white'
                   : 'bg-black hover:bg-gray-800 text-white'
@@ -363,17 +363,17 @@ export function Upsell({ product, sessionId }: UpsellProps) {
 
             {/* Shipping Notice */}
             <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-              <p className="text-sm text-gray-900 mb-2">
+              <p className="text-body text-gray-900 mb-2">
                 <strong>Note:</strong> Prices do not include shipping. Once purchased, you will be redirected to add shipping info, select size and colour, and will require additional payment for shipping from the UK.
               </p>
               <button
                 onClick={() => setShowShippingInfo(!showShippingInfo)}
-                className="text-sm text-blue-600 hover:underline"
+                className="text-body text-blue-600 hover:underline"
               >
                 See shipping prices
               </button>
               {showShippingInfo && (
-                <div className="mt-3 text-sm text-gray-700 space-y-1">
+                <div className="mt-3 text-body text-gray-700 space-y-1">
                   <p>• UK: £5.00</p>
                   <p>• Europe: £9.95</p>
                   <p>• US/Canada: £14.95</p>
@@ -385,7 +385,7 @@ export function Upsell({ product, sessionId }: UpsellProps) {
             {/* Product Info */}
             <div className="pt-6 border-t border-gray-200">
               <p className="font-bold text-gray-900 mb-3">100% PURE COTTON</p>
-              <div className="space-y-1 text-sm text-gray-700">
+              <div className="space-y-1 text-body text-gray-700">
                 <p>Made in Britain</p>
               </div>
             </div>
@@ -399,18 +399,18 @@ export function Upsell({ product, sessionId }: UpsellProps) {
   return (
     <div className="bg-gradient-to-br from-red-50 to-white border-2 border-red-600 rounded-xl p-8">
       <div className="text-center mb-6">
-        <p className="text-sm font-semibold text-red-600 mb-2">SPECIAL OFFER</p>
-        <h2 className="text-3xl font-bold text-gray-900 mb-2">
+        <p className="text-body font-semibold text-red-600 mb-2">SPECIAL OFFER</p>
+        <h2 className="text-section font-bold text-gray-900 mb-2">
           Add {product.title}
         </h2>
-        <p className="text-lg text-gray-600">
+        <p className="text-title text-gray-600">
           Complete your boxing journey
         </p>
       </div>
 
       {/* Product Benefits */}
       <div className="bg-white rounded-lg p-6 mb-6 border border-gray-200">
-        <div className="space-y-3 text-sm text-gray-600">
+        <div className="space-y-3 text-body text-gray-600">
           {product.description.split('\n').slice(0, 3).map((line, i) => (
             <p key={i} className="flex items-start gap-2">
               <span className="text-red-600">✓</span>
@@ -422,11 +422,11 @@ export function Upsell({ product, sessionId }: UpsellProps) {
 
       {/* Price */}
       <div className="text-center mb-6">
-        <p className="text-4xl font-bold text-gray-900">
+        <p className="text-section font-bold text-gray-900">
           {formatPrice(convertedPrice, displayCurrency)}
-          {product.recurring && <span className="text-lg text-gray-600">/{product.interval}</span>}
+          {product.recurring && <span className="text-title text-gray-600">/{product.interval}</span>}
         </p>
-        <p className="text-sm text-gray-600 mt-1">
+        <p className="text-body text-gray-600 mt-1">
           One-click add to your order
           {isMembership && currency !== 'USD' && <span className="block text-xs mt-1">USD only</span>}
         </p>
@@ -437,7 +437,7 @@ export function Upsell({ product, sessionId }: UpsellProps) {
         <button
           onClick={handleAccept}
           disabled={isAdding}
-          className={`w-full py-4 px-6 rounded-lg font-bold text-lg transition-colors ${
+          className={`w-full py-4 px-6 rounded-lg font-bold text-title transition-colors ${
             isAdding
               ? 'bg-gray-400 cursor-not-allowed'
               : 'bg-red-600 hover:bg-red-700'

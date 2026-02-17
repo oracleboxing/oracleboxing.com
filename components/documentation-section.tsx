@@ -62,10 +62,10 @@ export default function DocumentationSection() {
             }
             text="Platform Features"
           />
-          <div className="self-stretch text-center flex justify-center flex-col text-[#49423D] text-3xl md:text-5xl font-semibold leading-tight md:leading-[60px] font-sans tracking-tight">
+          <div className="self-stretch text-center flex justify-center flex-col text-[#49423D] text-section font-semibold leading-tight font-sans tracking-tight">
             Streamline your business operations
           </div>
-          <div className="self-stretch text-center text-[#605A57] text-base font-normal leading-7 font-sans">
+          <div className="self-stretch text-center text-[#605A57] text-body font-normal leading-7 font-sans">
             Manage schedules, analyze data, and collaborate with your team
             <br />
             all in one powerful platform.
@@ -100,7 +100,7 @@ export default function DocumentationSection() {
                     />
                   </div>
                   <div className="px-6 py-5 w-full flex flex-col gap-2">
-                    <div className="self-stretch flex justify-center flex-col text-[#49423D] text-sm font-semibold leading-6 font-sans">
+                    <div className="self-stretch flex justify-center flex-col text-[#49423D] text-body font-semibold leading-6 font-sans">
                       {card.title}
                     </div>
                     <div className="self-stretch text-[#605A57] text-[13px] font-normal leading-[22px] font-sans whitespace-pre-line">

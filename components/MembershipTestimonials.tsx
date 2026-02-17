@@ -20,7 +20,7 @@ export function MembershipTestimonials({ testimonials }: MembershipTestimonialsP
   return (
     <section className="py-12 sm:py-16 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-12 text-center" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
+        <h2 className="text-hero font-bold text-gray-900 mb-12 text-center">
           Engineered for results
         </h2>
 
@@ -45,7 +45,7 @@ export function MembershipTestimonials({ testimonials }: MembershipTestimonialsP
               </div>
 
               {/* Content */}
-              <p className="text-sm sm:text-base text-black font-bold mb-3 leading-relaxed">
+              <p className="text-body text-black font-bold mb-3 leading-relaxed">
                 "{testimonial.content}"
               </p>
 
@@ -61,7 +61,7 @@ export function MembershipTestimonials({ testimonials }: MembershipTestimonialsP
                   />
                 </div>
                 <div>
-                  <div className="font-bold text-black text-sm sm:text-base">{testimonial.name}</div>
+                  <div className="font-bold text-black text-body">{testimonial.name}</div>
                 </div>
               </div>
             </div>
@@ -85,7 +85,7 @@ export function MembershipTestimonials({ testimonials }: MembershipTestimonialsP
               </div>
 
               {/* Content */}
-              <p className="text-base text-black font-bold mb-3 leading-relaxed">
+              <p className="text-body text-black font-bold mb-3 leading-relaxed">
                 "{testimonial.content}"
               </p>
 
@@ -101,7 +101,7 @@ export function MembershipTestimonials({ testimonials }: MembershipTestimonialsP
                   />
                 </div>
                 <div>
-                  <div className="font-bold text-black text-base">{testimonial.name}</div>
+                  <div className="font-bold text-black text-body">{testimonial.name}</div>
                 </div>
               </div>
             </div>

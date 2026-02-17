@@ -19,8 +19,7 @@ export default function BoxingFootworkFundamentalsPage() {
               className="rounded"
             />
             <span
-              className="text-[#37322F] text-lg font-semibold tracking-tight"
-              style={{ fontFamily: "ClashDisplay, sans-serif" }}
+              className="text-[#37322F] text-title font-semibold tracking-tight"
             >
               Oracle Boxing
             </span>
@@ -39,14 +38,13 @@ export default function BoxingFootworkFundamentalsPage() {
         <p className="text-[#605A57] text-sm mb-4">18 July 2025</p>
 
         <h1
-          className="text-[#37322F] text-3xl md:text-[44px] md:leading-[1.15] font-semibold tracking-tight mb-8"
-          style={{ fontFamily: "ClashDisplay, sans-serif" }}
+          className="text-[#37322F] text-section font-semibold tracking-tight mb-8"
         >
           Boxing Footwork Fundamentals: How to Move Like a Real Boxer
         </h1>
 
         {/* Content */}
-        <div className="prose-oracle space-y-6 text-[#37322F] text-[17px] leading-[1.75]">
+        <div className="prose-oracle space-y-6 text-[#37322F] text-title leading-[1.75]">
           <p>
             Boxing is a game of inches. The difference between getting hit and making your opponent miss is often a tiny step - just enough to take your head off their centre line. Yet footwork is the most neglected skill in boxing. Beginners spend all their time working on punches and almost none on the movement that makes those punches land.
           </p>
@@ -55,8 +53,7 @@ export default function BoxingFootworkFundamentalsPage() {
           </p>
 
           <h2
-            className="text-[#37322F] text-xl md:text-2xl font-semibold mt-10 mb-4"
-            style={{ fontFamily: "ClashDisplay, sans-serif" }}
+            className="text-[#37322F] text-sub font-semibold mt-10 mb-4"
           >
             The Foundation: Your Stance Dictates Your Movement
           </h2>
@@ -68,8 +65,7 @@ export default function BoxingFootworkFundamentalsPage() {
           </p>
 
           <h2
-            className="text-[#37322F] text-xl md:text-2xl font-semibold mt-10 mb-4"
-            style={{ fontFamily: "ClashDisplay, sans-serif" }}
+            className="text-[#37322F] text-sub font-semibold mt-10 mb-4"
           >
             The First Rule: Feet First, Then Hands
           </h2>
@@ -81,8 +77,7 @@ export default function BoxingFootworkFundamentalsPage() {
           </p>
 
           <h2
-            className="text-[#37322F] text-xl md:text-2xl font-semibold mt-10 mb-4"
-            style={{ fontFamily: "ClashDisplay, sans-serif" }}
+            className="text-[#37322F] text-sub font-semibold mt-10 mb-4"
           >
             Basic Movement: Open-Close Stepping
           </h2>
@@ -94,8 +89,7 @@ export default function BoxingFootworkFundamentalsPage() {
           </p>
 
           <h2
-            className="text-[#37322F] text-xl md:text-2xl font-semibold mt-10 mb-4"
-            style={{ fontFamily: "ClashDisplay, sans-serif" }}
+            className="text-[#37322F] text-sub font-semibold mt-10 mb-4"
           >
             The Pivot: Taking Angles Without Covering Distance
           </h2>
@@ -110,8 +104,7 @@ export default function BoxingFootworkFundamentalsPage() {
           </p>
 
           <h2
-            className="text-[#37322F] text-xl md:text-2xl font-semibold mt-10 mb-4"
-            style={{ fontFamily: "ClashDisplay, sans-serif" }}
+            className="text-[#37322F] text-sub font-semibold mt-10 mb-4"
           >
             The Petal Drill: Ring Movement Made Automatic
           </h2>
@@ -123,8 +116,7 @@ export default function BoxingFootworkFundamentalsPage() {
           </p>
 
           <h2
-            className="text-[#37322F] text-xl md:text-2xl font-semibold mt-10 mb-4"
-            style={{ fontFamily: "ClashDisplay, sans-serif" }}
+            className="text-[#37322F] text-sub font-semibold mt-10 mb-4"
           >
             Range Management: The Invisible Skill
           </h2>
@@ -136,8 +128,7 @@ export default function BoxingFootworkFundamentalsPage() {
           </p>
 
           <h2
-            className="text-[#37322F] text-xl md:text-2xl font-semibold mt-10 mb-4"
-            style={{ fontFamily: "ClashDisplay, sans-serif" }}
+            className="text-[#37322F] text-sub font-semibold mt-10 mb-4"
           >
             Maintaining Your Stance While Moving
           </h2>
@@ -149,8 +140,7 @@ export default function BoxingFootworkFundamentalsPage() {
           </p>
 
           <h2
-            className="text-[#37322F] text-xl md:text-2xl font-semibold mt-10 mb-4"
-            style={{ fontFamily: "ClashDisplay, sans-serif" }}
+            className="text-[#37322F] text-sub font-semibold mt-10 mb-4"
           >
             The Footwork Drill Programme
           </h2>
@@ -173,8 +163,7 @@ export default function BoxingFootworkFundamentalsPage() {
           {/* CTA */}
           <div className="mt-14 py-10 px-6 md:px-10 bg-[#37322F]/[0.03] rounded-2xl text-center">
             <h3
-              className="text-[#37322F] text-xl md:text-2xl font-semibold mb-3"
-              style={{ fontFamily: "ClashDisplay, sans-serif" }}
+              className="text-[#37322F] text-sub font-semibold mb-3"
             >
               Move Like a Boxer, Not Just a Puncher
             </h3>

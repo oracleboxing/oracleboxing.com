@@ -78,8 +78,7 @@ export default function BlogIndexPage() {
               className="rounded"
             />
             <span
-              className="text-[#37322F] text-lg font-semibold tracking-tight"
-              style={{ fontFamily: "ClashDisplay, sans-serif" }}
+              className="text-[#37322F] text-title font-semibold tracking-tight"
             >
               Oracle Boxing
             </span>
@@ -90,12 +89,11 @@ export default function BlogIndexPage() {
       {/* Page content */}
       <main className="max-w-[1100px] mx-auto px-4 py-12 md:py-20">
         <h1
-          className="text-[#37322F] text-3xl md:text-5xl font-semibold tracking-tight mb-4"
-          style={{ fontFamily: "ClashDisplay, sans-serif" }}
+          className="text-[#37322F] text-section font-semibold tracking-tight mb-4"
         >
           Blog
         </h1>
-        <p className="text-[#605A57] text-lg mb-12 max-w-[600px]">
+        <p className="text-[#605A57] text-title mb-12 max-w-[600px]">
           Technical breakdowns, coaching insights, and training guides from the
           Oracle Boxing team.
         </p>
@@ -146,8 +144,7 @@ export default function BlogIndexPage() {
                     {formatDate(post.date)}
                   </p>
                   <h2
-                    className="text-[#37322F] text-lg font-semibold leading-snug mb-2 group-hover:text-[#49423D] transition-colors"
-                    style={{ fontFamily: "ClashDisplay, sans-serif" }}
+                    className="text-[#37322F] text-title font-semibold leading-snug mb-2 group-hover:text-[#49423D] transition-colors"
                   >
                     {post.title}
                   </h2>

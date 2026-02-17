@@ -40,18 +40,17 @@ export default function HeroSection({ onCTAClick, onOpenPricing }: HeroSectionPr
     <section className="relative overflow-hidden bg-white">
       <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8 lg:pt-10 pb-12 sm:pb-16 lg:pb-20">
         {/* Centered Text Content */}
-        <div className="text-center" style={{ fontFamily: 'Satoshi, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
+        <div className="text-center">
           <h1
-            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 tracking-tight leading-tight px-4 max-w-5xl mx-auto mb-4 sm:mb-5"
+            className="text-hero font-bold text-gray-900 tracking-tight leading-tight px-4 max-w-5xl mx-auto mb-4 sm:mb-5"
             style={{
-              fontFamily: 'Satoshi, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
               fontWeight: '700'
             }}
           >
             {headline.main}
           </h1>
 
-          <p className="text-sm sm:text-base md:text-lg text-gray-900 max-w-4xl mx-auto px-4 leading-relaxed">
+          <p className="text-title text-gray-900 max-w-4xl mx-auto px-4 leading-relaxed">
             {headline.sub}
           </p>
         </div>

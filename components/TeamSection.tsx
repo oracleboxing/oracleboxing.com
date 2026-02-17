@@ -5,7 +5,7 @@ import Image from "next/image"
 const team = [
   {
     name: "Oliver Betts",
-    role: "Co-Founder",
+    role: "Founder",
     image: "https://sb.oracleboxing.com/Website/team_ollie.webp",
   },
   {
@@ -15,22 +15,22 @@ const team = [
   },
   {
     name: "Antonio Troni",
-    role: "Senior Coach",
+    role: "Coach",
     image: "https://sb.oracleboxing.com/Website/team_toni.webp",
   },
   {
     name: "Charlie Snider",
-    role: "Junior Coach",
+    role: "Coach",
     image: "https://sb.oracleboxing.com/Website/team_charlie.webp",
   },
 ]
 
 export default function TeamSection() {
   return (
-    <section className="w-full bg-white py-12 md:py-16 border-b border-[rgba(55,50,47,0.12)]">
+    <section className="w-full bg-white py-12 md:py-16">
       {/* Header */}
       <div className="text-center mb-10 md:mb-12 px-4">
-        <h2 className="text-[#37322F] text-2xl sm:text-3xl md:text-4xl font-normal" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
+        <h2 className="text-[#37322F] text-section font-normal">
           Your Dream Team
         </h2>
       </div>
@@ -57,17 +57,17 @@ export default function TeamSection() {
 
             {/* Name and Role - appears on hover */}
             <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-[#37322F]/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <p className="text-white text-sm sm:text-base font-semibold font-sans text-center">
+              <p className="text-white text-body font-semibold font-sans text-center">
                 {member.name}
               </p>
-              <p className="text-white/80 text-xs sm:text-sm font-medium font-sans text-center">
+              <p className="text-white/80 text-body font-medium font-sans text-center">
                 {member.role}
               </p>
             </div>
 
             {/* Always visible name below on mobile */}
             <div className="md:hidden text-center py-3 px-2">
-              <p className="text-[#37322F] text-sm font-semibold font-sans">
+              <p className="text-[#37322F] text-body font-semibold font-sans">
                 {member.name}
               </p>
               <p className="text-[#847971] text-xs font-medium font-sans">

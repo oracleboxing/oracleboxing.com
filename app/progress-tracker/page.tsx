@@ -109,7 +109,7 @@ export default function ProgressTrackerPage() {
     <div className="min-h-screen bg-white">
       {/* Header */}
       <header className="border-b border-gray-200 py-4 px-6">
-        <h1 className="text-lg font-semibold text-[#37322F] font-sans">Progress Tracker</h1>
+        <h1 className="text-title font-semibold text-[#37322F] font-sans">Progress Tracker</h1>
       </header>
 
       {/* Main Content */}
@@ -123,13 +123,13 @@ export default function ProgressTrackerPage() {
                 </svg>
               </div>
               <div>
-                <h2 className="text-[#37322F] text-lg font-semibold font-sans">Request Received</h2>
-                <p className="text-gray-500 text-sm font-sans">Check your inbox for next steps.</p>
+                <h2 className="text-[#37322F] text-title font-semibold font-sans">Request Received</h2>
+                <p className="text-gray-500 text-body font-sans">Check your inbox for next steps.</p>
               </div>
             </div>
             <button
               onClick={() => setSubmitted(false)}
-              className="text-sm text-gray-500 hover:text-[#37322F] font-sans underline"
+              className="text-body text-gray-500 hover:text-[#37322F] font-sans underline"
             >
               Submit another
             </button>
@@ -139,7 +139,7 @@ export default function ProgressTrackerPage() {
             {/* Row 1: Name and Email */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label htmlFor="name" className="block text-sm font-medium text-[#37322F] mb-1.5 font-sans">
+                <label htmlFor="name" className="block text-body font-medium text-[#37322F] mb-1.5 font-sans">
                   Full Name
                 </label>
                 <input
@@ -148,7 +148,7 @@ export default function ProgressTrackerPage() {
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
-                  className={`w-full h-12 px-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#37322F]/20 focus:border-[#37322F] bg-white text-[#37322F] font-sans text-sm ${
+                  className={`w-full h-12 px-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#37322F]/20 focus:border-[#37322F] bg-white text-[#37322F] font-sans text-body ${
                     errors.name ? 'border-red-500' : 'border-gray-200'
                   }`}
                   placeholder="John Doe"
@@ -156,11 +156,11 @@ export default function ProgressTrackerPage() {
                   disabled={isLoading}
                 />
                 {errors.name && (
-                  <p className="mt-1 text-sm text-red-600 font-sans">{errors.name}</p>
+                  <p className="mt-1 text-body text-red-600 font-sans">{errors.name}</p>
                 )}
               </div>
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-[#37322F] mb-1.5 font-sans">
+                <label htmlFor="email" className="block text-body font-medium text-[#37322F] mb-1.5 font-sans">
                   Email
                 </label>
                 <input
@@ -169,7 +169,7 @@ export default function ProgressTrackerPage() {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className={`w-full h-12 px-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#37322F]/20 focus:border-[#37322F] bg-white text-[#37322F] font-sans text-sm ${
+                  className={`w-full h-12 px-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#37322F]/20 focus:border-[#37322F] bg-white text-[#37322F] font-sans text-body ${
                     errors.email ? 'border-red-500' : 'border-gray-200'
                   }`}
                   placeholder="john@example.com"
@@ -177,7 +177,7 @@ export default function ProgressTrackerPage() {
                   disabled={isLoading}
                 />
                 {errors.email && (
-                  <p className="mt-1 text-sm text-red-600 font-sans">{errors.email}</p>
+                  <p className="mt-1 text-body text-red-600 font-sans">{errors.email}</p>
                 )}
               </div>
             </div>
@@ -185,7 +185,7 @@ export default function ProgressTrackerPage() {
             {/* Row 2: Weekly Target */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label htmlFor="weeklyTarget" className="block text-sm font-medium text-[#37322F] mb-1.5 font-sans">
+                <label htmlFor="weeklyTarget" className="block text-body font-medium text-[#37322F] mb-1.5 font-sans">
                   Weekly Live Call Target
                 </label>
                 <input
@@ -196,7 +196,7 @@ export default function ProgressTrackerPage() {
                   onChange={handleChange}
                   min={1}
                   max={7}
-                  className={`w-full h-12 px-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#37322F]/20 focus:border-[#37322F] bg-white text-[#37322F] font-sans text-sm ${
+                  className={`w-full h-12 px-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#37322F]/20 focus:border-[#37322F] bg-white text-[#37322F] font-sans text-body ${
                     errors.weeklyTarget ? 'border-red-500' : 'border-gray-200'
                   }`}
                   required
@@ -206,7 +206,7 @@ export default function ProgressTrackerPage() {
                   Calls per week (1-7)
                 </p>
                 {errors.weeklyTarget && (
-                  <p className="mt-1 text-sm text-red-600 font-sans">{errors.weeklyTarget}</p>
+                  <p className="mt-1 text-body text-red-600 font-sans">{errors.weeklyTarget}</p>
                 )}
               </div>
             </div>
@@ -214,7 +214,7 @@ export default function ProgressTrackerPage() {
             {/* Server Error */}
             {serverError && (
               <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
-                <p className="text-sm text-red-700 font-sans">{serverError}</p>
+                <p className="text-body text-red-700 font-sans">{serverError}</p>
               </div>
             )}
 
@@ -223,7 +223,7 @@ export default function ProgressTrackerPage() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full sm:w-auto h-12 px-8 bg-[#37322F] text-white rounded-lg font-semibold text-sm font-sans cursor-pointer hover:bg-[#49423D] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full sm:w-auto h-12 px-8 bg-[#37322F] text-white rounded-lg font-semibold text-body font-sans cursor-pointer hover:bg-[#49423D] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isLoading ? 'Submitting...' : 'Start Tracking'}
               </button>

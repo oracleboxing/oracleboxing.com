@@ -52,10 +52,10 @@ export default function MembershipFAQSection() {
     <section className="w-full py-16 md:py-24 px-4 md:px-8 bg-white">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-normal mb-4" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
+          <h2 className="text-section font-normal mb-4">
             Frequently Asked <span className="text-[#9CABA8]">Questions</span>
           </h2>
-          <p className="text-lg text-[#605A57]">
+          <p className="text-title text-[#605A57]">
             Everything you need to know about Oracle Boxing membership
           </p>
         </div>

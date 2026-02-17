@@ -105,12 +105,12 @@ export function PlatformScreenshotsCarousel({ onOpenPricing, buttonText = "VIEW 
     <section className="pt-8 pb-12 sm:py-16 bg-white">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Title */}
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4 text-center">
+        <h2 className="text-section font-bold text-gray-900 mb-3 sm:mb-4 text-center">
           See Inside The Platform
         </h2>
 
         {/* Subtitle */}
-        <p className="text-sm sm:text-lg md:text-xl text-gray-600 mb-6 sm:mb-8 text-center max-w-3xl mx-auto">
+        <p className="text-sub text-gray-600 mb-6 sm:mb-8 text-center max-w-3xl mx-auto">
           Everything you need to master boxing, all in one place
         </p>
 
@@ -144,10 +144,10 @@ export function PlatformScreenshotsCarousel({ onOpenPricing, buttonText = "VIEW 
 
                   {/* Text Content */}
                   <div className="p-4 sm:p-5">
-                    <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-1 sm:mb-2">
+                    <h3 className="text-sub font-bold text-gray-900 mb-1 sm:mb-2">
                       {screenshot.title}
                     </h3>
-                    <p className="text-xs sm:text-sm text-gray-600">
+                    <p className="text-body text-gray-600">
                       {screenshot.subtitle}
                     </p>
                   </div>

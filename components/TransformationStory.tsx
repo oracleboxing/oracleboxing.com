@@ -19,7 +19,6 @@ interface Testimonial {
 }
 
 export default function TransformationStory({ onCTAClick }: TransformationStoryProps) {
-  const fontFamily = 'Satoshi, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
   const [currentIndex, setCurrentIndex] = useState(0)
   const [touchStart, setTouchStart] = useState(0)
   const [touchEnd, setTouchEnd] = useState(0)
@@ -114,12 +113,12 @@ export default function TransformationStory({ onCTAClick }: TransformationStoryP
   const currentTestimonial = testimonials[currentIndex]
 
   return (
-    <section className="relative bg-[rgba(55,50,47,0.04)] py-12 sm:py-16 lg:py-20 overflow-hidden" style={{ fontFamily }}>
+    <section className="relative bg-[rgba(55,50,47,0.04)] py-12 sm:py-16 lg:py-20 overflow-hidden">
 
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 bg-white rounded-2xl py-8 sm:py-12">
         {/* Header */}
         <div className="text-center mb-8 sm:mb-12">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold px-4" style={{ fontFamily: 'Satoshi, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif', fontWeight: '700', color: '#222', letterSpacing: '0.02em', lineHeight: '1.2' }}>
+          <h2 className="text-hero font-bold px-4" style={{ fontWeight: '700', color: '#222', letterSpacing: '0.02em', lineHeight: '1.2' }}>
             Real Boxing, Smart System
           </h2>
         </div>
@@ -144,15 +143,15 @@ export default function TransformationStory({ onCTAClick }: TransformationStoryP
               />
               <div>
                 <h3 className="font-bold text-gray-900">{currentTestimonial.name}</h3>
-                <p className="text-sm text-gray-500">{currentTestimonial.badge}</p>
+                <p className="text-body text-gray-500">{currentTestimonial.badge}</p>
               </div>
             </div>
 
             {/* Testimonial Content */}
             <div className="space-y-3 text-gray-700">
-              <p className="font-semibold text-lg">{currentTestimonial.title}</p>
+              <p className="font-semibold text-title">{currentTestimonial.title}</p>
               {currentTestimonial.content.map((paragraph, index) => (
-                <p key={index} className="text-sm sm:text-base md:text-lg leading-relaxed">{paragraph}</p>
+                <p key={index} className="text-title leading-relaxed">{paragraph}</p>
               ))}
               {currentTestimonial.hashtag && (
                 <p className="font-bold pt-2">{currentTestimonial.hashtag}</p>
@@ -183,7 +182,7 @@ export default function TransformationStory({ onCTAClick }: TransformationStoryP
                 onClick={onCTAClick}
                 trackingName="transformation-story"
               >
-                <span className="text-lg sm:text-xl font-black uppercase">VIEW DETAILS</span>
+                <span className="text-sub font-black uppercase">VIEW DETAILS</span>
               </EpicCTAButton>
             </div>
           )}

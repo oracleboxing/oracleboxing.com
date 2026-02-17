@@ -104,19 +104,19 @@ export default function ContactPage() {
   ]
 
   // Input styling matching admin page
-  const inputClass = "w-full h-12 px-4 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#37322F]/20 focus:border-[#37322F] bg-white text-[#37322F] font-sans text-sm"
-  const selectClass = "w-full h-12 px-4 pr-10 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#37322F]/20 focus:border-[#37322F] bg-white text-[#37322F] font-sans text-sm appearance-none cursor-pointer"
+  const inputClass = "w-full h-12 px-4 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#37322F]/20 focus:border-[#37322F] bg-white text-[#37322F] font-sans text-body"
+  const selectClass = "w-full h-12 px-4 pr-10 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#37322F]/20 focus:border-[#37322F] bg-white text-[#37322F] font-sans text-body appearance-none cursor-pointer"
 
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
       <header className="border-b border-gray-200 py-6 px-6">
         <div className="max-w-2xl mx-auto">
-          <h1 className="text-2xl font-semibold text-[#37322F] font-sans flex items-center gap-3">
+          <h1 className="text-sub font-semibold text-[#37322F] font-sans flex items-center gap-3">
             <MessageCircle className="w-6 h-6" />
             Contact Us
           </h1>
-          <p className="text-gray-500 text-sm mt-1">Have questions? We typically respond within 24 hours.</p>
+          <p className="text-gray-500 text-body mt-1">Have questions? We typically respond within 24 hours.</p>
         </div>
       </header>
 
@@ -127,7 +127,7 @@ export default function ContactPage() {
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-[#37322F] mb-1.5 font-sans">First Name</label>
+                <label className="block text-body font-medium text-[#37322F] mb-1.5 font-sans">First Name</label>
                 <input
                   type="text"
                   value={formData.firstName}
@@ -139,7 +139,7 @@ export default function ContactPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-[#37322F] mb-1.5 font-sans">Last Name</label>
+                <label className="block text-body font-medium text-[#37322F] mb-1.5 font-sans">Last Name</label>
                 <input
                   type="text"
                   value={formData.lastName}
@@ -153,7 +153,7 @@ export default function ContactPage() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-[#37322F] mb-1.5 font-sans">Email</label>
+              <label className="block text-body font-medium text-[#37322F] mb-1.5 font-sans">Email</label>
               <input
                 type="email"
                 value={formData.email}
@@ -166,7 +166,7 @@ export default function ContactPage() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-[#37322F] mb-1.5 font-sans">Subject</label>
+              <label className="block text-body font-medium text-[#37322F] mb-1.5 font-sans">Subject</label>
               <div className="relative">
                 <select
                   value={formData.subject}
@@ -190,12 +190,12 @@ export default function ContactPage() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-[#37322F] mb-1.5 font-sans">Message</label>
+              <label className="block text-body font-medium text-[#37322F] mb-1.5 font-sans">Message</label>
               <textarea
                 rows={5}
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#37322F]/20 focus:border-[#37322F] bg-white text-[#37322F] font-sans text-sm resize-none"
+                className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#37322F]/20 focus:border-[#37322F] bg-white text-[#37322F] font-sans text-body resize-none"
                 placeholder="How can we help?"
                 required
                 disabled={isLoading}
@@ -205,14 +205,14 @@ export default function ContactPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full h-12 bg-[#37322F] text-white rounded-lg font-semibold text-sm font-sans cursor-pointer hover:bg-[#49423D] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full h-12 bg-[#37322F] text-white rounded-lg font-semibold text-body font-sans cursor-pointer hover:bg-[#49423D] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? 'Sending...' : 'Send Message'}
             </button>
           </form>
 
           {/* Direct Email */}
-          <div className="mt-6 pt-6 border-t border-gray-100 flex items-center justify-center gap-2 text-sm text-gray-500">
+          <div className="mt-6 pt-6 border-t border-gray-100 flex items-center justify-center gap-2 text-body text-gray-500">
             <Mail className="w-4 h-4" />
             <span>Or email us directly at</span>
             <a href="mailto:team@oracleboxing.com" className="text-[#37322F] font-medium hover:underline">
@@ -223,7 +223,7 @@ export default function ContactPage() {
 
         {/* FAQ Section */}
         <div>
-          <h2 className="text-lg font-semibold text-[#37322F] font-sans mb-6">
+          <h2 className="text-title font-semibold text-[#37322F] font-sans mb-6">
             Frequently Asked Questions
           </h2>
 
@@ -236,7 +236,7 @@ export default function ContactPage() {
                 >
                   <div className="flex-1 pr-4">
                     <span className="text-xs text-gray-400 font-medium uppercase tracking-wider">{faq.category}</span>
-                    <p className="text-[#37322F] text-sm font-medium font-sans mt-0.5">
+                    <p className="text-[#37322F] text-body font-medium font-sans mt-0.5">
                       {faq.question}
                     </p>
                   </div>
@@ -248,7 +248,7 @@ export default function ContactPage() {
                 </button>
                 {openFaq === index && (
                   <div className="px-4 pb-4">
-                    <p className="text-gray-600 text-sm font-sans leading-relaxed">
+                    <p className="text-gray-600 text-body font-sans leading-relaxed">
                       {faq.answer}
                     </p>
                   </div>
@@ -259,7 +259,7 @@ export default function ContactPage() {
         </div>
 
         {/* Company Info */}
-        <div className="mt-12 pt-8 border-t border-gray-100 text-center text-sm text-gray-400">
+        <div className="mt-12 pt-8 border-t border-gray-100 text-center text-body text-gray-400">
           <p className="font-medium text-gray-500">Oracle Boxing Ltd</p>
           <p>Unit 5 Artillery 88, Artillery Road</p>
           <p>Yeovil, BA22 8RP, United Kingdom</p>

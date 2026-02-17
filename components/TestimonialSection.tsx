@@ -22,7 +22,7 @@ export function TestimonialSection({ testimonials }: TestimonialSectionProps) {
   return (
     <section className="pt-6 sm:pt-12 pb-8 sm:pb-16 bg-gray-50">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-6 sm:mb-12 text-center">
+        <h2 className="text-section font-bold text-gray-900 mb-6 sm:mb-12 text-center">
           What Students Are Saying
         </h2>
 
@@ -40,13 +40,13 @@ export function TestimonialSection({ testimonials }: TestimonialSectionProps) {
                 </div>
 
                 {/* Content */}
-                <p className="text-xs sm:text-base text-black font-bold mb-1.5 sm:mb-3 leading-relaxed">
+                <p className="text-body text-black font-bold mb-1.5 sm:mb-3 leading-relaxed">
                   "{testimonial.content}"
                 </p>
 
                 {/* Author */}
                 <div className="text-left">
-                  <div className="font-bold text-xs sm:text-base text-black">{testimonial.name}</div>
+                  <div className="font-bold text-body text-black">{testimonial.name}</div>
                 </div>
               </div>
             ))}
@@ -64,13 +64,13 @@ export function TestimonialSection({ testimonials }: TestimonialSectionProps) {
                 </div>
 
                 {/* Content */}
-                <p className="text-xs sm:text-base text-black font-bold mb-1.5 sm:mb-3 leading-relaxed">
+                <p className="text-body text-black font-bold mb-1.5 sm:mb-3 leading-relaxed">
                   "{testimonial.content}"
                 </p>
 
                 {/* Author */}
                 <div className="text-left">
-                  <div className="font-bold text-xs sm:text-base text-black">{testimonial.name}</div>
+                  <div className="font-bold text-body text-black">{testimonial.name}</div>
                 </div>
               </div>
             ))}

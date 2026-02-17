@@ -135,12 +135,11 @@ export default function WhyOnlinePage() {
           <div className="max-w-[1100px] mx-auto">
             <div className="text-center mb-10 md:mb-12">
               <h1
-                className="text-[#37322F] text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-normal mb-6 leading-tight"
-                style={{ fontFamily: 'ClashDisplay, sans-serif' }}
+                className="text-[#37322F] text-hero font-normal mb-6 leading-tight"
               >
                 The Fastest Way to Get Good at Boxing
               </h1>
-              <p className="text-[#605A57] text-base md:text-lg max-w-[800px] mx-auto leading-relaxed">
+              <p className="text-[#605A57] text-title max-w-[800px] mx-auto leading-relaxed">
                 If you've ever walked out of training thinking "I just learned absolutely nothing that session" — or you keep getting beaten up by kids half your size in sparring — this is for you.
               </p>
             </div>
@@ -166,8 +165,7 @@ export default function WhyOnlinePage() {
           <div className="max-w-[1000px] mx-auto">
             <div className="text-center mb-12 md:mb-16">
               <h2
-                className="text-[#37322F] text-2xl sm:text-3xl md:text-4xl font-normal"
-                style={{ fontFamily: 'ClashDisplay, sans-serif' }}
+                className="text-[#37322F] text-section font-normal"
               >
                 Method-by-Method Breakdown
               </h2>
@@ -187,12 +185,11 @@ export default function WhyOnlinePage() {
                     {/* Header */}
                     <div className="mb-6">
                       <h3
-                        className="text-[#37322F] text-xl md:text-2xl font-normal mb-2"
-                        style={{ fontFamily: 'ClashDisplay, sans-serif' }}
+                        className="text-[#37322F] text-sub font-normal mb-2"
                       >
                         {method.name}
                       </h3>
-                      <p className="text-[#605A57] text-sm md:text-base">{method.description}</p>
+                      <p className="text-[#605A57] text-body">{method.description}</p>
                     </div>
 
                     {/* Ratings Grid */}
@@ -244,12 +241,11 @@ export default function WhyOnlinePage() {
 
           <div className="max-w-[600px] mx-auto text-center relative z-10">
             <h2
-              className="text-white text-2xl sm:text-3xl md:text-4xl font-normal mb-6"
-              style={{ fontFamily: 'ClashDisplay, sans-serif' }}
+              className="text-white text-section font-normal mb-6"
             >
               Ready to Start?
             </h2>
-            <p className="text-white/70 text-base md:text-lg mb-8 leading-relaxed">
+            <p className="text-white/70 text-title mb-8 leading-relaxed">
               Online coaching takes the best parts of every method and strips away the flaws. It doesn't replace sparring — it makes sparring productive instead of destructive.
             </p>
             <ArrowButton href={getCheckoutUrl()}>

@@ -121,7 +121,6 @@ const YourWorkInSync: React.FC<YourWorkInSyncProps> = ({
             >
               <span
                 style={{
-                  fontFamily: "Inter, sans-serif",
                   fontWeight: 500,
                   fontSize: "13px",
                   lineHeight: "16px",
@@ -161,7 +160,6 @@ const YourWorkInSync: React.FC<YourWorkInSyncProps> = ({
             >
               <span
                 style={{
-                  fontFamily: "Inter, sans-serif",
                   fontWeight: 500,
                   fontSize: "13px",
                   lineHeight: "16px",
@@ -228,7 +226,6 @@ const YourWorkInSync: React.FC<YourWorkInSyncProps> = ({
             >
               <span
                 style={{
-                  fontFamily: "Inter, sans-serif",
                   fontWeight: 500,
                   fontSize: "13px",
                   lineHeight: "16px",
@@ -270,7 +267,6 @@ const YourWorkInSync: React.FC<YourWorkInSyncProps> = ({
             >
               <span
                 style={{
-                  fontFamily: "Inter, sans-serif",
                   fontWeight: 400,
                   fontSize: "14px",
                   lineHeight: "20px",

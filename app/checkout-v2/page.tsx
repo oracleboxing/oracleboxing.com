@@ -86,10 +86,6 @@ function CheckoutV2Content() {
   const { currency, isLoading: currencyLoading } = useCurrency()
   const { trackInitiateCheckoutEnriched } = useAnalytics()
 
-  // Detect membership checkout
-  const isMembership = searchParams.get('product') === 'membership'
-  const membershipPlan = (searchParams.get('plan') === 'annual' ? 'annual' : 'monthly') as 'monthly' | 'annual'
-
   const [step, setStep] = useState<'info' | 'payment'>('info')
   const [customerInfo, setCustomerInfo] = useState<CustomerInfo | null>(null)
   const [selectedAddOns, setSelectedAddOns] = useState<string[]>([])
@@ -161,6 +157,10 @@ function CheckoutV2Content() {
     const redirectStatus = searchParams.get('redirect_status')
     const returnedPaymentIntent = searchParams.get('payment_intent')
     if (returnedPaymentIntent || redirectStatus) return
+
+    // Don't restore if this is a membership checkout (uses Stripe hosted checkout, not PaymentIntent)
+    const productParam = searchParams.get('product')
+    if (productParam === 'membership') return
 
     // Don't restore if we have URL params for auto-submit (abandoned cart recovery)
     const fn = searchParams.get('fn')
@@ -342,7 +342,7 @@ function CheckoutV2Content() {
     return { clientSecret: data.clientSecret, paymentIntentId: data.paymentIntentId }
   }, [currency, trackingParams])
 
-  // Create Membership session
+  // Create Membership session (returns clientSecret like 21DC flow)
   const createMembershipSession = useCallback(async (info: CustomerInfo, plan: 'monthly' | 'annual', addOns: string[]) => {
     const cookieData = getCookie('ob_track');
     const response = await fetch('/api/checkout-v2/membership-session', {
@@ -357,10 +357,10 @@ function CheckoutV2Content() {
         }),
     });
     const data = await response.json();
-    if (!response.ok || !data.checkoutUrl) {
+    if (!response.ok || !data.clientSecret || !data.paymentIntentId) {
         throw new Error(data.error || 'Failed to create membership session');
     }
-    return data;
+    return { clientSecret: data.clientSecret, paymentIntentId: data.paymentIntentId };
   }, [trackingParams]);
 
   // Handle Step 1 submission
@@ -391,7 +391,11 @@ function CheckoutV2Content() {
                 currency: 'USD',
                 products: [productDetails.id],
                 product_names: [productDetails.title],
+                order_bumps: [],
+                order_bump_names: [],
                 funnel: 'membership',
+                has_order_bumps: false,
+                total_items: 1,
             });
             try {
                 const { gtagBeginCheckout, gtagSetUserData } = await import('@/lib/gtag');
@@ -406,8 +410,10 @@ function CheckoutV2Content() {
             }
         }
         
-        const { checkoutUrl } = await createMembershipSession(info, membershipPlan, selectedAddOns);
-        window.location.href = checkoutUrl;
+        const { clientSecret: secret, paymentIntentId: piId } = await createMembershipSession(info, membershipPlan, selectedAddOns);
+        setClientSecret(secret);
+        setPaymentIntentId(piId);
+        setStep('payment');
       } else {
         // 21DC flow
         const { clientSecret: secret, paymentIntentId: piId } = await create21DCSession(info);
@@ -434,7 +440,11 @@ function CheckoutV2Content() {
             currency: currency,
             products: ['21dc-entry'],
             product_names: ['21-Day Challenge'],
+            order_bumps: [],
+            order_bump_names: [],
             funnel: '21dc',
+            has_order_bumps: false,
+            total_items: 1,
         });
         
         try {
@@ -530,6 +540,8 @@ function CheckoutV2Content() {
           onAddOnsChange={handleAddOnsChange}
           isUpdatingAmount={isUpdatingAmount}
           onBack={() => setStep('info')}
+          product={product}
+          membershipPlan={membershipPlan}
         />
       )}
     </>

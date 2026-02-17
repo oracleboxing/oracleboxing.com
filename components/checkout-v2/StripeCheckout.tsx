@@ -5,7 +5,7 @@ import { useSearchParams } from 'next/navigation'
 import { loadStripe, Stripe, StripeElements } from '@stripe/stripe-js'
 import { Currency, formatPrice, getProductPrice } from '@/lib/currency'
 import { Loader2, ChevronLeft, ChevronRight, Check, ShieldCheck, Star, X } from 'lucide-react'
-import { CAMPAIGN_ACTIVE } from '@/lib/campaign'
+// Campaign removed
 import CheckoutTimer, { clearCheckoutTimer } from '@/components/CheckoutTimer'
 
 // Storage key for checkout session persistence (must match page.tsx)
@@ -214,12 +214,6 @@ const ADD_ONS: AddOn[] = [
     description: 'Premium tracksuit. Made in Britain. 100% cotton.',
     metadata: 'tracksuit',
   },
-  {
-    id: 'vault-2025',
-    title: '2025 Call Recording Vault',
-    description: '620+ coaching call recordings from 2025',
-    metadata: 'vault2025',
-  },
 ]
 
 interface StripeCheckoutProps {
@@ -235,6 +229,8 @@ interface StripeCheckoutProps {
   onAddOnsChange: (addOns: string[]) => void
   isUpdatingAmount: boolean
   onBack: () => void
+  product?: '21dc' | 'membership'
+  membershipPlan?: 'monthly' | 'annual'
 }
 
 export function StripeCheckout({
@@ -246,6 +242,8 @@ export function StripeCheckout({
   onAddOnsChange,
   isUpdatingAmount,
   onBack,
+  product = '21dc',
+  membershipPlan = 'monthly',
 }: StripeCheckoutProps) {
   const searchParams = useSearchParams()
   const [stripe, setStripe] = useState<Stripe | null>(null)
@@ -274,7 +272,7 @@ export function StripeCheckout({
         // Payment succeeded - clear session and redirect to success page
         clearCheckoutSession()
         clearCheckoutTimer()
-        window.location.href = `${window.location.origin}/success?payment_intent=${returnedPaymentIntent}`
+        const successPath = product === 'membership' ? '/membership-success' : '/success'; window.location.href = `${window.location.origin}${successPath}?payment_intent=${returnedPaymentIntent}`
       } else if (redirectStatus === 'failed') {
         // Payment failed - show error message, allow retry
         setError('Payment failed. Please try again with a different payment method.')
@@ -282,14 +280,21 @@ export function StripeCheckout({
         // Payment is still processing - clear session and redirect to success
         clearCheckoutSession()
         clearCheckoutTimer()
-        window.location.href = `${window.location.origin}/success?payment_intent=${returnedPaymentIntent}`
+        const successPath = product === 'membership' ? '/membership-success' : '/success'; window.location.href = `${window.location.origin}${successPath}?payment_intent=${returnedPaymentIntent}`
       }
       // For 'requires_payment_method' or other statuses, user can retry
     }
   }, [searchParams])
 
   // Product prices for display
-  const mainPrice = getProductPrice('21dc_entry', currency) || 147
+  const mainPrice = product === 'membership'
+    ? (membershipPlan === 'annual' ? 897 : 97)
+    : (getProductPrice('21dc_entry', currency) || 147)
+
+  // Filter add-ons: hide BFFP for annual membership (it's included)
+  const availableAddOns = product === 'membership' && membershipPlan === 'annual'
+    ? ADD_ONS.filter(a => a.id !== 'bffp')
+    : ADD_ONS
 
   const toggleAddOn = (id: string) => {
     const newAddOns = selectedAddOns.includes(id)
@@ -299,10 +304,20 @@ export function StripeCheckout({
   }
 
   // Calculate total
+  const isUpgradedToAnnual = product === 'membership' && membershipPlan === 'monthly' && selectedAddOns.includes('upgrade-annual')
+  const effectiveMainPrice = isUpgradedToAnnual ? 897 : mainPrice
+  const effectivePlan = isUpgradedToAnnual ? 'annual' : membershipPlan
+  // When upgraded to annual, hide BFFP from available add-ons
+  const effectiveAddOns = isUpgradedToAnnual
+    ? availableAddOns.filter(a => a.id !== 'bffp')
+    : availableAddOns
+
   const calculateTotal = () => {
-    let total = mainPrice
-    for (const addOn of ADD_ONS) {
+    let total = effectiveMainPrice
+    for (const addOn of effectiveAddOns) {
       if (selectedAddOns.includes(addOn.id)) {
+        // BFFP is free with annual upgrade
+        if (isUpgradedToAnnual && addOn.id === 'bffp') continue
         const price = getProductPrice(addOn.metadata, currency) || 0
         total += price
       }
@@ -335,7 +350,7 @@ export function StripeCheckout({
               colorBackground: '#ffffff',
               colorText: '#37322F',
               colorDanger: '#df1b41',
-              fontFamily: 'Satoshi, system-ui, sans-serif',
+              fontFamily: 'Inter, system-ui, sans-serif',
               spacingUnit: '4px',
               borderRadius: '8px',
             },
@@ -463,7 +478,7 @@ export function StripeCheckout({
           // Payment succeeded without redirect (card payments)
           clearCheckoutSession() // Clear the checkout session
           clearCheckoutTimer() // Clear the reservation timer
-          window.location.href = `${window.location.origin}/success?payment_intent=${paymentIntentId}`
+          const successPath2 = product === 'membership' ? '/membership-success' : '/success'; window.location.href = `${window.location.origin}${successPath2}?payment_intent=${paymentIntentId}`
           return
         }
 
@@ -471,7 +486,7 @@ export function StripeCheckout({
           // Payment is processing (bank transfers, etc.) - redirect to success
           clearCheckoutSession() // Clear the checkout session
           clearCheckoutTimer() // Clear the reservation timer
-          window.location.href = `${window.location.origin}/success?payment_intent=${paymentIntentId}`
+          const successPath2 = product === 'membership' ? '/membership-success' : '/success'; window.location.href = `${window.location.origin}${successPath2}?payment_intent=${paymentIntentId}`
           return
         }
 
@@ -512,6 +527,72 @@ export function StripeCheckout({
     setModuleIndex(0)
   }
 
+  // Upgrade to Annual card (only shown on monthly membership checkout)
+  const UpgradeToAnnualSection = () => {
+    if (product !== 'membership' || membershipPlan !== 'monthly') return null
+    const isUpgraded = selectedAddOns.includes('upgrade-annual')
+    return (
+      <div className="mb-8">
+        <p className="text-xs font-medium text-[#847971] uppercase tracking-wider mb-4">
+          Upgrade /
+        </p>
+        <button
+          type="button"
+          onClick={() => {
+            const newAddOns = isUpgraded
+              ? selectedAddOns.filter(x => x !== 'upgrade-annual')
+              : [...selectedAddOns, 'upgrade-annual']
+            onAddOnsChange(newAddOns)
+          }}
+          disabled={isConfirming}
+          className={`w-full p-4 rounded-xl border-2 transition-all duration-300 ease-out text-left relative overflow-hidden ${
+            isUpgraded
+              ? 'bg-[#37322F] border-[#37322F]'
+              : 'bg-white border-[rgba(55,50,47,0.12)] hover:border-[rgba(55,50,47,0.25)]'
+          } ${isConfirming ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+        >
+          {/* Animated ribbon background */}
+          <div className={`absolute inset-0 overflow-hidden pointer-events-none transition-opacity duration-300 hidden md:block ${
+            isUpgraded ? 'opacity-100' : 'opacity-0'
+          }`}>
+            <div className="addon-ribbon addon-ribbon-1" />
+            <div className="addon-ribbon addon-ribbon-2" />
+            <div className="addon-ribbon addon-ribbon-3" />
+          </div>
+          <div className="relative z-10">
+            <div className="flex items-center justify-between">
+              <div className="flex-1">
+                <span className={`font-semibold text-sm ${isUpgraded ? 'text-white' : 'text-[#37322F]'}`}>
+                  Switch to Annual
+                </span>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className={`font-semibold text-sm ${isUpgraded ? 'text-white' : 'text-[#37322F]'}`}>
+                  +$800
+                </span>
+                <div className={`w-5 h-5 rounded border-2 flex items-center justify-center transition-colors ${
+                  isUpgraded ? 'bg-white border-white' : 'border-[rgba(55,50,47,0.3)]'
+                }`}>
+                  {isUpgraded && (
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                      <path d="M10 3L4.5 8.5L2 6" stroke="#37322F" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  )}
+                </div>
+              </div>
+            </div>
+            <p className={`text-xs mt-1 ${isUpgraded ? 'text-white/70' : 'text-[#605A57]'}`}>
+              $74.75/mo equivalent + BFFP course + 1-on-1 coaching call included
+            </p>
+            <p className={`text-xs mt-0.5 font-medium ${isUpgraded ? 'text-white/90' : 'text-[#37322F]'}`}>
+              Save $267/yr
+            </p>
+          </div>
+        </button>
+      </div>
+    )
+  }
+
   // Reusable Add-ons Section Component
   const AddOnsSection = () => (
     <div className="mb-8">
@@ -519,7 +600,7 @@ export function StripeCheckout({
         Optional Add-ons /
       </p>
       <div className="space-y-3">
-        {ADD_ONS.map((addOn) => {
+        {effectiveAddOns.map((addOn) => {
           const isSelected = selectedAddOns.includes(addOn.id)
           const price = getProductPrice(addOn.metadata, currency) || 0
           return (
@@ -534,8 +615,8 @@ export function StripeCheckout({
                   : 'bg-white border-[rgba(55,50,47,0.12)] hover:border-[rgba(55,50,47,0.25)]'
               } ${isConfirming ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
             >
-              {/* Animated ribbon background - always rendered, fades in/out */}
-              <div className={`absolute inset-0 overflow-hidden pointer-events-none transition-opacity duration-300 ${
+              {/* Animated ribbon background - always rendered, fades in/out, hidden on mobile */}
+              <div className={`absolute inset-0 overflow-hidden pointer-events-none transition-opacity duration-300 hidden md:block ${
                 isSelected ? 'opacity-100' : 'opacity-0'
               }`}>
                 <div className="addon-ribbon addon-ribbon-1" />
@@ -603,19 +684,20 @@ export function StripeCheckout({
 
       <div className="space-y-3">
         <div className="flex justify-between text-sm">
-          <span className="text-[#605A57]">21-Day Challenge</span>
-          <span className="text-[#37322F] font-medium">{formatPrice(mainPrice, currency)}</span>
+          <span className="text-[#605A57]">{product === 'membership' ? (effectivePlan === 'annual' ? 'Annual Membership' : 'Monthly Membership') : '21-Day Challenge'}</span>
+          <span className="text-[#37322F] font-medium">{formatPrice(effectiveMainPrice, currency)}</span>
         </div>
 
         {/* Selected Add-ons */}
-        {selectedAddOns.map(addOnId => {
+        {selectedAddOns.filter(id => id !== 'upgrade-annual').map(addOnId => {
           const addOn = ADD_ONS.find(a => a.id === addOnId)
           if (!addOn) return null
+          const isFreeWithAnnual = isUpgradedToAnnual && addOnId === 'bffp'
           const price = getProductPrice(addOn.metadata, currency) || 0
           return (
             <div key={addOnId} className="flex justify-between text-sm">
               <span className="text-[#605A57]">{addOn.title}</span>
-              <span className="text-[#37322F] font-medium">{formatPrice(price, currency)}</span>
+              <span className="text-[#37322F] font-medium">{isFreeWithAnnual ? 'Free' : formatPrice(price, currency)}</span>
             </div>
           )
         })}
@@ -624,7 +706,7 @@ export function StripeCheckout({
       <div className="border-t border-[rgba(55,50,47,0.08)] mt-4 pt-4">
         <div className="flex justify-between">
           <span className="text-[#37322F] font-medium">Due today</span>
-          <span className="text-[#37322F] font-bold text-lg">{formatPrice(calculateTotal(), currency)}</span>
+          <span className="text-[#37322F] font-bold text-title">{formatPrice(calculateTotal(), currency)}</span>
         </div>
       </div>
     </div>
@@ -649,12 +731,7 @@ export function StripeCheckout({
           />
         </div>
 
-        {/* Campaign Timer - spot reservation countdown */}
-        {CAMPAIGN_ACTIVE && (
-          <div className="px-4 pb-4">
-            <CheckoutTimer duration={45} />
-          </div>
-        )}
+        {/* Campaign timer removed */}
       </header>
 
       <main className="flex-1 overflow-hidden">
@@ -678,15 +755,15 @@ export function StripeCheckout({
                 </div>
 
                 <div className="relative">
-                  <h3 className="text-lg font-medium mb-1">Oracle Boxing</h3>
-                  <p className="text-white/70 text-sm mb-6">21-Day Challenge</p>
+                  <h3 className="text-title font-medium mb-1">Oracle Boxing</h3>
+                  <p className="text-white/70 text-sm mb-6">{product === 'membership' ? (effectivePlan === 'annual' ? 'Annual Membership' : 'Monthly Membership') : '21-Day Challenge'}</p>
 
                   <div className="flex items-end justify-between">
                     <div>
-                      <span className="text-3xl font-bold">{formatPrice(mainPrice, currency)}</span>
-                      <p className="text-white/60 text-xs mt-1">one time</p>
+                      <span className="text-sub font-bold">{formatPrice(effectiveMainPrice, currency)}</span>
+                      <p className="text-white/60 text-xs mt-1">{product === 'membership' ? (effectivePlan === 'annual' ? 'per year' : 'per month') : 'one time'}</p>
                     </div>
-                    <p className="text-white/60 text-xs">Win your money back if you complete it.</p>
+                    <p className="text-white/60 text-xs">{product === 'membership' ? 'Full access to coaching & courses' : 'Win your money back if you complete it.'}</p>
                   </div>
                 </div>
               </div>
@@ -694,6 +771,7 @@ export function StripeCheckout({
 
             {/* Mobile: Add-ons */}
             <div className="lg:hidden">
+              <UpgradeToAnnualSection />
               <AddOnsSection />
             </div>
 
@@ -732,6 +810,7 @@ export function StripeCheckout({
 
             {/* Desktop: Add-ons below payment element */}
             <div className="hidden lg:block">
+              <UpgradeToAnnualSection />
               <AddOnsSection />
             </div>
 
@@ -817,35 +896,54 @@ export function StripeCheckout({
                 </div>
 
                 <div className="relative">
-                  <h3 className="text-lg font-medium mb-1">Oracle Boxing</h3>
-                  <p className="text-white/70 text-sm mb-6">21-Day Challenge</p>
+                  <h3 className="text-title font-medium mb-1">Oracle Boxing</h3>
+                  <p className="text-white/70 text-sm mb-6">{product === 'membership' ? (effectivePlan === 'annual' ? 'Annual Membership' : 'Monthly Membership') : '21-Day Challenge'}</p>
 
                   <div className="flex items-end justify-between">
                     <div>
-                      <span className="text-3xl font-bold">{formatPrice(mainPrice, currency)}</span>
-                      <p className="text-white/60 text-xs mt-1">one time</p>
+                      <span className="text-sub font-bold">{formatPrice(effectiveMainPrice, currency)}</span>
+                      <p className="text-white/60 text-xs mt-1">{product === 'membership' ? (effectivePlan === 'annual' ? 'per year' : 'per month') : 'one time'}</p>
                     </div>
-                    <p className="text-white/60 text-xs">Win your money back if you complete it.</p>
+                    <p className="text-white/60 text-xs">{product === 'membership' ? 'Full access to coaching & courses' : 'Win your money back if you complete it.'}</p>
                   </div>
                 </div>
               </div>
 
               {/* Product Description */}
               <div className="mb-6">
-                <h4 className="font-medium text-[#37322F] mb-2">21-Day Challenge</h4>
+                <h4 className="font-medium text-[#37322F] mb-2">{product === 'membership' ? (effectivePlan === 'annual' ? 'Annual Membership' : 'Monthly Membership') : '21-Day Challenge'}</h4>
                 <p className="text-sm text-[#605A57] leading-relaxed mb-4">
-                  Prove you have what it takes. Show up twice a week, submit one video, and earn your place in Oracle Boxing. Win your money back if you complete the challenge.
+                  {product === 'membership'
+                    ? (effectivePlan === 'annual'
+                      ? 'Everything in the monthly membership, plus Boxing from First Principles course, a free 1-on-1 coaching call, and a custom starter workout plan.'
+                      : 'Full access to weekly coaching calls, course library, private community, personal video feedback, and the grading system.')
+                    : 'Prove you have what it takes. Show up twice a week, submit one video, and earn your place in Oracle Boxing. Win your money back if you complete the challenge.'}
                 </p>
 
                 {/* Deliverables */}
                 <div className="space-y-2">
-                  {[
+                  {(product === 'membership' ? (effectivePlan === 'annual' ? [
+                    "Weekly Group Coaching Calls",
+                    "Full Course Library Access",
+                    "Private Community on Skool",
+                    "Personal Video Feedback",
+                    "Grading System Access",
+                    "Boxing from First Principles Course",
+                    "Free 1-on-1 Coaching Call",
+                    "Custom 2-Week Starter Workout Plan",
+                  ] : [
+                    "Weekly Group Coaching Calls",
+                    "Full Course Library Access",
+                    "Private Community on Skool",
+                    "Personal Video Feedback",
+                    "Grading System Access",
+                  ]) : [
                     "11 Live Classes Per Week",
                     "Private Community Access",
                     "Grade 1 Course",
                     "1-on-1 Graduation Call",
                     "Win Your Money Back Guarantee",
-                  ].map((feature, index) => (
+                  ]).map((feature, index) => (
                     <div key={index} className="flex items-center gap-2">
                       <svg width="14" height="14" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0">
                         <path
@@ -889,7 +987,7 @@ export function StripeCheckout({
           >
             {/* Modal Header */}
             <div className="flex items-center justify-between p-4 border-b border-[rgba(55,50,47,0.08)] flex-shrink-0">
-              <h2 className="text-lg font-semibold text-[#37322F]">
+              <h2 className="text-title font-semibold text-[#37322F]">
                 {PRODUCT_DETAILS[expandedProduct].headline}
               </h2>
               <button
@@ -1049,7 +1147,7 @@ export function StripeCheckout({
                 return (
                   <div className="flex items-center justify-between">
                     <div>
-                      <span className="text-lg font-bold text-[#37322F]">{formatPrice(price, currency)}</span>
+                      <span className="text-title font-bold text-[#37322F]">{formatPrice(price, currency)}</span>
                       <span className="text-xs text-[#847971] ml-2">one-time payment</span>
                     </div>
                     <button

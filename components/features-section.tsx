@@ -87,7 +87,7 @@ export default function FeaturesSection() {
                     />
                   </div>
                   <div className="px-4 py-3 w-full">
-                    <div className="text-center text-[#49423D] text-sm md:text-base font-semibold leading-6 font-sans">
+                    <div className="text-center text-[#49423D] text-body font-semibold leading-6 font-sans">
                       {card.title}
                     </div>
                   </div>

@@ -3,8 +3,24 @@ import { stripe } from '@/lib/stripe/client'
 import { getProductById } from '@/lib/products'
 import { getStripePriceId } from '@/lib/currency'
 import { extractFacebookParams } from '@/lib/fb-param-builder'
-import { notifyOps } from '@/lib/slack-notify'
 import { createWorkflowLogger } from '@/lib/workflow-logger'
+import Stripe from 'stripe'
+
+// Helper to flatten cookie data
+function prepareCookieDataForStripe(cookieData: any, existingKeyCount: number = 0): Record<string, string> {
+  if (!cookieData) return {}
+  const result: Record<string, string> = {}
+  const available = 50 - existingKeyCount - 5
+  let added = 0
+  for (const key of ['_fbc', '_fbp']) {
+    if (added >= available) break
+    if (cookieData[key] != null) {
+      result[`cookie_${key}`] = String(cookieData[key]).substring(0, 500)
+      added++
+    }
+  }
+  return result
+}
 
 export async function POST(req: NextRequest) {
   const logger = createWorkflowLogger({ workflowName: 'membership-checkout-session', workflowType: 'checkout', notifySlack: true })
@@ -64,31 +80,8 @@ export async function POST(req: NextRequest) {
     console.log('Created Stripe Customer:', customer.id)
     try { await logger.step('stripe-customer-created', 'Stripe customer created', { customerId: customer.id }) } catch {}
 
-    // Build line items - membership subscription price
-    const lineItems: any[] = [
-      {
-        price: membershipProduct.stripe_price_id,
-        quantity: 1,
-      },
-    ]
-
-    // Add one-time add-ons
-    const addOnMetadata: string[] = []
-    for (const addOnId of addOns) {
-      const addOnProduct = getProductById(addOnId)
-      if (addOnProduct) {
-        // Use USD price for add-ons (membership is USD only)
-        const addOnPriceId = getStripePriceId(addOnProduct, 'USD')
-        lineItems.push({
-          price: addOnPriceId,
-          quantity: 1,
-        })
-        addOnMetadata.push(addOnProduct.metadata || addOnId)
-      }
-    }
-
     // Build metadata
-    const metadata: Record<string, string> = {
+    const baseMetadata: Record<string, string> = {
       customer_first_name: firstName,
       customer_last_name: lastName,
       customer_email: customerInfo.email,
@@ -97,7 +90,6 @@ export async function POST(req: NextRequest) {
       type: 'membership',
       entry_product: productId,
       plan: plan,
-      add_ons_included: addOnMetadata.join(','),
       product_name: membershipProduct.title,
       product_id: membershipProduct.id,
       session_id: trackingParams?.session_id || '',
@@ -122,41 +114,70 @@ export async function POST(req: NextRequest) {
       fb_user_agent: fbParams?.client_user_agent || '',
     }
 
-    // Add cookie data
-    if (cookieData?._fbc) metadata['cookie__fbc'] = String(cookieData._fbc)
-    if (cookieData?._fbp) metadata['cookie__fbp'] = String(cookieData._fbp)
+    const cookieMetadata = prepareCookieDataForStripe(cookieData, Object.keys(baseMetadata).length)
 
-    // Determine base URL
-    const origin = req.headers.get('origin') || req.headers.get('referer')?.replace(/\/[^/]*$/, '') || 'https://oracleboxing.com'
+    // Build add-on one-time items for the first invoice
+    const addOnMetadata: string[] = []
+    const addOnInvoiceItems: { price: string; quantity: number }[] = []
 
-    // Create Stripe Checkout Session with mode: 'subscription'
-    const session = await stripe.checkout.sessions.create({
-      mode: 'subscription',
+    for (const addOnId of addOns) {
+      const addOnProduct = getProductById(addOnId)
+      if (addOnProduct) {
+        const addOnPriceId = getStripePriceId(addOnProduct, 'USD')
+        addOnInvoiceItems.push({ price: addOnPriceId, quantity: 1 })
+        addOnMetadata.push(addOnProduct.metadata || addOnId)
+      }
+    }
+
+    baseMetadata.add_ons_included = addOnMetadata.join(',')
+
+    // Calculate total: membership price + add-ons
+    const membershipPrice = await stripe.prices.retrieve(membershipProduct.stripe_price_id)
+    let totalAmount = membershipPrice.unit_amount || 0
+    for (const item of addOnInvoiceItems) {
+      const price = await stripe.prices.retrieve(item.price)
+      if (price.unit_amount) totalAmount += price.unit_amount
+    }
+
+    // Create PaymentIntent only - NO subscription yet
+    // The subscription will be created by the webhook after payment succeeds
+    // using the saved payment method (setup_future_usage: 'off_session')
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: totalAmount,
+      currency: 'usd',
       customer: customer.id,
-      line_items: lineItems,
-      success_url: `${origin}/membership-success?subscription={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${origin}/checkout-v2?product=membership&plan=${plan}`,
-      metadata,
-      subscription_data: {
-        metadata,
+      setup_future_usage: 'off_session',
+      automatic_payment_methods: { enabled: true },
+      metadata: {
+        ...baseMetadata,
+        ...cookieMetadata,
+        // Webhook uses these to create the subscription after payment
+        membership_price_id: membershipProduct.stripe_price_id,
+        line_items: JSON.stringify([membershipProduct.stripe_price_id, ...addOnInvoiceItems.map(i => i.price)]),
+        tax_inclusive: 'true',
       },
-      allow_promotion_codes: true,
     })
 
-    console.log('Created Checkout Session:', session.id)
-    try { await logger.completed(`Membership checkout session created for ${customerInfo.email}`, { sessionId: session.id, plan, email: customerInfo.email }) } catch {}
+    if (!paymentIntent.client_secret) {
+      throw new Error('No client secret returned from PaymentIntent creation')
+    }
 
-    const addOnNames = addOnMetadata.length > 0 ? ` + ${addOnMetadata.join(', ')}` : ''
-    notifyOps(`💳 Membership checkout created - ${customerInfo.email} for ${membershipProduct.title}${addOnNames}`)
+    console.log('Created PaymentIntent:', paymentIntent.id, 'Amount:', totalAmount)
+    try { await logger.completed(`Membership checkout created for ${customerInfo.email}`, {
+      paymentIntentId: paymentIntent.id,
+      plan,
+      email: customerInfo.email,
+      amount: totalAmount,
+    }) } catch {}
 
     return NextResponse.json({
-      url: session.url,
-      sessionId: session.id,
+      clientSecret: paymentIntent.client_secret,
+      paymentIntentId: paymentIntent.id,
+      amount: totalAmount,
     })
   } catch (error: any) {
     console.error('Membership checkout session failed:', error)
     try { await logger.failed(error.message, { stack: error.stack }) } catch {}
-    notifyOps(`❌ Membership checkout failed - ${error.message}`)
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 }

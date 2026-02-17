@@ -4,8 +4,8 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { ENROLLMENT_CLOSED, getCheckoutUrl } from "@/lib/enrollment"
-import { CAMPAIGN_ACTIVE } from "@/lib/campaign"
-import CampaignSpotCounter from "./CampaignSpotCounter"
+// Campaign removed
+// CampaignSpotCounter removed
 import { trackAddToCart } from "@/lib/webhook-tracking"
 import { useCurrency } from "@/contexts/CurrencyContext"
 import { getProductPrice } from "@/lib/currency"
@@ -48,30 +48,35 @@ export default function HomepageHeader() {
   }
 
   return (
-    <header className={`w-full bg-white py-4 fixed left-0 right-0 z-50 shadow-[0_1px_3px_0_rgba(0,0,0,0.1),0_1px_2px_-1px_rgba(0,0,0,0.1)] transition-transform duration-300 ${CAMPAIGN_ACTIVE ? 'top-9 sm:top-10' : 'top-0'} ${isScrolled ? '-translate-y-full md:translate-y-0' : 'translate-y-0'}`}>
-      <div className="w-full px-4 sm:px-6 lg:px-8 flex items-center justify-center md:justify-between">
-        {/* Mobile: Centered horizontal logo */}
-        <Link href="/" className="md:hidden flex-shrink-0">
+    <header className={`fixed left-0 right-0 z-50 transition-transform duration-300 top-0 ${isScrolled ? '-translate-y-full md:translate-y-0' : 'translate-y-0'} px-4 sm:px-6 lg:px-8 pt-3 sm:pt-4`}>
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between rounded-2xl border border-white/60 h-14 md:h-16"
+        style={{
+          background: 'rgba(255, 255, 255, 0.55)',
+          backdropFilter: 'blur(12px) saturate(1.4)',
+          WebkitBackdropFilter: 'blur(12px) saturate(1.4)',
+          boxShadow: '0 2px 16px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.7)',
+        }}
+      >
+        {/* Logo - long dark on both mobile and desktop */}
+        <Link href="/" className="flex-shrink-0">
           <Image
             src="https://sb.oracleboxing.com/logo/long_dark.webp"
             alt="Oracle Boxing"
-            width={80}
-            height={16}
-            className="h-4 w-auto"
+            width={240}
+            height={48}
+            className="h-4 md:h-5 w-auto"
+            unoptimized
             priority
           />
         </Link>
 
-        {/* Desktop: Icon logo on left */}
-        <Link href="/" className="hidden md:block flex-shrink-0">
-          <Image
-            src="https://sb.oracleboxing.com/logo/icon_dark.webp"
-            alt="Oracle Boxing"
-            width={40}
-            height={40}
-            className="w-10 h-auto"
-            priority
-          />
+        {/* Mobile: Join Now button on right */}
+        <Link
+          href={getCheckoutUrl()}
+          onClick={handleJoinNowClick}
+          className="md:hidden h-8 px-4 bg-[#37322f] hover:bg-[#37322f]/90 text-white rounded-xl font-medium text-xs inline-flex items-center justify-center transition-all"
+        >
+          {ENROLLMENT_CLOSED ? 'Join Waitlist' : 'Join Now'}
         </Link>
 
         {/* Navigation - Center (hidden on mobile) */}
@@ -81,7 +86,7 @@ export default function HomepageHeader() {
               key={link.href}
               href={link.href}
               onClick={(e) => handleNavClick(e, link.href)}
-              className="text-[#37322F] text-sm font-medium hover:text-[#37322F]/70 transition-colors cursor-pointer"
+              className="text-[#37322F] text-body font-medium hover:text-[#37322F]/70 transition-colors cursor-pointer"
             >
               {link.label}
             </a>
@@ -90,18 +95,13 @@ export default function HomepageHeader() {
 
         {/* Right Side - Spot Counter + Join Now Button (hidden on mobile - sticky bar handles it) */}
         <div className="hidden md:flex items-center gap-3">
-          {/* Spot Counter (campaign only) */}
-          {CAMPAIGN_ACTIVE && (
-            <CampaignSpotCounter size="sm" />
-          )}
-
           {/* Join Now Button */}
           <Link
             href={getCheckoutUrl()}
             onClick={handleJoinNowClick}
-            className="h-10 px-6 bg-[#37322f] hover:bg-[#37322f]/90 text-white rounded-lg font-medium text-sm inline-flex items-center justify-center transition-all"
+            className="h-10 px-6 bg-[#37322f] hover:bg-[#37322f]/90 text-white rounded-xl font-medium text-body inline-flex items-center justify-center transition-all"
           >
-            {ENROLLMENT_CLOSED ? 'Join Waitlist' : 'Join Now'}
+            Join Now
           </Link>
         </div>
       </div>

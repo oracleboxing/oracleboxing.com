@@ -8,7 +8,6 @@ import {
   MONTHLY_RATES_BY_COACH,
   MONTHLY_PRICE_IDS_BY_COACH,
 } from '@/lib/coaching-pricing'
-import { notifyOps } from '@/lib/slack-notify'
 import { createWorkflowLogger } from '@/lib/workflow-logger'
 
 export async function POST(req: NextRequest) {
@@ -122,7 +121,6 @@ export async function POST(req: NextRequest) {
 
     try { await logger.completed(`Coaching subscription created for ${metadata.customer_email || customerId}`, { subscriptionId: subscription.id, customerId, email: metadata.customer_email, tier, coach, monthlyAmount: monthlyAmount / 100, setupIntentId }); } catch {}
 
-    notifyOps(`🥊 Coaching subscription created - ${metadata.customer_email || customerId} (${coach} ${tier}, $${monthlyAmount / 100}/mo)`)
 
     return NextResponse.json({
       subscriptionId: subscription.id,
@@ -131,7 +129,6 @@ export async function POST(req: NextRequest) {
   } catch (error: any) {
     console.error('Route /api/coaching-checkout/create-subscription failed:', error)
     try { await logger.failed(error.message, { stack: error.stack }); } catch {}
-    notifyOps(`❌ Coaching subscription creation failed - ${error.message}`)
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }

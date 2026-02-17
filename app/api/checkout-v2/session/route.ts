@@ -3,7 +3,6 @@ import { stripe } from '@/lib/stripe/client'
 import { Currency, getStripePriceId } from '@/lib/currency'
 import { getProductById } from '@/lib/products'
 import { extractFacebookParams } from '@/lib/fb-param-builder'
-import { notifyOps } from '@/lib/slack-notify'
 import { createWorkflowLogger } from '@/lib/workflow-logger'
 import Stripe from 'stripe'
 
@@ -231,7 +230,6 @@ export async function POST(req: NextRequest) {
     try { await logger.step('payment-intent-created', 'PaymentIntent created', { paymentIntentId: paymentIntent.id, amount: totalAmount, currency, customerId: customer.id }); } catch {}
 
     const addOnNames = addOnMetadata.length > 0 ? ` + ${addOnMetadata.join(', ')}` : ''
-    notifyOps(`💳 Checkout v2 session created - ${customerInfo.email} for ${mainProduct.title}${addOnNames}`)
 
     // Trigger abandoned cart recovery (fire-and-forget POST to ops dashboard)
     if (customerInfo.email && phone) {
@@ -265,7 +263,6 @@ export async function POST(req: NextRequest) {
   } catch (error: any) {
     console.error('Checkout-v2 session creation failed:', error)
     try { await logger.failed(error.message, { stack: error.stack }); } catch {}
-    notifyOps(`❌ Checkout v2 session failed - ${error.message}`)
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }

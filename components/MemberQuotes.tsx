@@ -39,12 +39,11 @@ export function MemberQuotes() {
   const totalWords = words.length
 
   return (
-    <section ref={sectionRef} className="w-full py-16 md:py-28">
+    <section ref={sectionRef} className="w-full py-24 md:py-40">
       <div className="max-w-[900px] mx-auto px-6">
         <p
-          className="text-center text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-tight md:leading-snug"
+          className="text-center text-hero leading-tight md:leading-snug"
           style={{
-            fontFamily: 'ClashDisplay, sans-serif',
             letterSpacing: '-0.02em',
           }}
         >

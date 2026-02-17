@@ -24,10 +24,10 @@ export default function PricingPage() {
           {/* Hero Section */}
           <section className="w-full py-12 md:py-16 px-4 md:px-8 bg-gradient-to-b from-[#37322F] to-[#49423D] text-center">
             <div className="max-w-4xl mx-auto">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-normal text-white mb-6" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
+              <h1 className="text-hero font-normal text-white mb-6">
                 Simple, Transparent <span className="text-[#C4B5A0]">Pricing</span>
               </h1>
-              <p className="text-lg md:text-xl text-[#E5DDD3] max-w-2xl mx-auto">
+              <p className="text-title text-[#E5DDD3] max-w-2xl mx-auto">
                 Choose the plan that fits your commitment level. Cancel anytime, no hidden fees.
               </p>
             </div>
@@ -39,13 +39,13 @@ export default function PricingPage() {
           {/* What's Included Overview */}
           <section className="w-full py-16 md:py-24 px-4 md:px-8 bg-[#F7F5F3]">
             <div className="max-w-4xl mx-auto">
-              <h2 className="text-3xl md:text-4xl font-normal text-center mb-12" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
+              <h2 className="text-section font-normal text-center mb-12">
                 What's Included in <span className="text-[#9CABA8]">Every Plan</span>
               </h2>
               
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="bg-white rounded-xl p-6 shadow-sm">
-                  <h3 className="text-xl font-semibold mb-4 text-[#37322F]" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
+                  <h3 className="text-sub font-semibold mb-4 text-[#37322F]">
                     Live Coaching
                   </h3>
                   <ul className="space-y-2 text-[#605A57]">
@@ -57,7 +57,7 @@ export default function PricingPage() {
                 </div>
 
                 <div className="bg-white rounded-xl p-6 shadow-sm">
-                  <h3 className="text-xl font-semibold mb-4 text-[#37322F]" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
+                  <h3 className="text-sub font-semibold mb-4 text-[#37322F]">
                     Complete Curriculum
                   </h3>
                   <ul className="space-y-2 text-[#605A57]">
@@ -69,7 +69,7 @@ export default function PricingPage() {
                 </div>
 
                 <div className="bg-white rounded-xl p-6 shadow-sm">
-                  <h3 className="text-xl font-semibold mb-4 text-[#37322F]" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
+                  <h3 className="text-sub font-semibold mb-4 text-[#37322F]">
                     Community & Feedback
                   </h3>
                   <ul className="space-y-2 text-[#605A57]">
@@ -81,7 +81,7 @@ export default function PricingPage() {
                 </div>
 
                 <div className="bg-white rounded-xl p-6 shadow-sm">
-                  <h3 className="text-xl font-semibold mb-4 text-[#37322F]" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
+                  <h3 className="text-sub font-semibold mb-4 text-[#37322F]">
                     Flexibility & Support
                   </h3>
                   <ul className="space-y-2 text-[#605A57]">
@@ -101,10 +101,10 @@ export default function PricingPage() {
           {/* Final CTA */}
           <section className="w-full py-16 px-4 md:px-8 bg-gradient-to-b from-[#37322F] to-[#49423D] text-center">
             <div className="max-w-3xl mx-auto">
-              <h2 className="text-3xl md:text-4xl font-normal text-white mb-6" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
+              <h2 className="text-section font-normal text-white mb-6">
                 Ready to Get Started?
               </h2>
-              <p className="text-lg text-[#E5DDD3] mb-8">
+              <p className="text-title text-[#E5DDD3] mb-8">
                 Choose your plan and join 500+ boxers training with Oracle Boxing
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">

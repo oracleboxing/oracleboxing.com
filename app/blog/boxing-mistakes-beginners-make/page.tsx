@@ -19,8 +19,7 @@ export default function BoxingMistakesBeginnersPage() {
               className="rounded"
             />
             <span
-              className="text-[#37322F] text-lg font-semibold tracking-tight"
-              style={{ fontFamily: "ClashDisplay, sans-serif" }}
+              className="text-[#37322F] text-title font-semibold tracking-tight"
             >
               Oracle Boxing
             </span>
@@ -39,14 +38,13 @@ export default function BoxingMistakesBeginnersPage() {
         <p className="text-[#605A57] text-sm mb-4">18 July 2025</p>
 
         <h1
-          className="text-[#37322F] text-3xl md:text-[44px] md:leading-[1.15] font-semibold tracking-tight mb-8"
-          style={{ fontFamily: "ClashDisplay, sans-serif" }}
+          className="text-[#37322F] text-section font-semibold tracking-tight mb-8"
         >
           7 Boxing Mistakes That Ruin Your Fundamentals (And How to Fix Them)
         </h1>
 
         {/* Content */}
-        <div className="prose-oracle space-y-6 text-[#37322F] text-[17px] leading-[1.75]">
+        <div className="prose-oracle space-y-6 text-[#37322F] text-title leading-[1.75]">
           <p>
             You&apos;ve probably heard the common beginner mistakes before: keep your elbows in, don&apos;t tense your arms, don&apos;t leave your chin in the air, don&apos;t open your chest. But the real mistakes that ruin your fundamentals are more subtle than that. They&apos;re the ones you don&apos;t even realise you&apos;re making, and the ones most coaches never mention.
           </p>
@@ -55,8 +53,7 @@ export default function BoxingMistakesBeginnersPage() {
           </p>
 
           <h2
-            className="text-[#37322F] text-xl md:text-2xl font-semibold mt-10 mb-4"
-            style={{ fontFamily: "ClashDisplay, sans-serif" }}
+            className="text-[#37322F] text-sub font-semibold mt-10 mb-4"
           >
             Mistake 1: Hips Creeping Forward When You Punch
           </h2>
@@ -68,8 +65,7 @@ export default function BoxingMistakesBeginnersPage() {
           </p>
 
           <h2
-            className="text-[#37322F] text-xl md:text-2xl font-semibold mt-10 mb-4"
-            style={{ fontFamily: "ClashDisplay, sans-serif" }}
+            className="text-[#37322F] text-sub font-semibold mt-10 mb-4"
           >
             Mistake 2: Standing Too Upright
           </h2>
@@ -81,8 +77,7 @@ export default function BoxingMistakesBeginnersPage() {
           </p>
 
           <h2
-            className="text-[#37322F] text-xl md:text-2xl font-semibold mt-10 mb-4"
-            style={{ fontFamily: "ClashDisplay, sans-serif" }}
+            className="text-[#37322F] text-sub font-semibold mt-10 mb-4"
           >
             Mistake 3: Raising Your Shoulders to Protect Your Chin
           </h2>
@@ -94,8 +89,7 @@ export default function BoxingMistakesBeginnersPage() {
           </p>
 
           <h2
-            className="text-[#37322F] text-xl md:text-2xl font-semibold mt-10 mb-4"
-            style={{ fontFamily: "ClashDisplay, sans-serif" }}
+            className="text-[#37322F] text-sub font-semibold mt-10 mb-4"
           >
             Mistake 4: Distributing Weight 50/50
           </h2>
@@ -107,8 +101,7 @@ export default function BoxingMistakesBeginnersPage() {
           </p>
 
           <h2
-            className="text-[#37322F] text-xl md:text-2xl font-semibold mt-10 mb-4"
-            style={{ fontFamily: "ClashDisplay, sans-serif" }}
+            className="text-[#37322F] text-sub font-semibold mt-10 mb-4"
           >
             Mistake 5: Rotating Around Only One Axis
           </h2>
@@ -120,8 +113,7 @@ export default function BoxingMistakesBeginnersPage() {
           </p>
 
           <h2
-            className="text-[#37322F] text-xl md:text-2xl font-semibold mt-10 mb-4"
-            style={{ fontFamily: "ClashDisplay, sans-serif" }}
+            className="text-[#37322F] text-sub font-semibold mt-10 mb-4"
           >
             Mistake 6: Tensing Through the Entire Punch
           </h2>
@@ -133,8 +125,7 @@ export default function BoxingMistakesBeginnersPage() {
           </p>
 
           <h2
-            className="text-[#37322F] text-xl md:text-2xl font-semibold mt-10 mb-4"
-            style={{ fontFamily: "ClashDisplay, sans-serif" }}
+            className="text-[#37322F] text-sub font-semibold mt-10 mb-4"
           >
             Mistake 7: Falling Over the Front Foot After Combinations
           </h2>
@@ -146,8 +137,7 @@ export default function BoxingMistakesBeginnersPage() {
           </p>
 
           <h2
-            className="text-[#37322F] text-xl md:text-2xl font-semibold mt-10 mb-4"
-            style={{ fontFamily: "ClashDisplay, sans-serif" }}
+            className="text-[#37322F] text-sub font-semibold mt-10 mb-4"
           >
             How to Actually Fix These
           </h2>
@@ -161,8 +151,7 @@ export default function BoxingMistakesBeginnersPage() {
           {/* CTA */}
           <div className="mt-14 py-10 px-6 md:px-10 bg-[#37322F]/[0.03] rounded-2xl text-center">
             <h3
-              className="text-[#37322F] text-xl md:text-2xl font-semibold mb-3"
-              style={{ fontFamily: "ClashDisplay, sans-serif" }}
+              className="text-[#37322F] text-sub font-semibold mb-3"
             >
               Fix Your Fundamentals With Expert Coaching
             </h3>

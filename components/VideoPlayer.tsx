@@ -22,7 +22,7 @@ export function VideoPlayer({ videoUrl = 'https://sb.oracleboxing.com/Website/op
         />
       ) : (
         <div className="flex items-center justify-center h-full">
-          <p className="text-gray-400 text-sm">TRAILER VIDEO COMING SOON</p>
+          <p className="text-gray-400 text-body">TRAILER VIDEO COMING SOON</p>
         </div>
       )}
     </div>

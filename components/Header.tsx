@@ -135,7 +135,7 @@ export function Header() {
             <nav className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 items-center space-x-8 lg:space-x-12">
               {/* Courses Dropdown */}
               <div className="group relative">
-                <button className="text-white font-semibold text-sm lg:text-base tracking-wide hover:text-gray-300 transition-colors py-2">
+                <button className="text-white font-semibold text-body tracking-wide hover:text-gray-300 transition-colors py-2">
                   Courses
                 </button>
 
@@ -150,7 +150,7 @@ export function Header() {
                           onClick={() => handleNavClick('header_dropdown', course.href)}
                           className="group/item flex flex-col items-center text-center space-y-3 hover:bg-neutral-800 p-4 rounded-lg transition-colors"
                         >
-                          <h3 className="text-white font-semibold text-sm tracking-wide group-hover/item:font-bold transition-all">
+                          <h3 className="text-white font-semibold text-body tracking-wide group-hover/item:font-bold transition-all">
                             {course.name}
                           </h3>
                           <div className="w-full aspect-video relative overflow-hidden rounded-md">
@@ -169,7 +169,7 @@ export function Header() {
 
               {/* Community Dropdown */}
               <div className="group relative">
-                <button className="text-white font-semibold text-sm lg:text-base tracking-wide hover:text-gray-300 transition-colors py-2">
+                <button className="text-white font-semibold text-body tracking-wide hover:text-gray-300 transition-colors py-2">
                   Community
                 </button>
 
@@ -181,7 +181,7 @@ export function Header() {
                         key={item.href}
                         href={item.href}
                         onClick={() => handleNavClick('header_dropdown', item.href)}
-                        className="block px-6 py-3 text-white font-medium text-sm tracking-wide hover:bg-neutral-800 hover:font-semibold transition-all"
+                        className="block px-6 py-3 text-white font-medium text-body tracking-wide hover:bg-neutral-800 hover:font-semibold transition-all"
                       >
                         {item.name}
                       </Link>
@@ -196,7 +196,7 @@ export function Header() {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => handleNavClick('header', 'https://shop.oracleboxing.com')}
-                className="text-white font-semibold text-sm lg:text-base tracking-wide hover:text-gray-300 transition-colors"
+                className="text-white font-semibold text-body tracking-wide hover:text-gray-300 transition-colors"
               >
                 Clothing
               </a>
@@ -205,7 +205,7 @@ export function Header() {
               <Link
                 href="/contact"
                 onClick={() => handleNavClick('header', '/contact')}
-                className="text-white font-semibold text-sm lg:text-base tracking-wide hover:text-gray-300 transition-colors"
+                className="text-white font-semibold text-body tracking-wide hover:text-gray-300 transition-colors"
               >
                 Contact
               </Link>
@@ -266,7 +266,7 @@ export function Header() {
                 {/* Courses Button */}
                 <button
                   onClick={() => setMobileSubMenu('courses')}
-                  className="text-white font-bold text-xl py-4 px-5 hover:bg-neutral-800 rounded-lg transition-colors text-left"
+                  className="text-white font-bold text-sub py-4 px-5 hover:bg-neutral-800 rounded-lg transition-colors text-left"
                 >
                   Courses
                 </button>
@@ -274,7 +274,7 @@ export function Header() {
                 {/* Community Button */}
                 <button
                   onClick={() => setMobileSubMenu('coaching')}
-                  className="text-white font-bold text-xl py-4 px-5 hover:bg-neutral-800 rounded-lg transition-colors text-left"
+                  className="text-white font-bold text-sub py-4 px-5 hover:bg-neutral-800 rounded-lg transition-colors text-left"
                 >
                   Community
                 </button>
@@ -288,7 +288,7 @@ export function Header() {
                     handleNavClick('mobile_menu', 'https://shop.oracleboxing.com')
                     closeMobileMenu()
                   }}
-                  className="text-white font-bold text-xl py-4 px-5 hover:bg-neutral-800 rounded-lg transition-colors text-left block"
+                  className="text-white font-bold text-sub py-4 px-5 hover:bg-neutral-800 rounded-lg transition-colors text-left block"
                 >
                   Clothing
                 </a>
@@ -300,7 +300,7 @@ export function Header() {
                     handleNavClick('mobile_menu', '/contact')
                     closeMobileMenu()
                   }}
-                  className="text-white font-bold text-xl py-4 px-5 hover:bg-neutral-800 rounded-lg transition-colors text-left block"
+                  className="text-white font-bold text-sub py-4 px-5 hover:bg-neutral-800 rounded-lg transition-colors text-left block"
                 >
                   Contact
                 </Link>
@@ -328,7 +328,7 @@ export function Header() {
                       }}
                       className="flex flex-col space-y-2 p-3 hover:bg-neutral-800 rounded-lg transition-colors"
                     >
-                      <h4 className="text-white font-semibold text-base">{course.name}</h4>
+                      <h4 className="text-white font-semibold text-body">{course.name}</h4>
                       <div className="w-full max-w-[200px] aspect-video relative overflow-hidden rounded-md">
                         <img
                           src={course.image}
@@ -361,7 +361,7 @@ export function Header() {
                         handleNavClick('mobile_submenu', item.href)
                         closeMobileMenu()
                       }}
-                      className="text-white font-semibold text-lg py-4 px-4 hover:bg-neutral-800 rounded-lg transition-colors block"
+                      className="text-white font-semibold text-title py-4 px-4 hover:bg-neutral-800 rounded-lg transition-colors block"
                     >
                       {item.name}
                     </Link>

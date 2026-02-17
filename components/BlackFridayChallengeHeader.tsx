@@ -74,42 +74,42 @@ export function BlackFridayChallengeHeader({
           {/* Left Side: Title + Countdown */}
           <div className="flex flex-col gap-1 items-start text-left">
             {/* Title */}
-            <h1 className="text-white text-xs sm:text-base md:text-lg lg:text-xl font-black uppercase tracking-wide leading-none">
+            <h1 className="text-white text-sub font-black uppercase tracking-wide leading-none">
               BLACK FRIDAY CHALLENGE
             </h1>
 
             {/* Countdown */}
             <div className="flex items-center gap-1.5 sm:gap-2 text-white">
-              <span className="text-[9px] sm:text-xs md:text-sm font-semibold uppercase tracking-wide opacity-80">
+              <span className="text-body font-semibold uppercase tracking-wide opacity-80">
                 Closes in:
               </span>
               <div className="flex items-center gap-1 sm:gap-1.5">
                 <div className="flex items-baseline gap-0.5">
-                  <span className="text-xs sm:text-sm md:text-base lg:text-lg font-bold tabular-nums">
+                  <span className="text-title font-bold tabular-nums">
                     {String(timeLeft.days).padStart(2, '0')}
                   </span>
-                  <span className="text-[9px] sm:text-[10px] md:text-xs opacity-60">d</span>
+                  <span className="text-xs opacity-60">d</span>
                 </div>
-                <span className="text-[9px] sm:text-xs opacity-40">:</span>
+                <span className="text-xs opacity-40">:</span>
                 <div className="flex items-baseline gap-0.5">
-                  <span className="text-xs sm:text-sm md:text-base lg:text-lg font-bold tabular-nums">
+                  <span className="text-title font-bold tabular-nums">
                     {String(timeLeft.hours).padStart(2, '0')}
                   </span>
-                  <span className="text-[9px] sm:text-[10px] md:text-xs opacity-60">h</span>
+                  <span className="text-xs opacity-60">h</span>
                 </div>
-                <span className="text-[9px] sm:text-xs opacity-40">:</span>
+                <span className="text-xs opacity-40">:</span>
                 <div className="flex items-baseline gap-0.5">
-                  <span className="text-xs sm:text-sm md:text-base lg:text-lg font-bold tabular-nums">
+                  <span className="text-title font-bold tabular-nums">
                     {String(timeLeft.minutes).padStart(2, '0')}
                   </span>
-                  <span className="text-[9px] sm:text-[10px] md:text-xs opacity-60">m</span>
+                  <span className="text-xs opacity-60">m</span>
                 </div>
-                <span className="text-[9px] sm:text-xs opacity-40">:</span>
+                <span className="text-xs opacity-40">:</span>
                 <div className="flex items-baseline gap-0.5">
-                  <span className="text-xs sm:text-sm md:text-base lg:text-lg font-bold tabular-nums">
+                  <span className="text-title font-bold tabular-nums">
                     {String(timeLeft.seconds).padStart(2, '0')}
                   </span>
-                  <span className="text-[9px] sm:text-[10px] md:text-xs opacity-60">s</span>
+                  <span className="text-xs opacity-60">s</span>
                 </div>
               </div>
             </div>
@@ -118,12 +118,12 @@ export function BlackFridayChallengeHeader({
           {/* Right Side: Spots Remaining Badge */}
           {spotsRemaining !== undefined && (
             <div className="flex items-center">
-              <span className="inline-flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1 sm:py-1.5 bg-white text-black text-[9px] sm:text-xs font-bold uppercase tracking-wide rounded-full">
+              <span className="inline-flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1 sm:py-1.5 bg-white text-black text-xs font-bold uppercase tracking-wide rounded-full">
                 <span className="relative flex h-1.5 w-1.5 sm:h-2 sm:w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-1.5 w-1.5 sm:h-2 sm:w-2 bg-red-500"></span>
                 </span>
-                <span className="bg-yellow-100 px-1.5 sm:px-2 py-0.5 rounded font-black text-xs sm:text-sm transition-transform duration-300">
+                <span className="bg-yellow-100 px-1.5 sm:px-2 py-0.5 rounded font-black text-body transition-transform duration-300">
                   {spotsRemaining}<span className="text-[8px] sm:text-[10px] opacity-60">/30</span>
                 </span>
                 <span className="text-[8px] sm:text-[10px]">SPOTS</span>

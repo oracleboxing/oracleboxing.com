@@ -53,20 +53,20 @@ export default function EpicOfferStackSection({ onCTAClick }: EpicOfferStackSect
           </div>
 
           {/* Heading */}
-          <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-6 sm:mb-8 uppercase px-4" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
+          <h3 className="text-hero font-bold text-center mb-6 sm:mb-8 uppercase px-4">
             6-WEEK CHALLENGE
           </h3>
 
           {/* Price Section */}
           <div className="text-center mb-6 sm:mb-8">
-            <ValuePrice usdAmount={totalValue} className="text-xl sm:text-2xl md:text-3xl font-bold opacity-60 line-through mb-2" />
-            <div className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-3"><ChallengePrice /></div>
+            <ValuePrice usdAmount={totalValue} className="text-section font-bold opacity-60 line-through mb-2" />
+            <div className="text-hero font-black mb-3"><ChallengePrice /></div>
           </div>
 
           {/* CTA Button - White with Navy Text */}
           <a
             href="/checkout?product=6wc&source=epic-offer-stack"
-            className="w-full py-4 sm:py-5 lg:py-6 px-6 sm:px-8 lg:px-12 bg-white text-[#000000] font-black text-base sm:text-lg md:text-xl rounded-xl mb-6 sm:mb-8 uppercase tracking-wide min-h-[60px] sm:min-h-[64px] lg:min-h-[72px] shadow-lg hover:bg-gray-50 transition-all duration-200 flex items-center justify-center"
+            className="w-full py-4 sm:py-5 lg:py-6 px-6 sm:px-8 lg:px-12 bg-white text-[#000000] font-black text-sub rounded-xl mb-6 sm:mb-8 uppercase tracking-wide min-h-[60px] sm:min-h-[64px] lg:min-h-[72px] shadow-lg hover:bg-gray-50 transition-all duration-200 flex items-center justify-center"
             style={{ cursor: 'pointer' }}
           >
             START CHALLENGE
@@ -87,7 +87,7 @@ export default function EpicOfferStackSection({ onCTAClick }: EpicOfferStackSect
                     clipRule="evenodd"
                   />
                 </svg>
-                <span className="text-sm sm:text-base md:text-lg font-medium leading-relaxed">{benefit}</span>
+                <span className="text-title font-medium leading-relaxed">{benefit}</span>
               </div>
             ))}
           </div>

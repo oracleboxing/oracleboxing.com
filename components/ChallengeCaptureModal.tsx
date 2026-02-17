@@ -96,7 +96,7 @@ export function ChallengeCaptureModal({ isOpen, onClose, buttonLocation = 'unkno
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[500px] bg-white text-gray-900 border border-gray-200">
         <DialogHeader>
-          <DialogTitle className="text-2xl sm:text-3xl font-bold text-center text-gray-900">
+          <DialogTitle className="text-section font-bold text-center text-gray-900">
             Step 1: Tell Us Who You Are
           </DialogTitle>
         </DialogHeader>
@@ -104,7 +104,7 @@ export function ChallengeCaptureModal({ isOpen, onClose, buttonLocation = 'unkno
         <form onSubmit={handleSubmit} className="space-y-4 mt-6">
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <label htmlFor="firstName" className="text-gray-700 text-sm font-medium">
+              <label htmlFor="firstName" className="text-gray-700 text-body font-medium">
                 First Name
               </label>
               <Input
@@ -119,14 +119,14 @@ export function ChallengeCaptureModal({ isOpen, onClose, buttonLocation = 'unkno
                 aria-describedby={errors.firstName ? 'firstName-error' : undefined}
               />
               {errors.firstName && (
-                <p id="firstName-error" className="text-sm text-red-400" role="alert">
+                <p id="firstName-error" className="text-body text-red-400" role="alert">
                   {errors.firstName}
                 </p>
               )}
             </div>
 
             <div className="space-y-2">
-              <label htmlFor="lastName" className="text-gray-700 text-sm font-medium">
+              <label htmlFor="lastName" className="text-gray-700 text-body font-medium">
                 Last Name
               </label>
               <Input
@@ -141,7 +141,7 @@ export function ChallengeCaptureModal({ isOpen, onClose, buttonLocation = 'unkno
                 aria-describedby={errors.lastName ? 'lastName-error' : undefined}
               />
               {errors.lastName && (
-                <p id="lastName-error" className="text-sm text-red-400" role="alert">
+                <p id="lastName-error" className="text-body text-red-400" role="alert">
                   {errors.lastName}
                 </p>
               )}
@@ -149,7 +149,7 @@ export function ChallengeCaptureModal({ isOpen, onClose, buttonLocation = 'unkno
           </div>
 
           <div className="space-y-2">
-            <label htmlFor="email" className="text-gray-700 text-sm font-medium">
+            <label htmlFor="email" className="text-gray-700 text-body font-medium">
               Email Address
             </label>
             <Input
@@ -164,7 +164,7 @@ export function ChallengeCaptureModal({ isOpen, onClose, buttonLocation = 'unkno
               aria-describedby={errors.email ? 'email-error' : undefined}
             />
             {errors.email && (
-              <p id="email-error" className="text-sm text-red-400" role="alert">
+              <p id="email-error" className="text-body text-red-400" role="alert">
                 {errors.email}
               </p>
             )}

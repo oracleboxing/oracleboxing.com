@@ -132,20 +132,20 @@ export default function AdminCoachingCheckout() {
 
   // Button style helper for coach buttons
   const btnClass = (isActive: boolean) =>
-    `py-3 px-4 rounded-lg font-medium transition-all font-sans text-sm ${
+    `py-3 px-4 rounded-lg font-medium transition-all font-sans text-body ${
       isActive
         ? 'bg-[#37322F] text-white'
         : 'bg-gray-100 text-[#37322F] hover:bg-gray-200'
     }`
 
   // Select dropdown styles
-  const selectClass = "w-full h-12 px-4 pr-10 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#37322F]/20 focus:border-[#37322F] bg-white text-[#37322F] font-sans text-sm appearance-none cursor-pointer disabled:bg-gray-50 disabled:text-gray-400 disabled:cursor-not-allowed"
+  const selectClass = "w-full h-12 px-4 pr-10 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#37322F]/20 focus:border-[#37322F] bg-white text-[#37322F] font-sans text-body appearance-none cursor-pointer disabled:bg-gray-50 disabled:text-gray-400 disabled:cursor-not-allowed"
 
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
       <header className="border-b border-gray-200 py-4 px-6">
-        <h1 className="text-lg font-semibold text-[#37322F] font-sans">Admin</h1>
+        <h1 className="text-title font-semibold text-[#37322F] font-sans">Admin</h1>
       </header>
 
       {/* Main Content */}
@@ -154,8 +154,8 @@ export default function AdminCoachingCheckout() {
           // Success State
           <div className="space-y-6">
             <div>
-              <h2 className="text-[#37322F] text-lg font-semibold font-sans mb-1">Link Created</h2>
-              <p className="text-gray-500 text-sm font-sans">Share with {name}</p>
+              <h2 className="text-[#37322F] text-title font-semibold font-sans mb-1">Link Created</h2>
+              <p className="text-gray-500 text-body font-sans">Share with {name}</p>
             </div>
 
             <div className="flex items-center gap-3">
@@ -163,23 +163,23 @@ export default function AdminCoachingCheckout() {
                 type="text"
                 value={checkoutUrl}
                 readOnly
-                className="flex-1 h-12 px-4 bg-gray-50 border border-gray-200 rounded-lg text-sm font-mono text-[#37322F]"
+                className="flex-1 h-12 px-4 bg-gray-50 border border-gray-200 rounded-lg text-body font-mono text-[#37322F]"
               />
               <button
                 onClick={() => window.open(checkoutUrl, '_blank')}
-                className="h-12 px-5 bg-gray-100 text-[#37322F] rounded-lg hover:bg-gray-200 transition-colors font-sans font-medium text-sm"
+                className="h-12 px-5 bg-gray-100 text-[#37322F] rounded-lg hover:bg-gray-200 transition-colors font-sans font-medium text-body"
               >
                 Open
               </button>
               <button
                 onClick={copyToClipboard}
-                className="h-12 px-5 bg-[#37322F] text-white rounded-lg hover:bg-[#49423D] transition-colors flex items-center gap-2 font-sans font-medium text-sm"
+                className="h-12 px-5 bg-[#37322F] text-white rounded-lg hover:bg-[#49423D] transition-colors flex items-center gap-2 font-sans font-medium text-body"
               >
                 {copied ? <><Check className="w-4 h-4" /> Copied</> : <><Copy className="w-4 h-4" /> Copy</>}
               </button>
             </div>
 
-            <div className="flex items-center gap-6 text-sm font-sans py-3 border-y border-gray-100">
+            <div className="flex items-center gap-6 text-body font-sans py-3 border-y border-gray-100">
               <span className="text-gray-500">
                 {tier === 'tier_1' ? 'Tier 1' : 'Tier 2'} • {coach}
               </span>
@@ -189,15 +189,15 @@ export default function AdminCoachingCheckout() {
               {calculation.sixMonthDiscount > 0 && (
                 <span className="text-green-600">-{formatPrice(calculation.sixMonthDiscount)} (10% off)</span>
               )}
-              <span className="font-semibold text-[#37322F] ml-auto text-base">
+              <span className="font-semibold text-[#37322F] ml-auto text-body">
                 {formatPrice(calculation.finalPrice)}
-                {calculation.monthlyAmount && <span className="text-gray-400 font-normal text-sm ml-2">({formatPrice(calculation.monthlyAmount)}/payment)</span>}
+                {calculation.monthlyAmount && <span className="text-gray-400 font-normal text-body ml-2">({formatPrice(calculation.monthlyAmount)}/payment)</span>}
               </span>
             </div>
 
             <button
               onClick={resetForm}
-              className="text-sm text-gray-500 hover:text-[#37322F] font-sans underline"
+              className="text-body text-gray-500 hover:text-[#37322F] font-sans underline"
             >
               Create another link
             </button>
@@ -208,29 +208,29 @@ export default function AdminCoachingCheckout() {
             {/* Row 1: Customer Info */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div>
-                <label className="block text-sm font-medium text-[#37322F] mb-1.5 font-sans">Email</label>
+                <label className="block text-body font-medium text-[#37322F] mb-1.5 font-sans">Email</label>
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full h-12 px-4 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#37322F]/20 focus:border-[#37322F] bg-white text-[#37322F] font-sans text-sm"
+                  className="w-full h-12 px-4 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#37322F]/20 focus:border-[#37322F] bg-white text-[#37322F] font-sans text-body"
                   placeholder="customer@email.com"
                   required
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-[#37322F] mb-1.5 font-sans">Name</label>
+                <label className="block text-body font-medium text-[#37322F] mb-1.5 font-sans">Name</label>
                 <input
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full h-12 px-4 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#37322F]/20 focus:border-[#37322F] bg-white text-[#37322F] font-sans text-sm"
+                  className="w-full h-12 px-4 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#37322F]/20 focus:border-[#37322F] bg-white text-[#37322F] font-sans text-body"
                   placeholder="John Doe"
                   required
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-[#37322F] mb-1.5 font-sans">Coach</label>
+                <label className="block text-body font-medium text-[#37322F] mb-1.5 font-sans">Coach</label>
                 <div className="grid grid-cols-2 gap-2">
                   <button
                     type="button"
@@ -253,7 +253,7 @@ export default function AdminCoachingCheckout() {
             {/* Row 2: Plan Options */}
             <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
               <div>
-                <label className="block text-sm font-medium text-[#37322F] mb-1.5 font-sans">Tier</label>
+                <label className="block text-body font-medium text-[#37322F] mb-1.5 font-sans">Tier</label>
                 <div className="relative">
                   <select
                     value={tier}
@@ -267,7 +267,7 @@ export default function AdminCoachingCheckout() {
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-medium text-[#37322F] mb-1.5 font-sans">Payment</label>
+                <label className="block text-body font-medium text-[#37322F] mb-1.5 font-sans">Payment</label>
                 <div className="relative">
                   <select
                     value={paymentPlan}
@@ -282,7 +282,7 @@ export default function AdminCoachingCheckout() {
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-medium text-[#37322F] mb-1.5 font-sans">6-Month</label>
+                <label className="block text-body font-medium text-[#37322F] mb-1.5 font-sans">6-Month</label>
                 <div className="relative">
                   <select
                     value={sixMonthCommitment ? 'yes' : 'no'}
@@ -297,7 +297,7 @@ export default function AdminCoachingCheckout() {
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-medium text-[#37322F] mb-1.5 font-sans">Discount</label>
+                <label className="block text-body font-medium text-[#37322F] mb-1.5 font-sans">Discount</label>
                 <div className="relative">
                   <select
                     value={customerDiscount}
@@ -331,13 +331,13 @@ export default function AdminCoachingCheckout() {
                 </div>
 
                 <div className="relative">
-                  <h3 className="text-lg font-medium mb-1 text-[#1a1611]">1-on-1 Coaching</h3>
-                  <p className="text-[#5c4a36] text-sm mb-6">
+                  <h3 className="text-title font-medium mb-1 text-[#1a1611]">1-on-1 Coaching</h3>
+                  <p className="text-[#5c4a36] text-body mb-6">
                     {tier === 'tier_1' ? 'Tier 1' : 'Tier 2'} with {coach}
                   </p>
                   <div className="flex items-end justify-between">
                     <div>
-                      <span className="text-3xl font-bold text-[#1a1611]">
+                      <span className="text-section font-bold text-[#1a1611]">
                         {paymentPlan === 'monthly'
                           ? formatPrice(calculation.monthlyAmount || 0)
                           : paymentPlan === 'split_2'
@@ -363,13 +363,13 @@ export default function AdminCoachingCheckout() {
                 <div className="mb-6">
                   <p className="text-xs font-medium text-[#847971] uppercase tracking-wider mb-2">Purchasing for /</p>
                   <p className="text-[#37322F] font-medium">{name || 'Customer Name'}</p>
-                  <p className="text-[#605A57] text-sm">{email || 'customer@email.com'}</p>
+                  <p className="text-[#605A57] text-body">{email || 'customer@email.com'}</p>
                 </div>
               )}
 
               {/* Order breakdown */}
               <div className="space-y-3">
-                <div className="flex justify-between text-sm">
+                <div className="flex justify-between text-body">
                   <span className="text-[#605A57]">
                     {paymentPlan === 'split_2'
                       ? `1-on-1 Coaching (Payment 1 of 2)`
@@ -389,27 +389,27 @@ export default function AdminCoachingCheckout() {
                 </div>
 
                 {paymentPlan === 'split_2' && (
-                  <div className="flex justify-between text-sm">
+                  <div className="flex justify-between text-body">
                     <span className="text-[#847971]">Payment 2 (in 30 days)</span>
                     <span className="text-[#847971]">{formatPrice(calculation.monthlyAmount || 0)}</span>
                   </div>
                 )}
 
                 {paymentPlan === 'monthly' && (
-                  <div className="flex justify-between text-sm">
+                  <div className="flex justify-between text-body">
                     <span className="text-[#847971]">Recurring monthly (cancel anytime)</span>
                   </div>
                 )}
 
                 {/* Show discounts applied */}
                 {calculation.customerDiscount > 0 && (
-                  <div className="flex justify-between text-sm">
+                  <div className="flex justify-between text-body">
                     <span className="text-green-600">Challenge Winner Discount</span>
                     <span className="text-green-600">-{formatPrice(calculation.customerDiscount)}</span>
                   </div>
                 )}
                 {calculation.sixMonthDiscount > 0 && (
-                  <div className="flex justify-between text-sm">
+                  <div className="flex justify-between text-body">
                     <span className="text-green-600">6-Month Commitment (10% off)</span>
                     <span className="text-green-600">-{formatPrice(calculation.sixMonthDiscount)}</span>
                   </div>
@@ -421,7 +421,7 @@ export default function AdminCoachingCheckout() {
                   <span className="text-[#37322F] font-medium">
                     {paymentPlan === 'monthly' ? 'First payment' : paymentPlan === 'split_2' ? 'Due today' : 'Total'}
                   </span>
-                  <span className="text-[#37322F] font-bold text-lg">
+                  <span className="text-[#37322F] font-bold text-title">
                     {paymentPlan === 'monthly' || paymentPlan === 'split_2'
                       ? formatPrice(calculation.monthlyAmount || 0)
                       : formatPrice(calculation.finalPrice)
@@ -441,7 +441,7 @@ export default function AdminCoachingCheckout() {
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="w-full h-12 px-8 bg-[#37322F] text-white rounded-lg font-semibold text-sm font-sans cursor-pointer hover:bg-[#49423D] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full h-12 px-8 bg-[#37322F] text-white rounded-lg font-semibold text-body font-sans cursor-pointer hover:bg-[#49423D] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isLoading ? (
                     <span className="flex items-center justify-center gap-2">

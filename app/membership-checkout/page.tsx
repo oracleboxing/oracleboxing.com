@@ -88,7 +88,7 @@ function MembershipCheckoutContent() {
           <div className="max-w-2xl mx-auto">
             {/* Header */}
             <div className="text-center mb-12">
-              <h1 className="text-3xl md:text-4xl font-normal mb-4" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
+              <h1 className="text-section font-normal mb-4">
                 Complete Your <span className="text-[#9CABA8]">Membership</span>
               </h1>
               <p className="text-[#605A57]">
@@ -100,13 +100,13 @@ function MembershipCheckoutContent() {
             <div className="bg-[#F7F5F3] rounded-xl p-6 mb-8">
               <div className="flex justify-between items-start mb-4">
                 <div>
-                  <h2 className="text-xl font-semibold mb-1" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
+                  <h2 className="text-sub font-semibold mb-1">
                     {product.title}
                   </h2>
                   <p className="text-sm text-[#605A57]">{product.shortDescription}</p>
                 </div>
                 <div className="text-right">
-                  <div className="text-2xl font-bold" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
+                  <div className="text-sub font-bold">
                     {formattedPrice}
                   </div>
                   <div className="text-sm text-[#605A57]">
@@ -197,7 +197,7 @@ function MembershipCheckoutContent() {
               <button
                 type="submit"
                 disabled={!isFormValid || isLoading}
-                className="w-full py-4 px-8 bg-[#C8102E] hover:bg-[#a50d25] disabled:opacity-50 disabled:cursor-not-allowed text-white font-medium rounded-lg transition-colors text-lg"
+                className="w-full py-4 px-8 bg-[#C8102E] hover:bg-[#a50d25] disabled:opacity-50 disabled:cursor-not-allowed text-white font-medium rounded-lg transition-colors text-title"
               >
                 {isLoading ? 'Processing...' : 'Continue to Payment'}
               </button>

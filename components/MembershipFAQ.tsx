@@ -78,10 +78,10 @@ export function MembershipFAQ() {
     <section className="bg-white py-12 sm:py-16 lg:py-20">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-8 sm:mb-12">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 sm:mb-4" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
+          <h2 className="text-hero font-bold text-gray-900 mb-3 sm:mb-4">
             Oracle Boxing Full Access Membership FAQ
           </h2>
-          <p className="text-sm sm:text-base md:text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-title text-gray-600 max-w-2xl mx-auto">
             Everything you need to know about joining the community
           </p>
         </div>
@@ -98,7 +98,7 @@ export function MembershipFAQ() {
                 aria-expanded={openIndex === index}
                 aria-controls={`faq-answer-${index}`}
               >
-                <span className="text-sm sm:text-base md:text-lg font-semibold text-gray-900 pr-3 sm:pr-4">
+                <span className="text-title font-semibold text-gray-900 pr-3 sm:pr-4">
                   {item.question}
                 </span>
                 <div
@@ -115,7 +115,7 @@ export function MembershipFAQ() {
                   className="overflow-hidden"
                 >
                   <div className="px-4 pb-3 pt-0 sm:px-6 sm:pb-5">
-                    <div className="text-xs sm:text-sm md:text-base text-gray-600 whitespace-pre-line leading-relaxed">
+                    <div className="text-body text-gray-600 whitespace-pre-line leading-relaxed">
                       {item.answer}
                     </div>
                   </div>

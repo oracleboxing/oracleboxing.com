@@ -19,8 +19,7 @@ export default function BoxingPunches16Page() {
               className="rounded"
             />
             <span
-              className="text-[#37322F] text-lg font-semibold tracking-tight"
-              style={{ fontFamily: "ClashDisplay, sans-serif" }}
+              className="text-[#37322F] text-title font-semibold tracking-tight"
             >
               Oracle Boxing
             </span>
@@ -39,8 +38,7 @@ export default function BoxingPunches16Page() {
         <p className="text-[#605A57] text-sm mb-4">16 July 2025</p>
 
         <h1
-          className="text-[#37322F] text-3xl md:text-[44px] md:leading-[1.15] font-semibold tracking-tight mb-8"
-          style={{ fontFamily: "ClashDisplay, sans-serif" }}
+          className="text-[#37322F] text-section font-semibold tracking-tight mb-8"
         >
           Boxing Punches 1-6 Explained: Perfect Technique for Beginners
         </h1>
@@ -57,7 +55,7 @@ export default function BoxingPunches16Page() {
         </div>
 
         {/* Content */}
-        <div className="prose-oracle space-y-6 text-[#37322F] text-[17px] leading-[1.75]">
+        <div className="prose-oracle space-y-6 text-[#37322F] text-title leading-[1.75]">
           <p>
             Every punch in boxing is numbered 1 through 6. It&apos;s the universal language of the sport. When a coach calls out &ldquo;1-2&rdquo;, you throw a jab followed by a cross. When they call &ldquo;3-4-5-6&rdquo;, you know exactly what&apos;s coming.
           </p>
@@ -66,8 +64,7 @@ export default function BoxingPunches16Page() {
           </p>
 
           <h2
-            className="text-[#37322F] text-xl md:text-2xl font-semibold mt-10 mb-4"
-            style={{ fontFamily: "ClashDisplay, sans-serif" }}
+            className="text-[#37322F] text-sub font-semibold mt-10 mb-4"
           >
             Before You Throw: Get the Foundation Right
           </h2>
@@ -79,8 +76,7 @@ export default function BoxingPunches16Page() {
           </p>
 
           <h2
-            className="text-[#37322F] text-xl md:text-2xl font-semibold mt-10 mb-4"
-            style={{ fontFamily: "ClashDisplay, sans-serif" }}
+            className="text-[#37322F] text-sub font-semibold mt-10 mb-4"
           >
             Punch 1: The Jab
           </h2>
@@ -92,8 +88,7 @@ export default function BoxingPunches16Page() {
           </p>
 
           <h2
-            className="text-[#37322F] text-xl md:text-2xl font-semibold mt-10 mb-4"
-            style={{ fontFamily: "ClashDisplay, sans-serif" }}
+            className="text-[#37322F] text-sub font-semibold mt-10 mb-4"
           >
             Punch 2: The Cross
           </h2>
@@ -105,8 +100,7 @@ export default function BoxingPunches16Page() {
           </p>
 
           <h2
-            className="text-[#37322F] text-xl md:text-2xl font-semibold mt-10 mb-4"
-            style={{ fontFamily: "ClashDisplay, sans-serif" }}
+            className="text-[#37322F] text-sub font-semibold mt-10 mb-4"
           >
             Punch 3: The Lead Hook
           </h2>
@@ -118,8 +112,7 @@ export default function BoxingPunches16Page() {
           </p>
 
           <h2
-            className="text-[#37322F] text-xl md:text-2xl font-semibold mt-10 mb-4"
-            style={{ fontFamily: "ClashDisplay, sans-serif" }}
+            className="text-[#37322F] text-sub font-semibold mt-10 mb-4"
           >
             Punch 4: The Rear Hook
           </h2>
@@ -131,8 +124,7 @@ export default function BoxingPunches16Page() {
           </p>
 
           <h2
-            className="text-[#37322F] text-xl md:text-2xl font-semibold mt-10 mb-4"
-            style={{ fontFamily: "ClashDisplay, sans-serif" }}
+            className="text-[#37322F] text-sub font-semibold mt-10 mb-4"
           >
             Punch 5: The Lead Uppercut
           </h2>
@@ -144,8 +136,7 @@ export default function BoxingPunches16Page() {
           </p>
 
           <h2
-            className="text-[#37322F] text-xl md:text-2xl font-semibold mt-10 mb-4"
-            style={{ fontFamily: "ClashDisplay, sans-serif" }}
+            className="text-[#37322F] text-sub font-semibold mt-10 mb-4"
           >
             Punch 6: The Rear Uppercut
           </h2>
@@ -157,8 +148,7 @@ export default function BoxingPunches16Page() {
           </p>
 
           <h2
-            className="text-[#37322F] text-xl md:text-2xl font-semibold mt-10 mb-4"
-            style={{ fontFamily: "ClashDisplay, sans-serif" }}
+            className="text-[#37322F] text-sub font-semibold mt-10 mb-4"
           >
             Putting It All Together
           </h2>
@@ -175,8 +165,7 @@ export default function BoxingPunches16Page() {
           {/* CTA */}
           <div className="mt-14 py-10 px-6 md:px-10 bg-[#37322F]/[0.03] rounded-2xl text-center">
             <h3
-              className="text-[#37322F] text-xl md:text-2xl font-semibold mb-3"
-              style={{ fontFamily: "ClashDisplay, sans-serif" }}
+              className="text-[#37322F] text-sub font-semibold mb-3"
             >
               Ready to Build Real Technique?
             </h3>

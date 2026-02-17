@@ -9,8 +9,6 @@ interface RefundRequirementsSectionProps {
 }
 
 export default function RefundRequirementsSection({ onCTAClick }: RefundRequirementsSectionProps) {
-  const fontFamily = 'Satoshi, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
-
   const requirements = [
     {
       title: "Come to Coaching",
@@ -31,11 +29,11 @@ export default function RefundRequirementsSection({ onCTAClick }: RefundRequirem
   ]
 
   return (
-    <section className="w-full py-12 sm:py-16 lg:py-20 bg-white" style={{ fontFamily }}>
+    <section className="w-full py-12 sm:py-16 lg:py-20 bg-white">
       <div className="container mx-auto max-w-5xl px-4">
         {/* Header */}
         <div className="text-center mb-8 sm:mb-12">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold" style={{ fontFamily, color: '#222', letterSpacing: '0.02em', lineHeight: '1.2' }}>
+          <h2 className="text-hero font-bold" style={{ color: '#222', letterSpacing: '0.02em', lineHeight: '1.2' }}>
             How to Get Your <ChallengePrice /> Back
           </h2>
         </div>
@@ -43,7 +41,7 @@ export default function RefundRequirementsSection({ onCTAClick }: RefundRequirem
         {/* Card Container */}
         <div className="bg-gradient-to-b from-gray-50 to-white rounded-2xl sm:rounded-3xl border-2 border-gray-200 shadow-xl p-5 sm:p-8 lg:p-10">
           {/* Subheadline */}
-          <p className="text-left mb-6 sm:mb-8 text-sm sm:text-base" style={{ lineHeight: '1.7', letterSpacing: '0.02em', color: '#222', fontFamily }}>
+          <p className="text-left mb-6 sm:mb-8 text-body" style={{ lineHeight: '1.7', letterSpacing: '0.02em', color: '#222' }}>
             Finish the 6 weeks and we'll give you all your money back. Just do these 4 things:
           </p>
 
@@ -56,11 +54,11 @@ export default function RefundRequirementsSection({ onCTAClick }: RefundRequirem
                   className="text-left"
                   style={{ counterIncrement: 'requirement' }}
                 >
-                  <h3 className="text-sm sm:text-base font-semibold mb-1 sm:mb-2" style={{ letterSpacing: '0.02em', color: '#222', fontFamily }}>
+                  <h3 className="text-body font-semibold mb-1 sm:mb-2" style={{ letterSpacing: '0.02em', color: '#222' }}>
                     <span style={{ marginRight: '8px' }}>{index + 1}.</span>
                     {requirement.title}
                   </h3>
-                  <p className="text-xs sm:text-sm ml-5 sm:ml-6" style={{ lineHeight: '1.6', letterSpacing: '0.02em', color: '#222', fontFamily }}>
+                  <p className="text-body ml-5 sm:ml-6" style={{ lineHeight: '1.6', letterSpacing: '0.02em', color: '#222' }}>
                     {requirement.description}
                   </p>
                 </li>
@@ -70,10 +68,10 @@ export default function RefundRequirementsSection({ onCTAClick }: RefundRequirem
 
           {/* Why We Do This */}
           <div className="text-left pt-5 sm:pt-6 border-t border-gray-200">
-            <h3 className="text-sm sm:text-base font-semibold mb-2 sm:mb-3" style={{ letterSpacing: '0.02em', color: '#222', fontFamily }}>
+            <h3 className="text-body font-semibold mb-2 sm:mb-3" style={{ letterSpacing: '0.02em', color: '#222' }}>
               Why We Do This
             </h3>
-            <p className="text-xs sm:text-sm" style={{ lineHeight: '1.6', letterSpacing: '0.02em', color: '#222', fontFamily }}>
+            <p className="text-body" style={{ lineHeight: '1.6', letterSpacing: '0.02em', color: '#222' }}>
               When you get good at boxing, you'll want to keep training with us. You win by learning for free. We win when you trust us.
             </p>
           </div>
@@ -88,7 +86,7 @@ export default function RefundRequirementsSection({ onCTAClick }: RefundRequirem
               onClick={onCTAClick}
               trackingName="refund"
             >
-              <span className="text-lg sm:text-xl font-black uppercase">VIEW DETAILS</span>
+              <span className="text-sub font-black uppercase">VIEW DETAILS</span>
             </EpicCTAButton>
           </div>
         )}

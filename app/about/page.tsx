@@ -24,11 +24,11 @@ export default function AboutPage() {
           {/* Hero Section */}
           <section className="w-full py-16 md:py-24 px-4 md:px-8 bg-gradient-to-b from-[#37322F] to-[#49423D]">
             <div className="max-w-4xl mx-auto text-center">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-normal text-white mb-6" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
+              <h1 className="text-hero font-normal text-white mb-6">
                 World-Class Boxing,<br />
                 <span className="text-[#C4B5A0]">Accessible to Everyone</span>
               </h1>
-              <p className="text-lg md:text-xl text-[#E5DDD3] max-w-3xl mx-auto leading-relaxed">
+              <p className="text-title text-[#E5DDD3] max-w-3xl mx-auto leading-relaxed">
                 Oracle Boxing was founded on a simple belief: exceptional boxing coaching shouldn't be limited by geography or gym access. We're making world-class instruction available to anyone with dedication and an internet connection.
               </p>
             </div>
@@ -39,38 +39,38 @@ export default function AboutPage() {
             <div className="max-w-5xl mx-auto">
               <div className="grid md:grid-cols-2 gap-12 items-center">
                 <div>
-                  <h2 className="text-3xl md:text-4xl font-normal mb-6" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
+                  <h2 className="text-section font-normal mb-6">
                     Our <span className="text-[#9CABA8]">Mission</span>
                   </h2>
-                  <p className="text-lg text-[#605A57] mb-6 leading-relaxed">
+                  <p className="text-title text-[#605A57] mb-6 leading-relaxed">
                     Traditional boxing gyms often lack structured curriculum and personalized attention. Many boxers train for years without understanding the fundamentals that make technique truly effective.
                   </p>
-                  <p className="text-lg text-[#605A57] mb-6 leading-relaxed">
+                  <p className="text-title text-[#605A57] mb-6 leading-relaxed">
                     Oracle Boxing bridges this gap by combining the best of in-person coaching with the scalability of online education. Our members get daily access to expert instruction, detailed feedback, and a proven curriculum that breaks down complex movements into learnable fundamentals.
                   </p>
-                  <p className="text-lg text-[#605A57] leading-relaxed">
+                  <p className="text-title text-[#605A57] leading-relaxed">
                     We're building a global community where serious boxers can learn, improve, and connect — regardless of where they live or their experience level.
                   </p>
                 </div>
                 <div className="bg-[#F7F5F3] rounded-2xl p-8">
-                  <h3 className="text-2xl font-semibold mb-6" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
+                  <h3 className="text-sub font-semibold mb-6">
                     By the Numbers
                   </h3>
                   <div className="space-y-6">
                     <div>
-                      <div className="text-4xl font-bold text-[#37322F] mb-2" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>500+</div>
+                      <div className="text-section font-bold text-[#37322F] mb-2">500+</div>
                       <div className="text-[#605A57]">Active members training worldwide</div>
                     </div>
                     <div>
-                      <div className="text-4xl font-bold text-[#37322F] mb-2" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>50+</div>
+                      <div className="text-section font-bold text-[#37322F] mb-2">50+</div>
                       <div className="text-[#605A57]">Countries represented in our community</div>
                     </div>
                     <div>
-                      <div className="text-4xl font-bold text-[#37322F] mb-2" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>2,500+</div>
+                      <div className="text-section font-bold text-[#37322F] mb-2">2,500+</div>
                       <div className="text-[#605A57]">Hours of live coaching delivered</div>
                     </div>
                     <div>
-                      <div className="text-4xl font-bold text-[#37322F] mb-2" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>11</div>
+                      <div className="text-section font-bold text-[#37322F] mb-2">11</div>
                       <div className="text-[#605A57]">Live coaching sessions every week</div>
                     </div>
                   </div>
@@ -83,10 +83,10 @@ export default function AboutPage() {
           <section className="w-full py-16 md:py-24 px-4 md:px-8 bg-[#F7F5F3]">
             <div className="max-w-5xl mx-auto">
               <div className="text-center mb-16">
-                <h2 className="text-3xl md:text-4xl font-normal mb-4" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
+                <h2 className="text-section font-normal mb-4">
                   Our <span className="text-[#9CABA8]">Approach</span>
                 </h2>
-                <p className="text-lg text-[#605A57] max-w-3xl mx-auto">
+                <p className="text-title text-[#605A57] max-w-3xl mx-auto">
                   What makes Oracle Boxing different from traditional gyms and other online programs
                 </p>
               </div>
@@ -98,7 +98,7 @@ export default function AboutPage() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                   </div>
-                  <h3 className="text-xl font-semibold mb-3" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
+                  <h3 className="text-sub font-semibold mb-3">
                     Fundamentals First
                   </h3>
                   <p className="text-[#605A57] leading-relaxed">
@@ -112,7 +112,7 @@ export default function AboutPage() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                     </svg>
                   </div>
-                  <h3 className="text-xl font-semibold mb-3" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
+                  <h3 className="text-sub font-semibold mb-3">
                     Personalized Feedback
                   </h3>
                   <p className="text-[#605A57] leading-relaxed">
@@ -126,7 +126,7 @@ export default function AboutPage() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                     </svg>
                   </div>
-                  <h3 className="text-xl font-semibold mb-3" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
+                  <h3 className="text-sub font-semibold mb-3">
                     Supportive Community
                   </h3>
                   <p className="text-[#605A57] leading-relaxed">
@@ -144,14 +144,14 @@ export default function AboutPage() {
           <section className="w-full py-16 md:py-24 px-4 md:px-8 bg-white">
             <div className="max-w-4xl mx-auto">
               <div className="text-center mb-16">
-                <h2 className="text-3xl md:text-4xl font-normal mb-4" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
+                <h2 className="text-section font-normal mb-4">
                   Our <span className="text-[#9CABA8]">Values</span>
                 </h2>
               </div>
 
               <div className="space-y-8">
                 <div className="border-l-4 border-[#37322F] pl-6">
-                  <h3 className="text-xl font-semibold mb-2" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
+                  <h3 className="text-sub font-semibold mb-2">
                     Excellence Through Fundamentals
                   </h3>
                   <p className="text-[#605A57] leading-relaxed">
@@ -160,7 +160,7 @@ export default function AboutPage() {
                 </div>
 
                 <div className="border-l-4 border-[#37322F] pl-6">
-                  <h3 className="text-xl font-semibold mb-2" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
+                  <h3 className="text-sub font-semibold mb-2">
                     Accessibility Without Compromise
                   </h3>
                   <p className="text-[#605A57] leading-relaxed">
@@ -169,7 +169,7 @@ export default function AboutPage() {
                 </div>
 
                 <div className="border-l-4 border-[#37322F] pl-6">
-                  <h3 className="text-xl font-semibold mb-2" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
+                  <h3 className="text-sub font-semibold mb-2">
                     Community Over Competition
                   </h3>
                   <p className="text-[#605A57] leading-relaxed">
@@ -178,7 +178,7 @@ export default function AboutPage() {
                 </div>
 
                 <div className="border-l-4 border-[#37322F] pl-6">
-                  <h3 className="text-xl font-semibold mb-2" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
+                  <h3 className="text-sub font-semibold mb-2">
                     Continuous Improvement
                   </h3>
                   <p className="text-[#605A57] leading-relaxed">
@@ -192,10 +192,10 @@ export default function AboutPage() {
           {/* CTA Section */}
           <section className="w-full py-16 md:py-24 px-4 md:px-8 bg-gradient-to-b from-[#37322F] to-[#49423D]">
             <div className="max-w-3xl mx-auto text-center">
-              <h2 className="text-3xl md:text-4xl font-normal text-white mb-6" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
+              <h2 className="text-section font-normal text-white mb-6">
                 Join Our Community
               </h2>
-              <p className="text-lg text-[#E5DDD3] mb-10">
+              <p className="text-title text-[#E5DDD3] mb-10">
                 Start training with Oracle Boxing today and experience the difference that world-class coaching makes
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">

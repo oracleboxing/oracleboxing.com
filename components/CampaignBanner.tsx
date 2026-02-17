@@ -54,7 +54,7 @@ export default function CampaignBanner() {
           <div className="marquee-content">
             {repeatedItems.map((item, index) => (
               <span key={index} className="marquee-item">
-                <span className="text-white text-xs sm:text-sm font-semibold tracking-wider uppercase">
+                <span className="text-white text-body font-semibold tracking-wider uppercase">
                   {item}
                 </span>
                 <span className="mx-4 sm:mx-6 text-white/30">|</span>

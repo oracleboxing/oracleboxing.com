@@ -37,16 +37,22 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
-  /* Oracle Boxing font variables */
-  --font-satoshi: "Satoshi", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-zodiak: "Zodiak", ui-serif, serif;
-  --font-clash: "ClashDisplay", ui-sans-serif, system-ui, sans-serif;
 }
 
 @theme inline {
-  --font-sans: var(--font-satoshi);
-  --font-serif: var(--font-zodiak);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+  --text-hero: clamp(2.5rem, 5vw + 1rem, 4.5rem);
+  --text-hero--line-height: 1.1;
+  --text-section: clamp(1.875rem, 3vw + 0.75rem, 3rem);
+  --text-section--line-height: 1.2;
+  --text-sub: clamp(1.25rem, 1.5vw + 0.5rem, 1.75rem);
+  --text-sub--line-height: 1.35;
+  --text-title: clamp(1rem, 0.5vw + 0.75rem, 1.25rem);
+  --text-title--line-height: 1.4;
+  --text-body: clamp(0.875rem, 0.25vw + 0.75rem, 1rem);
+  --text-body--line-height: 1.6;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -101,97 +107,6 @@
 
 .text-pretty {
   text-wrap: pretty;
-}
-
-/* Satoshi Font Family */
-@font-face {
-  font-family: 'Satoshi';
-  src: url('/fonts/Satoshi-Variable.woff2') format('woff2-variations');
-  font-weight: 300 900;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Satoshi';
-  src: url('/fonts/Satoshi-Regular.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Satoshi';
-  src: url('/fonts/Satoshi-Medium.woff2') format('woff2');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Satoshi';
-  src: url('/fonts/Satoshi-Bold.woff2') format('woff2');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-/* Zodiak Font Family */
-@font-face {
-  font-family: 'Zodiak';
-  src: url('/fonts/Zodiak/Zodiak-Variable.woff2') format('woff2-variations');
-  font-weight: 100 900;
-  font-display: swap;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Zodiak';
-  src: url('/fonts/Zodiak/Zodiak-Regular.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Zodiak';
-  src: url('/fonts/Zodiak/Zodiak-Bold.woff2') format('woff2');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-/* ClashDisplay Font Family */
-@font-face {
-  font-family: 'ClashDisplay';
-  src: url('/fonts/ClashDisplay/ClashDisplay-Variable.woff2') format('woff2-variations');
-  font-weight: 200 700;
-  font-display: swap;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'ClashDisplay';
-  src: url('/fonts/ClashDisplay/ClashDisplay-Medium.woff2') format('woff2');
-  font-weight: 500;
-  font-display: swap;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'ClashDisplay';
-  src: url('/fonts/ClashDisplay/ClashDisplay-Semibold.woff2') format('woff2');
-  font-weight: 600;
-  font-display: swap;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'ClashDisplay';
-  src: url('/fonts/ClashDisplay/ClashDisplay-Bold.woff2') format('woff2');
-  font-weight: 700;
-  font-display: swap;
-  font-style: normal;
 }
 
 .mix-blend-multiply {

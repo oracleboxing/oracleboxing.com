@@ -76,32 +76,32 @@ export function WeeklyCountdown() {
     <div className="px-3 sm:px-4 py-1.5 sm:py-2 text-white">
       <div className="text-center">
         <div className="flex items-center justify-end gap-1.5">
-          <div className="text-[9px] sm:text-xs md:text-sm lg:text-base uppercase tracking-wide font-bold text-yellow-300 text-right">
+          <div className="text-body uppercase tracking-wide font-bold text-yellow-300 text-right">
             Closes:
           </div>
           <div className="flex items-center gap-0.5">
             <div className="flex items-center">
-              <span className="text-sm sm:text-base md:text-lg lg:text-xl font-bold tabular-nums">{String(timeLeft.days).padStart(2, '0')}</span>
-              <span className="text-[8px] sm:text-[10px] md:text-xs lg:text-sm ml-0.5 opacity-70">d</span>
+              <span className="text-sub font-bold tabular-nums">{String(timeLeft.days).padStart(2, '0')}</span>
+              <span className="text-body ml-0.5 opacity-70">d</span>
             </div>
-            <span className="text-xs sm:text-sm md:text-base opacity-50">:</span>
+            <span className="text-body opacity-50">:</span>
             <div className="flex items-center">
-              <span className="text-sm sm:text-base md:text-lg lg:text-xl font-bold tabular-nums">{String(timeLeft.hours).padStart(2, '0')}</span>
-              <span className="text-[8px] sm:text-[10px] md:text-xs lg:text-sm ml-0.5 opacity-70">h</span>
+              <span className="text-sub font-bold tabular-nums">{String(timeLeft.hours).padStart(2, '0')}</span>
+              <span className="text-body ml-0.5 opacity-70">h</span>
             </div>
-            <span className="text-xs sm:text-sm md:text-base opacity-50">:</span>
+            <span className="text-body opacity-50">:</span>
             <div className="flex items-center">
-              <span className="text-sm sm:text-base md:text-lg lg:text-xl font-bold tabular-nums">{String(timeLeft.minutes).padStart(2, '0')}</span>
-              <span className="text-[8px] sm:text-[10px] md:text-xs lg:text-sm ml-0.5 opacity-70">m</span>
+              <span className="text-sub font-bold tabular-nums">{String(timeLeft.minutes).padStart(2, '0')}</span>
+              <span className="text-body ml-0.5 opacity-70">m</span>
             </div>
-            <span className="text-xs sm:text-sm md:text-base opacity-50">:</span>
+            <span className="text-body opacity-50">:</span>
             <div className="flex items-center">
-              <span className="text-sm sm:text-base md:text-lg lg:text-xl font-bold tabular-nums">{String(timeLeft.seconds).padStart(2, '0')}</span>
-              <span className="text-[8px] sm:text-[10px] md:text-xs lg:text-sm ml-0.5 opacity-70">s</span>
+              <span className="text-sub font-bold tabular-nums">{String(timeLeft.seconds).padStart(2, '0')}</span>
+              <span className="text-body ml-0.5 opacity-70">s</span>
             </div>
           </div>
         </div>
-        <div className="text-[8px] sm:text-[10px] md:text-xs lg:text-sm uppercase tracking-wider text-white font-semibold mt-0.5">
+        <div className="text-body uppercase tracking-wider text-white font-semibold mt-0.5">
           Next Cohort: {getNextCohortDate()}
         </div>
       </div>

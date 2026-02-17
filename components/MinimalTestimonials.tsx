@@ -72,7 +72,7 @@ export default function MinimalTestimonials() {
                   : 'opacity-0 translate-y-4 blur-sm pointer-events-none'
               }`}
             >
-              <p className="text-sm sm:text-base md:text-lg lg:text-xl text-[#37322F] leading-relaxed font-medium" style={{ fontFamily: 'Satoshi, system-ui, sans-serif' }}>
+              <p className="text-sub text-[#37322F] leading-relaxed font-medium">
                 "{testimonial.quote}"
               </p>
             </blockquote>
@@ -117,10 +117,10 @@ export default function MinimalTestimonials() {
                     : 'opacity-0 translate-x-4 absolute inset-0 pointer-events-none'
                 }`}
               >
-                <p className="text-sm sm:text-base font-semibold text-[#37322F]" style={{ fontFamily: 'Satoshi, system-ui, sans-serif' }}>
+                <p className="text-body font-semibold text-[#37322F]">
                   {testimonial.name}
                 </p>
-                <p className="text-xs sm:text-sm text-[rgba(55,50,47,0.6)] whitespace-nowrap" style={{ fontFamily: 'Satoshi, system-ui, sans-serif' }}>
+                <p className="text-body text-[rgba(55,50,47,0.6)] whitespace-nowrap">
                   {testimonial.role}
                 </p>
               </div>

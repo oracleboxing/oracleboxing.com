@@ -94,24 +94,21 @@ export function CheckoutForm({ onSubmit, isLoading, error, currency, product, me
       {/* Card */}
       <div className="w-full max-w-md lg:max-w-3xl bg-white md:bg-white/95 md:backdrop-blur-xl md:rounded-2xl md:shadow-2xl px-4 pt-8 pb-4 sm:p-8 lg:p-12 relative z-10">
         <form onSubmit={handleSubmit} className="max-w-xl mx-auto">
-          {/* Logo */}
-          <div className="flex justify-center mb-4 sm:mb-6">
+          {/* Logo + Progress Indicator - same row */}
+          <div className="flex items-center justify-between mb-4 sm:mb-6">
+            {/* Logo - left */}
             <a href="/">
               <img
                 src="https://sb.oracleboxing.com/logo/long_dark.webp"
                 alt="Oracle Boxing"
-                className="h-5 sm:h-6 w-auto"
+                className="h-4 sm:h-5 w-auto"
               />
             </a>
-          </div>
 
-          {/* Progress Indicator */}
-          <div className="flex items-center justify-center gap-2 mb-4 sm:mb-6">
-            <div className="flex items-center gap-1.5">
+            {/* Progress Indicator - right */}
+            <div className="flex items-center gap-2">
               <span className="text-xs sm:text-sm font-medium text-[#37322F]">Your Details</span>
-            </div>
-            <div className="w-8 h-[2px] bg-[rgba(55,50,47,0.12)]" />
-            <div className="flex items-center gap-1.5">
+              <div className="w-8 h-[2px] bg-[rgba(55,50,47,0.12)]" />
               <span className="text-xs sm:text-sm font-medium text-[#847971]">Payment</span>
             </div>
           </div>

@@ -46,7 +46,7 @@ export function CourseModal({ course, isOpen, onClose, onPurchase }: CourseModal
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto bg-zinc-900 text-white border-zinc-800">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold text-white">
+          <DialogTitle className="text-sub font-bold text-white">
             {course.title}
           </DialogTitle>
         </DialogHeader>
@@ -73,8 +73,8 @@ export function CourseModal({ course, isOpen, onClose, onPurchase }: CourseModal
           {/* Price and Purchase */}
           <div className="border-t border-zinc-800 pt-6 flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-400">Course Price</p>
-              <p className="text-3xl font-bold text-[#F25C05]">
+              <p className="text-body text-gray-400">Course Price</p>
+              <p className="text-section font-bold text-[#F25C05]">
                 ${course.price}
               </p>
             </div>
@@ -82,7 +82,7 @@ export function CourseModal({ course, isOpen, onClose, onPurchase }: CourseModal
             <Button
               onClick={handlePurchase}
               disabled={!course.stripeUrl}
-              className="bg-[#F25C05] hover:bg-[#FF6B1A] text-white font-semibold px-8 py-6 text-lg rounded-full"
+              className="bg-[#F25C05] hover:bg-[#FF6B1A] text-white font-semibold px-8 py-6 text-title rounded-full"
             >
               Buy Now
             </Button>

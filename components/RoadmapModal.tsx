@@ -61,7 +61,7 @@ export function RoadmapModal({ isOpen, onClose, onPurchase, stripeUrl }: Roadmap
         {!selectedPhase ? (
           <>
             <DialogHeader>
-              <DialogTitle className="text-2xl font-bold text-white">
+              <DialogTitle className="text-sub font-bold text-white">
                 Boxing Roadmap - All 5 Phases
               </DialogTitle>
               <p className="text-gray-400 mt-2">
@@ -88,10 +88,10 @@ export function RoadmapModal({ isOpen, onClose, onPurchase, stripeUrl }: Roadmap
                     </div>
 
                     <div className="flex-1">
-                      <h4 className="font-bold text-lg text-white group-hover:text-[#F25C05] transition-colors">
+                      <h4 className="font-bold text-title text-white group-hover:text-[#F25C05] transition-colors">
                         {phase.title}
                       </h4>
-                      <p className="text-sm text-gray-400 mt-1">
+                      <p className="text-body text-gray-400 mt-1">
                         Focus: {phase.focus}
                       </p>
                     </div>
@@ -103,14 +103,14 @@ export function RoadmapModal({ isOpen, onClose, onPurchase, stripeUrl }: Roadmap
 
               <div className="border-t border-zinc-800 pt-6 flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-400">Complete Package</p>
-                  <p className="text-3xl font-bold text-[#F25C05]">$147</p>
+                  <p className="text-body text-gray-400">Complete Package</p>
+                  <p className="text-section font-bold text-[#F25C05]">$147</p>
                 </div>
 
                 <Button
                   onClick={handlePurchase}
                   disabled={!stripeUrl}
-                  className="bg-[#F25C05] hover:bg-[#FF6B1A] text-white font-semibold px-8 py-6 text-lg rounded-full"
+                  className="bg-[#F25C05] hover:bg-[#FF6B1A] text-white font-semibold px-8 py-6 text-title rounded-full"
                 >
                   Buy All 5 Phases
                 </Button>
@@ -127,7 +127,7 @@ export function RoadmapModal({ isOpen, onClose, onPurchase, stripeUrl }: Roadmap
               >
                 ← Back to All Phases
               </Button>
-              <DialogTitle className="text-2xl font-bold text-white">
+              <DialogTitle className="text-sub font-bold text-white">
                 {selectedPhase.title}
               </DialogTitle>
             </DialogHeader>
@@ -145,18 +145,18 @@ export function RoadmapModal({ isOpen, onClose, onPurchase, stripeUrl }: Roadmap
 
               <div className="space-y-4">
                 <div>
-                  <p className="text-gray-400 text-lg leading-relaxed">
+                  <p className="text-gray-400 text-title leading-relaxed">
                     {parseMarkdown(selectedPhase.description)}
                   </p>
                 </div>
 
                 <div className="bg-zinc-800 rounded-lg p-4 space-y-2">
                   <div>
-                    <span className="text-sm text-gray-400">Focus:</span>
+                    <span className="text-body text-gray-400">Focus:</span>
                     <p className="text-white font-medium">{selectedPhase.focus}</p>
                   </div>
                   <div>
-                    <span className="text-sm text-gray-400">Outcome:</span>
+                    <span className="text-body text-gray-400">Outcome:</span>
                     <p className="text-white font-medium">{selectedPhase.outcome}</p>
                   </div>
                 </div>

@@ -150,14 +150,13 @@ export default function CheckoutTimer({
 
             {/* Title */}
             <h2
-              className="text-xl sm:text-2xl font-semibold text-[#37322F] mb-2"
-              style={{ fontFamily: 'ClashDisplay, sans-serif' }}
+              className="text-sub font-semibold text-[#37322F] mb-2"
             >
               Your Reservation Expired
             </h2>
 
             {/* Message */}
-            <p className="text-[#605A57] text-sm sm:text-base mb-6">
+            <p className="text-[#605A57] text-body mb-6">
               Your spot is no longer reserved. You'll be redirected to the homepage to start again.
             </p>
 

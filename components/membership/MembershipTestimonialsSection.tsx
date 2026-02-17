@@ -44,10 +44,10 @@ export default function MembershipTestimonialsSection() {
     <section className="w-full py-16 md:py-24 px-4 md:px-8 bg-[#F7F5F3]">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-normal mb-4" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
+          <h2 className="text-section font-normal mb-4">
             Trusted by Boxers <span className="text-[#9CABA8]">Worldwide</span>
           </h2>
-          <p className="text-lg text-[#605A57] max-w-3xl mx-auto">
+          <p className="text-title text-[#605A57] max-w-3xl mx-auto">
             Join professionals, executives, and dedicated athletes learning from Oracle Boxing
           </p>
         </div>

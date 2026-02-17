@@ -50,7 +50,7 @@ export function BundleModal({ isOpen, onClose, onPurchase, stripeUrl }: BundleMo
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-zinc-900 text-white border-zinc-800">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold text-white mb-2">
+          <DialogTitle className="text-sub font-bold text-white mb-2">
             Complete Bundle
           </DialogTitle>
           <p className="text-gray-400">
@@ -61,7 +61,7 @@ export function BundleModal({ isOpen, onClose, onPurchase, stripeUrl }: BundleMo
         <div className="space-y-6">
           {/* What's Included */}
           <div>
-            <h3 className="text-xl font-bold text-white mb-4">What's Included:</h3>
+            <h3 className="text-sub font-bold text-white mb-4">What's Included:</h3>
             <div className="space-y-3">
               {individualCourses.map((course) => (
                 <div
@@ -79,7 +79,7 @@ export function BundleModal({ isOpen, onClose, onPurchase, stripeUrl }: BundleMo
                   </div>
                   <div className="flex-1">
                     <h4 className="font-bold text-white">{course.title}</h4>
-                    <p className="text-sm text-gray-400">Individual price: ${course.price}</p>
+                    <p className="text-body text-gray-400">Individual price: ${course.price}</p>
                   </div>
                   <Check className="w-6 h-6 text-[#F25C05] flex-shrink-0" />
                 </div>
@@ -98,13 +98,13 @@ export function BundleModal({ isOpen, onClose, onPurchase, stripeUrl }: BundleMo
           <div className="border-t border-zinc-800 pt-6">
             <div className="flex items-center justify-between mb-4">
               <div>
-                <p className="text-sm text-gray-400 line-through">
+                <p className="text-body text-gray-400 line-through">
                   Regular price: ${totalValue}
                 </p>
-                <p className="text-3xl font-bold text-[#F25C05]">
+                <p className="text-section font-bold text-[#F25C05]">
                   ${bundlePrice}
                 </p>
-                <p className="text-lg text-green-400 font-semibold">
+                <p className="text-title text-green-400 font-semibold">
                   Save ${savings}!
                 </p>
               </div>
@@ -112,7 +112,7 @@ export function BundleModal({ isOpen, onClose, onPurchase, stripeUrl }: BundleMo
               <Button
                 onClick={handlePurchase}
                 disabled={!stripeUrl}
-                className="bg-[#F25C05] hover:bg-[#FF6B1A] text-white font-semibold px-8 py-6 text-lg rounded-full"
+                className="bg-[#F25C05] hover:bg-[#FF6B1A] text-white font-semibold px-8 py-6 text-title rounded-full"
               >
                 Buy Complete Bundle
               </Button>

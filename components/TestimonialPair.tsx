@@ -15,7 +15,7 @@ interface TestimonialPairProps {
 
 function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
   return (
-    <div className="flex items-start gap-4 md:gap-5">
+    <div className="flex items-center gap-4 md:gap-5">
       {/* Image */}
       <div className="relative w-16 h-16 md:w-20 md:h-20 flex-shrink-0 rounded-lg overflow-hidden bg-[#37322F]/10">
         <Image
@@ -29,16 +29,16 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
       {/* Content */}
       <div className="flex-1 min-w-0">
         {/* Quote text */}
-        <p className="text-[#37322F] text-sm md:text-base leading-relaxed">
+        <p className="text-[#37322F] text-body leading-relaxed">
           {testimonial.quote}
         </p>
 
         {/* Name and role */}
         <div className="mt-3">
-          <p className="text-[#37322F] text-sm md:text-base font-semibold">
+          <p className="text-[#37322F] text-body font-semibold">
             {testimonial.name}
           </p>
-          <p className="text-[#49423D]/60 text-xs md:text-sm">
+          <p className="text-[#49423D]/60 text-body">
             {testimonial.role}
           </p>
         </div>
@@ -51,7 +51,7 @@ export default function TestimonialPair({ testimonials }: TestimonialPairProps) 
   const [first, second] = testimonials
 
   return (
-    <section className="w-full bg-white py-10 md:py-14 border-b border-[rgba(55,50,47,0.12)]">
+    <section className="w-full bg-white py-10 md:py-14">
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
           <TestimonialCard testimonial={first} />
@@ -65,7 +65,7 @@ export default function TestimonialPair({ testimonials }: TestimonialPairProps) 
 // Single testimonial centered
 export function TestimonialSingle({ testimonial }: { testimonial: Testimonial }) {
   return (
-    <section className="w-full bg-white py-10 md:py-14 border-b border-[rgba(55,50,47,0.12)]">
+    <section className="w-full bg-white py-10 md:py-14">
       <div className="max-w-2xl mx-auto px-4 sm:px-6">
         <TestimonialCard testimonial={testimonial} />
       </div>
@@ -76,7 +76,7 @@ export function TestimonialSingle({ testimonial }: { testimonial: Testimonial })
 // Four testimonials in a 2x2 grid
 export function TestimonialQuad({ testimonials }: { testimonials: [Testimonial, Testimonial, Testimonial, Testimonial] }) {
   return (
-    <section className="w-full bg-white py-10 md:py-14 border-b border-[rgba(55,50,47,0.12)]">
+    <section className="w-full bg-white py-10 md:py-14">
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
           {testimonials.map((testimonial, idx) => (
@@ -91,54 +91,23 @@ export function TestimonialQuad({ testimonials }: { testimonials: [Testimonial, 
 // Full testimonials section with title and all testimonials
 export function TestimonialsSection({ testimonials }: { testimonials: Testimonial[] }) {
   return (
-    <section id="testimonials" className="w-full bg-white border-b border-[rgba(55,50,47,0.12)]">
-      <div className="flex justify-center items-start">
-        {/* Left decorative pattern - CSS gradient instead of DOM elements */}
-        <div
-          className="hidden sm:block sm:w-4 md:w-8 lg:w-12 self-stretch relative overflow-hidden"
-          style={{
-            backgroundImage: `repeating-linear-gradient(
-              -45deg,
-              transparent,
-              transparent 11px,
-              rgba(3,7,18,0.08) 11px,
-              rgba(3,7,18,0.08) 12px
-            )`
-          }}
-        />
-
-        {/* Main content */}
-        <div className="flex-1 min-w-0 py-12 md:py-16 sm:border-l sm:border-r border-[rgba(55,50,47,0.12)]">
-          {/* Header */}
-          <div className="text-center mb-10 md:mb-12 px-4">
-            <h2 className="text-[#37322F] text-2xl sm:text-3xl md:text-4xl font-normal" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
-              What Our Members Say
-            </h2>
-          </div>
-
-          {/* Testimonials Grid */}
-          <div className="max-w-5xl mx-auto px-4 sm:px-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
-              {testimonials.map((testimonial, idx) => (
-                <TestimonialCard key={idx} testimonial={testimonial} />
-              ))}
-            </div>
-          </div>
+    <section id="testimonials" className="w-full bg-white">
+      <div className="py-12 md:py-16">
+        {/* Header */}
+        <div className="text-center mb-10 md:mb-12 px-4">
+          <h2 className="text-[#37322F] text-section font-normal">
+            What Our Members Say
+          </h2>
         </div>
 
-        {/* Right decorative pattern - CSS gradient instead of DOM elements */}
-        <div
-          className="hidden sm:block sm:w-4 md:w-8 lg:w-12 self-stretch relative overflow-hidden"
-          style={{
-            backgroundImage: `repeating-linear-gradient(
-              -45deg,
-              transparent,
-              transparent 11px,
-              rgba(3,7,18,0.08) 11px,
-              rgba(3,7,18,0.08) 12px
-            )`
-          }}
-        />
+        {/* Testimonials Grid */}
+        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+            {testimonials.map((testimonial, idx) => (
+              <TestimonialCard key={idx} testimonial={testimonial} />
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   )

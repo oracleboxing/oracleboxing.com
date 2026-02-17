@@ -23,7 +23,7 @@ export default function FundamentalsWarningSection() {
 
         <div className="flex-1 min-w-0 sm:border-l sm:border-r border-[rgba(55,50,47,0.12)] bg-white p-4 sm:p-6 md:p-8 lg:p-12 flex flex-col gap-6 sm:gap-8">
           {/* Title */}
-          <h3 className="text-[#49423D] text-xl sm:text-2xl md:text-3xl font-normal leading-tight tracking-tight text-center md:text-left" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
+          <h3 className="text-[#49423D] text-section font-normal leading-tight tracking-tight text-center md:text-left">
             <span className="hidden sm:inline">Not Having Solid Fundamentals Is Costing You Progress Every Single Day</span>
             <span className="sm:hidden">Bad Fundamentals Cost You Progress Every Day</span>
           </h3>
@@ -32,15 +32,15 @@ export default function FundamentalsWarningSection() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
             {/* Text Content - shows second on mobile, first on desktop */}
             <div className="flex flex-col justify-center items-start gap-4 order-2 md:order-1">
-              <p className="text-[#37322F] text-base md:text-lg font-semibold leading-relaxed font-sans">
-                Improper fundamentals = bad habits.
+              <p className="text-[#37322F] text-title font-semibold leading-relaxed font-sans">
+                Every rep with bad form makes things worse. Not better. Worse.
               </p>
 
-              <div className="text-[#605A57] text-sm md:text-base font-normal leading-relaxed font-sans space-y-3">
-                <p>And bad habits don't just slow you down. They set you back.</p>
-                <p>The longer you train with poor form, the deeper those habits sink in. Every rep. Every round. You're building the wrong muscle memory.</p>
-                <p>Later, you'll have to unlearn all of it just to move forward. That means more time fixing, less time progressing.</p>
-                <p className="text-[#37322F] font-medium">Build the right habits from day one. That's how real skill is made. That's what we teach here.</p>
+              <div className="text-[#605A57] text-body font-normal leading-relaxed font-sans space-y-3">
+                <p>Right now, every time you train without proper fundamentals, you're drilling the wrong movements deeper into your muscle memory.</p>
+                <p>That damage compounds. Week after week, round after round. The longer you wait, the harder it becomes to fix.</p>
+                <p>And eventually, you'll spend more time unlearning mistakes than actually progressing. That's months of wasted effort you can't get back.</p>
+                <p className="text-[#37322F] font-medium">Stop reinforcing bad habits. Build the right foundation now — before it costs you even more time.</p>
               </div>
             </div>
 

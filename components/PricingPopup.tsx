@@ -94,15 +94,15 @@ export function PricingPopup({ isOpen, onClose }: PricingPopupProps) {
           </div>
 
           {/* Heading */}
-          <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-6 sm:mb-8 uppercase px-4 whitespace-nowrap" style={{ fontFamily: "var(--font-satoshi)" }}>
+          <h3 className="text-section font-bold text-center mb-6 sm:mb-8 uppercase px-4 whitespace-nowrap">
             6-WEEK CHALLENGE
           </h3>
 
           {/* Price Section */}
           <div className="text-center mb-6 sm:mb-8">
             <div className="flex items-center justify-center gap-3">
-              <ValuePrice usdAmount={totalValue} className="text-xl sm:text-2xl md:text-3xl font-bold opacity-60 line-through" />
-              <div className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black"><ChallengePrice /></div>
+              <ValuePrice usdAmount={totalValue} className="text-section font-bold opacity-60 line-through" />
+              <div className="text-hero font-black"><ChallengePrice /></div>
             </div>
             <div className="text-sm text-white/80 mt-2">incl. all taxes</div>
           </div>
@@ -110,11 +110,11 @@ export function PricingPopup({ isOpen, onClose }: PricingPopupProps) {
           {/* CTA Button */}
           <a
             href="/checkout?product=6wc&source=6wc-pricing-popup"
-            className="w-full py-4 sm:py-5 lg:py-6 px-6 sm:px-8 lg:px-12 bg-yellow-100 text-[#000000] font-black text-xl sm:text-2xl md:text-3xl rounded-xl mb-4 sm:mb-6 uppercase tracking-wide min-h-[60px] sm:min-h-[64px] lg:min-h-[72px] shadow-lg hover:bg-white transition-all duration-200 flex items-center justify-center gap-2"
+            className="w-full py-4 sm:py-5 lg:py-6 px-6 sm:px-8 lg:px-12 bg-yellow-100 text-[#000000] font-black text-section rounded-xl mb-4 sm:mb-6 uppercase tracking-wide min-h-[60px] sm:min-h-[64px] lg:min-h-[72px] shadow-lg hover:bg-white transition-all duration-200 flex items-center justify-center gap-2"
             style={{ cursor: 'pointer' }}
           >
             CHECKOUT
-            <span className="text-2xl sm:text-3xl">→</span>
+            <span className="text-section">→</span>
           </a>
 
           {/* Payment Methods */}
@@ -160,7 +160,7 @@ export function PricingPopup({ isOpen, onClose }: PricingPopupProps) {
                     clipRule="evenodd"
                   />
                 </svg>
-                <span className="text-sm sm:text-base md:text-lg font-medium leading-relaxed">
+                <span className="text-title font-medium leading-relaxed">
                   <strong className="font-bold">{benefit.text}</strong>
                   {benefit.bold}
                 </span>

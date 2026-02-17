@@ -710,8 +710,8 @@ export async function trackInitiateCheckout(
     })
     const recoveryUrl = `https://oracleboxing.com/checkout-v2?${recoveryParams.toString()}`
 
-    // Send to Make.com webhook (non-blocking)
-    fetch(process.env.NEXT_PUBLIC_MAKE_NOTIFICATION_WEBHOOK!, {
+    // Process checkout notification internally (non-blocking)
+    fetch('/api/notifications', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -727,12 +727,12 @@ export async function trackInitiateCheckout(
       keepalive: true,
     }).then(response => {
       if (response.ok) {
-        console.log('✅ Checkout sent to Make.com webhook');
+        console.log('✅ Checkout notification processed');
       } else {
-        console.error('❌ Make.com webhook failed:', response.status);
+        console.error('❌ Checkout notification failed:', response.status);
       }
     }).catch(error => {
-      console.error('❌ Failed to send checkout to Make.com webhook:', error);
+      console.error('❌ Failed to process checkout notification:', error);
     });
 
     // Send to Facebook Pixel (browser-side tracking) with event_id
@@ -842,6 +842,9 @@ export async function trackWaitlistSignup(
     console.log('📝 Waitlist signup data:', data);
 
     // Send to Supabase
+    const experiments = getExperimentCookie()
+    const hasExperiments = Object.keys(experiments).length > 0
+
     const insertData = {
       date: data.date,
       session_id: data.sessionId,
@@ -856,6 +859,7 @@ export async function trackWaitlistSignup(
       utm_medium: data.utmMedium,
       utm_campaign: data.utmCampaign,
       utm_content: data.utmContent,
+      experiments: hasExperiments ? experiments : null,
     };
 
     supabase

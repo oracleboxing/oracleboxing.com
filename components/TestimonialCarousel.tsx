@@ -103,10 +103,10 @@ export function TestimonialCarousel({ testimonials }: TestimonialCarouselProps) 
                 </svg>
               ))}
             </div>
-            <p className="text-sm sm:text-base text-gray-700 leading-relaxed mb-4 line-clamp-3">
+            <p className="text-body text-gray-700 leading-relaxed mb-4 line-clamp-3">
               &ldquo;{testimonial.content}&rdquo;
             </p>
-            <p className="font-semibold text-gray-900 text-sm">{testimonial.name}</p>
+            <p className="font-semibold text-gray-900 text-body">{testimonial.name}</p>
           </div>
         ))}
       </div>

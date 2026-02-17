@@ -56,12 +56,11 @@ function OnboardingContent() {
                 Welcome to Oracle Boxing
               </p>
               <h1
-                className="text-3xl sm:text-4xl md:text-5xl text-[#37322F] tracking-tight mb-4"
-                style={{ fontFamily: 'ClashDisplay, sans-serif' }}
+                className="text-section text-[#37322F] tracking-tight mb-4"
               >
                 Hey {firstName}, let&apos;s get you started
               </h1>
-              <p className="text-lg text-[#605A57]">
+              <p className="text-title text-[#605A57]">
                 There&apos;s <span className="underline decoration-2 underline-offset-4">one thing you need to do right now</span>.
               </p>
             </div>
@@ -69,13 +68,12 @@ function OnboardingContent() {
             {/* The key message */}
             <div className="bg-[#37322F] text-white rounded-2xl p-6 sm:p-8 mb-6">
               <h2
-                className="text-xl sm:text-2xl font-bold mb-4 leading-snug"
-                style={{ fontFamily: 'ClashDisplay, sans-serif' }}
+                className="text-sub font-bold mb-4 leading-snug"
               >
                 Book your graduation call
               </h2>
 
-              <div className="space-y-4 text-[#d4d0cd] text-[15px] leading-relaxed">
+              <div className="space-y-4 text-[#d4d0cd] text-body leading-relaxed">
                 <p>
                   Your graduation call is a 1-on-1 session with a coach at the end of your challenge. It&apos;s a <span className="text-white font-medium">requirement</span> to complete the program.
                 </p>
@@ -90,7 +88,7 @@ function OnboardingContent() {
               {/* Target date */}
               <div className="mt-6 bg-white/10 rounded-xl p-4">
                 <p className="text-sm text-[#a09a96] mb-1">Book it for around</p>
-                <p className="text-xl sm:text-2xl font-bold text-white">{graduationDate}</p>
+                <p className="text-sub font-bold text-white">{graduationDate}</p>
                 <p className="text-sm text-[#a09a96] mt-1">A few days either side is fine. You can always reschedule.</p>
               </div>
             </div>
@@ -127,7 +125,7 @@ function OnboardingContent() {
               className="cursor-pointer"
             >
               <button
-                className="w-full bg-[#37322F] text-white font-bold text-lg py-5 rounded-xl hover:bg-[#49423D] transition-colors border-2 border-[#37322F] hover:border-[#49423D] shadow-lg shadow-[#37322F]/20"
+                className="w-full bg-[#37322F] text-white font-bold text-title py-5 rounded-xl hover:bg-[#49423D] transition-colors border-2 border-[#37322F] hover:border-[#49423D] shadow-lg shadow-[#37322F]/20"
                 style={{ animation: 'wobble 2s ease-in-out infinite' }}
               >
                 Book Your Graduation Call

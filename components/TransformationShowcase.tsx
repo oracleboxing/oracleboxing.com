@@ -90,7 +90,7 @@ function LazyVideo({
         ? 'absolute top-2 left-2 lg:top-3 lg:left-3 bg-[#37322F]/80 px-2 py-1 lg:px-3 lg:py-1.5 rounded-md'
         : 'absolute top-2 right-2 lg:top-3 lg:right-3 bg-[#37322F]/80 px-2 py-1 lg:px-3 lg:py-1.5 rounded-md'
       }>
-        <span className="text-white text-[10px] lg:text-xs lg:md:text-sm font-semibold tracking-wide">
+        <span className="text-white text-xs font-semibold tracking-wide">
           {label}
         </span>
       </div>
@@ -184,8 +184,7 @@ export function TransformationShowcase() {
                 {benefits.map((benefit, index) => (
                   <div key={index} className="py-2">
                     <h4
-                      className="text-[#37322F] text-base font-semibold mb-1"
-                      style={{ fontFamily: 'ClashDisplay, sans-serif' }}
+                      className="text-[#37322F] text-body font-semibold mb-1"
                     >
                       {benefit.title}
                     </h4>
@@ -243,12 +242,11 @@ export function TransformationShowcase() {
                 {benefits.map((benefit, index) => (
                   <div key={index} className="py-4">
                     <h4
-                      className="text-[#37322F] text-xl font-semibold mb-1"
-                      style={{ fontFamily: 'ClashDisplay, sans-serif' }}
+                      className="text-[#37322F] text-sub font-semibold mb-1"
                     >
                       {benefit.title}
                     </h4>
-                    <p className="text-[#49423D]/80 text-sm leading-relaxed">
+                    <p className="text-[#49423D]/80 text-body leading-relaxed">
                       {benefit.description}
                     </p>
                   </div>

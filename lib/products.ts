@@ -601,6 +601,47 @@ Everything in the Challenge plus lifetime access and VIP perks.
   },
 ]
 
+
+// TEST MODE OVERRIDES - REMOVE AFTER TESTING
+const TEST_PRICE_OVERRIDES: Record<string, { stripe_price_id: string; stripe_product_id: string }> = {
+  "membership-monthly": {
+    "stripe_price_id": "price_1T1fjcQNEdHwdojXTa8XOqak",
+    "stripe_product_id": "prod_Tzf3tZ6i9fMhn7"
+  },
+  "membership-annual": {
+    "stripe_price_id": "price_1T1fjcQNEdHwdojXekEb6fxa",
+    "stripe_product_id": "prod_Tzf3tZ6i9fMhn7"
+  },
+  "21dc-entry": {
+    "stripe_price_id": "price_1T1fjcQNEdHwdojX7MUNRNPo",
+    "stripe_product_id": "prod_Tzf3jjTDz0h4zZ"
+  },
+  "bffp": {
+    "stripe_price_id": "price_1T1fjdQNEdHwdojXqOT16cBD",
+    "stripe_product_id": "prod_Tzf3DhAY4GuPXu"
+  },
+  "tracksuit": {
+    "stripe_price_id": "price_1T1fjdQNEdHwdojXFEEjxEj1",
+    "stripe_product_id": "prod_Tzf3tHfjibStFa"
+  },
+  "vault-2025": {
+    "stripe_price_id": "price_1T1fjeQNEdHwdojXThQ2DNMj",
+    "stripe_product_id": "prod_Tzf3opGbUj6aWV"
+  }
+};
+
+// Patch products with test prices
+for (const p of [...products, ...internalProducts]) {
+  const override = TEST_PRICE_OVERRIDES[p.id];
+  if (override) {
+    p.stripe_price_id = override.stripe_price_id;
+    p.stripe_product_id = override.stripe_product_id;
+    // Clear price_ids so it uses the main stripe_price_id
+    if (p.price_ids) p.price_ids = {};
+    if (p.prices) p.prices = {};
+  }
+}
+
 // Combine all products for internal lookups
 const allProducts = [...products, ...internalProducts]
 

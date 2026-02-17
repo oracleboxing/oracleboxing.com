@@ -27,7 +27,7 @@ export function CourseModules({ modules, headerImage, showButton = false, button
   return (
     <section className="py-8 sm:py-16 bg-white">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4 sm:mb-8 text-center">
+        <h2 className="text-section font-bold text-gray-900 mb-4 sm:mb-8 text-center">
           Sounds great! But what <em className="text-red-600">exactly</em> is included?
         </h2>
 
@@ -51,9 +51,9 @@ export function CourseModules({ modules, headerImage, showButton = false, button
                 className="w-full px-3 sm:px-6 py-3 sm:py-5 flex items-center justify-between text-left hover:bg-gray-50 transition-colors min-h-[60px]"
               >
                 <div className="flex-1">
-                  <h3 className="text-sm sm:text-lg font-bold text-gray-900">{module.title}</h3>
+                  <h3 className="text-title font-bold text-gray-900">{module.title}</h3>
                   {module.lessons && (
-                    <p className="text-xs sm:text-sm text-gray-500 mt-0.5 sm:mt-1">{module.lessons} lessons</p>
+                    <p className="text-body text-gray-500 mt-0.5 sm:mt-1">{module.lessons} lessons</p>
                   )}
                 </div>
                 <ChevronDown
@@ -65,7 +65,7 @@ export function CourseModules({ modules, headerImage, showButton = false, button
 
               {openIndex === index && (
                 <div className="px-3 sm:px-6 pb-3 sm:pb-5 pt-2 border-t-2 border-gray-100">
-                  <p className="text-xs sm:text-base text-gray-700 leading-relaxed whitespace-pre-line">{module.description}</p>
+                  <p className="text-body text-gray-700 leading-relaxed whitespace-pre-line">{module.description}</p>
                 </div>
               )}
             </div>
@@ -78,7 +78,7 @@ export function CourseModules({ modules, headerImage, showButton = false, button
             <a
               href="#pricing"
               onClick={onButtonClick}
-              className="inline-block py-4 sm:py-5 lg:py-6 px-10 sm:px-12 lg:px-14 bg-yellow-100 text-black border-4 border-black font-black text-lg sm:text-xl lg:text-2xl rounded-lg uppercase tracking-wide cursor-pointer animate-bounce-subtle hover:bg-black hover:text-white transition-colors duration-300 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]"
+              className="inline-block py-4 sm:py-5 lg:py-6 px-10 sm:px-12 lg:px-14 bg-yellow-100 text-black border-4 border-black font-black text-sub rounded-lg uppercase tracking-wide cursor-pointer animate-bounce-subtle hover:bg-black hover:text-white transition-colors duration-300 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]"
             >
               {buttonText}
             </a>

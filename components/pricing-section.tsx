@@ -106,10 +106,10 @@ export default function PricingSection() {
       <div className="mx-0 sm:mx-4 md:mx-8 lg:mx-12 my-0 self-stretch relative bg-white sm:border border-[rgba(55,50,47,0.12)] py-12 sm:py-16 md:py-24 flex flex-col justify-center items-center gap-8 sm:gap-10 md:gap-12 z-10">
         {/* Header */}
         <div className="w-full max-w-[500px] text-center px-4 flex flex-col gap-2">
-          <p className="text-[#37322F] text-xl sm:text-2xl md:text-3xl font-normal font-serif">
+          <p className="text-[#37322F] text-section font-normal">
             Earn Your Place.
           </p>
-          <p className="text-[#FF8000] text-base sm:text-lg font-medium font-sans">
+          <p className="text-[#FF8000] text-title font-medium font-sans">
             Win Your Money Back
           </p>
         </div>
@@ -130,7 +130,7 @@ export default function PricingSection() {
 
               {/* Header */}
               <div className="flex flex-col gap-2 text-center">
-                <div className="text-[#FBFAF9] text-2xl sm:text-3xl md:text-4xl font-semibold font-sans">
+                <div className="text-[#FBFAF9] text-section font-semibold font-sans">
                   21-Day Challenge
                 </div>
               </div>
@@ -138,7 +138,7 @@ export default function PricingSection() {
               {/* Price */}
               <div className="flex flex-col gap-1 text-center">
                 <div className="flex items-baseline justify-center gap-2">
-                  <span className={`text-[#F0EFEE] text-5xl sm:text-6xl md:text-7xl font-medium font-serif ${ENROLLMENT_CLOSED ? 'blur-md select-none' : ''}`}>
+                  <span className={`text-[#F0EFEE] text-hero font-medium ${ENROLLMENT_CLOSED ? 'blur-md select-none' : ''}`}>
                     {isLoading ? '...' : formatPrice(getProductPrice('21dc_entry', currency) || 147, currency)}
                   </span>
                 </div>
@@ -151,7 +151,7 @@ export default function PricingSection() {
               <div className="flex flex-col items-center gap-3">
                 {ENROLLMENT_CLOSED ? (
                   <div className="w-full max-w-[400px] px-8 py-4 sm:py-5 bg-[#6B6560] rounded-lg flex flex-col justify-center items-center cursor-not-allowed opacity-60">
-                    <span className="text-[#A39E9A] text-base sm:text-lg font-semibold font-sans">
+                    <span className="text-[#A39E9A] text-title font-semibold font-sans">
                       Join the Challenge
                     </span>
                     <span className="text-[#847971] text-xs font-medium font-sans">
@@ -164,7 +164,7 @@ export default function PricingSection() {
                     onClick={() => handleCheckoutClick('21dc-entry', '21-Day Challenge - Entry', 'pricing-card')}
                     className="w-full max-w-[400px] px-8 py-4 sm:py-5 bg-[#FBFAF9] hover:bg-white transition-colors rounded-lg flex justify-center items-center shadow-[0px_2px_4px_rgba(55,50,47,0.12)]"
                   >
-                    <span className="text-[#37322F] text-base sm:text-lg font-semibold font-sans">
+                    <span className="text-[#37322F] text-title font-semibold font-sans">
                       Join the Challenge
                     </span>
                   </Link>
@@ -218,7 +218,7 @@ export default function PricingSection() {
                         strokeLinejoin="round"
                       />
                     </svg>
-                    <span className="text-[#F0EFEE] text-base font-medium font-sans">
+                    <span className="text-[#F0EFEE] text-body font-medium font-sans">
                       {feature}
                     </span>
                   </div>

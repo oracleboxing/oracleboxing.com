@@ -62,9 +62,9 @@ export function EpicCTAButton({
     }
   };
   const sizeClasses = {
-    sm: "min-h-9 px-5 text-sm py-1.5",
-    md: "min-h-10 px-6 text-sm py-1.5",
-    lg: "py-3 sm:py-4 lg:py-5 px-8 sm:px-10 lg:px-12 text-base sm:text-lg lg:text-xl"
+    sm: "min-h-9 px-5 text-body py-1.5",
+    md: "min-h-10 px-6 text-body py-1.5",
+    lg: "py-3 sm:py-4 lg:py-5 px-8 sm:px-10 lg:px-12 text-sub"
   };
 
   const buttonContent = (
@@ -89,7 +89,6 @@ export function EpicCTAButton({
   );
 
   const buttonStyle = {
-    fontFamily: 'Satoshi, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
     cursor: 'pointer'
   };
 

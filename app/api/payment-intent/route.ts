@@ -142,7 +142,6 @@ export async function GET(req: NextRequest) {
     }
 
     try { await logger.failed(stripeError.message, { paymentIntentId, setupIntentId, type: stripeError.type }); } catch {}
-    notifyOps(`❌ Payment intent retrieval failed - ${stripeError.message}`)
 
     return NextResponse.json(
       { error: 'Failed to retrieve payment details' },

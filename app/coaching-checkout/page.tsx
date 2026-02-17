@@ -394,7 +394,7 @@ function CoachingCheckoutContent() {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center p-6">
         <div className="text-center max-w-md">
-          <h1 className="text-xl font-semibold text-[#37322F] mb-2">Invalid Checkout Link</h1>
+          <h1 className="text-sub font-semibold text-[#37322F] mb-2">Invalid Checkout Link</h1>
           <p className="text-[#605A57]">This checkout link is invalid or has expired. Please contact your coach for a new link.</p>
         </div>
       </div>
@@ -436,12 +436,12 @@ function CoachingCheckoutContent() {
                     </div>
 
                     <div className="relative">
-                      <h3 className="text-lg font-medium mb-1 text-[#1a1611]">1-on-1 Coaching</h3>
+                      <h3 className="text-title font-medium mb-1 text-[#1a1611]">1-on-1 Coaching</h3>
                       <p className="text-[#5c4a36] text-sm mb-6">{coachingDetails.tier} with {coachingDetails.coach}</p>
 
                       <div className="flex items-end justify-between">
                         <div>
-                          <span className="text-3xl font-bold text-[#1a1611]">{formatPrice(coachingDetails.amount)}</span>
+                          <span className="text-sub font-bold text-[#1a1611]">{formatPrice(coachingDetails.amount)}</span>
                           <p className="text-[#5c4a36] text-xs mt-1">
                             {coachingDetails.isSplitPayment
                               ? `payment 1 of ${coachingDetails.totalPayments}`
@@ -512,7 +512,7 @@ function CoachingCheckoutContent() {
                     <div className="border-t border-[rgba(55,50,47,0.08)] mt-4 pt-4">
                       <div className="flex justify-between">
                         <span className="text-[#37322F] font-medium">Due today</span>
-                        <span className="text-[#37322F] font-bold text-lg">{formatPrice(coachingDetails.amount)}</span>
+                        <span className="text-[#37322F] font-bold text-title">{formatPrice(coachingDetails.amount)}</span>
                       </div>
                     </div>
                   </>
@@ -594,12 +594,12 @@ function CoachingCheckoutContent() {
                       </div>
 
                       <div className="relative">
-                        <h3 className="text-lg font-medium mb-1 text-[#1a1611]">1-on-1 Coaching</h3>
+                        <h3 className="text-title font-medium mb-1 text-[#1a1611]">1-on-1 Coaching</h3>
                         <p className="text-[#5c4a36] text-sm mb-6">{coachingDetails.tier} with {coachingDetails.coach}</p>
 
                         <div className="flex items-end justify-between">
                           <div>
-                            <span className="text-3xl font-bold text-[#1a1611]">{formatPrice(coachingDetails.amount)}</span>
+                            <span className="text-sub font-bold text-[#1a1611]">{formatPrice(coachingDetails.amount)}</span>
                             <p className="text-[#5c4a36] text-xs mt-1">
                               {coachingDetails.isSplitPayment
                                 ? `payment 1 of ${coachingDetails.totalPayments}`
@@ -678,7 +678,7 @@ function CoachingCheckoutContent() {
                           <span className="text-[#37322F] font-medium">
                             {coachingDetails.isSubscriptionPayment ? 'First payment' : 'Due today'}
                           </span>
-                          <span className="text-[#37322F] font-bold text-lg">{formatPrice(coachingDetails.amount)}</span>
+                          <span className="text-[#37322F] font-bold text-title">{formatPrice(coachingDetails.amount)}</span>
                         </div>
                       </div>
                     </div>

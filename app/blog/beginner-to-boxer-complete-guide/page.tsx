@@ -19,8 +19,7 @@ export default function BeginnerToBoxerGuidePage() {
               className="rounded"
             />
             <span
-              className="text-[#37322F] text-lg font-semibold tracking-tight"
-              style={{ fontFamily: "ClashDisplay, sans-serif" }}
+              className="text-[#37322F] text-title font-semibold tracking-tight"
             >
               Oracle Boxing
             </span>
@@ -39,8 +38,7 @@ export default function BeginnerToBoxerGuidePage() {
         <p className="text-[#605A57] text-sm mb-4">16 July 2025</p>
 
         <h1
-          className="text-[#37322F] text-3xl md:text-[44px] md:leading-[1.15] font-semibold tracking-tight mb-8"
-          style={{ fontFamily: "ClashDisplay, sans-serif" }}
+          className="text-[#37322F] text-section font-semibold tracking-tight mb-8"
         >
           Beginner to Boxer: The Complete Guide to Learning Boxing Online
         </h1>
@@ -57,7 +55,7 @@ export default function BeginnerToBoxerGuidePage() {
         </div>
 
         {/* Content */}
-        <div className="prose-oracle space-y-6 text-[#37322F] text-[17px] leading-[1.75]">
+        <div className="prose-oracle space-y-6 text-[#37322F] text-title leading-[1.75]">
           <p>
             Most people who want to learn boxing don&apos;t have a talent problem. They don&apos;t have a discipline problem. They have a roadmap problem. There&apos;s so much information available that it actually makes things worse - you watch hundreds of videos, save clips you&apos;ll never revisit, and mistake education for entertainment.
           </p>
@@ -66,8 +64,7 @@ export default function BeginnerToBoxerGuidePage() {
           </p>
 
           <h2
-            className="text-[#37322F] text-xl md:text-2xl font-semibold mt-10 mb-4"
-            style={{ fontFamily: "ClashDisplay, sans-serif" }}
+            className="text-[#37322F] text-sub font-semibold mt-10 mb-4"
           >
             Step 1: Get Your Stance Right
           </h2>
@@ -82,8 +79,7 @@ export default function BeginnerToBoxerGuidePage() {
           </p>
 
           <h2
-            className="text-[#37322F] text-xl md:text-2xl font-semibold mt-10 mb-4"
-            style={{ fontFamily: "ClashDisplay, sans-serif" }}
+            className="text-[#37322F] text-sub font-semibold mt-10 mb-4"
           >
             Step 2: Build Your Shape
           </h2>
@@ -98,8 +94,7 @@ export default function BeginnerToBoxerGuidePage() {
           </p>
 
           <h2
-            className="text-[#37322F] text-xl md:text-2xl font-semibold mt-10 mb-4"
-            style={{ fontFamily: "ClashDisplay, sans-serif" }}
+            className="text-[#37322F] text-sub font-semibold mt-10 mb-4"
           >
             Step 3: Understand Rotation
           </h2>
@@ -114,8 +109,7 @@ export default function BeginnerToBoxerGuidePage() {
           </p>
 
           <h2
-            className="text-[#37322F] text-xl md:text-2xl font-semibold mt-10 mb-4"
-            style={{ fontFamily: "ClashDisplay, sans-serif" }}
+            className="text-[#37322F] text-sub font-semibold mt-10 mb-4"
           >
             Step 4: Learn the Six Punches
           </h2>
@@ -127,8 +121,7 @@ export default function BeginnerToBoxerGuidePage() {
           </p>
 
           <h2
-            className="text-[#37322F] text-xl md:text-2xl font-semibold mt-10 mb-4"
-            style={{ fontFamily: "ClashDisplay, sans-serif" }}
+            className="text-[#37322F] text-sub font-semibold mt-10 mb-4"
           >
             Step 5: Add Defence
           </h2>
@@ -140,8 +133,7 @@ export default function BeginnerToBoxerGuidePage() {
           </p>
 
           <h2
-            className="text-[#37322F] text-xl md:text-2xl font-semibold mt-10 mb-4"
-            style={{ fontFamily: "ClashDisplay, sans-serif" }}
+            className="text-[#37322F] text-sub font-semibold mt-10 mb-4"
           >
             Step 6: Drill, Don&apos;t Just Train
           </h2>
@@ -153,8 +145,7 @@ export default function BeginnerToBoxerGuidePage() {
           </p>
 
           <h2
-            className="text-[#37322F] text-xl md:text-2xl font-semibold mt-10 mb-4"
-            style={{ fontFamily: "ClashDisplay, sans-serif" }}
+            className="text-[#37322F] text-sub font-semibold mt-10 mb-4"
           >
             Can You Actually Learn Boxing Online?
           </h2>
@@ -169,8 +160,7 @@ export default function BeginnerToBoxerGuidePage() {
           </p>
 
           <h2
-            className="text-[#37322F] text-xl md:text-2xl font-semibold mt-10 mb-4"
-            style={{ fontFamily: "ClashDisplay, sans-serif" }}
+            className="text-[#37322F] text-sub font-semibold mt-10 mb-4"
           >
             The Roadmap in One Sentence
           </h2>
@@ -181,8 +171,7 @@ export default function BeginnerToBoxerGuidePage() {
           {/* CTA */}
           <div className="mt-14 py-10 px-6 md:px-10 bg-[#37322F]/[0.03] rounded-2xl text-center">
             <h3
-              className="text-[#37322F] text-xl md:text-2xl font-semibold mb-3"
-              style={{ fontFamily: "ClashDisplay, sans-serif" }}
+              className="text-[#37322F] text-sub font-semibold mb-3"
             >
               Start Your Boxing Journey the Right Way
             </h3>

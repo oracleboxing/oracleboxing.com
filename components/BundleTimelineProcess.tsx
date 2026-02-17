@@ -13,21 +13,21 @@ export function BundleTimelineProcess({ cta }: BundleTimelineProcessProps) {
       title: 'Understand the Principles',
       content: (
         <div>
-          <p className="text-gray-800 text-sm md:text-base font-normal mb-8">
+          <p className="text-gray-800 text-body font-normal mb-8">
             Start with Boxing Masterclass to build a deep understanding of the conceptual framework, mechanics, tactics, and mental game that underpin elite boxing.
           </p>
           <div className="mb-8 space-y-2">
             <div className="flex items-start gap-3">
               <span className="text-gray-700 flex-shrink-0">•</span>
-              <p className="text-gray-700 text-sm md:text-base">Understand the mental framework and flow state that keeps you calm under pressure</p>
+              <p className="text-gray-700 text-body">Understand the mental framework and flow state that keeps you calm under pressure</p>
             </div>
             <div className="flex items-start gap-3">
               <span className="text-gray-700 flex-shrink-0">•</span>
-              <p className="text-gray-700 text-sm md:text-base">Learn the biomechanics and fascia mechanics behind natural, effortless power</p>
+              <p className="text-gray-700 text-body">Learn the biomechanics and fascia mechanics behind natural, effortless power</p>
             </div>
             <div className="flex items-start gap-3">
               <span className="text-gray-700 flex-shrink-0">•</span>
-              <p className="text-gray-700 text-sm md:text-base">Master tactical positioning, pattern recognition, and the strategic side of boxing</p>
+              <p className="text-gray-700 text-body">Master tactical positioning, pattern recognition, and the strategic side of boxing</p>
             </div>
           </div>
           <div className="grid grid-cols-2 gap-4">
@@ -67,21 +67,21 @@ export function BundleTimelineProcess({ cta }: BundleTimelineProcessProps) {
       title: 'Apply the Structure',
       content: (
         <div>
-          <p className="text-gray-800 text-sm md:text-base font-normal mb-8">
+          <p className="text-gray-800 text-body font-normal mb-8">
             Follow the Boxing Roadmap&apos;s 5-phase progression system to transform theoretical knowledge into practical skill through structured drills and techniques.
           </p>
           <div className="mb-8 space-y-2">
             <div className="flex items-start gap-3">
               <span className="text-gray-700 flex-shrink-0">•</span>
-              <p className="text-gray-700 text-sm md:text-base">Progress through fundamentals, defence, and footwork with clear phase-by-phase structure</p>
+              <p className="text-gray-700 text-body">Progress through fundamentals, defence, and footwork with clear phase-by-phase structure</p>
             </div>
             <div className="flex items-start gap-3">
               <span className="text-gray-700 flex-shrink-0">•</span>
-              <p className="text-gray-700 text-sm md:text-base">Build technical form and mechanics systematically with drills for each phase</p>
+              <p className="text-gray-700 text-body">Build technical form and mechanics systematically with drills for each phase</p>
             </div>
             <div className="flex items-start gap-3">
               <span className="text-gray-700 flex-shrink-0">•</span>
-              <p className="text-gray-700 text-sm md:text-base">Develop ring-ready skill with clear progression markers from beginner to sparring-ready</p>
+              <p className="text-gray-700 text-body">Develop ring-ready skill with clear progression markers from beginner to sparring-ready</p>
             </div>
           </div>
           <div className="grid grid-cols-2 gap-4">
@@ -121,21 +121,21 @@ export function BundleTimelineProcess({ cta }: BundleTimelineProcessProps) {
       title: 'Refine with Real Coaching',
       content: (
         <div>
-          <p className="text-gray-800 text-sm md:text-base font-normal mb-8">
+          <p className="text-gray-800 text-body font-normal mb-8">
             Use the Boxing Clinic replays to see concepts applied in real-time and troubleshoot common issues with live coaching from Oliver & Toni.
           </p>
           <div className="mb-8 space-y-2">
             <div className="flex items-start gap-3">
               <span className="text-gray-700 flex-shrink-0">•</span>
-              <p className="text-gray-700 text-sm md:text-base">Watch real technique corrections and see how coaching solves common problems</p>
+              <p className="text-gray-700 text-body">Watch real technique corrections and see how coaching solves common problems</p>
             </div>
             <div className="flex items-start gap-3">
               <span className="text-gray-700 flex-shrink-0">•</span>
-              <p className="text-gray-700 text-sm md:text-base">Learn from mistakes and refinements happening in real time with live students</p>
+              <p className="text-gray-700 text-body">Learn from mistakes and refinements happening in real time with live students</p>
             </div>
             <div className="flex items-start gap-3">
               <span className="text-gray-700 flex-shrink-0">•</span>
-              <p className="text-gray-700 text-sm md:text-base">See high-level tactics, defensive flow, and advanced concepts demonstrated live</p>
+              <p className="text-gray-700 text-body">See high-level tactics, defensive flow, and advanced concepts demonstrated live</p>
             </div>
           </div>
           <div className="grid grid-cols-2 gap-4">

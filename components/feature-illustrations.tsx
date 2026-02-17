@@ -77,7 +77,7 @@ export function CoursesIllustration() {
         <div className="bg-white rounded-lg sm:rounded-xl p-2.5 sm:p-3 md:p-6 h-full flex flex-col shadow-sm border border-[#E5E5E5]">
           {/* Header */}
           <div className="flex items-center justify-between mb-2 sm:mb-3 md:mb-6">
-            <h2 className="text-[#37322F] text-sm sm:text-base md:text-2xl font-semibold">Rotation Tutorial</h2>
+            <h2 className="text-[#37322F] text-sub font-semibold">Rotation Tutorial</h2>
             <div className="flex items-center gap-1.5 sm:gap-2 md:gap-3">
               <svg className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-[#9CA3AF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -214,7 +214,7 @@ export function CoachingIllustration() {
 
           {/* Content */}
           <div className="p-4 md:p-5">
-            <h3 className="text-[#37322F] text-base md:text-lg font-semibold mb-3">
+            <h3 className="text-[#37322F] text-title font-semibold mb-3">
               Shape Masterclass - Oliver
             </h3>
 
@@ -373,7 +373,7 @@ export function CommunityIllustration() {
             </div>
 
             {/* Title */}
-            <h3 className="text-[#37322F] text-sm md:text-base font-semibold mb-1 line-clamp-1">
+            <h3 className="text-[#37322F] text-body font-semibold mb-1 line-clamp-1">
               {post.title.includes("🥊") ? post.title : (idx === 0 ? "🥊 " : "") + post.title}
             </h3>
 

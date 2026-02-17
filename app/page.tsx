@@ -121,10 +121,10 @@ export default function Home() {
           <PricingSection />
         </FadeInOnScroll>
         <FadeInOnScroll>
-          <TeamSection />
+          <MembershipPricingSection />
         </FadeInOnScroll>
         <FadeInOnScroll>
-          <MembershipPricingSection />
+          <TeamSection />
         </FadeInOnScroll>
         <FadeInOnScroll>
           <ChallengeFAQSection />

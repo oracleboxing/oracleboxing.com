@@ -58,10 +58,10 @@ export default function FeedbackPage() {
         <section className="relative pt-[120px] md:pt-[160px] pb-16 border-b border-[rgba(55,50,47,0.12)]">
           <div className="max-w-[1060px] mx-auto px-4">
             <div className="flex flex-col items-center gap-6">
-              <h1 className="max-w-[900px] text-center text-[#37322f] text-4xl md:text-[64px] font-normal leading-tight md:leading-[1.15] font-serif">
+              <h1 className="max-w-[900px] text-center text-[#37322f] text-hero font-normal leading-tight">
                 Anonymous Feedback
               </h1>
-              <p className="max-w-[700px] text-center text-[#37322f]/80 text-lg md:text-xl font-medium leading-7 font-sans">
+              <p className="max-w-[700px] text-center text-[#37322f]/80 text-title font-medium leading-7">
                 We're always looking to make this community better. If you have any ideas, suggestions, or thoughts on what you'd like to see, please share them below.
               </p>
               <p className="text-sm text-[rgba(73,66,61,0.50)] font-sans">
@@ -81,13 +81,13 @@ export default function FeedbackPage() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
-                <h2 className="text-[#37322F] text-2xl md:text-3xl font-normal font-serif mb-3">Thank You!</h2>
+                <h2 className="text-[#37322F] text-section font-normal mb-3">Thank You!</h2>
                 <p className="text-[rgba(73,66,61,0.70)] text-base font-sans mb-6">
                   Your feedback has been received. We appreciate you taking the time to help us improve.
                 </p>
                 <button
                   onClick={() => setSubmitted(false)}
-                  className="py-4 px-8 bg-[#37322F] text-white rounded-full font-semibold text-lg font-sans cursor-pointer hover:bg-[#49423D] transition-colors shadow-[0px_2px_4px_rgba(55,50,47,0.12)]"
+                  className="py-4 px-8 bg-[#37322F] text-white rounded-full font-semibold text-title cursor-pointer hover:bg-[#49423D] transition-colors shadow-[0px_2px_4px_rgba(55,50,47,0.12)]"
                 >
                   Submit More Feedback
                 </button>
@@ -114,7 +114,7 @@ export default function FeedbackPage() {
                   <button
                     type="submit"
                     disabled={isLoading || !feedback.trim()}
-                    className="w-full py-4 bg-[#37322F] text-white rounded-full font-semibold text-lg font-sans cursor-pointer hover:bg-[#49423D] transition-colors shadow-[0px_2px_4px_rgba(55,50,47,0.12)] disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full py-4 bg-[#37322F] text-white rounded-full font-semibold text-title cursor-pointer hover:bg-[#49423D] transition-colors shadow-[0px_2px_4px_rgba(55,50,47,0.12)] disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {isLoading ? 'Submitting...' : 'Submit Feedback'}
                   </button>

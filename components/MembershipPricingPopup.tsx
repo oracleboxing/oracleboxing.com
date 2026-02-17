@@ -65,10 +65,10 @@ export function MembershipPricingPopup({ isOpen, onClose, defaultPlan = 'members
         {/* Content */}
         <div className="p-6 sm:p-8 lg:p-10">
           {/* Title */}
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-2 sm:mb-3 text-center">
+          <h2 className="text-hero font-bold text-gray-900 mb-2 sm:mb-3 text-center">
             Join Oracle Boxing for as little as <AdaptivePricePerMonth usdAmount={897} months={12} metadata="mema" className="inline" /> per month!
           </h2>
-          <p className="text-sm sm:text-base lg:text-lg text-gray-600 text-center max-w-3xl mx-auto mb-6 sm:mb-8">
+          <p className="text-title text-gray-600 text-center max-w-3xl mx-auto mb-6 sm:mb-8">
             Choose the plan that fits your commitment level
           </p>
 
@@ -101,15 +101,15 @@ export function MembershipPricingPopup({ isOpen, onClose, defaultPlan = 'members
                   </div>
 
                   <div className="flex items-baseline justify-between gap-3 mb-2">
-                    <h3 className="text-xl sm:text-2xl font-bold text-gray-900">Annual</h3>
-                    <div className="text-3xl sm:text-4xl font-black text-gray-900">
+                    <h3 className="text-sub font-bold text-gray-900">Annual</h3>
+                    <div className="text-section font-black text-gray-900">
                       <AdaptivePrice usdAmount={897} metadata="mema" />
                     </div>
                   </div>
-                  <div className="text-sm text-gray-600 mb-3">Billed every year</div>
+                  <div className="text-body text-gray-600 mb-3">Billed every year</div>
                   <div className="w-full bg-white border border-gray-200 rounded-lg px-3 py-1.5 text-center">
                     <div className="flex items-baseline justify-center gap-1">
-                      <div className="text-xl sm:text-2xl font-bold text-gray-900">
+                      <div className="text-sub font-bold text-gray-900">
                         <AdaptivePricePerMonth usdAmount={897} months={12} metadata="mema" />
                       </div>
                       <div className="text-xs text-gray-600">/ month</div>
@@ -141,15 +141,15 @@ export function MembershipPricingPopup({ isOpen, onClose, defaultPlan = 'members
                   </div>
 
                   <div className="flex items-baseline justify-between gap-3 mb-2">
-                    <h3 className="text-xl sm:text-2xl font-bold text-gray-900">Bi-Annual</h3>
-                    <div className="text-3xl sm:text-4xl font-black text-gray-900">
+                    <h3 className="text-sub font-bold text-gray-900">Bi-Annual</h3>
+                    <div className="text-section font-black text-gray-900">
                       <AdaptivePrice usdAmount={497} metadata="mem6" />
                     </div>
                   </div>
-                  <div className="text-sm text-gray-600 mb-3">Billed every 6 months</div>
+                  <div className="text-body text-gray-600 mb-3">Billed every 6 months</div>
                   <div className="w-full bg-white border border-gray-200 rounded-lg px-3 py-1.5 text-center">
                     <div className="flex items-baseline justify-center gap-1">
-                      <div className="text-xl sm:text-2xl font-bold text-gray-900">
+                      <div className="text-sub font-bold text-gray-900">
                         <AdaptivePricePerMonth usdAmount={497} months={6} metadata="mem6" />
                       </div>
                       <div className="text-xs text-gray-600">/ month</div>
@@ -181,15 +181,15 @@ export function MembershipPricingPopup({ isOpen, onClose, defaultPlan = 'members
                   </div>
 
                   <div className="flex items-baseline justify-between gap-3 mb-2">
-                    <h3 className="text-xl sm:text-2xl font-bold text-gray-900">Quarterly</h3>
-                    <div className="text-3xl sm:text-4xl font-black text-gray-900">
+                    <h3 className="text-sub font-bold text-gray-900">Quarterly</h3>
+                    <div className="text-section font-black text-gray-900">
                       <AdaptivePrice usdAmount={297} metadata="memq" />
                     </div>
                   </div>
-                  <div className="text-sm text-gray-600 mb-3">Billed every 3 months</div>
+                  <div className="text-body text-gray-600 mb-3">Billed every 3 months</div>
                   <div className="w-full bg-white border border-gray-200 rounded-lg px-3 py-1.5 text-center">
                     <div className="flex items-baseline justify-center gap-1">
-                      <div className="text-xl sm:text-2xl font-bold text-gray-900">
+                      <div className="text-sub font-bold text-gray-900">
                         <AdaptivePricePerMonth usdAmount={297} months={3} metadata="memq" />
                       </div>
                       <div className="text-xs text-gray-600">/ month</div>
@@ -204,15 +204,15 @@ export function MembershipPricingPopup({ isOpen, onClose, defaultPlan = 'members
           <div className="text-center mb-3 sm:mb-4">
             <button
               onClick={handleJoinNow}
-              className="py-4 sm:py-5 lg:py-6 px-10 sm:px-12 lg:px-14 bg-yellow-100 text-black font-black text-xl sm:text-2xl md:text-3xl rounded-xl uppercase tracking-wide transition-colors cursor-pointer hover:bg-yellow-200 flex items-center justify-center gap-2 mx-auto border-4 border-black shadow-lg"
+              className="py-4 sm:py-5 lg:py-6 px-10 sm:px-12 lg:px-14 bg-yellow-100 text-black font-black text-section rounded-xl uppercase tracking-wide transition-colors cursor-pointer hover:bg-yellow-200 flex items-center justify-center gap-2 mx-auto border-4 border-black shadow-lg"
             >
               CHECKOUT
-              <span className="text-2xl sm:text-3xl">→</span>
+              <span className="text-section">→</span>
             </button>
           </div>
 
           {/* Monthly billing note */}
-          <p className="text-center text-gray-600 text-xs sm:text-sm mb-4 sm:mb-6">
+          <p className="text-center text-gray-600 text-body mb-4 sm:mb-6">
             You can switch to monthly billing at <AdaptivePrice usdAmount={97} metadata="mem_monthly" className="inline" />/month after purchase
           </p>
 
@@ -268,7 +268,7 @@ export function MembershipPricingPopup({ isOpen, onClose, defaultPlan = 'members
                     clipRule="evenodd"
                   />
                 </svg>
-                <span className="text-sm sm:text-base md:text-lg font-medium leading-relaxed text-gray-900">
+                <span className="text-title font-medium leading-relaxed text-gray-900">
                   <strong className="font-bold">{benefit.text}</strong>
                   {benefit.bold}
                 </span>
@@ -278,7 +278,7 @@ export function MembershipPricingPopup({ isOpen, onClose, defaultPlan = 'members
 
           {/* How it works */}
           <div className="border-t border-gray-200 pt-6 sm:pt-8">
-            <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 mb-4 sm:mb-6 text-center">
+            <h3 className="text-sub font-bold text-gray-900 mb-4 sm:mb-6 text-center">
               How it works
             </h3>
 
@@ -287,7 +287,7 @@ export function MembershipPricingPopup({ isOpen, onClose, defaultPlan = 'members
                 <div className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0">
                   <CreditCard className="w-8 h-8 text-[#000000]" strokeWidth={1.5} />
                 </div>
-                <p className="text-sm text-gray-900 font-semibold">
+                <p className="text-body text-gray-900 font-semibold">
                   Choose your subscription and complete your purchase
                 </p>
               </div>
@@ -296,7 +296,7 @@ export function MembershipPricingPopup({ isOpen, onClose, defaultPlan = 'members
                 <div className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0">
                   <Smartphone className="w-8 h-8 text-[#000000]" strokeWidth={1.5} />
                 </div>
-                <p className="text-sm text-gray-900 font-semibold">
+                <p className="text-body text-gray-900 font-semibold">
                   Login to the portal and download the app
                 </p>
               </div>
@@ -305,7 +305,7 @@ export function MembershipPricingPopup({ isOpen, onClose, defaultPlan = 'members
                 <div className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0">
                   <TrendingUp className="w-8 h-8 text-[#000000]" strokeWidth={1.5} />
                 </div>
-                <p className="text-sm text-gray-900 font-semibold">
+                <p className="text-body text-gray-900 font-semibold">
                   Start progressing faster than you could have imagined
                 </p>
               </div>

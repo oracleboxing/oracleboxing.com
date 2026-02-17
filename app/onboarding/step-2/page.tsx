@@ -29,21 +29,19 @@ export default function OnboardingStep2Page() {
 
             {/* Header */}
             <h1
-              className="text-3xl sm:text-4xl text-[#37322F] text-center mb-3"
-              style={{ fontFamily: 'ClashDisplay, sans-serif' }}
+              className="text-section text-[#37322F] text-center mb-3"
             >
               You&apos;re all set
             </h1>
 
-            <p className="text-lg text-[#605A57] text-center mb-12">
+            <p className="text-title text-[#605A57] text-center mb-12">
               Your graduation call has been booked.
             </p>
 
             {/* Email instruction */}
             <div className="border border-[rgba(55,50,47,0.12)] rounded-lg p-6 sm:p-8 mb-6">
               <h2
-                className="text-lg sm:text-xl text-[#37322F] mb-2"
-                style={{ fontFamily: 'ClashDisplay, sans-serif' }}
+                className="text-sub text-[#37322F] mb-2"
               >
                 Check your email
               </h2>

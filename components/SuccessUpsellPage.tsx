@@ -324,7 +324,7 @@ export const SuccessUpsellPage: React.FC<SuccessUpsellPageProps> = ({ isMembersh
 
         {/* Next Step Notice - Mobile Only (between sections) */}
         <div className="lg:hidden bg-white p-4 sm:p-5 mx-4 sm:mx-6 my-6 rounded-lg border border-gray-200">
-          <p className="text-sm sm:text-base text-black leading-relaxed">
+          <p className="text-body text-black leading-relaxed">
             <strong>Next Step:</strong> Read the information below and then click one of the buttons to continue to the next page.
           </p>
         </div>

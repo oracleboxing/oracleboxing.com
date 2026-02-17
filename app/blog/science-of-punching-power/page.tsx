@@ -19,8 +19,7 @@ export default function ScienceOfPunchingPowerPage() {
               className="rounded"
             />
             <span
-              className="text-[#37322F] text-lg font-semibold tracking-tight"
-              style={{ fontFamily: "ClashDisplay, sans-serif" }}
+              className="text-[#37322F] text-title font-semibold tracking-tight"
             >
               Oracle Boxing
             </span>
@@ -39,14 +38,13 @@ export default function ScienceOfPunchingPowerPage() {
         <p className="text-[#605A57] text-sm mb-4">18 July 2025</p>
 
         <h1
-          className="text-[#37322F] text-3xl md:text-[44px] md:leading-[1.15] font-semibold tracking-tight mb-8"
-          style={{ fontFamily: "ClashDisplay, sans-serif" }}
+          className="text-[#37322F] text-section font-semibold tracking-tight mb-8"
         >
           The Science of Punching Power: Why Relaxation Beats Muscle Every Time
         </h1>
 
         {/* Content */}
-        <div className="prose-oracle space-y-6 text-[#37322F] text-[17px] leading-[1.75]">
+        <div className="prose-oracle space-y-6 text-[#37322F] text-title leading-[1.75]">
           <p>
             The biggest misconception in boxing is that power comes from muscle. Beginners tense up, flex their arms, and try to push their fist through the target. The result is slow, telegraphed punches that drain energy and leave them exhausted after two rounds.
           </p>
@@ -55,8 +53,7 @@ export default function ScienceOfPunchingPowerPage() {
           </p>
 
           <h2
-            className="text-[#37322F] text-xl md:text-2xl font-semibold mt-10 mb-4"
-            style={{ fontFamily: "ClashDisplay, sans-serif" }}
+            className="text-[#37322F] text-sub font-semibold mt-10 mb-4"
           >
             The 180-Degree Rotation Framework
           </h2>
@@ -71,8 +68,7 @@ export default function ScienceOfPunchingPowerPage() {
           </p>
 
           <h2
-            className="text-[#37322F] text-xl md:text-2xl font-semibold mt-10 mb-4"
-            style={{ fontFamily: "ClashDisplay, sans-serif" }}
+            className="text-[#37322F] text-sub font-semibold mt-10 mb-4"
           >
             Why Relaxation Creates More Power Than Tension
           </h2>
@@ -87,8 +83,7 @@ export default function ScienceOfPunchingPowerPage() {
           </p>
 
           <h2
-            className="text-[#37322F] text-xl md:text-2xl font-semibold mt-10 mb-4"
-            style={{ fontFamily: "ClashDisplay, sans-serif" }}
+            className="text-[#37322F] text-sub font-semibold mt-10 mb-4"
           >
             The Hip Hinge: Where Power Is Loaded
           </h2>
@@ -103,8 +98,7 @@ export default function ScienceOfPunchingPowerPage() {
           </p>
 
           <h2
-            className="text-[#37322F] text-xl md:text-2xl font-semibold mt-10 mb-4"
-            style={{ fontFamily: "ClashDisplay, sans-serif" }}
+            className="text-[#37322F] text-sub font-semibold mt-10 mb-4"
           >
             The Three Steps of Every Punch
           </h2>
@@ -119,8 +113,7 @@ export default function ScienceOfPunchingPowerPage() {
           </p>
 
           <h2
-            className="text-[#37322F] text-xl md:text-2xl font-semibold mt-10 mb-4"
-            style={{ fontFamily: "ClashDisplay, sans-serif" }}
+            className="text-[#37322F] text-sub font-semibold mt-10 mb-4"
           >
             Common Power Killers
           </h2>
@@ -138,8 +131,7 @@ export default function ScienceOfPunchingPowerPage() {
           </p>
 
           <h2
-            className="text-[#37322F] text-xl md:text-2xl font-semibold mt-10 mb-4"
-            style={{ fontFamily: "ClashDisplay, sans-serif" }}
+            className="text-[#37322F] text-sub font-semibold mt-10 mb-4"
           >
             How to Train Power the Right Way
           </h2>
@@ -156,8 +148,7 @@ export default function ScienceOfPunchingPowerPage() {
           {/* CTA */}
           <div className="mt-14 py-10 px-6 md:px-10 bg-[#37322F]/[0.03] rounded-2xl text-center">
             <h3
-              className="text-[#37322F] text-xl md:text-2xl font-semibold mb-3"
-              style={{ fontFamily: "ClashDisplay, sans-serif" }}
+              className="text-[#37322F] text-sub font-semibold mb-3"
             >
               Build Real Power From the Ground Up
             </h3>

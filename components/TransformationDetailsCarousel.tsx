@@ -82,28 +82,17 @@ const getPosterUrl = (videoPath: string) => {
 const transformations: TransformationItem[] = [
   {
     id: 1,
-    name: 'Kris',
-    beforeVideo: 'kris_before_1.webm',
-    afterVideo: 'kris_after.webm',
-    duration: '3 MONTHS',
+    name: 'Shalyn',
+    beforeVideo: 'shalyn_before.webm',
+    afterVideo: 'shalyn_after.webm',
+    duration: '12 MONTHS',
     corrections: [
-      { before: 'No upper body rotation', after: 'Twisting punches, relaxed' },
-      { before: 'Way too stiff and tense', after: 'Full kinetic chain rotation' },
+      { before: 'Shape too open on hooks', after: 'Compact, smaller target' },
+      { before: 'No whipping in punches', after: 'Kinetic chain power' },
     ],
   },
   {
     id: 2,
-    name: 'Zyginta',
-    beforeVideo: 'zyginta_before.webm',
-    afterVideo: 'zyginta_after.webm',
-    duration: '9 MONTHS',
-    corrections: [
-      { before: 'Not finishing punches', after: 'Full punch extension' },
-      { before: 'Weight coming forward', after: 'Proper weight distribution' },
-    ],
-  },
-  {
-    id: 3,
     name: 'Keli',
     beforeVideo: 'keli_before.webm',
     afterVideo: 'keli_after.webm',
@@ -114,14 +103,25 @@ const transformations: TransformationItem[] = [
     ],
   },
   {
-    id: 4,
-    name: 'Maria',
-    beforeVideo: 'maria_before.webm',
-    afterVideo: 'maria_after.webm',
+    id: 3,
+    name: 'Balal',
+    beforeVideo: 'balal_before.webm',
+    afterVideo: 'balal_after.webm',
     duration: '6 MONTHS',
     corrections: [
-      { before: 'Stance opens up on punches', after: 'Tight, compact stance' },
-      { before: 'Limited head movement', after: 'More variety in movement' },
+      { before: 'Weight forward on punches', after: 'Centred weight' },
+      { before: 'Moving too much throwing', after: 'Rotating on axis, planted' },
+    ],
+  },
+  {
+    id: 4,
+    name: 'Zyginta',
+    beforeVideo: 'zyginta_before.webm',
+    afterVideo: 'zyginta_after.webm',
+    duration: '9 MONTHS',
+    corrections: [
+      { before: 'Not finishing punches', after: 'Full punch extension' },
+      { before: 'Weight coming forward', after: 'Proper weight distribution' },
     ],
   },
   {
@@ -148,39 +148,17 @@ const transformations: TransformationItem[] = [
   },
   {
     id: 7,
-    name: 'Shalyn',
-    beforeVideo: 'shalyn_before.webm',
-    afterVideo: 'shalyn_after.webm',
-    duration: '12 MONTHS',
+    name: 'Maria',
+    beforeVideo: 'maria_before.webm',
+    afterVideo: 'maria_after.webm',
+    duration: '6 MONTHS',
     corrections: [
-      { before: 'Shape too open on hooks', after: 'Compact, smaller target' },
-      { before: 'No whipping in punches', after: 'Kinetic chain power' },
+      { before: 'Stance opens up on punches', after: 'Tight, compact stance' },
+      { before: 'Limited head movement', after: 'More variety in movement' },
     ],
   },
   {
     id: 8,
-    name: 'Balal',
-    beforeVideo: 'balal_before.webm',
-    afterVideo: 'balal_after.webm',
-    duration: '6 MONTHS',
-    corrections: [
-      { before: 'Weight forward on punches', after: 'Centred weight' },
-      { before: 'Moving too much throwing', after: 'Rotating on axis, planted' },
-    ],
-  },
-  {
-    id: 9,
-    name: 'Ilya',
-    beforeVideo: 'ilya_before2.webm',
-    afterVideo: 'ilya_after.webm',
-    duration: '3 MONTHS',
-    corrections: [
-      { before: 'No kinetic linkage', after: 'Full body connection' },
-      { before: 'Weight shifting forward', after: 'Centred, balanced weight' },
-    ],
-  },
-  {
-    id: 10,
     name: 'Rod',
     beforeVideo: 'rod_before.webm',
     afterVideo: 'rod_after.webm',
@@ -188,6 +166,28 @@ const transformations: TransformationItem[] = [
     corrections: [
       { before: 'Not fully extending punches', after: 'Full punch extension' },
       { before: 'Unorthodox timing, no rhythm', after: 'Smooth, rhythmic flow' },
+    ],
+  },
+  {
+    id: 9,
+    name: 'Kris',
+    beforeVideo: 'kris_before_1.webm',
+    afterVideo: 'kris_after.webm',
+    duration: '3 MONTHS',
+    corrections: [
+      { before: 'No upper body rotation', after: 'Twisting punches, relaxed' },
+      { before: 'Way too stiff and tense', after: 'Full kinetic chain rotation' },
+    ],
+  },
+  {
+    id: 10,
+    name: 'Ilya',
+    beforeVideo: 'ilya_before2.webm',
+    afterVideo: 'ilya_after.webm',
+    duration: '3 MONTHS',
+    corrections: [
+      { before: 'No kinetic linkage', after: 'Full body connection' },
+      { before: 'Weight shifting forward', after: 'Centred, balanced weight' },
     ],
   },
 ]
@@ -294,11 +294,11 @@ export function TransformationDetailsCarousel() {
   }
 
   return (
-    <section className="w-full py-12 md:py-16">
-      {/* Section Header - constrained width */}
-      <div className="max-w-[900px] mx-auto px-4 mb-8 md:mb-12">
-        <div className="text-center">
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-6">
+    <section className="w-full min-h-screen flex items-center py-12 md:py-16">
+      <div className="max-w-[1400px] mx-auto px-4 flex flex-col lg:flex-row lg:items-center lg:gap-16 w-full">
+      {/* Section Header - left column on desktop */}
+      <div className="lg:w-4/12 mb-8 lg:mb-0">
+        <div className="flex flex-col sm:flex-row lg:flex-col items-center lg:items-start gap-2 sm:gap-6 lg:gap-4">
             <div className="flex items-baseline gap-2">
               <span
                 ref={daysRef}
@@ -309,7 +309,7 @@ export function TransformationDetailsCarousel() {
               </span>
               <span className="text-[#49423D] text-lg md:text-xl">to see results</span>
             </div>
-            <div className="hidden sm:block w-px h-8 bg-[#37322F]/20" />
+            <div className="hidden sm:block lg:hidden w-px h-8 bg-[#37322F]/20" />
             <div className="flex items-baseline gap-2">
               <span
                 ref={monthsRef}
@@ -322,10 +322,8 @@ export function TransformationDetailsCarousel() {
             </div>
           </div>
         </div>
-      </div>
-
-      {/* Carousel Container - full width on mobile, constrained on desktop */}
-      <div className="w-full md:max-w-[900px] md:mx-auto md:px-0">
+      {/* Carousel Container - right column on desktop */}
+      <div className="lg:w-8/12 w-full">
         <div className="relative">
           {/* Desktop layout with arrows beside */}
           <div className="hidden md:flex items-center gap-4">
@@ -575,7 +573,7 @@ export function TransformationDetailsCarousel() {
                   {/* Row 3: Technique Corrections */}
                   <div className="space-y-2">
                     {item.corrections.map((correction, corrIndex) => (
-                      <div key={corrIndex} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-2 sm:gap-3">
+                      <div key={corrIndex} className="grid grid-cols-2 gap-2 sm:gap-3">
                         <div className="flex items-start gap-1.5">
                           <span className="text-red-500 mt-0.5 flex-shrink-0">
                             <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
@@ -734,6 +732,7 @@ export function TransformationDetailsCarousel() {
           }
         }
       `}</style>
+      </div>{/* end flex wrapper */}
     </section>
   )
 }

@@ -80,7 +80,7 @@ export function CoursePriceCard({ product, features = [] }: CoursePriceCardProps
           )}
 
           {/* Heading */}
-          <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-6 sm:mb-8 uppercase px-4 whitespace-nowrap" style={{ fontFamily: "var(--font-satoshi)" }}>
+          <h3 className="text-section font-bold text-center mb-6 sm:mb-8 uppercase px-4 whitespace-nowrap">
             {getCourseHeading()}
           </h3>
 
@@ -88,16 +88,16 @@ export function CoursePriceCard({ product, features = [] }: CoursePriceCardProps
           <div className="text-center mb-6 sm:mb-8">
             <div className="flex items-center justify-center gap-3">
               {bundleCrossedPrice && (
-                <div className="text-xl sm:text-2xl md:text-3xl font-bold opacity-60 line-through">
+                <div className="text-section font-bold opacity-60 line-through">
                   {formatPrice(bundleCrossedPrice, displayCurrency)}
                 </div>
               )}
-              <div className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black">
+              <div className="text-hero font-black">
                 {formatPrice(convertedPrice, displayCurrency)}
               </div>
             </div>
             {product.recurring && (
-              <div className="text-sm sm:text-lg md:text-xl font-bold opacity-90">per {product.interval}</div>
+              <div className="text-sub font-bold opacity-90">per {product.interval}</div>
             )}
             {isMembership && currency !== 'USD' && (
               <div className="text-xs sm:text-sm text-white/70 mt-2">USD only</div>
@@ -108,11 +108,11 @@ export function CoursePriceCard({ product, features = [] }: CoursePriceCardProps
           {/* CTA Button */}
           <button
             onClick={handleEnroll}
-            className="w-full py-4 sm:py-5 lg:py-6 px-6 sm:px-8 lg:px-12 bg-yellow-100 text-[#000000] font-black text-xl sm:text-2xl md:text-3xl rounded-xl mb-4 sm:mb-6 uppercase tracking-wide min-h-[60px] sm:min-h-[64px] lg:min-h-[72px] shadow-lg hover:bg-white transition-all duration-200 flex items-center justify-center gap-2"
+            className="w-full py-4 sm:py-5 lg:py-6 px-6 sm:px-8 lg:px-12 bg-yellow-100 text-[#000000] font-black text-section rounded-xl mb-4 sm:mb-6 uppercase tracking-wide min-h-[60px] sm:min-h-[64px] lg:min-h-[72px] shadow-lg hover:bg-white transition-all duration-200 flex items-center justify-center gap-2"
             style={{ cursor: 'pointer' }}
           >
             CHECKOUT
-            <span className="text-2xl sm:text-3xl">→</span>
+            <span className="text-section">→</span>
           </button>
 
           {/* Payment Methods */}
@@ -149,7 +149,7 @@ export function CoursePriceCard({ product, features = [] }: CoursePriceCardProps
               {features.map((feature, index) => (
                 <div key={index} className="flex items-start gap-3">
                   <Check className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0 text-white mt-0.5" />
-                  <span className="text-sm sm:text-base md:text-lg font-medium leading-relaxed">
+                  <span className="text-title font-medium leading-relaxed">
                     {feature}
                   </span>
                 </div>

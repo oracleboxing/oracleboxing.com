@@ -68,8 +68,8 @@ export default function ClosedPage() {
     setIsLoading(true)
 
     try {
-      // Send to Make.com webhook
-      const response = await fetch(process.env.NEXT_PUBLIC_MAKE_NOTIFICATION_WEBHOOK!, {
+      // Process waitlist signup internally
+      const response = await fetch('/api/notifications', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -109,9 +109,9 @@ export default function ClosedPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#37322F] flex items-center justify-center py-6 sm:py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+    <div className="min-h-screen bg-white md:bg-[#37322F] flex items-start md:items-center justify-center py-0 md:py-12 px-0 md:px-6 lg:px-8 relative overflow-hidden">
       {/* Animated flowing ribbons background */}
-      <div className="absolute inset-0 overflow-hidden">
+      <div className="absolute inset-0 overflow-hidden hidden md:block">
         <div className="ribbon ribbon-1" />
         <div className="ribbon ribbon-2" />
         <div className="ribbon ribbon-3" />
@@ -120,13 +120,8 @@ export default function ClosedPage() {
         <div className="ribbon ribbon-6" />
       </div>
 
-      {/* Back link */}
-      <a href="/" className="absolute top-4 left-4 text-white/70 text-sm font-medium hover:text-white transition-colors z-10">
-        &larr; Back
-      </a>
-
       {/* Card */}
-      <div className="w-full max-w-md lg:max-w-3xl bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl p-4 sm:p-8 lg:p-12 relative z-10">
+      <div className="w-full max-w-md lg:max-w-3xl bg-white md:bg-white/95 md:backdrop-blur-xl md:rounded-2xl md:shadow-2xl px-4 pt-8 pb-4 sm:p-8 lg:p-12 relative z-10">
         {isSubmitted ? (
           <div className="max-w-xl mx-auto text-center">
             {/* Logo */}
@@ -139,11 +134,11 @@ export default function ClosedPage() {
             </div>
 
             {/* Success Message */}
-            <h1 className="text-3xl md:text-4xl font-normal leading-tight mb-6" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
+            <h1 className="text-section font-normal leading-tight mb-6">
               <span className="text-[#9CABA8]">You're on the list!</span>
             </h1>
 
-            <p className="text-[#605A57] text-sm md:text-base font-normal leading-relaxed mb-8">
+            <p className="text-[#605A57] text-body font-normal leading-relaxed mb-8">
               We'll notify you as soon as spots re-open. Keep an eye on your inbox and phone.
             </p>
 
@@ -157,22 +152,24 @@ export default function ClosedPage() {
         ) : (
           <form onSubmit={handleSubmit} className="max-w-xl mx-auto">
             {/* Logo */}
-            <div className="flex justify-start mb-3 sm:mb-8">
-              <img
-                src="https://sb.oracleboxing.com/logo/icon_dark.webp"
-                alt="Oracle Boxing"
-                className="w-8 sm:w-10 h-auto"
-              />
+            <div className="flex justify-center mb-6 sm:mb-8">
+              <a href="/">
+                <img
+                  src="https://sb.oracleboxing.com/logo/long_dark.webp"
+                  alt="Oracle Boxing"
+                  className="h-5 sm:h-6 w-auto"
+                />
+              </a>
             </div>
 
             {/* Heading */}
-            <h1 className="text-left text-xl sm:text-3xl md:text-4xl font-normal leading-tight mb-2 sm:mb-6" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
+            <h1 className="text-left text-section font-normal leading-tight mb-2 sm:mb-6">
               <span className="text-[#37322F]">Enrolment</span><br />
               <span className="text-[#9CABA8]">Currently Closed</span>
             </h1>
 
             {/* Description */}
-            <p className="text-left text-[#605A57] text-xs sm:text-sm md:text-base font-normal leading-relaxed mb-4 sm:mb-8">
+            <p className="text-left text-[#605A57] text-body font-normal leading-relaxed mb-4 sm:mb-8">
               Please enter your name and email address so we can notify you when spots re-open again. Should be in a couple of weeks or so.
             </p>
 

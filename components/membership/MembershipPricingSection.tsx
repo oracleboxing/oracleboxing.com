@@ -19,10 +19,10 @@ export default function MembershipPricingSection() {
     <section className="w-full py-16 md:py-24 px-4 md:px-8 bg-white">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-normal mb-4" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
+          <h2 className="text-section font-normal mb-4">
             Choose Your <span className="text-[#9CABA8]">Membership Plan</span>
           </h2>
-          <p className="text-lg text-[#605A57] max-w-2xl mx-auto">
+          <p className="text-title text-[#605A57] max-w-2xl mx-auto">
             Flexible options to fit your commitment level. Cancel anytime.
           </p>
         </div>
@@ -38,7 +38,7 @@ export default function MembershipPricingSection() {
             onClick={() => setSelectedPlan('monthly')}
           >
             <div className="mb-6">
-              <h3 className="text-2xl font-semibold mb-2" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
+              <h3 className="text-sub font-semibold mb-2">
                 Monthly
               </h3>
               <p className="text-[#605A57] text-sm">
@@ -48,7 +48,7 @@ export default function MembershipPricingSection() {
 
             <div className="mb-6">
               <div className="flex items-baseline gap-2">
-                <span className="text-5xl font-bold" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
+                <span className="text-hero font-bold">
                   ${monthlyPlan.price}
                 </span>
                 <span className="text-[#605A57]">/month</span>
@@ -114,7 +114,7 @@ export default function MembershipPricingSection() {
             </div>
 
             <div className="mb-6">
-              <h3 className="text-2xl font-semibold mb-2" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
+              <h3 className="text-sub font-semibold mb-2">
                 Annual
               </h3>
               <p className="text-[#605A57] text-sm">
@@ -124,7 +124,7 @@ export default function MembershipPricingSection() {
 
             <div className="mb-6">
               <div className="flex items-baseline gap-2">
-                <span className="text-5xl font-bold" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
+                <span className="text-hero font-bold">
                   ${annualPlan.price}
                 </span>
                 <span className="text-[#605A57]">/year</span>

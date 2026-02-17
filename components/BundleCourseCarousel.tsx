@@ -140,12 +140,12 @@ export function BundleCourseCarousel() {
     <section className="py-6 sm:py-16 bg-white">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Title */}
-        <h2 className="text-xl sm:text-4xl font-bold text-gray-900 mb-2 sm:mb-4 text-center">
+        <h2 className="text-section font-bold text-gray-900 mb-2 sm:mb-4 text-center">
           The Complete Toolkit for Mastering Boxing
         </h2>
 
         {/* Subtitle */}
-        <p className="text-sm sm:text-xl text-black mb-4 sm:mb-12 text-center max-w-4xl mx-auto leading-relaxed">
+        <p className="text-sub text-black mb-4 sm:mb-12 text-center max-w-4xl mx-auto leading-relaxed">
           Combining the theoretical mastery of Boxing Masterclass, the structured progression of the Boxing Roadmap, and the practical wisdom of the Boxing Clinic, this bundle creates a complete toolkit for becoming a seriously good boxer.
         </p>
 
@@ -173,12 +173,12 @@ export function BundleCourseCarousel() {
                 {/* Content */}
                 <div className="p-3 sm:p-4 flex flex-col flex-1">
                   {/* Course Name */}
-                  <h3 className="text-base sm:text-xl font-bold text-gray-900 mb-1.5 sm:mb-2">
+                  <h3 className="text-sub font-bold text-gray-900 mb-1.5 sm:mb-2">
                     {course.title}
                   </h3>
 
                   {/* Short Description */}
-                  <p className="text-xs sm:text-base text-gray-900 font-medium mb-3 sm:mb-4">
+                  <p className="text-body text-gray-900 font-medium mb-3 sm:mb-4">
                     {course.description}
                   </p>
 
@@ -191,7 +191,7 @@ export function BundleCourseCarousel() {
                           className="w-full px-2.5 py-2 sm:px-3 sm:py-2.5 flex items-center justify-between text-left hover:bg-gray-50 transition-colors"
                         >
                           <div className="flex-1">
-                            <h4 className="text-xs sm:text-sm font-bold text-gray-900">{module.title}</h4>
+                            <h4 className="text-body font-bold text-gray-900">{module.title}</h4>
                             {module.lessons > 0 && (
                               <p className="text-[10px] sm:text-xs text-gray-500 mt-0.5">{module.lessons} lessons</p>
                             )}
@@ -245,7 +245,7 @@ export function BundleCourseCarousel() {
                   {/* Content */}
                   <div className="p-3 flex flex-col flex-1">
                     {/* Course Name */}
-                    <h3 className="text-base font-bold text-gray-900 mb-1.5">
+                    <h3 className="text-body font-bold text-gray-900 mb-1.5">
                       {course.title}
                     </h3>
 

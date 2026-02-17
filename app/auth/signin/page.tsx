@@ -21,10 +21,10 @@ function SignInContent() {
               <path d="M2 12L12 17L22 12" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </div>
-          <h1 className="text-xl font-semibold text-[#37322F] font-sans">
+          <h1 className="text-sub font-semibold text-[#37322F] font-sans">
             Oracle Boxing Admin
           </h1>
-          <p className="text-sm text-[#847971] mt-1.5 font-sans">
+          <p className="text-body text-[#847971] mt-1.5 font-sans">
             Sign in to continue
           </p>
         </div>
@@ -32,7 +32,7 @@ function SignInContent() {
         {/* Error message */}
         {error && (
           <div className="mb-6 p-3 rounded-lg bg-red-50 border border-red-100">
-            <p className="text-sm text-red-600 text-center font-sans">
+            <p className="text-body text-red-600 text-center font-sans">
               {error === 'AccessDenied'
                 ? 'Access denied. Your account is not authorised.'
                 : 'Something went wrong. Please try again.'}
@@ -52,7 +52,7 @@ function SignInContent() {
               <path d="M3.964 10.71A5.41 5.41 0 013.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.997 8.997 0 000 9c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"/>
               <path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 00.957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z" fill="#EA4335"/>
             </svg>
-            <span className="text-sm font-medium text-[#37322F] font-sans group-hover:text-[#1a1611]">
+            <span className="text-body font-medium text-[#37322F] font-sans group-hover:text-[#1a1611]">
               Continue with Google
             </span>
           </button>

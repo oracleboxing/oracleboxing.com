@@ -62,10 +62,10 @@ export default function MembershipBenefitsSection() {
     <section id="benefits" className="w-full py-16 md:py-24 px-4 md:px-8 bg-white">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-normal mb-4" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
+          <h2 className="text-section font-normal mb-4">
             Everything You Need to <span className="text-[#9CABA8]">Master Boxing</span>
           </h2>
-          <p className="text-lg text-[#605A57] max-w-3xl mx-auto">
+          <p className="text-title text-[#605A57] max-w-3xl mx-auto">
             Oracle Boxing membership gives you complete access to world-class coaching, proven curriculum, and a supportive community.
           </p>
         </div>
@@ -74,7 +74,7 @@ export default function MembershipBenefitsSection() {
           {benefits.map((benefit, index) => (
             <div key={index} className="bg-[#F7F5F3] rounded-xl p-6 hover:shadow-lg transition-shadow">
               <div className="text-[#37322F] mb-4">{benefit.icon}</div>
-              <h3 className="text-xl font-semibold mb-3 text-[#37322F]" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
+              <h3 className="text-sub font-semibold mb-3 text-[#37322F]">
                 {benefit.title}
               </h3>
               <p className="text-[#605A57] leading-relaxed">
@@ -87,14 +87,14 @@ export default function MembershipBenefitsSection() {
         {/* What You'll Learn */}
         <div className="mt-20">
           <div className="text-center mb-12">
-            <h3 className="text-2xl md:text-3xl font-normal mb-4" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
+            <h3 className="text-section font-normal mb-4">
               What You'll Learn
             </h3>
           </div>
           
           <div className="grid md:grid-cols-2 gap-6">
             <div className="bg-gradient-to-br from-[#37322F] to-[#49423D] text-white rounded-xl p-8">
-              <h4 className="text-xl font-semibold mb-4" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
+              <h4 className="text-sub font-semibold mb-4">
                 Technique & Fundamentals
               </h4>
               <ul className="space-y-2 text-[#E5DDD3]">
@@ -107,7 +107,7 @@ export default function MembershipBenefitsSection() {
             </div>
 
             <div className="bg-gradient-to-br from-[#9CABA8] to-[#B4C4C0] text-white rounded-xl p-8">
-              <h4 className="text-xl font-semibold mb-4" style={{ fontFamily: 'ClashDisplay, sans-serif' }}>
+              <h4 className="text-sub font-semibold mb-4">
                 Tactics & Mindset
               </h4>
               <ul className="space-y-2">

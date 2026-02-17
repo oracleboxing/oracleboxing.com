@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { Suspense } from 'react'
 import { trackPurchase } from '@/lib/webhook-tracking'
@@ -9,63 +9,80 @@ import Link from 'next/link'
 function MembershipSuccessContent() {
   const searchParams = useSearchParams()
   const tracked = useRef(false)
+  const activated = useRef(false)
+  const [activating, setActivating] = useState(true)
 
   useEffect(() => {
-    if (tracked.current) return
-    tracked.current = true
+    const paymentIntentId = searchParams.get('payment_intent')
 
-    const subscriptionId = searchParams.get('subscription')
-
-    // Fire purchase tracking
-    trackPurchase(
-      subscriptionId || '',
-      97, // approximate - could be monthly or annual
-      'USD',
-      ['membership'],
-      {}
-    )
-
-    // Fire Google Ads conversion
-    try {
-      import('@/lib/gtag').then(({ gtagPurchaseConversion }) => {
-        gtagPurchaseConversion({
-          value: 97,
-          currency: 'USD',
-          transaction_id: subscriptionId || '',
-        })
-      }).catch(() => {})
-    } catch {}
-
-    // Fire Facebook Pixel Purchase
-    if (typeof window !== 'undefined' && (window as any).fbq) {
-      (window as any).fbq('track', 'Purchase', {
-        value: 97,
-        currency: 'USD',
-        content_ids: ['membership'],
-        content_type: 'product',
+    // Activate membership and then fire tracking with real amount
+    if (!activated.current && paymentIntentId) {
+      activated.current = true
+      fetch('/api/checkout-v2/activate-membership', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ paymentIntentId }),
       })
+        .then(res => res.json())
+        .then(data => {
+          console.log('Membership activation:', data)
+          setActivating(false)
+
+          // Fire tracking with real amount from activation response
+          if (!tracked.current) {
+            tracked.current = true
+            const amount = data.amount ? data.amount / 100 : 97
+            const plan = data.plan || 'monthly'
+            const productIds = data.productIds || ['membership']
+
+            trackPurchase(paymentIntentId, amount, 'USD', productIds, {})
+
+            try {
+              import('@/lib/gtag').then(({ gtagPurchase }) => {
+                gtagPurchase({
+                  value: amount,
+                  currency: 'USD',
+                  transaction_id: paymentIntentId,
+                  items: [{ item_id: `membership-${plan}`, item_name: `Oracle Membership (${plan})`, price: amount, quantity: 1 }],
+                })
+              }).catch(() => {})
+            } catch {}
+
+            if (typeof window !== 'undefined' && (window as any).fbq) {
+              (window as any).fbq('track', 'Purchase', {
+                value: amount,
+                currency: 'USD',
+                content_ids: productIds,
+                content_type: 'product',
+              })
+            }
+          }
+        })
+        .catch(err => {
+          console.error('Membership activation error:', err)
+          setActivating(false)
+        })
+    } else {
+      setActivating(false)
     }
   }, [searchParams])
 
   return (
     <div className="min-h-screen bg-white flex items-center justify-center px-4">
-      <div className="max-w-lg text-center">
-        {/* Checkmark */}
-        <div className="w-16 h-16 bg-[#E8F5E9] rounded-full flex items-center justify-center mx-auto mb-8">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
-            <path d="M5 13l4 4L19 7" stroke="#4CAF50" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </div>
-
-        <h1 className="text-3xl md:text-4xl font-semibold text-[#37322F] mb-4">
+      <div className="text-center">
+        <h1 className="text-3xl md:text-4xl font-semibold text-[#37322F] mb-4 whitespace-nowrap">
           Thanks for joining Oracle Boxing!
         </h1>
 
-        <p className="text-[#49423D]/80 text-lg mb-6">
+        <p className="text-[#49423D]/80 text-lg mb-6 whitespace-nowrap">
           Check your email for your invite to join the Skool community.
         </p>
 
-        <p className="text-[#49423D]/60 text-sm mb-10">
+        {activating && (
+          <p className="text-[#49423D]/40 text-xs mb-4">Setting up your membership...</p>
+        )}
+
+        <p className="text-[#49423D]/60 text-sm mb-10 whitespace-nowrap">
           If you have any questions, reach out to{' '}
           <a href="mailto:team@oracleboxing.com" className="text-[#9CABA8] underline">
             team@oracleboxing.com

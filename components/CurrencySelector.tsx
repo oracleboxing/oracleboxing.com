@@ -26,7 +26,7 @@ export const CurrencySelector: React.FC = () => {
             key={curr}
             onClick={() => setCurrency(curr)}
             className={`
-              px-3 py-1.5 text-sm font-medium rounded-md transition-all duration-200
+              px-3 py-1.5 text-body font-medium rounded-md transition-all duration-200
               ${
                 isActive
                   ? 'bg-neutral-100 text-neutral-900 shadow-sm'

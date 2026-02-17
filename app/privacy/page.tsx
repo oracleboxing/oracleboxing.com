@@ -14,12 +14,12 @@ export const metadata: Metadata = {
 
 export default function PrivacyPolicy() {
   return (
-    <div style={{ fontFamily: 'Arial, sans-serif', backgroundColor: '#FFFFFF', color: '#000000', minHeight: '100vh' }}>
+    <div style={{ backgroundColor: '#FFFFFF', color: '#000000', minHeight: '100vh' }}>
       <div style={{ maxWidth: '800px', margin: '0 auto', padding: '40px 20px' }}>
-        <h1 style={{ fontSize: '32px', fontWeight: 'bold', marginBottom: '8px' }}>Privacy Policy</h1>
-        <p style={{ fontSize: '14px', color: '#666666', marginBottom: '32px' }}>Last Updated: January 2026</p>
+        <h1 className="text-section" style={{ fontWeight: 'bold', marginBottom: '8px' }}>Privacy Policy</h1>
+        <p className="text-body" style={{ color: '#666666', marginBottom: '32px' }}>Last Updated: January 2026</p>
 
-        <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginTop: '32px', marginBottom: '16px' }}>1. Introduction</h2>
+        <h2 className="text-sub" style={{ fontWeight: 'bold', marginTop: '32px', marginBottom: '16px' }}>1. Introduction</h2>
         <p style={{ lineHeight: '1.6', marginBottom: '16px' }}>
           Oracle Boxing Ltd ("we," "us," or "our") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website oracleboxing.com and purchase our products or services.
         </p>
@@ -32,9 +32,9 @@ export default function PrivacyPolicy() {
           Email: team@oracleboxing.com
         </p>
 
-        <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginTop: '32px', marginBottom: '16px' }}>2. Information We Collect</h2>
+        <h2 className="text-sub" style={{ fontWeight: 'bold', marginTop: '32px', marginBottom: '16px' }}>2. Information We Collect</h2>
 
-        <h3 style={{ fontSize: '18px', fontWeight: 'bold', marginTop: '24px', marginBottom: '12px' }}>2.1 Personal Information</h3>
+        <h3 className="text-title" style={{ fontWeight: 'bold', marginTop: '24px', marginBottom: '12px' }}>2.1 Personal Information</h3>
         <p style={{ lineHeight: '1.6', marginBottom: '16px' }}>
           When you make a purchase or interact with our website, we may collect:
         </p>
@@ -46,7 +46,7 @@ export default function PrivacyPolicy() {
           <li>Payment information (processed securely through Stripe)</li>
         </ul>
 
-        <h3 style={{ fontSize: '18px', fontWeight: 'bold', marginTop: '24px', marginBottom: '12px' }}>2.2 Automatically Collected Information</h3>
+        <h3 className="text-title" style={{ fontWeight: 'bold', marginTop: '24px', marginBottom: '12px' }}>2.2 Automatically Collected Information</h3>
         <p style={{ lineHeight: '1.6', marginBottom: '16px' }}>
           We automatically collect certain information when you visit our website:
         </p>
@@ -59,7 +59,7 @@ export default function PrivacyPolicy() {
           <li>UTM parameters and marketing attribution data</li>
         </ul>
 
-        <h3 style={{ fontSize: '18px', fontWeight: 'bold', marginTop: '24px', marginBottom: '12px' }}>2.3 Cookies and Tracking Technologies</h3>
+        <h3 className="text-title" style={{ fontWeight: 'bold', marginTop: '24px', marginBottom: '12px' }}>2.3 Cookies and Tracking Technologies</h3>
         <p style={{ lineHeight: '1.6', marginBottom: '16px' }}>
           We use cookies and similar tracking technologies to enhance your experience and analyze website usage:
         </p>
@@ -73,7 +73,7 @@ export default function PrivacyPolicy() {
           You can control cookie preferences through our cookie banner or your browser settings. However, disabling cookies may limit your ability to use certain features of our website.
         </p>
 
-        <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginTop: '32px', marginBottom: '16px' }}>3. How We Use Your Information</h2>
+        <h2 className="text-sub" style={{ fontWeight: 'bold', marginTop: '32px', marginBottom: '16px' }}>3. How We Use Your Information</h2>
         <p style={{ lineHeight: '1.6', marginBottom: '16px' }}>
           We use the information we collect to:
         </p>
@@ -89,24 +89,24 @@ export default function PrivacyPolicy() {
           <li>Comply with legal obligations</li>
         </ul>
 
-        <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginTop: '32px', marginBottom: '16px' }}>4. Third-Party Services and Data Sharing</h2>
+        <h2 className="text-sub" style={{ fontWeight: 'bold', marginTop: '32px', marginBottom: '16px' }}>4. Third-Party Services and Data Sharing</h2>
 
-        <h3 style={{ fontSize: '18px', fontWeight: 'bold', marginTop: '24px', marginBottom: '12px' }}>4.1 Payment Processing</h3>
+        <h3 className="text-title" style={{ fontWeight: 'bold', marginTop: '24px', marginBottom: '12px' }}>4.1 Payment Processing</h3>
         <p style={{ lineHeight: '1.6', marginBottom: '16px' }}>
           We use Stripe to process payments. Stripe collects and processes your payment information in accordance with their privacy policy. We do not store complete credit card information on our servers.
         </p>
 
-        <h3 style={{ fontSize: '18px', fontWeight: 'bold', marginTop: '24px', marginBottom: '12px' }}>4.2 Course Delivery and Automation</h3>
+        <h3 className="text-title" style={{ fontWeight: 'bold', marginTop: '24px', marginBottom: '12px' }}>4.2 Course Delivery and Automation</h3>
         <p style={{ lineHeight: '1.6', marginBottom: '16px' }}>
           We use Make.com (formerly Integromat) to automate course delivery and customer onboarding. When you complete a purchase, your information (name, email, phone, purchased products, and order details) is sent to Make.com webhooks to trigger automated delivery of course access, community invitations, and welcome emails.
         </p>
 
-        <h3 style={{ fontSize: '18px', fontWeight: 'bold', marginTop: '24px', marginBottom: '12px' }}>4.3 Facebook Pixel and Advertising</h3>
+        <h3 className="text-title" style={{ fontWeight: 'bold', marginTop: '24px', marginBottom: '12px' }}>4.3 Facebook Pixel and Advertising</h3>
         <p style={{ lineHeight: '1.6', marginBottom: '16px' }}>
           We use Facebook Pixel and Facebook Conversions API to track user behavior and conversions for advertising purposes. This includes tracking page views, add-to-cart events, checkout initiation, and completed purchases. Facebook may use this data to serve you targeted advertisements. You can opt out of personalized advertising through your Facebook ad settings.
         </p>
 
-        <h3 style={{ fontSize: '18px', fontWeight: 'bold', marginTop: '24px', marginBottom: '12px' }}>4.4 Customer Data Platform</h3>
+        <h3 className="text-title" style={{ fontWeight: 'bold', marginTop: '24px', marginBottom: '12px' }}>4.4 Customer Data Platform</h3>
         <p style={{ lineHeight: '1.6', marginBottom: '16px' }}>
           We use the following services to manage and process customer data:
         </p>
@@ -116,17 +116,17 @@ export default function PrivacyPolicy() {
           <li><strong>Census:</strong> Data synchronization to keep customer information consistent across our systems</li>
         </ul>
 
-        <h3 style={{ fontSize: '18px', fontWeight: 'bold', marginTop: '24px', marginBottom: '12px' }}>4.5 Customer Portal</h3>
+        <h3 className="text-title" style={{ fontWeight: 'bold', marginTop: '24px', marginBottom: '12px' }}>4.5 Customer Portal</h3>
         <p style={{ lineHeight: '1.6', marginBottom: '16px' }}>
           We provide a Stripe-hosted customer portal where you can manage your subscription, update payment methods, view invoices, and manage your billing information. When you access the customer portal, your data is processed by Stripe in accordance with their privacy policy.
         </p>
 
-        <h3 style={{ fontSize: '18px', fontWeight: 'bold', marginTop: '24px', marginBottom: '12px' }}>4.6 Analytics</h3>
+        <h3 className="text-title" style={{ fontWeight: 'bold', marginTop: '24px', marginBottom: '12px' }}>4.6 Analytics</h3>
         <p style={{ lineHeight: '1.6', marginBottom: '16px' }}>
           We may use analytics services to understand how users interact with our website and improve user experience.
         </p>
 
-        <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginTop: '32px', marginBottom: '16px' }}>5. Skool Community Content Rights</h2>
+        <h2 className="text-sub" style={{ fontWeight: 'bold', marginTop: '32px', marginBottom: '16px' }}>5. Skool Community Content Rights</h2>
         <p style={{ lineHeight: '1.6', marginBottom: '16px' }}>
           If you are a member and participate in our private Skool community at https://skool.com/boxing, the following terms apply:
         </p>
@@ -137,12 +137,12 @@ export default function PrivacyPolicy() {
           <li>You represent and warrant that you own or have the necessary rights to any content you submit and that such content does not violate any third-party rights.</li>
         </ul>
 
-        <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginTop: '32px', marginBottom: '16px' }}>6. Data Security</h2>
+        <h2 className="text-sub" style={{ fontWeight: 'bold', marginTop: '32px', marginBottom: '16px' }}>6. Data Security</h2>
         <p style={{ lineHeight: '1.6', marginBottom: '16px' }}>
           We implement appropriate technical and organizational security measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction. However, no method of transmission over the internet or electronic storage is 100% secure, and we cannot guarantee absolute security.
         </p>
 
-        <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginTop: '32px', marginBottom: '16px' }}>7. Data Retention</h2>
+        <h2 className="text-sub" style={{ fontWeight: 'bold', marginTop: '32px', marginBottom: '16px' }}>7. Data Retention</h2>
         <p style={{ lineHeight: '1.6', marginBottom: '16px' }}>
           We retain your personal information for as long as necessary to fulfill the purposes outlined in this Privacy Policy, unless a longer retention period is required or permitted by law. This includes:
         </p>
@@ -152,7 +152,7 @@ export default function PrivacyPolicy() {
           <li>Resolving disputes and enforcing our agreements</li>
         </ul>
 
-        <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginTop: '32px', marginBottom: '16px' }}>8. Your Rights (GDPR and UK Data Protection)</h2>
+        <h2 className="text-sub" style={{ fontWeight: 'bold', marginTop: '32px', marginBottom: '16px' }}>8. Your Rights (GDPR and UK Data Protection)</h2>
         <p style={{ lineHeight: '1.6', marginBottom: '16px' }}>
           If you are located in the European Union or United Kingdom, you have the following rights under GDPR and UK data protection laws:
         </p>
@@ -169,7 +169,7 @@ export default function PrivacyPolicy() {
           To exercise any of these rights, please contact us at team@oracleboxing.com.
         </p>
 
-        <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginTop: '32px', marginBottom: '16px' }}>9. Marketing Communications</h2>
+        <h2 className="text-sub" style={{ fontWeight: 'bold', marginTop: '32px', marginBottom: '16px' }}>9. Marketing Communications</h2>
         <p style={{ lineHeight: '1.6', marginBottom: '16px' }}>
           With your consent, we may send you marketing emails about our products, services, and special offers. You can opt out of marketing communications at any time by:
         </p>
@@ -181,22 +181,22 @@ export default function PrivacyPolicy() {
           Note: Even if you opt out of marketing emails, we will still send you transactional emails related to your purchases and account.
         </p>
 
-        <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginTop: '32px', marginBottom: '16px' }}>10. International Data Transfers</h2>
+        <h2 className="text-sub" style={{ fontWeight: 'bold', marginTop: '32px', marginBottom: '16px' }}>10. International Data Transfers</h2>
         <p style={{ lineHeight: '1.6', marginBottom: '16px' }}>
           Your information may be transferred to and processed in countries other than your country of residence. We ensure that appropriate safeguards are in place to protect your data in accordance with this Privacy Policy and applicable data protection laws.
         </p>
 
-        <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginTop: '32px', marginBottom: '16px' }}>11. Children's Privacy</h2>
+        <h2 className="text-sub" style={{ fontWeight: 'bold', marginTop: '32px', marginBottom: '16px' }}>11. Children's Privacy</h2>
         <p style={{ lineHeight: '1.6', marginBottom: '16px' }}>
           Our services are not intended for individuals under the age of 18. We do not knowingly collect personal information from children. If you believe we have collected information from a child, please contact us immediately.
         </p>
 
-        <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginTop: '32px', marginBottom: '16px' }}>12. Changes to This Privacy Policy</h2>
+        <h2 className="text-sub" style={{ fontWeight: 'bold', marginTop: '32px', marginBottom: '16px' }}>12. Changes to This Privacy Policy</h2>
         <p style={{ lineHeight: '1.6', marginBottom: '16px' }}>
           We may update this Privacy Policy from time to time to reflect changes in our practices or legal requirements. We will notify you of any material changes by posting the updated policy on our website with a new "Last Updated" date. Your continued use of our services after such changes constitutes acceptance of the updated Privacy Policy.
         </p>
 
-        <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginTop: '32px', marginBottom: '16px' }}>13. Contact Us</h2>
+        <h2 className="text-sub" style={{ fontWeight: 'bold', marginTop: '32px', marginBottom: '16px' }}>13. Contact Us</h2>
         <p style={{ lineHeight: '1.6', marginBottom: '16px' }}>
           If you have any questions, concerns, or requests regarding this Privacy Policy or our data practices, please contact us:
         </p>

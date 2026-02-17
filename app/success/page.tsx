@@ -32,7 +32,7 @@ export default async function SuccessPage({
         <main className="flex-1 min-w-0 flex flex-col">
           <div className="flex-1 flex items-center justify-center py-20">
             <div className="text-center">
-              <h1 className="text-2xl font-bold text-[#37322F]">Invalid session</h1>
+              <h1 className="text-sub font-bold text-[#37322F]">Invalid session</h1>
               <p className="text-[rgba(73,66,61,0.90)] mt-2">Please check your confirmation email for the correct link.</p>
             </div>
           </div>

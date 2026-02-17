@@ -24,17 +24,33 @@ export async function POST(req: NextRequest) {
       )
     }
 
-    // Get main product
-    const mainProduct = getProductById('21dc-entry')
+    // Determine main product from existing PaymentIntent metadata
+    const existingPI = await stripe.paymentIntents.retrieve(paymentIntentId)
+    const funnelType = existingPI.metadata?.funnel_type || '21dc'
+    const existingPlan = existingPI.metadata?.plan || 'monthly'
+
+    // Check if upgrading from monthly to annual
+    const isUpgradeToAnnual = funnelType === 'membership' && addOns.includes('upgrade-annual')
+    const effectivePlan = isUpgradeToAnnual ? 'annual' : existingPlan
+    const filteredAddOns = addOns.filter(id => id !== 'upgrade-annual')
+
+    let mainProductId: string
+    if (funnelType === 'membership') {
+      mainProductId = effectivePlan === 'annual' ? 'membership-annual' : 'membership-monthly'
+    } else {
+      mainProductId = '21dc-entry'
+    }
+
+    const mainProduct = getProductById(mainProductId)
     if (!mainProduct) {
       return NextResponse.json(
-        { error: '21DC product not found' },
+        { error: `Product ${mainProductId} not found` },
         { status: 500 }
       )
     }
 
     // Calculate new total
-    const mainPriceId = getStripePriceId(mainProduct, currency)
+    const mainPriceId = funnelType === 'membership' ? mainProduct.stripe_price_id : getStripePriceId(mainProduct, currency)
     const mainPrice = await stripe.prices.retrieve(mainPriceId)
     let totalAmount = mainPrice.unit_amount || 0
 
@@ -47,8 +63,8 @@ export async function POST(req: NextRequest) {
       lineItemDescriptions.push(product.name)
     }
 
-    // Add selected add-ons
-    for (const addOnId of addOns) {
+    // Add selected add-ons (excluding upgrade-annual pseudo add-on)
+    for (const addOnId of filteredAddOns) {
       const addOnProduct = getProductById(addOnId)
       if (addOnProduct) {
         const addOnPriceId = getStripePriceId(addOnProduct, currency)
@@ -65,17 +81,18 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // Fetch current PaymentIntent to preserve existing metadata
-    const currentPaymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId)
-
     // Update the PaymentIntent with new amount - MERGE metadata to preserve tracking data
     const updatedPaymentIntent = await stripe.paymentIntents.update(paymentIntentId, {
       amount: totalAmount,
       metadata: {
-        ...currentPaymentIntent.metadata, // Preserve existing metadata (customer info, tracking, etc.)
+        ...existingPI.metadata,
         line_items: JSON.stringify(lineItemPriceIds),
         product_descriptions: lineItemDescriptions.join(', '),
-        add_ons_included: addOns.join(','),
+        add_ons_included: filteredAddOns.join(','),
+        plan: effectivePlan,
+        entry_product: mainProductId,
+        membership_price_id: funnelType === 'membership' ? mainPriceId : (existingPI.metadata?.membership_price_id || ''),
+        upgraded_to_annual: isUpgradeToAnnual ? 'true' : 'false',
       },
     })
 

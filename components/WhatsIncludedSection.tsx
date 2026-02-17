@@ -39,7 +39,7 @@ export default function WhatsIncludedSection() {
   return (
     <section className="py-16 sm:py-20 bg-gray-50">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-12 sm:mb-16 text-gray-900" style={{ fontFamily: "var(--font-satoshi)" }}>
+        <h2 className="text-hero font-bold text-center mb-12 sm:mb-16 text-gray-900">
           What's Included in the 6-Week Challenge
         </h2>
 
@@ -63,13 +63,13 @@ export default function WhatsIncludedSection() {
 
               {/* Title */}
               <div className="mb-4">
-                <h3 className="text-xl sm:text-2xl font-bold text-gray-900">
+                <h3 className="text-sub font-bold text-gray-900">
                   {feature.title}
                 </h3>
               </div>
 
               {/* Description */}
-              <p className="text-gray-600 text-base leading-relaxed">
+              <p className="text-gray-600 text-body leading-relaxed">
                 {feature.description}
               </p>
             </div>

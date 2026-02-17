@@ -47,11 +47,11 @@ export default function ShopPage() {
       {/* Header */}
       <header className="border-b border-gray-200 py-6 px-6">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-2xl font-semibold text-[#37322F] font-sans flex items-center gap-3">
+          <h1 className="text-sub font-semibold text-[#37322F] font-sans flex items-center gap-3">
             <ShoppingBag className="w-6 h-6" aria-hidden="true" />
             Shop
           </h1>
-          <p className="text-gray-500 text-sm mt-1">Courses and gear to level up your training</p>
+          <p className="text-gray-500 text-body mt-1">Courses and gear to level up your training</p>
         </div>
       </header>
 
@@ -76,10 +76,10 @@ export default function ShopPage() {
 
               {/* Content */}
               <div className="flex-1 flex flex-col">
-                <h2 className="text-lg font-semibold text-[#37322F] font-sans">
+                <h2 className="text-title font-semibold text-[#37322F] font-sans">
                   {product.title}
                 </h2>
-                <p className="text-gray-600 text-sm mt-1 flex-1">
+                <p className="text-gray-600 text-body mt-1 flex-1">
                   {product.description}
                 </p>
                 {product.note && (
@@ -88,12 +88,12 @@ export default function ShopPage() {
 
                 {/* Price and CTA */}
                 <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
-                  <span className="text-xl font-bold text-[#37322F]">
+                  <span className="text-sub font-bold text-[#37322F]">
                     {product.price}
                   </span>
                   <a
                     href={product.paymentLink}
-                    className="h-10 px-6 bg-[#37322F] text-white rounded-lg font-medium text-sm hover:bg-[#49423D] transition-colors flex items-center"
+                    className="h-10 px-6 bg-[#37322F] text-white rounded-lg font-medium text-body hover:bg-[#49423D] transition-colors flex items-center"
                   >
                     Buy Now
                   </a>
@@ -104,7 +104,7 @@ export default function ShopPage() {
         </ul>
 
         {/* Footer note */}
-        <p className="text-center text-gray-400 text-sm mt-12">
+        <p className="text-center text-gray-400 text-body mt-12">
           Questions? Ask in the community or email support.
         </p>
       </div>

@@ -14,12 +14,12 @@ export const metadata: Metadata = {
 
 export default function TermsPage() {
   return (
-    <div style={{ fontFamily: 'Arial, sans-serif', backgroundColor: '#FFFFFF', color: '#000000', minHeight: '100vh' }}>
+    <div style={{ backgroundColor: '#FFFFFF', color: '#000000', minHeight: '100vh' }}>
       <div style={{ maxWidth: '800px', margin: '0 auto', padding: '40px 20px' }}>
-        <h1 style={{ fontSize: '32px', fontWeight: 'bold', marginBottom: '8px' }}>Terms of Service</h1>
-        <p style={{ fontSize: '14px', color: '#666666', marginBottom: '32px' }}>Last Updated: January 2026</p>
+        <h1 className="text-section" style={{ fontWeight: 'bold', marginBottom: '8px' }}>Terms of Service</h1>
+        <p className="text-body" style={{ color: '#666666', marginBottom: '32px' }}>Last Updated: January 2026</p>
 
-        <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginTop: '32px', marginBottom: '16px' }}>1. Acceptance of Terms</h2>
+        <h2 className="text-sub" style={{ fontWeight: 'bold', marginTop: '32px', marginBottom: '16px' }}>1. Acceptance of Terms</h2>
         <p style={{ lineHeight: '1.6', marginBottom: '16px' }}>
           By accessing and using Oracle Boxing's digital course platform, memberships, and services, you accept and agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our services or purchase our products.
         </p>
@@ -27,7 +27,7 @@ export default function TermsPage() {
           These terms constitute a legally binding agreement between you and Oracle Boxing Ltd.
         </p>
 
-        <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginTop: '32px', marginBottom: '16px' }}>2. Service Description</h2>
+        <h2 className="text-sub" style={{ fontWeight: 'bold', marginTop: '32px', marginBottom: '16px' }}>2. Service Description</h2>
         <p style={{ lineHeight: '1.6', marginBottom: '16px' }}>
           Oracle Boxing provides online boxing training services including:
         </p>
@@ -43,7 +43,7 @@ export default function TermsPage() {
           <li>Digital course materials and video content</li>
         </ul>
 
-        <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginTop: '32px', marginBottom: '16px' }}>3. Digital Content License</h2>
+        <h2 className="text-sub" style={{ fontWeight: 'bold', marginTop: '32px', marginBottom: '16px' }}>3. Digital Content License</h2>
         <p style={{ lineHeight: '1.6', marginBottom: '16px' }}>
           Upon purchase, you are granted a non-exclusive, non-transferable license to access and use the digital course content for personal use only. You may not:
         </p>
@@ -56,7 +56,7 @@ export default function TermsPage() {
           <li>Use our content for any purpose other than personal education and training</li>
         </ul>
 
-        <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginTop: '32px', marginBottom: '16px' }}>4. Skool Community Content Rights</h2>
+        <h2 className="text-sub" style={{ fontWeight: 'bold', marginTop: '32px', marginBottom: '16px' }}>4. Skool Community Content Rights</h2>
         <p style={{ lineHeight: '1.6', marginBottom: '16px' }}>
           If you participate in our private Skool community at https://skool.com/boxing, the following terms apply:
         </p>
@@ -69,7 +69,7 @@ export default function TermsPage() {
           <li>You agree not to submit any content that is unlawful, defamatory, harassing, abusive, or otherwise objectionable.</li>
         </ul>
 
-        <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginTop: '32px', marginBottom: '16px' }}>5. User Responsibilities</h2>
+        <h2 className="text-sub" style={{ fontWeight: 'bold', marginTop: '32px', marginBottom: '16px' }}>5. User Responsibilities</h2>
         <p style={{ lineHeight: '1.6', marginBottom: '16px' }}>You agree to:</p>
         <ul style={{ lineHeight: '1.6', marginBottom: '16px', marginLeft: '20px' }}>
           <li>Provide accurate and complete information during purchase and registration</li>
@@ -82,7 +82,7 @@ export default function TermsPage() {
           <li>Not engage in any activity that could harm or disrupt our services or other users</li>
         </ul>
 
-        <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginTop: '32px', marginBottom: '16px' }}>6. Membership Terms</h2>
+        <h2 className="text-sub" style={{ fontWeight: 'bold', marginTop: '32px', marginBottom: '16px' }}>6. Membership Terms</h2>
         <p style={{ lineHeight: '1.6', marginBottom: '16px' }}>
           If you purchase a membership (monthly or annual):
         </p>
@@ -95,7 +95,7 @@ export default function TermsPage() {
           <li>We reserve the right to modify membership pricing with 30 days notice to active members.</li>
         </ul>
 
-        <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginTop: '32px', marginBottom: '16px' }}>7. Health and Safety Disclaimer</h2>
+        <h2 className="text-sub" style={{ fontWeight: 'bold', marginTop: '32px', marginBottom: '16px' }}>7. Health and Safety Disclaimer</h2>
         <p style={{ lineHeight: '1.6', marginBottom: '16px' }}>
           Boxing is a physical activity that carries inherent risks. By participating in our programs, you acknowledge that:
         </p>
@@ -108,7 +108,7 @@ export default function TermsPage() {
           <li>You will use proper equipment and train in a safe environment</li>
         </ul>
 
-        <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginTop: '32px', marginBottom: '16px' }}>8. Intellectual Property</h2>
+        <h2 className="text-sub" style={{ fontWeight: 'bold', marginTop: '32px', marginBottom: '16px' }}>8. Intellectual Property</h2>
         <p style={{ lineHeight: '1.6', marginBottom: '16px' }}>
           All content provided through Oracle Boxing, including but not limited to videos, course materials, training programs, written content, graphics, logos, and software, is protected by copyright, trademark, and other intellectual property laws. This content is owned by or licensed to Oracle Boxing Ltd.
         </p>
@@ -116,7 +116,7 @@ export default function TermsPage() {
           You may not reproduce, distribute, modify, create derivative works, publicly display, or in any way exploit any of our content without explicit written permission from Oracle Boxing Ltd. Unauthorized use may result in termination of your access and legal action.
         </p>
 
-        <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginTop: '32px', marginBottom: '16px' }}>9. Refund and Guarantee Policy</h2>
+        <h2 className="text-sub" style={{ fontWeight: 'bold', marginTop: '32px', marginBottom: '16px' }}>9. Refund and Guarantee Policy</h2>
         <p style={{ lineHeight: '1.6', marginBottom: '16px' }}>
           Our refund and guarantee policies vary by product type:
         </p>
@@ -131,7 +131,7 @@ export default function TermsPage() {
           Please review our complete Refund Policy for detailed information.
         </p>
 
-        <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginTop: '32px', marginBottom: '16px' }}>10. Account Termination</h2>
+        <h2 className="text-sub" style={{ fontWeight: 'bold', marginTop: '32px', marginBottom: '16px' }}>10. Account Termination</h2>
         <p style={{ lineHeight: '1.6', marginBottom: '16px' }}>
           We reserve the right to suspend or terminate your account and access to our services at any time, with or without notice, for any reason, including but not limited to:
         </p>
@@ -146,7 +146,7 @@ export default function TermsPage() {
           Termination of your account does not entitle you to a refund of any payments made.
         </p>
 
-        <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginTop: '32px', marginBottom: '16px' }}>11. Limitation of Liability</h2>
+        <h2 className="text-sub" style={{ fontWeight: 'bold', marginTop: '32px', marginBottom: '16px' }}>11. Limitation of Liability</h2>
         <p style={{ lineHeight: '1.6', marginBottom: '16px' }}>
           Oracle Boxing Ltd provides training guidance and education but makes no guarantees regarding individual results. Your results may vary based on your effort, dedication, physical condition, and other factors.
         </p>
@@ -154,17 +154,17 @@ export default function TermsPage() {
           To the maximum extent permitted by law, Oracle Boxing Ltd's total liability is limited to the amount you paid for the specific service in question. We are not liable for any indirect, incidental, consequential, special, or punitive damages, including but not limited to loss of profits, data, or goodwill.
         </p>
 
-        <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginTop: '32px', marginBottom: '16px' }}>12. Disclaimer of Warranties</h2>
+        <h2 className="text-sub" style={{ fontWeight: 'bold', marginTop: '32px', marginBottom: '16px' }}>12. Disclaimer of Warranties</h2>
         <p style={{ lineHeight: '1.6', marginBottom: '16px' }}>
           Our services are provided "as is" and "as available" without warranties of any kind, either express or implied. We do not warrant that our services will be uninterrupted, error-free, or completely secure. You use our services at your own risk.
         </p>
 
-        <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginTop: '32px', marginBottom: '16px' }}>13. Governing Law</h2>
+        <h2 className="text-sub" style={{ fontWeight: 'bold', marginTop: '32px', marginBottom: '16px' }}>13. Governing Law</h2>
         <p style={{ lineHeight: '1.6', marginBottom: '16px' }}>
           These Terms of Service are governed by and construed in accordance with the laws of England and Wales, United Kingdom. Any disputes arising from these terms or your use of our services shall be subject to the exclusive jurisdiction of the courts of England and Wales.
         </p>
 
-        <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginTop: '32px', marginBottom: '16px' }}>14. Modifications to Terms</h2>
+        <h2 className="text-sub" style={{ fontWeight: 'bold', marginTop: '32px', marginBottom: '16px' }}>14. Modifications to Terms</h2>
         <p style={{ lineHeight: '1.6', marginBottom: '16px' }}>
           We reserve the right to modify these Terms of Service at any time. We will notify users of material changes by posting the updated terms on our website with a new "Last Updated" date. Your continued use of our services after such changes constitutes acceptance of the modified terms.
         </p>
@@ -172,17 +172,17 @@ export default function TermsPage() {
           It is your responsibility to review these terms periodically for updates.
         </p>
 
-        <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginTop: '32px', marginBottom: '16px' }}>15. Severability</h2>
+        <h2 className="text-sub" style={{ fontWeight: 'bold', marginTop: '32px', marginBottom: '16px' }}>15. Severability</h2>
         <p style={{ lineHeight: '1.6', marginBottom: '16px' }}>
           If any provision of these Terms of Service is found to be invalid or unenforceable, the remaining provisions shall remain in full force and effect.
         </p>
 
-        <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginTop: '32px', marginBottom: '16px' }}>16. Entire Agreement</h2>
+        <h2 className="text-sub" style={{ fontWeight: 'bold', marginTop: '32px', marginBottom: '16px' }}>16. Entire Agreement</h2>
         <p style={{ lineHeight: '1.6', marginBottom: '16px' }}>
           These Terms of Service, together with our Privacy Policy and Refund Policy, constitute the entire agreement between you and Oracle Boxing Ltd regarding your use of our services.
         </p>
 
-        <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginTop: '32px', marginBottom: '16px' }}>17. Contact Information</h2>
+        <h2 className="text-sub" style={{ fontWeight: 'bold', marginTop: '32px', marginBottom: '16px' }}>17. Contact Information</h2>
         <p style={{ lineHeight: '1.6', marginBottom: '16px' }}>
           For questions about these Terms of Service or our services, please contact us:
         </p>

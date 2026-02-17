@@ -27,7 +27,7 @@ export function CourseCurriculum({
   return (
     <section className="py-8 sm:py-16 bg-white">
       <div className="w-full mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-6 sm:mb-12 text-center">
+        <h2 className="text-section font-bold text-gray-900 mb-6 sm:mb-12 text-center">
           {title}
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 w-full mx-auto">
@@ -56,7 +56,7 @@ export function CourseCurriculum({
 
               {/* Text content below */}
               <div className="p-4 sm:p-6 text-center">
-                <p className="font-bold text-gray-900 text-base sm:text-lg leading-relaxed">{card.text}</p>
+                <p className="font-bold text-gray-900 text-title leading-relaxed">{card.text}</p>
               </div>
             </div>
           ))}
@@ -68,7 +68,7 @@ export function CourseCurriculum({
             <a
               href="#pricing"
               onClick={onButtonClick}
-              className="inline-block py-3 sm:py-4 lg:py-5 px-8 sm:px-10 lg:px-12 bg-yellow-100 text-black border-4 border-black font-black text-base sm:text-lg lg:text-xl rounded-xl uppercase tracking-wide cursor-pointer animate-bounce-subtle hover:bg-black hover:text-white transition-colors duration-300 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]"
+              className="inline-block py-3 sm:py-4 lg:py-5 px-8 sm:px-10 lg:px-12 bg-yellow-100 text-black border-4 border-black font-black text-sub rounded-xl uppercase tracking-wide cursor-pointer animate-bounce-subtle hover:bg-black hover:text-white transition-colors duration-300 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]"
             >
               {buttonText}
             </a>

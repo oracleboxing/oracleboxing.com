@@ -40,16 +40,16 @@ export default function MembershipSuccessContent({ subscriptionId }: { subscript
           const plan = sub.items.data[0]?.price?.recurring?.interval || 'monthly'
           const product = getProductByMetadata(plan === 'annual' ? 'mema' : 'mem_monthly')
           if (product) {
-            trackPurchase({
-              product_id: product.id,
-              product_name: product.title,
-              value: product.price,
-              currency: 'USD',
-              payment_provider: 'stripe',
-              user_email: sub.customer.email,
-              user_name: sub.customer.name,
-              funnel_name: 'membership_checkout',
-            })
+            trackPurchase(
+              sub.id,
+              product.price,
+              'USD',
+              [product.id],
+              {
+                name: sub.customer?.name || '',
+                email: sub.customer?.email || '',
+              }
+            )
             fireGtagPurchase(sub);
           }
         }
