@@ -34,6 +34,7 @@ function getNavLinks(mode: string) {
 export default function HomepageHeader() {
   const { currency } = useCurrency()
   const [isScrolled, setIsScrolled] = useState(false)
+  const [pricingVisible, setPricingVisible] = useState(false)
   const siteMode = getClientSiteMode()
   const headerLink = getHeaderButtonLink(siteMode)
   const navLinksForMode = getNavLinks(siteMode)
@@ -46,6 +47,19 @@ export default function HomepageHeader() {
 
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  // Hide header when pricing section is in view
+  useEffect(() => {
+    const pricingEl = document.getElementById('pricing')
+    if (!pricingEl) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setPricingVisible(entry.isIntersecting),
+      { threshold: 0.1 }
+    )
+    observer.observe(pricingEl)
+    return () => observer.disconnect()
   }, [])
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -66,7 +80,7 @@ export default function HomepageHeader() {
   }
 
   return (
-    <header className={`fixed left-0 right-0 z-50 transition-transform duration-300 top-0 ${isScrolled ? '-translate-y-full md:translate-y-0' : 'translate-y-0'} px-4 sm:px-6 lg:px-8 pt-3 sm:pt-4`}>
+    <header className={`fixed left-0 right-0 z-50 transition-transform duration-300 top-0 ${pricingVisible ? '-translate-y-full' : isScrolled ? '-translate-y-full md:translate-y-0' : 'translate-y-0'} px-4 sm:px-6 lg:px-8 pt-3 sm:pt-4`}>
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between rounded-2xl border border-white/60 h-14 md:h-16"
         style={{
           background: 'rgba(255, 255, 255, 0.55)',

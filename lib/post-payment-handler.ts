@@ -14,7 +14,7 @@ const CHECKOUT_LIST_ID = '6a8d2576-c648-4edd-8dbf-f224341a3908'
 const WAITLIST_LIST_ID = '3a1ba08c-6247-4684-86a2-7b652bf60e5b'
 
 // Slack channels
-const NEW_CLIENTS_CHANNEL = 'C092ALGA4MT' // Using #ops for testing, switch to C080YRDSCBB for prod
+const NEW_CLIENTS_CHANNEL = 'C080YRDSCBB' // #new-clients
 
 // Current campaign name
 const CURRENT_CAMPAIGN = 'feb21dc'

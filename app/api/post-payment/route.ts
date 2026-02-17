@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { stripe } from '@/lib/stripe/client'
+import Stripe from 'stripe'
 import { handle21DCPayment, handleMembershipPayment, handleCoachingPayment } from '@/lib/post-payment-handler'
 
 // Internal endpoint called after payment_intent.succeeded
@@ -13,13 +14,22 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    const { paymentIntentId } = await req.json()
+    const { paymentIntentId, isTestMode } = await req.json()
 
     if (!paymentIntentId) {
       return NextResponse.json({ error: 'paymentIntentId required' }, { status: 400 })
     }
 
-    const pi = await stripe.paymentIntents.retrieve(paymentIntentId)
+    // Use test Stripe client if isTestMode flag is set or PI starts with pi_ from test
+    let stripeClient = stripe
+    if (isTestMode && process.env.STRIPE_TEST_SECRET_KEY) {
+      stripeClient = new Stripe(process.env.STRIPE_TEST_SECRET_KEY, {
+        apiVersion: '2025-12-15.clover' as any,
+        typescript: true,
+      })
+    }
+
+    const pi = await stripeClient.paymentIntents.retrieve(paymentIntentId)
 
     if (pi.status !== 'succeeded') {
       return NextResponse.json({ error: 'Payment not succeeded' }, { status: 400 })

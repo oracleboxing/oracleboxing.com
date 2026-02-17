@@ -297,7 +297,7 @@ export function PhoneInput({
           aria-invalid={displayError ? 'true' : undefined}
           aria-describedby={displayError ? `${id || 'phone'}-error` : undefined}
           className={cn(
-            'flex-1 px-4 py-3 bg-white rounded-r-lg text-[#37322F]',
+            'flex-1 px-4 py-3 bg-white rounded-r-lg text-base text-[#37322F]',
             'placeholder:text-[#9A918A]',
             'focus:outline-none',
             disabled && 'cursor-not-allowed',
@@ -327,7 +327,7 @@ export function PhoneInput({
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search countries..."
-              className="w-full px-3 py-2 text-sm bg-[#F8F7F5] rounded-md border border-[rgba(55,50,47,0.10)] focus:outline-none focus:ring-1 focus:ring-[#37322F]"
+              className="w-full px-3 py-2 text-base bg-[#F8F7F5] rounded-md border border-[rgba(55,50,47,0.10)] focus:outline-none focus:ring-1 focus:ring-[#37322F]"
               autoFocus
             />
           </div>

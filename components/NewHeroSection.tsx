@@ -330,7 +330,7 @@ export default function NewHeroSection() {
           </div>
 
           {/* Right - Unified Platform Visual */}
-          <div className="flex-1 w-full translate-x-[20%] lg:translate-x-0">
+          <div className="flex-1 w-full translate-x-[20%] lg:translate-x-0 max-w-[100vw] overflow-hidden">
             <PlatformVisual />
           </div>
         </div>

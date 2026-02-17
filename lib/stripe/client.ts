@@ -1,7 +1,8 @@
 import Stripe from 'stripe'
 
-// Lazy initialization to avoid build-time errors
+// Cache per key to avoid re-creating on every call, but pick the right key each time
 let _stripe: Stripe | null = null
+let _cachedKey: string = ''
 
 function getStripeSecretKey(): string {
   const mode = process.env.NEXT_PUBLIC_SITE_MODE || 'challenge'
@@ -16,12 +17,14 @@ function getStripeSecretKey(): string {
 }
 
 export const getStripe = (): Stripe => {
-  if (!_stripe) {
-    const stripeSecretKey = getStripeSecretKey()
-    if (!stripeSecretKey) {
-      throw new Error('STRIPE_SECRET_KEY is not defined in environment variables')
-    }
-    _stripe = new Stripe(stripeSecretKey, {
+  const key = getStripeSecretKey()
+  if (!key) {
+    throw new Error('STRIPE_SECRET_KEY is not defined in environment variables')
+  }
+  // Recreate if key changed (e.g. env var updated between invocations)
+  if (!_stripe || key !== _cachedKey) {
+    _cachedKey = key
+    _stripe = new Stripe(key, {
       apiVersion: '2025-12-15.clover',
       typescript: true,
     })

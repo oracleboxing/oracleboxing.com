@@ -362,6 +362,7 @@ export function StripeCheckout({
               colorText: '#37322F',
               colorDanger: '#df1b41',
               fontFamily: 'Inter, system-ui, sans-serif',
+              fontSizeBase: '16px',
               spacingUnit: '4px',
               borderRadius: '8px',
             },

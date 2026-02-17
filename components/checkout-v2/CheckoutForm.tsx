@@ -109,10 +109,10 @@ export function CheckoutForm({ onSubmit, isLoading, error, currency, product, me
                 </>
               )}
             </h1>
-            <div className="flex items-center gap-2 flex-shrink-0 pt-2">
-              <span className="text-xs sm:text-sm font-medium text-[#37322F] whitespace-nowrap">Your Details</span>
-              <div className="w-8 h-[2px] bg-[rgba(55,50,47,0.12)]" />
-              <span className="text-xs sm:text-sm font-medium text-[#847971]">Payment</span>
+            <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0 pt-2">
+              <span className="text-[10px] sm:text-sm font-medium text-[#37322F] whitespace-nowrap">Your Details</span>
+              <div className="w-5 sm:w-8 h-[2px] bg-[rgba(55,50,47,0.12)]" />
+              <span className="text-[10px] sm:text-sm font-medium text-[#847971] whitespace-nowrap">Payment</span>
             </div>
           </div>
 
@@ -142,7 +142,7 @@ export function CheckoutForm({ onSubmit, isLoading, error, currency, product, me
                 id="firstName"
                 value={customerInfo.firstName}
                 onChange={(e) => setCustomerInfo({ ...customerInfo, firstName: e.target.value })}
-                className="w-full px-4 sm:px-5 py-2.5 sm:py-3 text-sm sm:text-base bg-white border border-[rgba(55,50,47,0.20)] rounded-lg focus:ring-2 focus:ring-[#37322F] focus:border-transparent transition-all"
+                className="w-full px-4 sm:px-5 py-2.5 sm:py-3 text-base bg-white border border-[rgba(55,50,47,0.20)] rounded-lg focus:ring-2 focus:ring-[#37322F] focus:border-transparent transition-all"
                 placeholder="John"
                 required
                 disabled={isLoading}
@@ -158,7 +158,7 @@ export function CheckoutForm({ onSubmit, isLoading, error, currency, product, me
                 id="lastName"
                 value={customerInfo.lastName}
                 onChange={(e) => setCustomerInfo({ ...customerInfo, lastName: e.target.value })}
-                className="w-full px-4 sm:px-5 py-2.5 sm:py-3 text-sm sm:text-base bg-white border border-[rgba(55,50,47,0.20)] rounded-lg focus:ring-2 focus:ring-[#37322F] focus:border-transparent transition-all"
+                className="w-full px-4 sm:px-5 py-2.5 sm:py-3 text-base bg-white border border-[rgba(55,50,47,0.20)] rounded-lg focus:ring-2 focus:ring-[#37322F] focus:border-transparent transition-all"
                 placeholder="Doe"
                 required
                 disabled={isLoading}
@@ -177,7 +177,7 @@ export function CheckoutForm({ onSubmit, isLoading, error, currency, product, me
               id="email"
               value={customerInfo.email}
               onChange={(e) => setCustomerInfo({ ...customerInfo, email: e.target.value })}
-              className="w-full px-4 sm:px-5 py-2.5 sm:py-3 text-sm sm:text-base bg-white border border-[rgba(55,50,47,0.20)] rounded-lg focus:ring-2 focus:ring-[#37322F] focus:border-transparent transition-all"
+              className="w-full px-4 sm:px-5 py-2.5 sm:py-3 text-base bg-white border border-[rgba(55,50,47,0.20)] rounded-lg focus:ring-2 focus:ring-[#37322F] focus:border-transparent transition-all"
               placeholder="your@email.com"
               required
               disabled={isLoading}

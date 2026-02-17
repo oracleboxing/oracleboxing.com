@@ -397,7 +397,7 @@ export function TransformationDetailsCarousel() {
                                 onTimeUpdate={(e) => handleTimeUpdate(e.currentTarget)}
                                 className="absolute inset-0 w-full h-full object-cover"
                               />
-                              <div className="absolute top-3 left-3 bg-[#37322F]/90 px-3 py-1.5 rounded-md z-10">
+                              <div className="absolute top-0 left-0 bg-[#37322F]/90 px-3 py-1.5 rounded-br-md z-10">
                                 <span className="text-white text-sm font-semibold tracking-wide">
                                   BEFORE
                                 </span>
@@ -424,7 +424,7 @@ export function TransformationDetailsCarousel() {
                                 onTimeUpdate={(e) => handleTimeUpdate(e.currentTarget)}
                                 className="absolute inset-0 w-full h-full object-cover"
                               />
-                              <div className="absolute top-3 right-3 bg-[#37322F]/90 px-3 py-1.5 rounded-md z-10">
+                              <div className="absolute top-0 right-0 bg-[#37322F]/90 px-3 py-1.5 rounded-bl-md z-10">
                                 <span className="text-white text-sm font-semibold tracking-wide">
                                   AFTER
                                 </span>
@@ -500,7 +500,7 @@ export function TransformationDetailsCarousel() {
             {(() => {
               const item = transformations[currentIndex]
               return (
-                <div className="relative bg-white p-4 rounded-xl border border-[rgba(55,50,47,0.12)] shadow-sm">
+                <div className="relative bg-white p-4 md:rounded-xl md:border md:border-[rgba(55,50,47,0.12)] md:shadow-sm -mx-4">
                   {/* Row 1: Before/After Videos */}
                   <div className="grid grid-cols-2 gap-0 mb-4">
                     {/* Before Video */}
@@ -523,7 +523,7 @@ export function TransformationDetailsCarousel() {
                         onTimeUpdate={(e) => handleTimeUpdate(e.currentTarget)}
                         className="absolute inset-0 w-full h-full object-cover"
                       />
-                      <div className="absolute top-2 left-2 bg-[#37322F]/90 px-2 py-1 rounded-md z-10">
+                      <div className="absolute top-0 left-0 bg-[#37322F]/90 px-2 py-1 rounded-br-md z-10">
                         <span className="text-white text-xs font-semibold tracking-wide">
                           BEFORE
                         </span>
@@ -550,7 +550,7 @@ export function TransformationDetailsCarousel() {
                         onTimeUpdate={(e) => handleTimeUpdate(e.currentTarget)}
                         className="absolute inset-0 w-full h-full object-cover"
                       />
-                      <div className="absolute top-2 right-2 bg-[#37322F]/90 px-2 py-1 rounded-md z-10">
+                      <div className="absolute top-0 right-0 bg-[#37322F]/90 px-2 py-1 rounded-bl-md z-10">
                         <span className="text-white text-xs font-semibold tracking-wide">
                           AFTER
                         </span>

@@ -55,11 +55,6 @@ function OnboardingContent() {
               <p className="text-xs font-medium text-[#847971] uppercase tracking-wider mb-3">
                 Welcome to Oracle Boxing
               </p>
-              <h1
-                className="text-section text-[#37322F] tracking-tight mb-4"
-              >
-                Hey {firstName}, let&apos;s get you started
-              </h1>
               <p className="text-title text-[#605A57]">
                 There&apos;s <span className="underline decoration-2 underline-offset-4">one thing you need to do right now</span>.
               </p>
@@ -85,6 +80,28 @@ function OnboardingContent() {
                 </p>
               </div>
 
+              {/* CTA Button - light mode with glow */}
+              <div
+                data-cal-namespace="challenge-graduation"
+                data-cal-link="team/oracle-boxing/challenge-graduation"
+                data-cal-config={JSON.stringify({
+                  layout: 'month_view',
+                  theme: 'light',
+                  email: email,
+                })}
+                className="cursor-pointer mt-6"
+              >
+                <button
+                  className="w-full bg-white text-[#37322F] font-bold text-title py-5 rounded-xl hover:bg-gray-50 transition-colors"
+                  style={{
+                    animation: 'wobble 2s ease-in-out infinite',
+                    boxShadow: '0 0 20px rgba(255,255,255,0.4), 0 0 40px rgba(255,255,255,0.2), 0 4px 16px rgba(0,0,0,0.1)',
+                  }}
+                >
+                  Book Your Graduation Call
+                </button>
+              </div>
+
               {/* Target date */}
               <div className="mt-6 bg-white/10 rounded-xl p-4">
                 <p className="text-sm text-[#a09a96] mb-1">Book it for around</p>
@@ -93,75 +110,8 @@ function OnboardingContent() {
               </div>
             </div>
 
-            {/* Arrows pointing down */}
-            <div className="flex justify-center mb-5">
-              <div className="flex gap-6">
-                {[0, 1, 2].map((i) => (
-                  <svg
-                    key={`down-${i}`}
-                    className="w-6 h-6 text-[#37322F]"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    style={{
-                      animation: `bounceDown 1.2s ease-in-out ${i * 0.15}s infinite`,
-                    }}
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                  </svg>
-                ))}
-              </div>
-            </div>
-
-            {/* CTA Button */}
-            <div
-              data-cal-namespace="challenge-graduation"
-              data-cal-link="team/oracle-boxing/challenge-graduation"
-              data-cal-config={JSON.stringify({
-                layout: 'month_view',
-                theme: 'light',
-                email: email,
-              })}
-              className="cursor-pointer"
-            >
-              <button
-                className="w-full bg-[#37322F] text-white font-bold text-title py-5 rounded-xl hover:bg-[#49423D] transition-colors border-2 border-[#37322F] hover:border-[#49423D] shadow-lg shadow-[#37322F]/20"
-                style={{ animation: 'wobble 2s ease-in-out infinite' }}
-              >
-                Book Your Graduation Call
-              </button>
-            </div>
-
-            {/* Arrows pointing up */}
-            <div className="flex justify-center mt-5">
-              <div className="flex gap-6">
-                {[0, 1, 2].map((i) => (
-                  <svg
-                    key={`up-${i}`}
-                    className="w-6 h-6 text-[#37322F]"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    style={{
-                      animation: `bounceUp 1.2s ease-in-out ${i * 0.15}s infinite`,
-                    }}
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 10l7-7m0 0l7 7m-7-7v18" />
-                  </svg>
-                ))}
-              </div>
-            </div>
-
             {/* Keyframe animations */}
             <style jsx>{`
-              @keyframes bounceDown {
-                0%, 100% { transform: translateY(0); opacity: 0.4; }
-                50% { transform: translateY(8px); opacity: 1; }
-              }
-              @keyframes bounceUp {
-                0%, 100% { transform: translateY(0); opacity: 0.4; }
-                50% { transform: translateY(-8px); opacity: 1; }
-              }
               @keyframes wobble {
                 0%, 100% { transform: translateY(0) scale(1); }
                 25% { transform: translateY(-4px) scale(1.01); }
