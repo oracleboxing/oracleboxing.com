@@ -11,16 +11,32 @@ import { trackAddToCart } from "@/lib/webhook-tracking"
 import { useCurrency } from "@/contexts/CurrencyContext"
 import { getProductPrice } from "@/lib/currency"
 
-const navLinks = [
-  { label: "How it Works", href: "#how-it-works" },
-  { label: "Testimonials", href: "#testimonials" },
-  { label: "FAQ", href: "#faq" },
-]
+
+function getNavLinks(mode: string) {
+  if (mode === 'membership') {
+    return [
+      { label: "Transformations", href: "#transformations" },
+      { label: "What's Included", href: "#whats-included" },
+      { label: "Pricing", href: "#pricing" },
+      { label: "FAQ", href: "#faq" },
+    ]
+  }
+  // challenge or test
+  return [
+    { label: "Transformations", href: "#transformations" },
+    { label: "How it Works", href: "#how-it-works" },
+    { label: "Pricing", href: "#pricing" },
+    { label: "FAQ", href: "#faq" },
+  ]
+}
+
 
 export default function HomepageHeader() {
   const { currency } = useCurrency()
   const [isScrolled, setIsScrolled] = useState(false)
-  const headerLink = getHeaderButtonLink(getClientSiteMode())
+  const siteMode = getClientSiteMode()
+  const headerLink = getHeaderButtonLink(siteMode)
+  const navLinksForMode = getNavLinks(siteMode)
 
   // Track scroll position to hide mobile header when sticky footer appears
   useEffect(() => {
@@ -83,7 +99,7 @@ export default function HomepageHeader() {
 
         {/* Navigation - Center (hidden on mobile) */}
         <nav className="hidden md:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
-          {navLinks.map((link) => (
+          {navLinksForMode.map((link) => (
             <a
               key={link.href}
               href={link.href}

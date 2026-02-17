@@ -13,7 +13,7 @@ export default function MembershipPricingSection() {
   ]
 
   return (
-    <section className="w-full md:min-h-screen flex flex-col justify-center py-0 md:py-24 px-0 md:px-8 bg-white md:bg-[#37322F] relative overflow-hidden">
+    <section id="pricing" className="w-full md:min-h-screen flex flex-col justify-center py-0 md:py-24 px-0 md:px-8 bg-white md:bg-[#37322F] relative overflow-hidden scroll-mt-16">
       {/* Animated flowing ribbons background */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="ribbon ribbon-1" />

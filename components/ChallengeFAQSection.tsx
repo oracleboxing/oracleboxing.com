@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { getClientSiteMode } from "@/lib/site-mode"
 
 // Schedule data with London times (24hr format for easy conversion)
 const schedule = [
@@ -112,6 +113,8 @@ function FAQItem({ question, children, isOpen, onToggle }: FAQItemProps) {
 export default function ChallengeFAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
   const [selectedTimezone, setSelectedTimezone] = useState(timezones[0])
+  const siteMode = getClientSiteMode()
+  const isMembership = siteMode === 'membership'
 
   const convertedSchedule = schedule.map((item) => {
     const { time, dayShift } = convertTime(item.time, selectedTimezone.offset)
@@ -198,48 +201,88 @@ export default function ChallengeFAQSection() {
               </div>
             </FAQItem>
 
-            {/* FAQ 2 - After Challenge */}
-            <FAQItem
-              question="What happens after the challenge?"
-              isOpen={openIndex === 1}
-              onToggle={() => setOpenIndex(openIndex === 1 ? null : 1)}
-            >
-              <div className="space-y-3">
-                <p>
-                  Once the 21-Day Challenge ends, our coaches will review your effort, consistency,
-                  and character. If you've proven yourself, we may offer you a spot in our private
-                  membership.
-                </p>
-                <p>
-                  If you've completed the challenge, your $147 entry can be applied as credit toward
-                  your membership.
-                </p>
-                <p>
-                  If membership isn't the right fit, we'll refund your payment. Simple. Either way,
-                  a graduation call is required to close out your journey.
-                </p>
-                <p>
-                  And yes—we have a full progression path. So if you join, you'll have structured
-                  levels to grow through for years to come.
-                </p>
-              </div>
-            </FAQItem>
+            {!isMembership && (
+              <>
+                {/* FAQ 2 - After Challenge */}
+                <FAQItem
+                  question="What happens after the challenge?"
+                  isOpen={openIndex === 1}
+                  onToggle={() => setOpenIndex(openIndex === 1 ? null : 1)}
+                >
+                  <div className="space-y-3">
+                    <p>
+                      Once the 21-Day Challenge ends, our coaches will review your effort, consistency,
+                      and character. If you've proven yourself, we may offer you a spot in our private
+                      membership.
+                    </p>
+                    <p>
+                      If you've completed the challenge, your $147 entry can be applied as credit toward
+                      your membership.
+                    </p>
+                    <p>
+                      If membership isn't the right fit, we'll refund your payment. Simple. Either way,
+                      a graduation call is required to close out your journey.
+                    </p>
+                    <p>
+                      And yes - we have a full progression path. So if you join, you'll have structured
+                      levels to grow through for years to come.
+                    </p>
+                  </div>
+                </FAQItem>
 
-            {/* FAQ 3 - Membership Cost */}
-            <FAQItem
-              question="How much does the full membership cost after I finish?"
-              isOpen={openIndex === 2}
-              onToggle={() => setOpenIndex(openIndex === 2 ? null : 2)}
-            >
-              <div className="space-y-3">
-                <p>
-                  The price of a membership is less than half of what you paid for the challenge, and we offer monthly or annual options.
-                </p>
-                <p>
-                  <span className="text-[#37322F] font-medium">But it's invite-only.</span> You'll need to complete the challenge and be accepted before you can join.
-                </p>
-              </div>
-            </FAQItem>
+                {/* FAQ 3 - Membership Cost */}
+                <FAQItem
+                  question="How much does the full membership cost after I finish?"
+                  isOpen={openIndex === 2}
+                  onToggle={() => setOpenIndex(openIndex === 2 ? null : 2)}
+                >
+                  <div className="space-y-3">
+                    <p>
+                      The price of a membership is less than half of what you paid for the challenge, and we offer monthly or annual options.
+                    </p>
+                    <p>
+                      <span className="text-[#37322F] font-medium">But it's invite-only.</span> You'll need to complete the challenge and be accepted before you can join.
+                    </p>
+                  </div>
+                </FAQItem>
+              </>
+            )}
+
+            {isMembership && (
+              <>
+                {/* Membership FAQ 2 - What's included */}
+                <FAQItem
+                  question="What's included in the membership?"
+                  isOpen={openIndex === 1}
+                  onToggle={() => setOpenIndex(openIndex === 1 ? null : 1)}
+                >
+                  <div className="space-y-3">
+                    <p>
+                      Full access to all courses (Boxing Toolkit, Grades 1-3, and more as they're released), 11 live group coaching calls per week, personal video feedback from coaches, the private Skool community, and structured progression through the grading system.
+                    </p>
+                    <p>
+                      Annual members also get the Boxing First Principles course and a free 1-on-1 coaching call included.
+                    </p>
+                  </div>
+                </FAQItem>
+
+                {/* Membership FAQ 3 - Cancel */}
+                <FAQItem
+                  question="Can I cancel anytime?"
+                  isOpen={openIndex === 2}
+                  onToggle={() => setOpenIndex(openIndex === 2 ? null : 2)}
+                >
+                  <div className="space-y-3">
+                    <p>
+                      <span className="text-[#37322F] font-medium">Yes, cancel anytime.</span> Monthly memberships can be cancelled at the end of any billing period. No contracts, no cancellation fees.
+                    </p>
+                    <p>
+                      Annual memberships run for 12 months. You won't be charged again unless you choose to renew.
+                    </p>
+                  </div>
+                </FAQItem>
+              </>
+            )}
 
             {/* FAQ 4 - 1-on-1 Coaching */}
             <FAQItem
@@ -301,38 +344,52 @@ export default function ChallengeFAQSection() {
               onToggle={() => setOpenIndex(openIndex === 6 ? null : 6)}
             >
               <div className="space-y-3">
-                <p>
-                  The 21-Day Challenge is designed for <span className="text-[#37322F] font-medium">beginners and late starters</span>—people who want to learn boxing properly from the ground up.
-                </p>
-                <p>
-                  If you've trained for years and already have solid fundamentals, this might not be the right fit. But if you're just starting out, coming back after a break, or feel like you've built bad habits, you're exactly who we built this for.
-                </p>
+                {isMembership ? (
+                  <>
+                    <p>
+                      Oracle Boxing is built for <span className="text-[#37322F] font-medium">all levels</span>. Whether you're a complete beginner or you've been training for years, the structured course library and grading system will meet you where you are.
+                    </p>
+                    <p>
+                      Beginners start with the Boxing Toolkit and Grade 1. More experienced boxers can move through the grades faster and focus on refining technique through video feedback and live coaching.
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <p>
+                      The 21-Day Challenge is designed for <span className="text-[#37322F] font-medium">beginners and late starters</span> - people who want to learn boxing properly from the ground up.
+                    </p>
+                    <p>
+                      If you've trained for years and already have solid fundamentals, this might not be the right fit. But if you're just starting out, coming back after a break, or feel like you've built bad habits, you're exactly who we built this for.
+                    </p>
+                  </>
+                )}
               </div>
             </FAQItem>
 
-            {/* FAQ 8 - Money-back guarantee */}
-            <FAQItem
-              question="How does the money-back guarantee work?"
-              isOpen={openIndex === 7}
-              onToggle={() => setOpenIndex(openIndex === 7 ? null : 7)}
-            >
-              <div className="space-y-3">
-                <p>
-                  <span className="text-[#37322F] font-medium">Complete the challenge, get your money back.</span> It's that simple.
-                </p>
-                <p>
-                  Here's what "completing" means:
-                </p>
-                <ul className="list-disc list-inside space-y-1 ml-2">
-                  <li>Attend at least 2 live classes per week</li>
-                  <li>Submit 1 training video for feedback</li>
-                  <li>Complete your graduation call at the end</li>
-                </ul>
-                <p>
-                  Do those three things, and we'll refund your full $147. No tricks, no catches. We want people who show up and put in the work.
-                </p>
-              </div>
-            </FAQItem>
+            {!isMembership && (
+              <FAQItem
+                question="How does the money-back guarantee work?"
+                isOpen={openIndex === 7}
+                onToggle={() => setOpenIndex(openIndex === 7 ? null : 7)}
+              >
+                <div className="space-y-3">
+                  <p>
+                    <span className="text-[#37322F] font-medium">Complete the challenge, get your money back.</span> It's that simple.
+                  </p>
+                  <p>
+                    Here's what "completing" means:
+                  </p>
+                  <ul className="list-disc list-inside space-y-1 ml-2">
+                    <li>Attend at least 2 live classes per week</li>
+                    <li>Submit 1 training video for feedback</li>
+                    <li>Complete your graduation call at the end</li>
+                  </ul>
+                  <p>
+                    Do those three things, and we'll refund your full $147. No tricks, no catches. We want people who show up and put in the work.
+                  </p>
+                </div>
+              </FAQItem>
+            )}
           </div>
         </div>
 

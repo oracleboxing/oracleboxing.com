@@ -294,7 +294,7 @@ export function TransformationDetailsCarousel() {
   }
 
   return (
-    <section className="w-full min-h-screen flex items-center py-12 md:py-16">
+    <section id="transformations" className="w-full min-h-screen flex items-center py-12 md:py-16 scroll-mt-16">
       <div className="max-w-[1400px] mx-auto px-4 flex flex-col lg:flex-row lg:items-center lg:gap-16 w-full">
       {/* Section Header - left column on desktop */}
       <div className="lg:w-4/12 mb-8 lg:mb-0">

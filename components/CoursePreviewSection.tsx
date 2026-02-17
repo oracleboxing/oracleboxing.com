@@ -52,7 +52,7 @@ export default function CoursePreviewSection() {
   const courses = COURSE_PREVIEW_DATA
 
   return (
-    <section className="w-full bg-white">
+    <section id="whats-included" className="w-full bg-white scroll-mt-16">
       {/* Header */}
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 md:px-8 pt-12 md:pt-20 pb-8 md:pb-12 text-center">
         <h2 className="text-hero font-normal text-[#37322F] mb-4">
