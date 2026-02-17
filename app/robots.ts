@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: ['/', '/llms.txt', '/llms-full.txt'],
-        disallow: ['/success/', '/admin/', '/api/', '/checkout/order-bumps'],
+        disallow: ['/success/', '/membership-success/', '/admin/', '/api/', '/checkout/', '/checkout-v2/', '/onboarding/', '/closed/'],
       },
     ],
     sitemap: 'https://oracleboxing.com/sitemap.xml',

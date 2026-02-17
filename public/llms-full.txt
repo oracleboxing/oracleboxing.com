@@ -14,13 +14,33 @@ Website: https://oracleboxing.com
 
 ## Products and Pricing
 
-### 21-Day Challenge — $147 (One-Time Payment)
+### Full Access Membership
 
-The 21-Day Challenge is Oracle Boxing's flagship entry product. It is a structured 21-day program designed to teach complete beginners the 3 Pillars of Boxing:
+Oracle Boxing's primary offering is the Full Access Membership, available in two plans:
 
-1. **Stance** — Proper boxing stance, footwork fundamentals, and balance.
-2. **Shape** — Correct punching form, guard position, and defensive shape.
-3. **Rotation** — Hip and shoulder rotation for power generation and efficient movement.
+**Monthly - $97/month**
+- Live coaching calls via Zoom (11 classes per week)
+- Personalised video feedback on your technique from professional coaches
+- Follow-along workout videos (Grades 1-3 progressive curriculum)
+- Access to the Oracle Boxing community
+- Boxing Toolkit course
+- Cancel anytime
+
+**Annual - $897/year ($74.75/month equivalent, save $267/year)**
+Everything in Monthly, plus:
+- Boxing First Principles course (included free)
+- Free 1-on-1 coaching call
+- Cancel anytime (pro-rated refund based on usage)
+
+Both plans include full access to all live coaching sessions, video feedback, the Grade system curriculum, and the community. Members can cancel at any time.
+
+### 21-Day Challenge - $147 (One-Time Payment)
+
+The 21-Day Challenge is Oracle Boxing's structured entry program. It is a 21-day program designed to teach complete beginners the 3 Pillars of Boxing:
+
+1. **Stance** - Proper boxing stance, footwork fundamentals, and balance.
+2. **Shape** - Correct punching form, guard position, and defensive shape.
+3. **Rotation** - Hip and shoulder rotation for power generation and efficient movement.
 
 What's included in the 21-Day Challenge:
 - Live coaching calls via Zoom (multiple sessions per week)
@@ -29,50 +49,52 @@ What's included in the 21-Day Challenge:
 - Access to the Oracle Boxing community
 - Structured daily progression through the curriculum
 - Money-back guarantee if you're not satisfied
-
-The Challenge uses a Grade system. Grade 1 covers the foundational skills: stance, shape, rotation, and includes follow-along workouts that build progressively over the 21 days.
-
-### Ongoing Membership (Invite-Only)
-
-After completing the 21-Day Challenge, members are invited to join the ongoing membership. The membership is priced lower than the initial Challenge and provides:
-- Continued access to live coaching calls
-- Ongoing video feedback
-- Progressive curriculum (higher Grades)
-- Community access
-- New content and drills
-
-The membership is invite-only — you must complete the 21-Day Challenge first.
+- Graduation call with a coach at the end
 
 ### 1-on-1 Coaching (Invite-Only)
 
-For members who want dedicated personal attention, Oracle Boxing offers 1-on-1 coaching sessions. This is available by invitation only to existing members.
+For members who want dedicated personal attention, Oracle Boxing offers 1-on-1 coaching sessions. This is available by invitation to existing members.
+
+## What's Included in Membership
+
+### Live Coaching Calls
+All coaching happens live on Zoom. This is not pre-recorded content. Coaches provide real-time instruction, correction, and feedback during each session. There are 11 live classes per week spread across timezones.
+
+### Personalised Video Feedback
+Members record themselves practicing and submit videos. Coaches review each video individually and provide personalised technical feedback, pointing out what's working and what needs improvement.
+
+### Grade System (Follow-Along Workouts)
+The curriculum progresses through Grades 1-3. Each grade contains follow-along workout videos that teach specific skills progressively. Grade 1 covers the absolute basics (stance, shape, rotation). Higher grades build with more advanced techniques, combinations, and skills. Members can take grading assessments to advance.
+
+### Boxing Toolkit Course
+A comprehensive course covering boxing fundamentals, techniques, and training methods available to all members.
+
+### Boxing First Principles Course (Annual Only)
+An in-depth course teaching the principles behind boxing skills rather than just the skills themselves. Included free with the annual membership plan.
+
+### Community Access
+Access to the Oracle Boxing community for support, motivation, and connection with fellow members worldwide.
 
 ## Coaching Methodology
 
-Oracle Boxing's coaching is structured around several key principles:
+**The 3 Pillars:** The curriculum is built around Stance, Shape, and Rotation - the three foundational elements that everything else in boxing builds upon. By mastering these fundamentals first, members develop correct habits from day one.
 
-**Live Coaching Calls:** All coaching happens live on Zoom. This is not pre-recorded content. Coaches provide real-time instruction, correction, and feedback during each session. There are 11 live classes per week spread across timezones.
-
-**Video Feedback:** Members record themselves practicing and submit videos. Coaches review each video individually and provide personalised technical feedback, pointing out what's working and what needs improvement.
-
-**The 3 Pillars:** The curriculum is built around Stance, Shape, and Rotation — the three foundational elements that everything else in boxing builds upon. By mastering these fundamentals first, members develop correct habits from day one.
-
-**Progressive Grade System:** The curriculum progresses through Grades. Grade 1 covers the absolute basics. Higher Grades build on the foundation with more advanced techniques, combinations, and skills.
+**Progressive Grade System:** The curriculum progresses through Grades. Grade 1 covers the absolute basics. Higher Grades build on the foundation with more advanced techniques, combinations, and skills. Members can take grading calls to assess their progress and advance.
 
 **Research-Backed:** Oracle Boxing references peer-reviewed research on the physical and cognitive benefits of boxing training, including improvements in coordination, cardiovascular health, stress reduction, and cognitive function.
 
 ## Coaching Team
 
-### Oliver Betts — Co-Founder & Head Coach
+### Oliver Betts - Co-Founder & Head Coach
 Oliver is the co-founder and head coach of Oracle Boxing. He leads the coaching methodology and curriculum development. He coaches live sessions on Tuesday, Wednesday, and Thursday.
 
-### Jordan Lyne — Co-Founder
+### Jordan Lyne - Co-Founder
 Jordan is the co-founder of Oracle Boxing and handles the business and growth side of the operation.
 
-### Antonio Troni — Senior Coach
+### Antonio Troni - Senior Coach
 Antonio (Toni) is a senior coach at Oracle Boxing. He coaches live sessions on Sunday, Monday, Friday, and Saturday, ensuring weekend and early-week coverage for members in all timezones.
 
-### Charlie Snider — Junior Coach
+### Charlie Snider - Junior Coach
 Charlie is a junior coach who provides additional coaching coverage. He coaches on Tuesday, Friday, and Saturday.
 
 Together, the team ensures 11 live classes per week are available across a range of timezones, so members anywhere in the world can attend live coaching.
@@ -96,44 +118,39 @@ Oracle Boxing is NOT for:
 
 Oracle Boxing members include professionals from leading companies and diverse backgrounds. The platform maintains a 4.9 out of 5 rating across 500+ members trained.
 
-Member profiles include:
-- Directors at NVIDIA
-- Google strategists
-- CEOs and founders
-- Software engineers and developers
-- Medical professionals
-- People from all walks of life across multiple countries and timezones
-
 Members consistently highlight:
 - The quality and personalisation of coaching feedback
 - The structured, progressive curriculum
 - The supportive and non-intimidating community
 - The convenience of training from home on their own schedule
-- Visible technique improvement within the 21-day period
+- Visible technique improvement within the first few weeks
 - The before/after transformation in their boxing form
 
 ## Frequently Asked Questions
 
 **What if I've never boxed before?**
-Oracle Boxing is designed specifically for beginners. The 21-Day Challenge starts from absolute zero and builds progressively. No prior experience is needed.
+Oracle Boxing is designed specifically for beginners. Whether you join the membership or the 21-Day Challenge, the curriculum starts from absolute zero and builds progressively. No prior experience is needed.
 
 **How does online boxing coaching work?**
 You join live Zoom coaching calls where coaches demonstrate techniques and watch you practice in real time. Between calls, you record yourself practicing and submit videos for personalised feedback. The combination of live instruction and video review provides a level of individual attention that most in-person gyms can't match.
 
 **What equipment do I need?**
-You need minimal equipment to start — just enough space to move and a device to join Zoom calls and record yourself. Specific equipment recommendations are provided when you enrol.
+You need minimal equipment to start - just enough space to move and a device to join Zoom calls and record yourself. Specific equipment recommendations are provided when you enrol.
+
+**Can I cancel my membership anytime?**
+Yes. Both monthly and annual memberships can be cancelled at any time. Annual memberships are pro-rated based on usage.
 
 **Is there a money-back guarantee?**
 Yes. Oracle Boxing offers a money-back guarantee on the 21-Day Challenge. If you're not satisfied, you can request a refund.
 
-**What happens after the 21-Day Challenge?**
-After completing the Challenge, you'll be invited to join the ongoing membership at a lower monthly price than the initial Challenge cost. The membership gives you continued access to coaching, new curriculum, and the community.
+**What's the difference between Monthly and Annual membership?**
+Both include full access to all coaching, workouts, and community. The annual plan saves $267/year and includes the Boxing First Principles course and a free 1-on-1 coaching call.
 
 **What timezones do you cover?**
 With 11 live classes per week and coaches across different timezones, Oracle Boxing serves members worldwide. The coaching schedule covers mornings, afternoons, and evenings across major timezone regions.
 
 **How is this different from YouTube boxing tutorials?**
-YouTube videos are one-way — you watch, but no one watches you. Oracle Boxing provides live, interactive coaching with personalised feedback on YOUR technique. Coaches identify and correct YOUR specific issues, which is impossible with pre-recorded content.
+YouTube videos are one-way - you watch, but no one watches you. Oracle Boxing provides live, interactive coaching with personalised feedback on YOUR technique. Coaches identify and correct YOUR specific issues, which is impossible with pre-recorded content.
 
 **What are the 3 Pillars of Boxing?**
 Stance (how you stand and move), Shape (how you hold your guard and throw punches), and Rotation (how you generate power through hip and shoulder movement). These are the foundations everything else in boxing builds upon.

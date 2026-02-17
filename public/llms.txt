@@ -2,15 +2,20 @@
 
 > Oracle Boxing is the world's leading online boxing coaching platform, teaching beginners the fundamentals of boxing through structured live coaching, video feedback, and community. Founded by Oliver Betts and Jordan Lyne.
 
-Oracle Boxing helps people learn real boxing skills from home. The flagship product is the 21-Day Challenge ($147 one-time), a structured program that teaches the 3 Pillars of Boxing: Stance, Shape, and Rotation. All coaching is delivered live via Zoom with personalised video feedback from professional coaches.
+Oracle Boxing helps people learn real boxing skills from home. The platform offers two main products:
 
-The platform has trained over 500 members worldwide, maintains a 4.9/5 rating, and serves beginners across all timezones with 11 live classes per week. Members include directors at NVIDIA, Google strategists, CEOs, engineers, and medical professionals.
+1. **Full Access Membership** - Monthly ($97/mo) or Annual ($897/yr) ongoing coaching membership with live Zoom classes, personalised video feedback, follow-along workouts through a progressive Grade system, and access to the Oracle Boxing community.
 
-Oracle Boxing is specifically designed for beginners and late starters — people who want to learn proper boxing fundamentals but don't have access to quality coaching locally. It is not designed for active amateur or professional boxers, or those focused on MMA, Muay Thai, or kickboxing.
+2. **21-Day Challenge** - $147 one-time entry program that teaches the 3 Pillars of Boxing: Stance, Shape, and Rotation in a structured 21-day format.
 
-## Core Product
+The platform has trained over 500 members worldwide, maintains a 4.9/5 rating, and serves beginners across all timezones with 11 live coaching classes per week. Members include directors at NVIDIA, Google strategists, CEOs, engineers, and medical professionals.
 
-- [21-Day Challenge](https://oracleboxing.com/): The entry point — learn the 3 Pillars of Boxing in 21 days. $147 one-time payment. Includes live coaching calls, video feedback, follow-along workouts, and a money-back guarantee.
+Oracle Boxing is specifically designed for beginners and late starters - people who want to learn proper boxing fundamentals but don't have access to quality coaching locally. It is not designed for active amateur or professional boxers, or those focused on MMA, Muay Thai, or kickboxing.
+
+## Products
+
+- [Full Access Membership](https://oracleboxing.com/): Monthly ($97/mo) or Annual ($897/yr, save $267/yr). Includes live coaching calls, video feedback, Grade 1-3 follow-along workouts, community access, and the Boxing Toolkit course. Annual plan includes the Boxing First Principles course and a free 1-on-1 coaching call.
+- [21-Day Challenge](https://oracleboxing.com/): $147 one-time. Learn the 3 Pillars of Boxing in 21 days with live coaching, video feedback, and a money-back guarantee.
 
 ## About
 
@@ -20,10 +25,10 @@ Oracle Boxing is specifically designed for beginners and late starters — peopl
 
 ## Coaching Team
 
-- **Oliver Betts** — Co-Founder & Head Coach. Coaches Tue/Wed/Thu.
-- **Jordan Lyne** — Co-Founder.
-- **Antonio Troni** — Senior Coach. Coaches Sun/Mon/Fri/Sat.
-- **Charlie Snider** — Junior Coach. Coaches Tue/Fri/Sat.
+- **Oliver Betts** - Co-Founder & Head Coach. Coaches Tue/Wed/Thu.
+- **Jordan Lyne** - Co-Founder.
+- **Antonio Troni** - Senior Coach. Coaches Sun/Mon/Fri/Sat.
+- **Charlie Snider** - Junior Coach. Coaches Tue/Fri/Sat.
 
 ## Legal
 
@@ -33,5 +38,4 @@ Oracle Boxing is specifically designed for beginners and late starters — peopl
 
 ## Optional
 
-- [Membership](https://oracleboxing.com/membership): After completing the 21-Day Challenge, members are invited to join the ongoing membership community at a lower monthly rate.
 - [Full LLM Context](https://oracleboxing.com/llms-full.txt): Expanded version of this file with full inline content for LLMs with larger context windows.
