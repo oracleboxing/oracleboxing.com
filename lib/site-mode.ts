@@ -10,18 +10,15 @@
 export type SiteMode = 'challenge' | 'membership' | 'test'
 
 export function getSiteMode(): SiteMode {
-  const mode = process.env.NEXT_PUBLIC_SITE_MODE || 'challenge'
+  const mode = (process.env.NEXT_PUBLIC_SITE_MODE || 'challenge').trim()
   if (mode === 'membership' || mode === 'test') return mode
   return 'challenge'
 }
 
 // Client-side helper (reads NEXT_PUBLIC_ env var)
 export function getClientSiteMode(): SiteMode {
-  if (typeof window !== 'undefined') {
-    // @ts-ignore - injected by Next.js
-    const mode = process.env.NEXT_PUBLIC_SITE_MODE || 'challenge'
-    if (mode === 'membership' || mode === 'test') return mode
-  }
+  const mode = (process.env.NEXT_PUBLIC_SITE_MODE || 'challenge').trim()
+  if (mode === 'membership' || mode === 'test') return mode
   return 'challenge'
 }
 
