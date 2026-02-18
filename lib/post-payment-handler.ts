@@ -104,9 +104,9 @@ function buildAttribution(meta: Record<string, string>): string {
 
 // Zapier Skool webhooks
 // Invite + unlock (new members who need Skool invite)
-const ZAPIER_INVITE_URL = 'https://hooks.zapier.com/hooks/catch/23999001/ucusm4r/'
+const ZAPIER_INVITE_URL = process.env.ZAPIER_INVITE_WEBHOOK_URL || ''
 // Unlock only (existing members who already have Skool access)
-const ZAPIER_UNLOCK_URL = 'https://hooks.zapier.com/hooks/catch/23999001/ugnikfp/'
+const ZAPIER_UNLOCK_URL = process.env.ZAPIER_UNLOCK_WEBHOOK_URL || ''
 
 async function inviteAndUnlockCourses(email: string, courses: { roadmap?: boolean; bffp?: boolean; vault?: boolean; g1?: boolean; g2?: boolean; g3?: boolean }) {
   const res = await fetch(ZAPIER_INVITE_URL, {
