@@ -180,7 +180,7 @@ export default function BeginnerToBoxerGuidePage() {
             </p>
             <Link
               href="/checkout-v2"
-              className="inline-block bg-[#37322F] text-white px-8 py-3.5 rounded-full text-sm font-medium hover:bg-[#49423D] transition-colors"
+              className="inline-block bg-[#007AFF] text-white px-8 py-3.5 rounded-full text-sm font-medium hover:bg-[#0066DD] transition-colors"
             >
               Start the 21-Day Challenge →
             </Link>

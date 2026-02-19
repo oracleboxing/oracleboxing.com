@@ -144,7 +144,7 @@ export default function ClosedPage() {
 
             <a
               href="/"
-              className="inline-flex items-center justify-center h-12 px-6 rounded-lg font-medium text-base bg-[#37322F] hover:bg-[#37322f]/90 text-white transition-all"
+              className="inline-flex items-center justify-center h-12 px-6 rounded-lg font-medium text-base bg-[#007AFF] hover:bg-[#0066DD] text-white transition-all"
             >
               Back to Home
             </a>
@@ -253,7 +253,7 @@ export default function ClosedPage() {
               className={`w-full h-12 px-6 rounded-lg font-medium text-base shadow-[0px_0px_0px_2.5px_rgba(255,255,255,0.08)_inset] transition-all duration-200 flex items-center justify-center ${
                 isLoading
                   ? 'bg-[#847971] cursor-not-allowed'
-                  : 'bg-[#37322F] hover:bg-[#37322f]/90 cursor-pointer'
+                  : 'bg-[#007AFF] hover:bg-[#0066DD] cursor-pointer'
               } text-white`}
             >
               {isLoading ? (

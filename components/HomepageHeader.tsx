@@ -106,7 +106,7 @@ export default function HomepageHeader() {
         <Link
           href={ENROLLMENT_CLOSED ? getCheckoutUrl() : headerLink}
           onClick={handleJoinNowClick}
-          className="md:hidden h-8 px-4 bg-[#37322f] hover:bg-[#37322f]/90 text-white rounded-xl font-medium text-xs inline-flex items-center justify-center transition-all"
+          className="md:hidden h-8 px-4 bg-[#007AFF] hover:bg-[#0066DD] text-white rounded-xl font-medium text-xs inline-flex items-center justify-center transition-all"
         >
           {ENROLLMENT_CLOSED ? 'Join Waitlist' : 'Join Now'}
         </Link>
@@ -131,7 +131,7 @@ export default function HomepageHeader() {
           <Link
             href={ENROLLMENT_CLOSED ? getCheckoutUrl() : headerLink}
             onClick={handleJoinNowClick}
-            className="h-10 px-6 bg-[#37322f] hover:bg-[#37322f]/90 text-white rounded-xl font-medium text-body inline-flex items-center justify-center transition-all"
+            className="h-10 px-6 bg-[#007AFF] hover:bg-[#0066DD] text-white rounded-xl font-medium text-body inline-flex items-center justify-center transition-all"
           >
             Join Now
           </Link>

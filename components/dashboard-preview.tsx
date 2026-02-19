@@ -35,7 +35,7 @@ export function DashboardPreview() {
             <div className="flex-1 p-6">
               <div className="flex items-center justify-between mb-6">
                 <h2 className="text-sub font-semibold text-[#37322f]">Schedules</h2>
-                <Button className="bg-[#37322f] hover:bg-[#37322f]/90 text-white text-body">Create schedule</Button>
+                <Button className="bg-[#007AFF] hover:bg-[#0066DD] text-white text-body">Create schedule</Button>
               </div>
 
               {/* Table Mockup */}

@@ -205,7 +205,7 @@ export default function ContactPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full h-12 bg-[#37322F] text-white rounded-lg font-semibold text-body font-sans cursor-pointer hover:bg-[#49423D] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full h-12 bg-[#007AFF] text-white rounded-lg font-semibold text-body font-sans cursor-pointer hover:bg-[#0066DD] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? 'Sending...' : 'Send Message'}
             </button>

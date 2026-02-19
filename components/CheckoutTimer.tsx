@@ -163,7 +163,7 @@ export default function CheckoutTimer({
             {/* Button */}
             <button
               onClick={handleExpire}
-              className="w-full py-3 px-6 bg-[#37322F] hover:bg-[#37322F]/90 text-white rounded-full font-medium transition-colors"
+              className="w-full py-3 px-6 bg-[#007AFF] hover:bg-[#0066DD] text-white rounded-full font-medium transition-colors"
             >
               Return to Homepage
             </button>

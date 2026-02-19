@@ -99,7 +99,7 @@ function MembershipSuccessContent() {
 
         <Link
           href="/"
-          className="inline-block px-6 py-3 bg-[#37322F] text-white rounded-lg text-sm font-medium hover:bg-[#49423D] transition-colors"
+          className="inline-block px-6 py-3 bg-[#007AFF] text-white rounded-lg text-sm font-medium hover:bg-[#0066DD] transition-colors"
         >
           Back to Home
         </Link>

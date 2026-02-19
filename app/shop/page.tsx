@@ -93,7 +93,7 @@ export default function ShopPage() {
                   </span>
                   <a
                     href={product.paymentLink}
-                    className="h-10 px-6 bg-[#37322F] text-white rounded-lg font-medium text-body hover:bg-[#49423D] transition-colors flex items-center"
+                    className="h-10 px-6 bg-[#007AFF] text-white rounded-lg font-medium text-body hover:bg-[#0066DD] transition-colors flex items-center"
                   >
                     Buy Now
                   </a>

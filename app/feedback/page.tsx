@@ -87,7 +87,7 @@ export default function FeedbackPage() {
                 </p>
                 <button
                   onClick={() => setSubmitted(false)}
-                  className="py-4 px-8 bg-[#37322F] text-white rounded-full font-semibold text-title cursor-pointer hover:bg-[#49423D] transition-colors shadow-[0px_2px_4px_rgba(55,50,47,0.12)]"
+                  className="py-4 px-8 bg-[#007AFF] text-white rounded-full font-semibold text-title cursor-pointer hover:bg-[#0066DD] transition-colors shadow-[0px_2px_4px_rgba(55,50,47,0.12)]"
                 >
                   Submit More Feedback
                 </button>
@@ -114,7 +114,7 @@ export default function FeedbackPage() {
                   <button
                     type="submit"
                     disabled={isLoading || !feedback.trim()}
-                    className="w-full py-4 bg-[#37322F] text-white rounded-full font-semibold text-title cursor-pointer hover:bg-[#49423D] transition-colors shadow-[0px_2px_4px_rgba(55,50,47,0.12)] disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full py-4 bg-[#007AFF] text-white rounded-full font-semibold text-title cursor-pointer hover:bg-[#0066DD] transition-colors shadow-[0px_2px_4px_rgba(55,50,47,0.12)] disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {isLoading ? 'Submitting...' : 'Submit Feedback'}
                   </button>

@@ -123,7 +123,7 @@ export default function WhyOnlinePage() {
           <Link
             href={getCheckoutUrl()}
             onClick={() => !ENROLLMENT_CLOSED && trackAddToCart('21dc-entry', '21-Day Challenge', 147, 'USD', 'why-online-header')}
-            className="h-10 px-6 bg-[#37322f] hover:bg-[#37322f]/90 text-white rounded-lg font-medium text-sm inline-flex items-center justify-center transition-all"
+            className="h-10 px-6 bg-[#007AFF] hover:bg-[#0066DD] text-white rounded-lg font-medium text-sm inline-flex items-center justify-center transition-all"
           >
             {ENROLLMENT_CLOSED ? 'Join Waitlist' : 'Join Now'}
           </Link>

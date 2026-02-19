@@ -560,7 +560,7 @@ export function StripeCheckout({
           disabled={isConfirming}
           className={`w-full p-4 rounded-xl border-2 transition-all duration-300 ease-out text-left relative overflow-hidden ${
             isUpgraded
-              ? 'bg-[#37322F] border-[#37322F]'
+              ? 'bg-[#007AFF] border-[#007AFF]'
               : 'bg-white border-[rgba(55,50,47,0.12)] hover:border-[rgba(55,50,47,0.25)]'
           } ${isConfirming ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
         >
@@ -624,7 +624,7 @@ export function StripeCheckout({
               disabled={isConfirming}
               className={`w-full p-4 rounded-xl border-2 transition-all duration-300 ease-out text-left relative overflow-hidden ${
                 isSelected
-                  ? 'bg-[#37322F] border-[#37322F]'
+                  ? 'bg-[#007AFF] border-[#007AFF]'
                   : 'bg-white border-[rgba(55,50,47,0.12)] hover:border-[rgba(55,50,47,0.25)]'
               } ${isConfirming ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
             >
@@ -839,7 +839,7 @@ export function StripeCheckout({
               className={`w-full h-14 px-6 rounded-lg font-medium text-base transition-all duration-200 flex items-center justify-center gap-2 ${
                 isLoading || isConfirming || isUpdatingAmount || !stripe || !elements
                   ? 'bg-[#847971] cursor-not-allowed'
-                  : 'bg-[#37322F] hover:bg-[#37322f]/90 cursor-pointer'
+                  : 'bg-[#007AFF] hover:bg-[#0066DD] cursor-pointer'
               } text-white`}
             >
               {isConfirming ? (
@@ -1170,7 +1170,7 @@ export function StripeCheckout({
                       className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                         isSelected
                           ? 'bg-[rgba(55,50,47,0.08)] text-[#37322F] hover:bg-[rgba(55,50,47,0.12)]'
-                          : 'bg-[#37322F] text-white hover:bg-[#37322f]/90'
+                          : 'bg-[#007AFF] text-white hover:bg-[#0066DD]'
                       }`}
                     >
                       {isSelected ? 'Remove from order' : 'Add to order'}

@@ -63,7 +63,7 @@ export function ArrowButton({ children, href, onClick, className = "" }: ArrowBu
     </>
   )
 
-  const baseClasses = `group h-12 px-6 bg-[#37322f] hover:bg-[#37322f]/90 rounded-lg font-medium text-base shadow-[0px_0px_0px_2.5px_rgba(255,255,255,0.08)_inset] cursor-pointer inline-flex items-center justify-center transition-all ${className}`
+  const baseClasses = `group h-12 px-6 bg-[#007AFF] hover:bg-[#0066DD] rounded-lg font-medium text-base shadow-[0px_0px_0px_2.5px_rgba(255,255,255,0.08)_inset] cursor-pointer inline-flex items-center justify-center transition-all ${className}`
 
   if (href) {
     return (

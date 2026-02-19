@@ -61,7 +61,7 @@ export default function MembershipHeader() {
           </Link>
           <Link
             href="/membership"
-            className="h-10 px-6 bg-[#37322f] hover:bg-[#37322f]/90 text-white rounded-lg font-medium text-body inline-flex items-center justify-center transition-all"
+            className="h-10 px-6 bg-[#007AFF] hover:bg-[#0066DD] text-white rounded-lg font-medium text-body inline-flex items-center justify-center transition-all"
           >
             Get Started
           </Link>
@@ -123,7 +123,7 @@ export default function MembershipHeader() {
               <Link
                 href="/membership"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="block w-full h-10 px-6 bg-[#37322f] hover:bg-[#37322f]/90 text-white rounded-lg font-medium text-body text-center leading-10 transition-all"
+                className="block w-full h-10 px-6 bg-[#007AFF] hover:bg-[#0066DD] text-white rounded-lg font-medium text-body text-center leading-10 transition-all"
               >
                 Get Started
               </Link>

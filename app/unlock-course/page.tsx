@@ -89,7 +89,7 @@ export default function ClaimAccessPage() {
                         className={`w-full h-14 px-6 rounded-lg font-medium text-body transition-all duration-200 flex items-center justify-center gap-2 ${
                           loading
                             ? 'bg-[#847971] cursor-not-allowed'
-                            : 'bg-[#37322F] hover:bg-[#37322f]/90 cursor-pointer'
+                            : 'bg-[#007AFF] hover:bg-[#0066DD] cursor-pointer'
                         } text-white`}
                       >
                         {loading ? (

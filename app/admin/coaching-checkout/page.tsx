@@ -134,7 +134,7 @@ export default function AdminCoachingCheckout() {
   const btnClass = (isActive: boolean) =>
     `py-3 px-4 rounded-lg font-medium transition-all font-sans text-body ${
       isActive
-        ? 'bg-[#37322F] text-white'
+        ? 'bg-[#007AFF] text-white'
         : 'bg-gray-100 text-[#37322F] hover:bg-gray-200'
     }`
 
@@ -173,7 +173,7 @@ export default function AdminCoachingCheckout() {
               </button>
               <button
                 onClick={copyToClipboard}
-                className="h-12 px-5 bg-[#37322F] text-white rounded-lg hover:bg-[#49423D] transition-colors flex items-center gap-2 font-sans font-medium text-body"
+                className="h-12 px-5 bg-[#007AFF] text-white rounded-lg hover:bg-[#0066DD] transition-colors flex items-center gap-2 font-sans font-medium text-body"
               >
                 {copied ? <><Check className="w-4 h-4" /> Copied</> : <><Copy className="w-4 h-4" /> Copy</>}
               </button>
@@ -441,7 +441,7 @@ export default function AdminCoachingCheckout() {
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="w-full h-12 px-8 bg-[#37322F] text-white rounded-lg font-semibold text-body font-sans cursor-pointer hover:bg-[#49423D] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full h-12 px-8 bg-[#007AFF] text-white rounded-lg font-semibold text-body font-sans cursor-pointer hover:bg-[#0066DD] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isLoading ? (
                     <span className="flex items-center justify-center gap-2">

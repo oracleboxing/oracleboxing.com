@@ -138,14 +138,14 @@
 }
 
 .ob-btn-primary {
-  background-color: #37322F;
-  color: #F5F5F5;
-  border-color: #37322F;
+  background-color: #007AFF;
+  color: #ffffff;
+  border-color: #007AFF;
 }
 
 .ob-btn-primary:hover:not(:disabled) {
-  background-color: #49423D;
-  border-color: #49423D;
+  background-color: #0066DD;
+  border-color: #0066DD;
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
