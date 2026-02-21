@@ -36,7 +36,32 @@ function MembershipSuccessContent() {
             const plan = data.plan || 'monthly'
             const productIds = data.productIds || ['membership']
 
+            // Supabase tracking (runs client-side with anon key)
             trackPurchase(paymentIntentId, amount, 'USD', productIds, {})
+
+            // Generate shared eventID for browser pixel + CAPI deduplication
+            const eventId = `${Date.now()}-${Math.random().toString(36).substring(2, 11)}`
+
+            // Send CAPI through server route (has FB_ACCESS_TOKEN)
+            fetch('/api/facebook-purchase', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                event_id: eventId,
+                value: amount,
+                currency: 'USD',
+                content_ids: productIds,
+                contents: [{ id: productIds[0], quantity: 1, item_price: amount }],
+                session_url: 'https://oracleboxing.com/membership-success',
+              }),
+              keepalive: true,
+            }).then(async res => {
+              if (res.ok) {
+                console.log('✅ Membership CAPI Purchase event sent')
+              } else {
+                console.error('❌ Membership CAPI Purchase failed:', res.status)
+              }
+            }).catch(err => console.error('❌ Membership CAPI fetch error:', err))
 
             try {
               import('@/lib/gtag').then(({ gtagPurchase }) => {
@@ -55,7 +80,7 @@ function MembershipSuccessContent() {
                 currency: 'USD',
                 content_ids: productIds,
                 content_type: 'product',
-              })
+              }, { eventID: eventId })
             }
           }
         })
