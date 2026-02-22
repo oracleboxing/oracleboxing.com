@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react'
 import { usePathname } from 'next/navigation'
-import { captureUTMParameters } from '@/lib/tracking-cookies'
+import { captureUTMParameters, syncFacebookCookies } from '@/lib/tracking-cookies'
 
 /**
  * Client-side UTM parameter tracker
@@ -16,6 +16,8 @@ export function UTMTracker() {
     // Capture UTM parameters on every page navigation
     // This ensures document.referrer is captured correctly
     captureUTMParameters()
+    // Sync Facebook cookies (_fbc from fbclid, _fbp from pixel)
+    syncFacebookCookies()
   }, [pathname]) // Re-run on navigation
 
   // This component renders nothing
