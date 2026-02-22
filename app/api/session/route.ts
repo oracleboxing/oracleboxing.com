@@ -332,7 +332,6 @@ export async function GET(req: NextRequest) {
 
     // If session doesn't exist, return fallback data with homepage URL
     if (error.type === 'StripeInvalidRequestError' && error.code === 'resource_missing') {
-      console.log('Session not found, using fallback checkout URL');
       return NextResponse.json({
         customerName: 'Customer',
         customerEmail: '',

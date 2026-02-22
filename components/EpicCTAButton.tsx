@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect } from "react";
+import React from "react";
 import { cn } from "@/lib/utils";
 import { useAnalytics } from "@/hooks/useAnalytics";
 
@@ -25,13 +25,6 @@ export function EpicCTAButton({
 }: EpicCTAButtonProps) {
   const { trackButtonClick } = useAnalytics();
 
-  // Debug logging
-  useEffect(() => {
-    if (typeof window !== 'undefined' && trackingName) {
-      console.log(`Button ${trackingName} - href:`, href);
-    }
-  }, [href, trackingName]);
-
   const handleClick = (e?: React.MouseEvent) => {
     // Track button click for analytics (this is a scroll-to-pricing button, NOT AddToCart)
     // AddToCart fires when user actually clicks a pricing card to go to /checkout
@@ -42,10 +35,6 @@ export function EpicCTAButton({
         destination: '#pricing',
       });
 
-      console.log('Button click tracked (scroll to pricing):', {
-        location: trackingName,
-        action: 'scroll-to-pricing'
-      });
     }
 
     // Scroll to pricing section with smooth animation

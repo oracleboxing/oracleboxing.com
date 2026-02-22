@@ -124,7 +124,6 @@ export async function POST(req: NextRequest) {
       },
     })
 
-    console.log('Created Stripe Customer:', customer.id)
     try { await logger.step('stripe-customer-created', 'Stripe customer created', { customerId: customer.id, email: customerInfo.email }); } catch {}
 
     // Build line items - main product first
@@ -226,7 +225,6 @@ export async function POST(req: NextRequest) {
       },
     })
 
-    console.log('Created PaymentIntent:', paymentIntent.id, 'Amount:', totalAmount, currency)
     try { await logger.step('payment-intent-created', 'PaymentIntent created', { paymentIntentId: paymentIntent.id, amount: totalAmount, currency, customerId: customer.id }); } catch {}
 
     const addOnNames = addOnMetadata.length > 0 ? ` + ${addOnMetadata.join(', ')}` : ''

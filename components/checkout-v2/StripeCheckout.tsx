@@ -15,7 +15,6 @@ const CHECKOUT_SESSION_KEY = 'ob_checkout_session'
 function clearCheckoutSession() {
   try {
     sessionStorage.removeItem(CHECKOUT_SESSION_KEY)
-    console.log('🗑️ Checkout session cleared from storage')
   } catch (e) {
     console.warn('Failed to clear checkout session:', e)
   }
@@ -277,8 +276,6 @@ export function StripeCheckout({
     const returnedPaymentIntent = searchParams.get('payment_intent')
 
     if (redirectStatus && returnedPaymentIntent) {
-      console.log('🔄 Payment redirect detected:', { redirectStatus, returnedPaymentIntent })
-
       if (redirectStatus === 'succeeded') {
         // Payment succeeded - clear session and redirect to success page
         clearCheckoutSession()
@@ -477,8 +474,6 @@ export function StripeCheckout({
         redirect: 'if_required', // Only redirect if necessary (for redirect-based payments)
       })
 
-      console.log('🔄 confirmPayment result:', { error: confirmError, status: paymentIntent?.status })
-
       if (confirmError) {
         // Payment failed with an error
         setError(confirmError.message || 'Payment failed. Please try again.')
@@ -505,7 +500,6 @@ export function StripeCheckout({
 
         if (paymentIntent.status === 'requires_action') {
           // 3D Secure or other authentication required - Stripe handles this automatically
-          console.log('⏳ Payment requires additional action (3D Secure)')
           return
         }
 
@@ -517,7 +511,6 @@ export function StripeCheckout({
         }
 
         // Any other status - show generic error
-        console.log('⚠️ Unexpected payment status:', paymentIntent.status)
         setError('Payment could not be completed. Please try again.')
         setIsConfirming(false)
         return

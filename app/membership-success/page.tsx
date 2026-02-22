@@ -26,7 +26,6 @@ function MembershipSuccessContent() {
       })
         .then(res => res.json())
         .then(data => {
-          console.log('Membership activation:', data)
           setActivating(false)
 
           // Fire tracking with real amount from activation response
@@ -57,7 +56,6 @@ function MembershipSuccessContent() {
               keepalive: true,
             }).then(async res => {
               if (res.ok) {
-                console.log('✅ Membership CAPI Purchase event sent')
               } else {
                 console.error('❌ Membership CAPI Purchase failed:', res.status)
               }

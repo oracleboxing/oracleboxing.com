@@ -109,7 +109,6 @@ export function Upsell({ product, sessionId }: UpsellProps) {
       currency: displayCurrency,
     })
 
-    console.log('Upsell declined:', product.title)
   }
 
   if (isAdded) {

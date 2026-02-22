@@ -77,7 +77,6 @@ export async function POST(req: NextRequest) {
     const addOns = pi.metadata?.add_ons_included ? pi.metadata.add_ons_included.split(',').filter(Boolean) : []
     const addOnText = addOns.length > 0 ? ` + ${addOns.join(', ')}` : ''
 
-    console.log('Membership subscription created:', subscription.id, 'trial_end:', new Date(trialEnd * 1000).toISOString())
     notifyOps(`💰 Membership purchase - ${pi.metadata?.customer_email} paid $${amountPaid} (${planLabel}${addOnText}) sub: ${subscription.id}`)
 
     return NextResponse.json({

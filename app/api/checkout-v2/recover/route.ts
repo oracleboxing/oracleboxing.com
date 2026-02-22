@@ -40,14 +40,6 @@ export async function GET(req: NextRequest) {
       addOns = metadata.add_ons_included.split(',').filter(Boolean)
     }
 
-    console.log('🔄 Recovered PaymentIntent:', {
-      id: paymentIntentId,
-      status: paymentIntent.status,
-      customerInfo,
-      addOns,
-      hasClientSecret: !!paymentIntent.client_secret,
-    })
-
     notifyOps(`🔄 Cart recovery - ${customerInfo.email || 'unknown'}`)
 
     return NextResponse.json({

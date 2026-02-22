@@ -70,16 +70,6 @@ export async function POST(request: NextRequest) {
             });
         }
 
-        console.log('📊 Facebook Parameters for InitiateCheckout:', {
-            client_ip: fbParams.client_ip_address,
-            ipType: fbParams.client_ip_address?.includes(':') ? 'IPv6' : 'IPv4',
-            fbc: fbParams.fbc || fbc,
-            fbp: fbParams.fbp || fbp,
-            event_id,
-            value,
-            currency,
-        });
-
         const eventData = {
             event_name: 'InitiateCheckout',
             event_time: eventTime,
@@ -101,14 +91,6 @@ export async function POST(request: NextRequest) {
             access_token: FB_ACCESS_TOKEN,
         };
 
-        console.log('📊 Sending InitiateCheckout to Facebook CAPI:', {
-            event_id,
-            email_hashed: hashedEmail.substring(0, 10) + '...',
-            value,
-            currency,
-            products,
-        });
-
         const response = await fetch(FB_CONVERSIONS_API_URL, {
             method: 'POST',
             headers: {
@@ -127,7 +109,6 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        console.log('✅ Facebook CAPI InitiateCheckout success:', result);
         // notifyOps(`📊 FB Initiate Checkout event fired - ${email}`)
         return NextResponse.json({ success: true, result });
     } catch (error) {

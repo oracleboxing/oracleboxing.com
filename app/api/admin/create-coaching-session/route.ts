@@ -56,14 +56,6 @@ export async function POST(req: NextRequest) {
 
     try { await logger.started('Admin coaching session creation', { email, name, tier, coach, paymentPlan, customerDiscount, sixMonthCommitment }); } catch {}
 
-    console.log('🎯 Creating internal coaching session:', {
-      tier,
-      customerDiscount,
-      sixMonthCommitment,
-      paymentPlan,
-      coach,
-    })
-
     // Validate required fields
     if (!email || !name || !tier || !paymentPlan || !coach) {
       return NextResponse.json(
@@ -80,8 +72,6 @@ export async function POST(req: NextRequest) {
       paymentPlan,
       coach
     )
-
-    console.log('💰 Price calculation:', calculation)
 
     // Split name into first and last name for metadata
     const nameParts = name.trim().split(' ')
@@ -204,7 +194,6 @@ export async function POST(req: NextRequest) {
         },
       })
 
-      console.log('✅ PaymentIntent created:', paymentIntent.id)
       const paymentIntentToken = mintIntentToken({
         intentId: paymentIntent.id,
         purpose: 'payment_intent_client_secret_fetch',
@@ -224,8 +213,6 @@ export async function POST(req: NextRequest) {
         pi: paymentIntent.id,
         pit: paymentIntentToken,
       })
-
-      console.log('🔗 Custom Checkout URL:', checkoutUrl)
 
       return NextResponse.json({
         url: checkoutUrl,
@@ -260,7 +247,6 @@ export async function POST(req: NextRequest) {
         },
       })
 
-      console.log('✅ Split Pay PaymentIntent created:', paymentIntent.id)
       const paymentIntentToken = mintIntentToken({
         intentId: paymentIntent.id,
         purpose: 'payment_intent_client_secret_fetch',
@@ -280,8 +266,6 @@ export async function POST(req: NextRequest) {
         pi: paymentIntent.id,
         pit: paymentIntentToken,
       })
-
-      console.log('🔗 Custom Checkout URL:', checkoutUrl)
 
       return NextResponse.json({
         url: checkoutUrl,
@@ -313,7 +297,6 @@ export async function POST(req: NextRequest) {
         },
       })
 
-      console.log('✅ SetupIntent created for subscription:', setupIntent.id)
       const setupIntentToken = mintIntentToken({
         intentId: setupIntent.id,
         purpose: 'payment_intent_client_secret_fetch',
@@ -334,8 +317,6 @@ export async function POST(req: NextRequest) {
         monthly: 'true',
         pit: setupIntentToken,
       })
-
-      console.log('🔗 Custom Checkout URL:', checkoutUrl)
 
       return NextResponse.json({
         url: checkoutUrl,

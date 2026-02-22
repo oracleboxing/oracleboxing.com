@@ -40,7 +40,6 @@ export default function PricingSection() {
       }, {
         eventID: eventId
       })
-      console.log('📱 Facebook Pixel AddToCart event sent:', { productId, eventId })
     }
 
     // Send to Facebook Conversions API (server-side)
@@ -84,7 +83,6 @@ export default function PricingSection() {
       console.error('Failed to send AddToCart to Facebook CAPI:', error)
     })
 
-    console.log('🛒 AddToCart tracked:', { productId, productName, price, currency, buttonLocation })
   }
   return (
     <div id="pricing" className="w-full relative overflow-hidden flex flex-col justify-center items-center scroll-mt-8 border-b border-[rgba(55,50,47,0.12)]">

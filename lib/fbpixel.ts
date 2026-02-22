@@ -53,19 +53,10 @@ export const fbInitiateCheckout = (value: number, currency: string = 'USD', numI
     // Remove eventID from parameters (it goes in options)
     delete parameters.eventID;
     
-    // Log for debugging - always log, not just on localhost
-    console.log('FB InitiateCheckout event firing:', {
-      eventID: eventID,
-      parameters: parameters,
-      fbqExists: !!window.fbq,
-      fbqType: typeof window.fbq
-    });
-    
     try {
       window.fbq('track', 'InitiateCheckout', parameters, {
         eventID: eventID
       });
-      console.log('FB InitiateCheckout event sent successfully');
     } catch (error) {
       console.error('Error sending FB InitiateCheckout:', error);
     }
@@ -112,23 +103,8 @@ export const fbPurchase = (value: number, currency: string = 'USD', transactionI
       ...(transactionId && { order_id: transactionId })
     };
     
-    // Always log for debugging (not just localhost)
-    console.log('FB Purchase event firing:', {
-      value: value,
-      currency: currency,
-      transactionId: transactionId,
-      orderBumps: orderBumps,
-      eventID: eventID,
-      parameters: parameters
-    });
-    
     window.fbq('track', 'Purchase', parameters, {
       eventID: eventID
-    });
-  } else {
-    console.log('FB Purchase NOT firing - fbq not available:', {
-      windowExists: typeof window !== 'undefined',
-      fbqExists: typeof window !== 'undefined' && window.fbq
     });
   }
 };
@@ -149,11 +125,6 @@ export const fbTrackCustom = (eventName: string, parameters?: any, metadata: any
   if (typeof window !== 'undefined' && window.fbq) {
     const eventID = metadata.eventID || metadata.event_id || Date.now().toString();
     
-    // Log for debugging
-    if (typeof window !== 'undefined' && window.location.hostname === 'localhost') {
-      console.log(`FB Custom Event '${eventName}':`, parameters);
-    }
-    
     window.fbq('trackCustom', eventName, parameters, {
       eventID: eventID
     });
@@ -164,11 +135,6 @@ export const fbTrackCustom = (eventName: string, parameters?: any, metadata: any
 export const fbTrack = (eventName: string, parameters?: any, metadata: any = {}) => {
   if (typeof window !== 'undefined' && window.fbq) {
     const eventID = metadata.eventID || metadata.event_id || Date.now().toString();
-    
-    // Log for debugging
-    if (typeof window !== 'undefined' && window.location.hostname === 'localhost') {
-      console.log(`FB Event '${eventName}':`, parameters);
-    }
     
     window.fbq('track', eventName, parameters, {
       eventID: eventID

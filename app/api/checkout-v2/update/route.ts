@@ -96,8 +96,6 @@ export async function POST(req: NextRequest) {
       },
     })
 
-    console.log('Updated PaymentIntent:', paymentIntentId, 'New amount:', totalAmount, currency)
-
     return NextResponse.json({
       success: true,
       amount: totalAmount,

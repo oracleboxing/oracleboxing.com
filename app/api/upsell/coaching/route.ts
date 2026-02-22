@@ -29,8 +29,6 @@ export async function POST(req: NextRequest) {
     const { customerEmail, customerName, originalSessionId, isMembership = false, currency = 'USD', trackingParams, cookieData } = body;
     try { await logger.started('Coaching upsell requested', { email: customerEmail, name: customerName, isMembership, currency, originalSessionId }); } catch {}
 
-    console.log('🎯 Creating coaching upsell:', { customerEmail, isMembership, currency });
-
     // Use the specific price IDs requested by the user
     // Both prices use the same product: prod_THuQf0h3DatQUL
     let priceId: string;
@@ -42,8 +40,6 @@ export async function POST(req: NextRequest) {
       // Non-membership buyers use multi-currency price
       priceId = 'price_1SLLY7QNEdHwdojXVriclpjV';
     }
-
-    console.log('💰 Using price ID:', priceId, 'for isMembership:', isMembership);
 
     // Get base URL for redirect
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3002';

@@ -240,8 +240,6 @@ function CoachingCheckoutContent() {
 
       // Handle SetupIntent for monthly subscriptions
       if (setupIntentId && isMonthlySetup) {
-        console.log('🔄 Confirming SetupIntent for monthly subscription...')
-
         const { error: confirmError, setupIntent } = await stripe.confirmSetup({
           elements,
           confirmParams: {
@@ -249,8 +247,6 @@ function CoachingCheckoutContent() {
           },
           redirect: 'if_required',
         })
-
-        console.log('🔄 confirmSetup result:', { error: confirmError, status: setupIntent?.status })
 
         if (confirmError) {
           setError(confirmError.message || 'Card setup failed')
@@ -260,7 +256,6 @@ function CoachingCheckoutContent() {
 
         if (setupIntent && setupIntent.status === 'succeeded') {
           // Card saved successfully - now create the subscription
-          console.log('✅ SetupIntent succeeded, creating subscription...')
           try {
             const response = await fetch('/api/coaching-checkout/create-subscription', {
               method: 'POST',
@@ -271,17 +266,13 @@ function CoachingCheckoutContent() {
             })
 
             const data = await response.json()
-            console.log('📦 create-subscription response:', data)
 
             if (!response.ok) {
               throw new Error(data.error || 'Failed to create subscription')
             }
 
-            console.log('✅ Subscription created:', data.subscriptionId)
-
             // Redirect to success page
             const successUrl = `${window.location.origin}/success?subscription=${data.subscriptionId}`
-            console.log('🔗 Redirecting to:', successUrl)
             window.location.href = successUrl
             return
           } catch (err: any) {
@@ -294,7 +285,6 @@ function CoachingCheckoutContent() {
 
         // Handle requires_action for SetupIntent
         if (setupIntent && setupIntent.status === 'requires_action') {
-          console.log('⏳ SetupIntent requires additional action (3D Secure)')
           return
         }
 
@@ -313,8 +303,6 @@ function CoachingCheckoutContent() {
         },
         redirect: 'if_required',
       })
-
-      console.log('🔄 confirmPayment result:', { error: confirmError, status: paymentIntent?.status })
 
       if (confirmError) {
         setError(confirmError.message || 'Payment failed')
@@ -342,7 +330,6 @@ function CoachingCheckoutContent() {
                 sixMonthCommitment: coachingDetails.sixMonthCommitment,
               }),
             })
-            console.log('✅ Split payment saved for second payment scheduling')
           } catch (err) {
             // Don't block redirect on save failure - log and continue
             console.error('Failed to save split payment:', err)
@@ -356,7 +343,6 @@ function CoachingCheckoutContent() {
       // Handle requires_action (3D Secure) - Stripe should redirect automatically
       // but if we get here, log it and wait
       if (paymentIntent && paymentIntent.status === 'requires_action') {
-        console.log('⏳ Payment requires additional action (3D Secure)')
         // Stripe should handle this via redirect, but just in case
         return
       }

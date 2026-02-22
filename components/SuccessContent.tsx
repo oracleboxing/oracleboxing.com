@@ -114,7 +114,6 @@ export function SuccessContent({ sessionId, isPaymentIntent = false, isSubscript
         const response = await fetch(`/api/session?${param}=${sessionId}`);
         const sessionData = await response.json();
 
-        console.log('Session data:', sessionData);
         setSession(sessionData);
 
         // Send Purchase event to Facebook (browser + CAPI)
@@ -131,17 +130,8 @@ export function SuccessContent({ sessionId, isPaymentIntent = false, isSubscript
       try {
         // Check for duplicate purchase events
         if (isPurchaseAlreadyTracked(sessionId)) {
-          console.log('⚠️ Purchase event already tracked for session:', sessionId);
           return;
         }
-
-        console.log('Session data received for Purchase tracking:', {
-          has_amount_total: !!sessionData.amount_total,
-          has_line_items: !!sessionData.line_items,
-          line_items_count: sessionData.line_items?.data?.length || 0,
-          has_customer_details: !!sessionData.customer_details,
-          sessionData_keys: Object.keys(sessionData),
-        });
 
         // Get cookie data (empty if no consent)
         const cookieData = getTrackingCookie();
@@ -176,19 +166,6 @@ export function SuccessContent({ sessionId, isPaymentIntent = false, isSubscript
         const orderBumps = metadata.add_ons_included ? metadata.add_ons_included.split(',') : [];
         const hasOrderBumps = orderBumps.length > 0;
 
-        console.log('Sending Purchase event:', {
-          event_id: eventId,
-          value: amountTotal,
-          currency,
-          content_ids: contentIds,
-          contents_count: contents.length,
-          products,
-          funnel_type: funnelType,
-          has_order_bumps: hasOrderBumps,
-          order_bumps: orderBumps,
-          has_customer_email: !!(sessionData.customer_details?.email || sessionData.customer_email || sessionData.customerEmail),
-        });
-
         // 1. Send browser-side Facebook Pixel Purchase event
         if (typeof window !== 'undefined' && (window as any).fbq) {
           (window as any).fbq('track', 'Purchase', {
@@ -200,7 +177,6 @@ export function SuccessContent({ sessionId, isPaymentIntent = false, isSubscript
           }, {
             eventID: eventId
           });
-          console.log('Browser Purchase event sent with event_id:', eventId);
         } else {
           console.warn('Facebook Pixel not loaded - browser Purchase event not sent');
         }
@@ -225,10 +201,7 @@ export function SuccessContent({ sessionId, isPaymentIntent = false, isSubscript
           }),
           keepalive: true,
         }).then(async response => {
-          if (response.ok) {
-            const result = await response.json();
-            console.log('CAPI Purchase event sent successfully:', result);
-          } else {
+          if (!response.ok) {
             const error = await response.json();
             console.error('CAPI Purchase event failed:', response.status, error);
           }
@@ -269,8 +242,6 @@ export function SuccessContent({ sessionId, isPaymentIntent = false, isSubscript
           order_bumps: orderBumps,
           order_bump_names: orderBumpNames,
         });
-        console.log('Vercel Analytics Purchase event sent');
-
         // 4. Track purchase in Supabase (non-blocking)
         const customerName = sessionData.customer_details?.name ||
                             (metadata.customer_first_name && metadata.customer_last_name
@@ -301,8 +272,6 @@ export function SuccessContent({ sessionId, isPaymentIntent = false, isSubscript
             utm_term: sessionData.trackingParams.utm_term,
           } : undefined
         );
-        console.log('✅ Purchase tracked to Supabase (amount in USD:', amountInUSD, ')');
-
         // 5. Send Google Ads Purchase event
         try {
           const { gtagPurchase, gtagSetUserData } = await import('@/lib/gtag')
@@ -335,14 +304,12 @@ export function SuccessContent({ sessionId, isPaymentIntent = false, isSubscript
             items: gtagItems,
           })
 
-          console.log('📊 Google Ads Purchase event sent')
         } catch (e) {
           console.warn('Failed to send Google Ads purchase:', e)
         }
 
         // Mark purchase as tracked to prevent duplicates on page refresh
         markPurchaseAsTracked(sessionId);
-        console.log('✅ Purchase marked as tracked for session:', sessionId);
 
       } catch (error) {
         console.error('Error sending Purchase event:', error);

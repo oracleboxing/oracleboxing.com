@@ -74,8 +74,6 @@ export async function POST(req: NextRequest) {
       )
     }
 
-    console.log(`✅ Split payment ${split_payment_id} updated to: ${status}`)
-
     notifyOps(`📋 Split payment status updated - ${split_payment_id} → ${status}`)
 
     return NextResponse.json({

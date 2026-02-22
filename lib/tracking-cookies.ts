@@ -203,7 +203,6 @@ export function getOrInitTrackingData(): TrackingData {
       const fallback = sessionStorage.getItem('ob_track_fallback');
       if (fallback) {
         trackingData = JSON.parse(fallback);
-        console.log('📊 Using sessionStorage fallback for tracking data');
       }
     } catch (e) {
       console.warn('Failed to read sessionStorage fallback:', e);
@@ -260,7 +259,6 @@ export function getOrInitTrackingData(): TrackingData {
     updates.first_referrer_time = updates.landing_time || now;
     updates.last_referrer = 'direct';
     updates.last_referrer_time = updates.landing_time || now;
-    console.log('📊 First visit detected - setting placeholder "direct" attribution');
   } else {
     // Returning visitor - preserve existing first-touch, only update last-touch if missing
     if (!trackingData.last_referrer) {
@@ -423,7 +421,6 @@ export function captureUTMParameters(): Partial<TrackingData> | null {
       if (referrerDomain !== currentDomain) {
         updates.first_referrer = referrer;
         updates.first_referrer_time = now;
-        console.log('📊 First referrer captured:', referrer);
       }
     } catch (e) {
       console.warn('Invalid referrer URL:', referrer);
@@ -446,14 +443,12 @@ export function captureUTMParameters(): Partial<TrackingData> | null {
     if (utmTerm !== null && utmTerm !== undefined) {
       updates.first_utm_term = utmTerm;
     }
-    console.log('📊 First touch UTM captured:', { utmSource, utmMedium, utmCampaign });
 
     // FIXED Bug #6: If UTM params exist but no referrer header (email/SMS/QR codes)
     // Set first_referrer to the utm_source to avoid 'direct' being set later
     if (!existingData.first_referrer && !updates.first_referrer) {
       updates.first_referrer = utmSource; // Use utm_source as referrer
       updates.first_referrer_time = now;
-      console.log('📊 First referrer set from utm_source (no document.referrer):', utmSource);
     }
   }
 
@@ -483,10 +478,7 @@ export function captureUTMParameters(): Partial<TrackingData> | null {
         if (referrer !== existingData.last_referrer || existingData.last_referrer === 'direct') {
           updates.last_referrer = referrer;
           shouldUpdateTime = true;
-          console.log('📊 Last referrer updated:', referrer);
         }
-      } else if (isBlockedDomain) {
-        console.log('📊 Referrer blocked (checkout/payment domain):', referrerDomain);
       }
     } catch (e) {
       console.warn('Invalid referrer URL:', referrer);
@@ -525,7 +517,6 @@ export function captureUTMParameters(): Partial<TrackingData> | null {
     }
 
     shouldUpdateTime = true; // UTM changed, update time
-    console.log('📊 Last touch UTM updated:', { utmSource, utmMedium, utmCampaign });
   }
 
   // Update last_referrer_time if:
@@ -534,10 +525,6 @@ export function captureUTMParameters(): Partial<TrackingData> | null {
   // - UTM parameters changed
   if (shouldUpdateTime) {
     updates.last_referrer_time = now;
-    console.log('📊 Last referrer time updated:', now,
-                isNewSession ? '(new session)' :
-                updates.last_referrer ? '(referrer changed)' :
-                updates.last_utm_source ? '(UTM changed)' : '');
   }
 
   // Facebook Click ID (always update if present)
@@ -549,15 +536,11 @@ export function captureUTMParameters(): Partial<TrackingData> | null {
   // UTM params are from the URL the user clicked, not generated tracking data
   // This ensures we don't lose attribution when they navigate before accepting cookies
   if (Object.keys(updates).length > 0) {
-    console.log('📊 Saving attribution updates to cookies:', updates);
-
     // FIXED Bug #5: Use atomic update with error handling and fallback
     const success = atomicUpdateTrackingData(updates);
 
-    if (success) {
-      console.log('✅ Attribution saved successfully (consent not required for UTM params)');
-    } else {
-      console.error('❌ Failed to save attribution data - all storage methods failed');
+    if (!success) {
+      console.error('Failed to save attribution data - all storage methods failed');
     }
   }
 
@@ -768,7 +751,6 @@ export function syncFacebookCookies(): void {
   if (fbclid && !getFacebookFbc()) {
     const fbc = buildFbcFromFbclid(fbclid);
     setFacebookFbc(fbc);
-    console.log('📊 Facebook _fbc cookie created from fbclid:', fbc);
   }
 
   // Read _fbp cookie set by Facebook Pixel and sync to ob_track
@@ -778,7 +760,6 @@ export function syncFacebookCookies(): void {
     if (!trackingData._fbp) {
       trackingData._fbp = fbp;
       setCookie('ob_track', trackingData, 30);
-      console.log('📊 Facebook _fbp cookie synced to tracking data');
     }
   }
 }

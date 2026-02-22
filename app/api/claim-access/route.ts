@@ -24,8 +24,6 @@ export async function POST(req: NextRequest) {
 
     try { await logger.started('Access claim requested', { email }); } catch {}
 
-    console.log('📤 Sending course access claim to webhook:', email)
-
     // Send to Make.com webhook
     const response = await fetch(CLAIM_ACCESS_WEBHOOK_URL, {
       method: 'POST',
@@ -40,7 +38,6 @@ export async function POST(req: NextRequest) {
     })
 
     if (response.ok) {
-      console.log('✅ Course access claim sent successfully')
       try { await logger.completed(`Access claimed for ${email}`, { email }); } catch {}
       return NextResponse.json({ success: true })
     } else {

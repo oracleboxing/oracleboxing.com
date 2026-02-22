@@ -34,8 +34,7 @@ export async function GET() {
     })
 
     if (pageViewsError) {
-      // Try direct SQL if rpc doesn't work
-      console.log('RPC failed, trying direct table creation via REST API...')
+      // Try direct SQL if rpc doesn't work (fall through to direct creation)
     }
 
     // Create initiate_checkouts table

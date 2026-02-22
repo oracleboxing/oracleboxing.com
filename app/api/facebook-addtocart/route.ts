@@ -66,21 +66,6 @@ export async function POST(request: NextRequest) {
       access_token: FB_ACCESS_TOKEN,
     };
 
-    console.log('📊 Sending AddToCart to Facebook CAPI:', {
-      event_id,
-      content_ids,
-      content_name,
-      value,
-      currency,
-      button_location,
-      page_url,
-      custom_data_keys: Object.keys(customData),
-      client_ip_address: fbParams.client_ip_address,
-      ip_type: fbParams.client_ip_address?.includes(':') ? 'IPv6' : 'IPv4',
-      has_fbc: !!fbParams.fbc,
-      has_fbp: !!fbParams.fbp,
-    });
-
     const response = await fetch(FB_CONVERSIONS_API_URL, {
       method: 'POST',
       headers: {
@@ -99,7 +84,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    console.log('Facebook CAPI AddToCart success:', result);
     // notifyOps(`📊 FB Add to Cart event fired - ${content_name || content_ids?.join(', ') || 'unknown'}`)
     return NextResponse.json({ success: true, result });
   } catch (error) {

@@ -25,7 +25,6 @@ export function gtagEvent(
   }
 
   window.gtag('event', eventName, params)
-  console.log(`📊 Google Ads event: ${eventName}`, params)
 }
 
 /**
@@ -57,7 +56,6 @@ export function gtagConversion(
     transaction_id: params.transaction_id,
     items: params.items,
   })
-  console.log(`📊 Google Ads conversion sent:`, { conversionLabel, ...params })
 }
 
 /**
@@ -85,7 +83,6 @@ export function gtagSetUserData(userData: {
   if (Object.keys(cleanData).length === 0) return
 
   window.gtag('set', 'user_data', cleanData)
-  console.log('📊 Google Ads user_data set for enhanced conversions')
 }
 
 /**
@@ -167,7 +164,6 @@ export function gtagSignupConversion(params?: {
     value: params?.value ?? 1.0,
     currency: params?.currency ?? 'GBP',
   })
-  console.log('📊 Google Ads Sign-up conversion sent')
 }
 
 /**

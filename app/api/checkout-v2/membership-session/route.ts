@@ -77,7 +77,6 @@ export async function POST(req: NextRequest) {
       },
     })
 
-    console.log('Created Stripe Customer:', customer.id)
     try { await logger.step('stripe-customer-created', 'Stripe customer created', { customerId: customer.id }) } catch {}
 
     // Build metadata
@@ -162,7 +161,6 @@ export async function POST(req: NextRequest) {
       throw new Error('No client secret returned from PaymentIntent creation')
     }
 
-    console.log('Created PaymentIntent:', paymentIntent.id, 'Amount:', totalAmount)
     try { await logger.completed(`Membership checkout created for ${customerInfo.email}`, {
       paymentIntentId: paymentIntent.id,
       plan,

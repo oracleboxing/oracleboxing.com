@@ -111,14 +111,6 @@ export async function POST(req: NextRequest) {
       },
     })
 
-    console.log('✅ Subscription created from SetupIntent:', {
-      subscriptionId: subscription.id,
-      customerId,
-      monthlyAmount: monthlyAmount / 100,
-      tier,
-      coach,
-    })
-
     try { await logger.completed(`Coaching subscription created for ${metadata.customer_email || customerId}`, { subscriptionId: subscription.id, customerId, email: metadata.customer_email, tier, coach, monthlyAmount: monthlyAmount / 100, setupIntentId }); } catch {}
 
 

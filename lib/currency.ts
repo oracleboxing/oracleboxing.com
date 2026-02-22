@@ -144,15 +144,10 @@ export const detectUserCurrency = async (): Promise<Currency> => {
       return 'USD';
     }
 
-    console.log('Currency detected from location:', countryCode);
     return detectCurrencyFromCountry(countryCode);
   } catch (error) {
     // Silently fall back to USD - this is expected behavior when API fails
-    if (error instanceof Error && error.name === 'AbortError') {
-      console.log('Currency detection timed out, using USD');
-    } else {
-      console.log('Currency detection unavailable, using USD');
-    }
+    // Silently default to USD
     return 'USD'; // Default to USD on error
   }
 };

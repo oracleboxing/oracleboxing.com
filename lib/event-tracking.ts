@@ -172,8 +172,6 @@ export async function trackEvent(data: EventData): Promise<void> {
       .then(({ error }: { error: any }) => {
         if (error) {
           console.error('Failed to track event:', error)
-        } else {
-          console.log(`✅ Event tracked: ${event.event_name}`, data)
         }
       })
   } catch (error) {

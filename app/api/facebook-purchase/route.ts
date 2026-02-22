@@ -38,31 +38,11 @@ export async function POST(req: NextRequest) {
       session_url,
     } = body;
 
-    console.log('📊 Received Purchase event request:', {
-      event_id,
-      value,
-      currency,
-      content_ids,
-      contents_count: contents?.length || 0,
-      customer_email: customer_email ? '✓ ' + customer_email : '✗',
-      customer_phone: customer_phone ? '✓' : '✗',
-      cookie_data_present: !!cookie_data,
-      cookie_data_keys: cookie_data ? Object.keys(cookie_data) : [],
-      fbclid: fbclid ? '✓' : '✗',
-    });
-
     const eventTime = Math.floor(Date.now() / 1000);
 
     // Extract Facebook parameters using Parameter Builder
     // This handles IPv4 and IPv6 addresses properly with all proxy headers
     const fbParams = extractFacebookParams(req);
-
-    console.log('📊 Facebook Parameters for Purchase:', {
-      client_ip: fbParams.client_ip_address,
-      ipType: fbParams.client_ip_address?.includes(':') ? 'IPv6' : 'IPv4',
-      fbc: fbParams.fbc,
-      fbp: fbParams.fbp,
-    });
 
     // Build custom_data with cookie tracking data
     const customData: Record<string, any> = {
@@ -143,22 +123,6 @@ export async function POST(req: NextRequest) {
       access_token: FB_ACCESS_TOKEN,
     };
 
-    console.log('📊 Sending Purchase to Facebook CAPI:', {
-      event_id,
-      value: customData.value,
-      currency: customData.currency,
-      content_ids: customData.content_ids,
-      num_items: customData.num_items,
-      custom_data_keys: Object.keys(customData),
-      client_ip_address: userData.client_ip_address,
-      ip_type: userData.client_ip_address?.includes(':') ? 'IPv6' : 'IPv4',
-      has_fbc: !!userData.fbc,
-      has_fbp: !!userData.fbp,
-      has_external_id: !!userData.external_id,
-      customer_email_hashed: !!userData.em,
-      customer_phone_hashed: !!userData.ph,
-    });
-
     const fbResponse = await fetch(FB_CONVERSIONS_API_URL, {
       method: 'POST',
       headers: {
@@ -177,7 +141,6 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    console.log('✅ Facebook CAPI Purchase success:', fbResult);
     // notifyOps(`📊 FB Purchase event fired - ${customer_email || 'unknown'} ($${value} ${currency})`)
     return NextResponse.json({ success: true, result: fbResult });
 

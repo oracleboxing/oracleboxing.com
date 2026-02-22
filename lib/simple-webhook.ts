@@ -72,12 +72,6 @@ interface InitiatedCheckoutData {
  */
 export async function sendChallengeSignup(data: ChallengeSignupData): Promise<void> {
   try {
-    console.log('📤 Sending challenge signup to webhook:', {
-      firstName: data.firstName,
-      lastName: data.lastName,
-      email: data.email
-    });
-
     const response = await fetch(WEBHOOK_URL, {
       method: 'POST',
       headers: {
@@ -92,9 +86,7 @@ export async function sendChallengeSignup(data: ChallengeSignupData): Promise<vo
       })
     });
 
-    if (response.ok) {
-      console.log('✅ Challenge signup sent successfully');
-    } else {
+    if (!response.ok) {
       console.error('❌ Webhook responded with error:', response.status);
     }
   } catch (error) {
@@ -133,16 +125,6 @@ export async function sendInitiatedCheckout(data: InitiatedCheckoutData): Promis
   // FIXED: Use setTimeout instead of setImmediate (better browser/edge compatibility)
   setTimeout(async () => {
     try {
-      console.log('📤 ABANDONED CART: Preparing to send initiated checkout to webhook');
-      console.log('📤 ABANDONED CART: Webhook URL:', INITIATED_CHECKOUT_WEBHOOK_URL);
-      console.log('📤 ABANDONED CART: Customer Email:', data.customer.email);
-      console.log('📤 ABANDONED CART: Customer First Name:', data.customer.firstName);
-      console.log('📤 ABANDONED CART: Customer Last Name:', data.customer.lastName);
-      console.log('📤 ABANDONED CART: Checkout URL:', data.checkoutUrl);
-      console.log('📤 ABANDONED CART: Session ID:', data.sessionId);
-      console.log('📤 ABANDONED CART: Cart Items:', data.cart.items.length);
-      console.log('📤 ABANDONED CART: Total Amount:', data.cart.totalAmount);
-
       // FIXED: Flatten cookie data for easier Make.com access
       const flattenedCookies = flattenCookieData(data.cookieData);
 
@@ -218,10 +200,6 @@ export async function sendInitiatedCheckout(data: InitiatedCheckoutData): Promis
         cookie_data: data.cookieData || {},
       };
 
-      console.log('📤 ABANDONED CART: Full payload being sent:', JSON.stringify(payload, null, 2));
-
-      console.log('📤 ABANDONED CART: Starting fetch to Make.com...');
-
       // FIXED: Add retry logic for webhook failures
       const maxRetries = 3;
       const retryDelays = [1000, 5000, 15000]; // 1s, 5s, 15s
@@ -230,7 +208,6 @@ export async function sendInitiatedCheckout(data: InitiatedCheckoutData): Promis
 
       while (attempt < maxRetries && !success) {
         attempt++;
-        console.log(`📤 ABANDONED CART: Attempt ${attempt}/${maxRetries}`);
 
         try {
           // Allow 30 seconds per attempt (reduced from 100s for faster retries)
@@ -247,14 +224,8 @@ export async function sendInitiatedCheckout(data: InitiatedCheckoutData): Promis
           });
 
           clearTimeout(timeoutId);
-          console.log('📤 ABANDONED CART: Fetch completed!');
-          console.log('📤 ABANDONED CART: Webhook response status:', response.status);
-          console.log('📤 ABANDONED CART: Webhook response OK:', response.ok);
 
           if (response.ok) {
-            const responseText = await response.text();
-            console.log('✅ ABANDONED CART: Initiated checkout sent successfully to Make.com');
-            console.log('✅ ABANDONED CART: Response body:', responseText);
             success = true;
           } else {
             console.error(`❌ ABANDONED CART: Webhook responded with error on attempt ${attempt}:`, response.status);
@@ -263,7 +234,6 @@ export async function sendInitiatedCheckout(data: InitiatedCheckoutData): Promis
 
             // Retry on 5xx errors (server issues), don't retry on 4xx (client errors)
             if (response.status >= 500 && attempt < maxRetries) {
-              console.log(`⏳ ABANDONED CART: Retrying in ${retryDelays[attempt - 1]}ms...`);
               await new Promise(resolve => setTimeout(resolve, retryDelays[attempt - 1]));
             } else {
               break; // Don't retry on 4xx errors
@@ -273,7 +243,6 @@ export async function sendInitiatedCheckout(data: InitiatedCheckoutData): Promis
           if (fetchError instanceof Error && fetchError.name === 'AbortError') {
             console.error(`❌ ABANDONED CART: Webhook request timed out on attempt ${attempt}`);
             if (attempt < maxRetries) {
-              console.log(`⏳ ABANDONED CART: Retrying in ${retryDelays[attempt - 1]}ms...`);
               await new Promise(resolve => setTimeout(resolve, retryDelays[attempt - 1]));
             }
           } else {
@@ -281,7 +250,6 @@ export async function sendInitiatedCheckout(data: InitiatedCheckoutData): Promis
             console.error('❌ ABANDONED CART: Fetch error details:', fetchError instanceof Error ? fetchError.message : String(fetchError));
 
             if (attempt < maxRetries) {
-              console.log(`⏳ ABANDONED CART: Retrying in ${retryDelays[attempt - 1]}ms...`);
               await new Promise(resolve => setTimeout(resolve, retryDelays[attempt - 1]));
             }
           }
@@ -303,7 +271,6 @@ export async function sendInitiatedCheckout(data: InitiatedCheckoutData): Promis
             failedWebhooks.shift();
           }
           localStorage.setItem('failed_abandoned_cart_webhooks', JSON.stringify(failedWebhooks));
-          console.log('💾 ABANDONED CART: Failed webhook stored to localStorage');
         } catch (storageError) {
           console.error('❌ ABANDONED CART: Failed to store to localStorage:', storageError);
         }
@@ -316,7 +283,4 @@ export async function sendInitiatedCheckout(data: InitiatedCheckoutData): Promis
       console.error('❌ ABANDONED CART: Error stack:', error instanceof Error ? error.stack : 'No stack trace');
     }
   }, 0); // Execute asynchronously without blocking
-
-  // Return immediately - don't wait for webhook
-  console.log('✅ ABANDONED CART: Webhook queued for background processing');
 }

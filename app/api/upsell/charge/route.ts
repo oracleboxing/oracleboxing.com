@@ -23,13 +23,10 @@ function prepareCookieDataForStripe(cookieData: any): Record<string, string> {
 
 export async function POST(req: NextRequest) {
   const logger = createWorkflowLogger({ workflowName: 'upsell-charge', workflowType: 'checkout', notifySlack: true });
-  console.log('🔍 UPSELL: Request received')
   try {
     const body = await req.json()
     const { session_id, price_id, product_id, trackingParams, cookieData } = body
     try { await logger.started('Upsell charge requested', { session_id, price_id, product_id }); } catch {}
-
-    console.log('🔍 UPSELL: Body parsed:', { session_id, price_id, product_id, trackingParams })
 
     // Validate inputs
     if (!session_id || !price_id || !product_id) {
@@ -41,23 +38,11 @@ export async function POST(req: NextRequest) {
     }
 
     // Get the original checkout session
-    console.log('🔍 UPSELL: Retrieving session:', session_id)
     const session = await stripe.checkout.sessions.retrieve(session_id, {
       expand: ['payment_intent', 'subscription', 'payment_intent.latest_charge']
     })
-    console.log('🔍 UPSELL: Session retrieved successfully')
-
     // Get the original currency from the session
     const originalCurrency = session.currency || 'usd'
-    console.log('🔍 UPSELL: Original purchase currency:', originalCurrency)
-
-    console.log('🔍 Session retrieved:', {
-      id: session.id,
-      customer: session.customer,
-      payment_intent: session.payment_intent,
-      subscription: session.subscription,
-      payment_status: session.payment_status,
-    })
 
     // Get customer and payment method
     let customerId: string | null = null
@@ -73,7 +58,6 @@ export async function POST(req: NextRequest) {
 
       // If no customer on session, try to get from payment intent's latest charge
       if (!session.customer && paymentIntent.latest_charge) {
-        console.log('🔍 UPSELL: No customer on session, retrieving from charge')
         const chargeId = typeof paymentIntent.latest_charge === 'string'
           ? paymentIntent.latest_charge
           : paymentIntent.latest_charge.id
@@ -94,9 +78,6 @@ export async function POST(req: NextRequest) {
       customerId = session.customer as string
     }
 
-    console.log('🔍 UPSELL: Customer ID:', customerId)
-    console.log('🔍 UPSELL: Payment Method ID:', paymentMethodId)
-
     if (!customerId) {
       console.error('❌ UPSELL: No customer found')
       return NextResponse.json(
@@ -114,23 +95,12 @@ export async function POST(req: NextRequest) {
     }
 
     // Get the price from Stripe to determine if it's recurring
-    console.log('🔍 UPSELL: Retrieving price from Stripe:', price_id)
     const priceObj = await stripe.prices.retrieve(price_id)
     const isRecurring = priceObj.type === 'recurring'
-
-    console.log('🔍 UPSELL: Price details:', {
-      price_id,
-      priceCurrency: priceObj.currency,
-      originalCurrency,
-      isRecurring,
-      type: priceObj.type,
-      currency_options: priceObj.currency_options ? Object.keys(priceObj.currency_options) : []
-    })
 
     // Check if this is a subscription (recurring) product
     if (isRecurring) {
       // Create a subscription for recurring products
-      console.log('🔍 UPSELL: Creating subscription')
 
       // Get customer details for metadata
       const customer = await stripe.customers.retrieve(customerId);
@@ -195,8 +165,6 @@ export async function POST(req: NextRequest) {
         },
       })
 
-      console.log('✅ UPSELL: Subscription created:', subscription.id)
-
       try { await logger.completed(`Upsell subscription created for ${customerEmail}`, { subscriptionId: subscription.id, email: customerEmail, productId: product_id, type: 'subscription' }); } catch {}
 
 
@@ -207,18 +175,10 @@ export async function POST(req: NextRequest) {
       })
     } else {
       // Create a one-time payment for non-recurring products
-      console.log('🔍 UPSELL: Creating one-time payment')
 
       // Use the price from the Stripe Price object
       const amount = priceObj.unit_amount || 0;
       const currency = priceObj.currency;
-
-      console.log('🔍 UPSELL: Final charge details:', {
-        amount,
-        currency,
-        customer: customerId,
-        amountInMajorUnit: (amount / 100).toFixed(2)
-      });
 
       // Get customer details for metadata
       const customer = await stripe.customers.retrieve(customerId);
@@ -284,8 +244,6 @@ export async function POST(req: NextRequest) {
 
       // Check if succeeded
       if (upsellPaymentIntent.status === 'succeeded') {
-        console.log('✅ UPSELL: Payment succeeded:', upsellPaymentIntent.id)
-
         try { await logger.completed(`Upsell payment succeeded for ${customerEmail}`, { paymentIntentId: upsellPaymentIntent.id, email: customerEmail, amount: amount / 100, currency, productId: product_id, type: 'one-time' }); } catch {}
 
 
@@ -339,12 +297,6 @@ export async function POST(req: NextRequest) {
             access_token: FB_ACCESS_TOKEN,
           };
 
-          console.log('📊 Sending upsell Purchase to Facebook CAPI:', {
-            event_id: fbEventData.event_id,
-            value: fbEventData.custom_data.value,
-            currency: fbEventData.custom_data.currency,
-          });
-
           const fbResponse = await fetch(FB_CONVERSIONS_API_URL, {
             method: 'POST',
             headers: {
@@ -354,9 +306,7 @@ export async function POST(req: NextRequest) {
           });
 
           const fbResult = await fbResponse.json();
-          if (fbResponse.ok) {
-            console.log('✅ Facebook CAPI upsell Purchase success:', fbResult);
-          } else {
+          if (!fbResponse.ok) {
             console.error('❌ Facebook CAPI upsell Purchase error:', fbResult);
           }
         } catch (fbError) {

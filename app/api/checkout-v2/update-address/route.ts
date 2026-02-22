@@ -29,8 +29,6 @@ export async function POST(req: NextRequest) {
       },
     })
 
-    console.log('Updated PaymentIntent with billing address:', paymentIntentId)
-
     return NextResponse.json({ success: true })
   } catch (error: any) {
     console.error('Route /api/checkout-v2/update-address failed:', error)

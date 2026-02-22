@@ -36,17 +36,12 @@ export function parsePurchaseDataFromURL(): PurchaseData {
   const urlParams = new URLSearchParams(window.location.search);
   const data: PurchaseData = {};
   
-  // Debug logging
-  console.log('Success page URL parameters:', Object.fromEntries(urlParams.entries()));
-  
   // Testing helper: Allow manual testing with test params
   // Example: /success/challenge?test=true&test_amount=361
   if (urlParams.get('test') === 'true') {
-    console.log('TEST MODE ACTIVATED - Using test parameters');
     const testAmount = urlParams.get('test_amount');
     if (testAmount) {
       data.amount_total = parseInt(testAmount, 10);
-      console.log(`Test amount set to: $${data.amount_total}`);
     }
   }
   
@@ -112,22 +107,19 @@ export function parsePurchaseDataFromURL(): PurchaseData {
                       urlParams.get('productType');
   
   if (productType) {
-    console.log('Product type metadata found:', productType);
     const productTypeLower = productType.toLowerCase();
     
     // Check for recordings in product_type
-    if (productTypeLower.includes('recordings') || 
+    if (productTypeLower.includes('recordings') ||
         productTypeLower.includes('vault')) {
       data.has_recordings_vault = true;
-      console.log('Detected Recordings Vault from product_type');
     }
     
     // Check for lifetime/course in product_type
-    if (productTypeLower.includes('course') || 
+    if (productTypeLower.includes('course') ||
         productTypeLower.includes('lifetime') ||
         productTypeLower.includes('bffp')) {
       data.has_lifetime_access = true;
-      console.log('Detected Lifetime Access from product_type');
     }
   }
   
@@ -145,18 +137,12 @@ export function parsePurchaseDataFromURL(): PurchaseData {
     // Only apply detection if we don't already have order bump data
     if (!data.has_recordings_vault && !data.has_lifetime_access) {
       if (total === 361) {
-        console.log('Detected both order bumps from amount: $361');
         data.has_recordings_vault = true;
         data.has_lifetime_access = true;
       } else if (total === 264) {
-        console.log('Detected Recordings Vault from amount: $264');
         data.has_recordings_vault = true;
       } else if (total === 294) {
-        console.log('Detected Lifetime Access from amount: $294');
         data.has_lifetime_access = true;
-      } else if (total > 197 && total !== 264 && total !== 294 && total !== 361) {
-        // Unknown combination, log for debugging
-        console.log(`Unknown purchase amount: $${total} - unable to detect order bumps`);
       }
     }
   }
@@ -169,13 +155,6 @@ export function parsePurchaseDataFromURL(): PurchaseData {
   data.utm_content = urlParams.get('utm_content') || undefined;
   data.button_location = urlParams.get('button_location') || undefined;
   data.client_reference_id = urlParams.get('client_reference_id') || urlParams.get('ref') || undefined;
-  
-  console.log('Parsed purchase data:', {
-    amount_total: data.amount_total,
-    has_recordings_vault: data.has_recordings_vault,
-    has_lifetime_access: data.has_lifetime_access,
-    session_id: data.session_id
-  });
   
   return data;
 }

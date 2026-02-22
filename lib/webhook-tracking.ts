@@ -361,8 +361,6 @@ export async function trackPageView(page: string, referrer: string): Promise<voi
       .then(({ error }: { error: any }) => {
         if (error) {
           console.error('Failed to save page view to Supabase:', error);
-        } else {
-          console.log('✅ Page view saved to Supabase');
         }
       });
 
@@ -377,16 +375,13 @@ export async function trackPageView(page: string, referrer: string): Promise<voi
       // Use the event_id from the initial page load in layout.tsx
       pageViewEventId = (window as any)._fbPageViewEventId;
       (window as any)._fbPageViewUsed = true; // Mark as used to avoid reusing
-      console.log('🔄 Using initial page load event_id:', pageViewEventId);
     } else {
       // Generate a fresh event_id for route changes
       pageViewEventId = generateEventId();
-      console.log('🔑 Generated new event_id for route change:', pageViewEventId);
 
       // Fire browser-side Facebook Pixel PageView with event_id (only for route changes)
       if (typeof window !== 'undefined' && (window as any).fbq) {
         (window as any).fbq('track', 'PageView', {}, { eventID: pageViewEventId });
-        console.log('📱 Browser PageView fired with event_id:', pageViewEventId);
       }
     }
 
@@ -398,9 +393,6 @@ export async function trackPageView(page: string, referrer: string): Promise<voi
 
     // Send entire cookie data object (not stringified)
     const pageViewCookieData = typeof sessionId === 'object' ? sessionId : { session_id: sessionId };
-
-    console.log('📤 Sending to server API with event_id:', pageViewEventId);
-    console.log('📊 Facebook cookies for PageView:', { fbp, fbc, fbclid });
 
     fetch('/api/facebook-pageview', {
       method: 'POST',
@@ -420,7 +412,6 @@ export async function trackPageView(page: string, referrer: string): Promise<voi
       console.error('Failed to send PageView to Facebook CAPI:', error);
     });
 
-    console.log('Page view tracked:', data);
   } catch (error) {
     console.error('Error tracking page view:', error);
   }
@@ -449,7 +440,6 @@ export async function trackPurchase(
 ): Promise<void> {
   // Check if this is a test checkout - bypass all tracking
   if (customerInfo?.email && isTestCheckout(customerInfo.email, customerInfo.phone)) {
-    console.log('🧪 Test purchase detected - bypassing all tracking');
     return;
   }
 
@@ -510,8 +500,6 @@ export async function trackPurchase(
       .then(({ error }: { error: any }) => {
         if (error) {
           console.error('Failed to save purchase to Supabase:', error);
-        } else {
-          console.log('✅ Purchase saved to Supabase');
         }
       });
 
@@ -553,15 +541,11 @@ export async function trackPurchase(
       if (!response.ok) {
         const errorData = await response.json();
         console.error('Facebook Conversions API Purchase error:', errorData);
-      } else {
-        const result = await response.json();
-        console.log('Facebook Conversions API Purchase success:', result);
       }
     } catch (error) {
       console.error('Failed to send purchase to Facebook Conversions API:', error);
     }
 
-    console.log('Purchase tracked:', data);
   } catch (error) {
     console.error('Error tracking purchase:', error);
   }
@@ -589,7 +573,6 @@ export async function trackInitiateCheckout(
 ): Promise<void> {
   // Check if this is a test checkout - bypass all tracking
   if (isTestCheckout(email, phone)) {
-    console.log('🧪 Test checkout detected - bypassing all tracking and automations');
     return;
   }
 
@@ -603,7 +586,6 @@ export async function trackInitiateCheckout(
     let country: string | null = null;
     try {
       country = await getUserCountry();
-      console.log('🌍 Country detected:', country);
     } catch (error) {
       console.warn('Failed to get country, continuing without it:', error);
     }
@@ -647,9 +629,6 @@ export async function trackInitiateCheckout(
       cookieData,
     };
 
-    // Log the complete data being sent
-    console.log('💰 Initiate Checkout - Complete Data Being Sent:', JSON.stringify(data, null, 2));
-
     // Get A/B experiment assignments
     const checkoutExperiments = getExperimentCookie();
     const hasCheckoutExperiments = Object.keys(checkoutExperiments).length > 0;
@@ -680,8 +659,6 @@ export async function trackInitiateCheckout(
       experiments: hasCheckoutExperiments ? checkoutExperiments : null,
     };
 
-    console.log('📦 Supabase insert data:', insertData);
-
     supabase
       .from('initiate_checkouts')
       .insert(insertData)
@@ -696,8 +673,6 @@ export async function trackInitiateCheckout(
             status,
             statusText
           });
-        } else {
-          console.log('✅ Initiate checkout saved to Supabase');
         }
       });
 
@@ -726,9 +701,7 @@ export async function trackInitiateCheckout(
       }),
       keepalive: true,
     }).then(response => {
-      if (response.ok) {
-        console.log('✅ Checkout notification processed');
-      } else {
+      if (!response.ok) {
         console.error('❌ Checkout notification failed:', response.status);
       }
     }).catch(error => {
@@ -746,7 +719,6 @@ export async function trackInitiateCheckout(
       }, {
         eventID: eventId
       });
-      console.log('📱 Facebook Pixel InitiateCheckout event sent with event_id:', eventId);
     }
 
     // Send to Facebook Conversions API via server-side API route
@@ -755,8 +727,6 @@ export async function trackInitiateCheckout(
       const fbclid = getFbclid();
       const fbp = getFbp();
       const fbc = getFbc();
-
-      console.log('📤 Sending InitiateCheckout to server API with event_id:', eventId);
 
       fetch('/api/facebook-initiate-checkout', {
         method: 'POST',
@@ -780,10 +750,6 @@ export async function trackInitiateCheckout(
         if (!response.ok) {
           response.json().then(errorData => {
             console.error('❌ Facebook Conversions API InitiateCheckout error:', errorData);
-          });
-        } else {
-          response.json().then(result => {
-            console.log('✅ Facebook Conversions API InitiateCheckout success:', result);
           });
         }
       }).catch((error) => {
@@ -839,8 +805,6 @@ export async function trackWaitlistSignup(
       utmContent: cookieData.first_utm_content || utm.utmContent,
     };
 
-    console.log('📝 Waitlist signup data:', data);
-
     // Send to Supabase
     const experiments = getExperimentCookie()
     const hasExperiments = Object.keys(experiments).length > 0
@@ -868,8 +832,6 @@ export async function trackWaitlistSignup(
       .then(({ error }: { error: any }) => {
         if (error) {
           console.error('❌ Failed to save waitlist signup to Supabase:', error);
-        } else {
-          console.log('✅ Waitlist signup saved to Supabase');
         }
       });
 
@@ -881,7 +843,6 @@ export async function trackWaitlistSignup(
       }, {
         eventID: eventId
       });
-      console.log('📱 Facebook Pixel Lead event sent for waitlist signup');
     }
 
     // Send Lead event to Facebook Conversions API (server-side)
@@ -926,10 +887,6 @@ export async function trackWaitlistSignup(
           response.json().then(errorData => {
             console.error('❌ Facebook Conversions API Lead error:', errorData);
           });
-        } else {
-          response.json().then(result => {
-            console.log('✅ Facebook Conversions API Lead success:', result);
-          });
         }
       }).catch((error) => {
         console.error('❌ Failed to send Lead to Facebook Conversions API:', error);
@@ -938,7 +895,6 @@ export async function trackWaitlistSignup(
       console.error('Error sending Lead to Facebook Conversions API:', error);
     }
 
-    console.log('Waitlist signup tracked:', data);
   } catch (error) {
     console.error('Error tracking waitlist signup:', error);
   }
@@ -970,7 +926,6 @@ export function trackAddToCart(
       }, {
         eventID: eventId
       });
-      console.log('📱 Facebook Pixel AddToCart event sent:', { productId, eventId, buttonLocation });
     }
 
     // Get cookie data for CAPI
@@ -1029,7 +984,6 @@ export function trackAddToCart(
       console.warn('Failed to send Google Ads add_to_cart:', e)
     }
 
-    console.log('🛒 AddToCart tracked:', { productId, productName, price, currency, buttonLocation });
   } catch (error) {
     console.error('Error tracking AddToCart:', error);
   }

@@ -5,7 +5,6 @@ export async function GET(request: NextRequest) {
     // Priority 1: Check for test mode (for development testing)
     const testCountry = request.nextUrl.searchParams.get('test_country');
     if (testCountry) {
-      console.log('Test mode: Using country', testCountry);
       return NextResponse.json({ country_code: testCountry.toUpperCase() });
     }
 
@@ -16,7 +15,6 @@ export async function GET(request: NextRequest) {
     const vercelRegion = request.headers.get('x-vercel-ip-country-region');
 
     if (vercelCountry) {
-      console.log('Location detected via Vercel headers:', vercelCountry);
       return NextResponse.json({
         country_code: vercelCountry,
         country_name: vercelCountry, // Vercel provides 2-letter code
@@ -35,13 +33,10 @@ export async function GET(request: NextRequest) {
     const isLocalhost = !clientIp || clientIp === '::1' || clientIp === '127.0.0.1' || clientIp.startsWith('192.168.') || clientIp.startsWith('10.') || clientIp.startsWith('172.');
 
     if (isLocalhost) {
-      console.log('Local/reserved IP detected, using US fallback');
       return NextResponse.json({ country_code: 'US', source: 'localhost-fallback' });
     }
 
     // Use ipapi.co as fallback for localhost development with real IPs
-    console.log('Vercel headers not found, falling back to ipapi.co for IP:', clientIp);
-
     const url = `https://ipapi.co/${clientIp}/json/`;
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 3000);
@@ -66,8 +61,6 @@ export async function GET(request: NextRequest) {
       console.warn('ipapi.co error:', data.reason || 'Unknown error');
       return NextResponse.json({ country_code: 'US', source: 'ipapi-error-fallback' });
     }
-
-    console.log('Location detected via ipapi.co:', data.country_code);
 
     return NextResponse.json({
       country_code: data.country_code,

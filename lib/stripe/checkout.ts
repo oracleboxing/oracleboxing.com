@@ -127,8 +127,6 @@ function prepareCookieDataForStripe(cookieData: any, existingKeyCount: number = 
     }
   }
 
-  console.log(`📊 STRIPE METADATA: Added ${keysAdded} cookie fields (${availableKeys - keysAdded} keys remaining)`);
-
   return flattenedCookieData;
 }
 
@@ -270,7 +268,6 @@ export async function createCheckoutSession({
 
     const customer = await stripe.customers.create(customerData)
     customerId = customer.id
-    console.log('✅ Created Stripe Customer:', customerId)
   }
 
   // ===================================================================
@@ -333,10 +330,6 @@ export async function createCheckoutSession({
   // All purchases now go to single success page with query parameter
   sessionParams.success_url = `https://oracleboxing.com/success?session_id={CHECKOUT_SESSION_ID}`
   sessionParams.cancel_url = 'https://oracleboxing.com/'
-
-  console.log('🔍 DEBUG: Funnel type:', funnelType)
-  console.log('🔍 DEBUG: Final success_url:', sessionParams.success_url)
-  console.log('🔍 DEBUG: Cancel URL:', sessionParams.cancel_url)
 
   // Determine the purchase type based on main product or cart contents
   let purchaseType = 'course' // Default
@@ -523,7 +516,6 @@ export async function createCheckoutSession({
       // Apply the selected shipping rate automatically
       if (selectedShippingRate) {
         sessionParams.shipping_options = [{ shipping_rate: selectedShippingRate }]
-        console.log('✅ Auto-selected shipping rate for country:', country, 'Rate ID:', selectedShippingRate)
       }
     } else {
       // No customer address provided, allow customer to select country and show all options
@@ -682,16 +674,8 @@ export async function createCheckoutSession({
   }
 
   // Create session
-  console.log('🔍 DEBUG: Creating Stripe session with params:', {
-    mode: sessionParams.mode,
-    success_url: sessionParams.success_url,
-    cancel_url: sessionParams.cancel_url,
-    line_items_count: sessionParams.line_items?.length,
-  })
-
   // FIXED: Enhanced metadata validation and logging
   const metadataKeys = Object.keys(sessionParams.metadata || {})
-  console.log('📊 STRIPE METADATA: Session has', metadataKeys.length, 'keys')
 
   // FIXED: Validate against Stripe limits
   if (metadataKeys.length > 500) {
@@ -699,45 +683,17 @@ export async function createCheckoutSession({
     console.error('🚨 STRIPE METADATA: This will cause checkout to fail!')
   } else if (metadataKeys.length > 450) {
     console.warn(`⚠️ STRIPE METADATA: Approaching 500-key limit (${metadataKeys.length}/500 keys)`)
-  } else {
-    console.log(`✅ STRIPE METADATA: Safe key count (${metadataKeys.length}/500 keys)`)
   }
 
-  // FIXED: Check for long values and truncation
-  let longValueCount = 0;
-  let truncatedCount = 0;
+  // FIXED: Check for long values
   Object.entries(sessionParams.metadata || {}).forEach(([key, value]) => {
-    if (value && typeof value === 'string') {
-      if (value.length > 500) {
-        console.error(`🚨 STRIPE METADATA: Value exceeds 500-char limit: ${key} = ${value.length} chars (WILL FAIL)`)
-      } else if (value.length > 100) {
-        longValueCount++;
-        if (value.length === 500) {
-          truncatedCount++;
-        }
-      }
+    if (value && typeof value === 'string' && value.length > 500) {
+      console.error(`🚨 STRIPE METADATA: Value exceeds 500-char limit: ${key} = ${value.length} chars (WILL FAIL)`)
     }
   })
 
-  if (longValueCount > 0) {
-    console.log(`📊 STRIPE METADATA: ${longValueCount} values >100 chars (${truncatedCount} were truncated to 500 chars)`)
-  }
-
-  // FIXED: Log payment intent and subscription metadata stats
-  if (sessionParams.payment_intent_data?.metadata) {
-    const piMetadataKeys = Object.keys(sessionParams.payment_intent_data.metadata);
-    console.log(`📊 STRIPE METADATA: Payment Intent has ${piMetadataKeys.length} keys`);
-  }
-
-  if (sessionParams.subscription_data?.metadata) {
-    const subMetadataKeys = Object.keys(sessionParams.subscription_data.metadata);
-    console.log(`📊 STRIPE METADATA: Subscription has ${subMetadataKeys.length} keys`);
-  }
-
   try {
     const session = await stripe.checkout.sessions.create(sessionParams)
-    console.log('✅ Stripe session created successfully:', session.id)
-    console.log('✅ STRIPE METADATA: All metadata embedded successfully')
     return session
   } catch (stripeError: any) {
     console.error('❌ Stripe API Error:', {

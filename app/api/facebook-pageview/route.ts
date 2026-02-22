@@ -16,14 +16,6 @@ export async function POST(request: NextRequest) {
 
     const eventTime = Math.floor(Date.now() / 1000);
 
-    console.log('📊 Facebook Parameters for PageView:', {
-      client_ip: fbParams.client_ip_address,
-      ipType: fbParams.client_ip_address?.includes(':') ? 'IPv6' : 'IPv4',
-      fbc: fbParams.fbc,
-      fbp: fbParams.fbp,
-      user_agent_length: fbParams.client_user_agent?.length,
-    });
-
     // Parse cookie data into separate fields for custom_data
     // Each field value must be ≤500 chars
     const customData: Record<string, any> = {};
@@ -62,18 +54,6 @@ export async function POST(request: NextRequest) {
       access_token: FB_ACCESS_TOKEN,
     };
 
-    console.log('📊 Sending PageView to Facebook CAPI:', {
-      event_id,
-      custom_data_keys: Object.keys(customData),
-      custom_data: customData,
-      page_url,
-      client_ip_address: fbParams.client_ip_address,
-      ip_type: fbParams.client_ip_address?.includes(':') ? 'IPv6' : 'IPv4',
-      has_fbc: !!fbParams.fbc,
-      has_fbp: !!fbParams.fbp,
-      user_agent: fbParams.client_user_agent?.substring(0, 50) + '...',
-    });
-
     const response = await fetch(FB_CONVERSIONS_API_URL, {
       method: 'POST',
       headers: {
@@ -92,7 +72,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    console.log('Facebook CAPI PageView success:', result);
     return NextResponse.json({ success: true, result });
   } catch (error) {
     console.error('Error sending PageView to Facebook CAPI:', error);

@@ -115,8 +115,6 @@ export async function POST(req: NextRequest) {
         },
       })
 
-      console.log('✅ Second payment processed:', secondPayment.id)
-
       try { await logger.completed(`Second payment processed for ${metadata.customer_email || customerIdFromPI}`, { paymentIntentId: secondPayment.id, amount: secondPaymentAmount / 100, email: metadata.customer_email, originalPaymentIntentId: paymentIntentId }); } catch {}
 
 

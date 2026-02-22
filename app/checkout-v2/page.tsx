@@ -130,18 +130,14 @@ function CheckoutV2Content() {
     const returnedPaymentIntent = searchParams.get('payment_intent')
     const returnedClientSecret = searchParams.get('payment_intent_client_secret')
 
-    console.log('🔍 Checking for redirect params:', { redirectStatus, returnedPaymentIntent, hasClientSecret: !!returnedClientSecret })
-
     if (returnedPaymentIntent) {
       // We have a payment_intent in URL - this is a redirect return
       if (redirectStatus === 'succeeded' || redirectStatus === 'processing') {
         // Payment succeeded - clear session and redirect to success page
-        console.log('✅ Payment succeeded, redirecting to success page')
         sessionStorage.removeItem(CHECKOUT_SESSION_KEY)
         window.location.href = `${window.location.origin}/success?payment_intent=${returnedPaymentIntent}`
       } else if (redirectStatus === 'failed' || !redirectStatus) {
         // Payment failed OR cancelled (no status) - recover and show retry
-        console.log('❌ Payment failed or cancelled, recovering...')
         recoverFailedPayment(returnedPaymentIntent, returnedClientSecret || null)
       }
     }
@@ -180,18 +176,15 @@ function CheckoutV2Content() {
       if (sessionAge > maxAge) {
         // Session expired, clear it
         sessionStorage.removeItem(CHECKOUT_SESSION_KEY)
-        console.log('🕐 Stored checkout session expired, starting fresh')
         return
       }
 
       // Restore the session
-      console.log('🔄 Restoring checkout session from storage')
       setCustomerInfo(session.customerInfo)
       setClientSecret(session.clientSecret)
       setPaymentIntentId(session.paymentIntentId)
       setSelectedAddOns(session.selectedAddOns)
       setStep('payment')
-      console.log('✅ Checkout session restored, showing payment form')
     } catch (err) {
       console.warn('Failed to restore checkout session:', err)
       sessionStorage.removeItem(CHECKOUT_SESSION_KEY)
@@ -209,20 +202,15 @@ function CheckoutV2Content() {
         timestamp: Date.now(),
       }
       sessionStorage.setItem(CHECKOUT_SESSION_KEY, JSON.stringify(session))
-      console.log('💾 Checkout session saved to storage')
     }
   }, [step, customerInfo, clientSecret, paymentIntentId, selectedAddOns])
 
   // Recover a failed payment so user can retry
   const recoverFailedPayment = async (piId: string, secret: string | null) => {
     try {
-      console.log('🔄 Attempting to recover payment:', { piId, hasSecret: !!secret })
-
       // Fetch PaymentIntent details from Stripe via our API
       const response = await fetch(`/api/checkout-v2/recover?payment_intent=${piId}`)
       const data = await response.json()
-
-      console.log('📋 Recover API response:', data)
 
       if (response.ok && data.customerInfo) {
         // Use the client secret from URL if available, otherwise from API
@@ -241,7 +229,6 @@ function CheckoutV2Content() {
         setSelectedAddOns(data.addOns || [])
         setError('Payment failed. Please try again with a different payment method.')
         setStep('payment')
-        console.log('✅ Payment session recovered, showing payment form')
       } else {
         // If we can't recover, just show a general error
         console.error('❌ Could not recover payment:', data.error)

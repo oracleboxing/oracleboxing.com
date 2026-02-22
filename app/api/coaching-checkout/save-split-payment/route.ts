@@ -89,8 +89,6 @@ export async function POST(req: NextRequest) {
       )
     }
 
-    console.log('✅ Split payment saved to Supabase:', (data as any).id)
-
     try { await logger.completed(`Split payment saved for ${customerEmail}`, { id: (data as any).id, email: customerEmail, secondPaymentAmount: secondPaymentAmount / 100, dueDate: dueDate.toISOString(), tier, coach }); } catch {}
 
 
