@@ -23,7 +23,7 @@ function prepareCookieDataForStripe(cookieData: any, existingKeyCount: number = 
 }
 
 export async function POST(req: NextRequest) {
-  const logger = createWorkflowLogger({ workflowName: 'membership-checkout-session', workflowType: 'checkout', notifySlack: true })
+  const logger = createWorkflowLogger({ workflowName: 'membership-checkout-session', workflowType: 'checkout', notifySlack: false })
   try {
     const fbParams = extractFacebookParams(req)
     const body = await req.json()
