@@ -45,7 +45,7 @@ export function parsePurchaseDataFromURL(): PurchaseData {
     console.log('TEST MODE ACTIVATED - Using test parameters');
     const testAmount = urlParams.get('test_amount');
     if (testAmount) {
-      data.amount_total = parseInt(testAmount);
+      data.amount_total = parseInt(testAmount, 10);
       console.log(`Test amount set to: $${data.amount_total}`);
     }
   }
@@ -53,17 +53,12 @@ export function parsePurchaseDataFromURL(): PurchaseData {
   // Core checkout session data
   data.session_id = urlParams.get('session_id') || urlParams.get('checkout_session_id') || undefined;
   
-  // Get event_id from URL if passed through Stripe
-  const eventId = urlParams.get('event_id');
-  if (eventId) {
-    console.log('Event ID received from URL:', eventId);
-    // You could verify this matches the cookie event_id if needed
-  }
+  // event_id from Stripe URL is available via urlParams.get('event_id') if needed
   
   // Parse amount if provided (Stripe sometimes includes this)
   const amount = urlParams.get('amount') || urlParams.get('amount_total');
   if (amount) {
-    const amountNum = parseInt(amount);
+    const amountNum = parseInt(amount, 10);
     // Check if amount is likely in cents (>10000 would be $100+)
     if (amountNum > 10000) {
       data.amount_total = amountNum / 100; // Convert from cents
