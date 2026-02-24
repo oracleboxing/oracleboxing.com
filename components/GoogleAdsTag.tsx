@@ -6,6 +6,7 @@ import { useEffect, Suspense } from 'react'
 
 const GTM_ID = 'GTM-NXKTDCT5'
 const GA_ADS_ID = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID
+const GA4_ID = process.env.NEXT_PUBLIC_GA4_MEASUREMENT_ID || 'G-L6KY3Q6RDF'
 
 function GoogleAdsTagInternal() {
   const pathname = usePathname()
@@ -60,6 +61,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             function gtag(){dataLayer.push(arguments);}
             window.gtag = gtag;
             gtag('js', new Date());
+            ${GA4_ID ? `gtag('config', '${GA4_ID}');` : ''}
             ${GA_ADS_ID ? `gtag('config', '${GA_ADS_ID}', { send_page_view: false });` : ''}
           `,
         }}
