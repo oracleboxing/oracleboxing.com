@@ -8,6 +8,7 @@ import { trackAddToCart } from "@/lib/webhook-tracking"
 import { useCurrency } from "@/contexts/CurrencyContext"
 import { getProductPrice } from "@/lib/currency"
 import { useExperiment } from "@/contexts/ExperimentContext"
+import CampaignCountdown from "@/components/CampaignCountdown"
 
 /* ─────────────────────────────────────────────
    Liquid Glass Card Wrapper
@@ -290,6 +291,8 @@ export default function NewHeroSection() {
             <p className="text-[#605A57] text-[3.5vw] sm:text-base md:text-lg lg:text-xl leading-relaxed max-w-[460px]">
               {heroSub}
             </p>
+
+            <CampaignCountdown variant="hero" />
 
             {/* CTA + Social proof - hidden on mobile, shown on desktop */}
             <div className="hidden lg:flex flex-col items-start gap-3 mt-2">

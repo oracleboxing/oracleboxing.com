@@ -6,6 +6,7 @@ import { formatPrice, getProductPrice } from '@/lib/currency'
 import { ArrowButton } from '@/components/ui/arrow-button'
 import { getCheckoutUrl } from '@/lib/enrollment'
 import { trackAddToCart } from '@/lib/webhook-tracking'
+import CampaignCountdown from '@/components/CampaignCountdown'
 
 export default function PricingSection() {
   const { currency } = useCurrency()
@@ -97,6 +98,8 @@ export default function PricingSection() {
               </div>
             ))}
           </div>
+
+          <CampaignCountdown variant="card" className="mb-6" />
 
           {/* CTA Button - full width */}
           <ArrowButton

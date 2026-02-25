@@ -3,15 +3,15 @@
 // Set CAMPAIGN_ACTIVE = true when a campaign is running
 // Update the dates and spot schedule for each campaign
 
-export const CAMPAIGN_ACTIVE = false
+export const CAMPAIGN_ACTIVE = true
 
 export const CAMPAIGN_CONFIG = {
-  name: 'February 2026 21-Day Challenge (Extended)',
+  name: 'February 2026 21-Day Challenge',
 
   // Enrollment window (ISO 8601 format)
   // Use 'Z' suffix for UTC or specify timezone offset
-  enrollmentStart: '2026-01-22T00:00:00Z',      // Jan 22nd midnight UTC
-  enrollmentEnd: '2026-02-02T11:00:00+00:00',   // Feb 2nd 7:00 PM Bali time (extended)
+  enrollmentStart: '2026-02-22T00:00:00Z',
+  enrollmentEnd: '2026-03-02T10:00:00+00:00',   // Mar 2nd 6:00 PM Bali time = 10:00 UTC
 
   totalSpots: 40,
 
@@ -20,18 +20,15 @@ export const CAMPAIGN_CONFIG = {
   // Format: { date: 'YYYY-MM-DD', spots: number }
   // The spots value applies from midnight UTC on that date
   spotSchedule: [
-    { date: '2026-01-22', spots: 28 },
-    { date: '2026-01-23', spots: 27 },
-    { date: '2026-01-24', spots: 24 },
-    { date: '2026-01-25', spots: 21 },
-    { date: '2026-01-26', spots: 17 },
-    { date: '2026-01-27', spots: 13 },
-    { date: '2026-01-28', spots: 9 },
-    { date: '2026-01-29', spots: 5 },
-    { date: '2026-01-30', spots: 3 },
-    { date: '2026-01-31', spots: 11 }, // Extended: +10 spots added
-    { date: '2026-02-01', spots: 7 },
-    { date: '2026-02-02', spots: 3 },  // Final day
+    { date: '2026-02-22', spots: 28 },
+    { date: '2026-02-23', spots: 24 },
+    { date: '2026-02-24', spots: 20 },
+    { date: '2026-02-25', spots: 16 },
+    { date: '2026-02-26', spots: 13 },
+    { date: '2026-02-27', spots: 10 },
+    { date: '2026-02-28', spots: 8 },
+    { date: '2026-03-01', spots: 5 },
+    { date: '2026-03-02', spots: 3 },
   ],
 
   // Display text for the banner
