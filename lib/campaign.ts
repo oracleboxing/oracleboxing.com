@@ -11,7 +11,7 @@ export const CAMPAIGN_CONFIG = {
   // Enrollment window (ISO 8601 format)
   // Use 'Z' suffix for UTC or specify timezone offset
   enrollmentStart: '2026-02-22T00:00:00Z',
-  enrollmentEnd: '2026-03-02T10:00:00+00:00',   // Mar 2nd 6:00 PM Bali time = 10:00 UTC
+  enrollmentEnd: '2026-03-04T10:00:00+00:00',   // Mar 4th 6:00 PM Bali time = 10:00 UTC
 
   totalSpots: 40,
 
@@ -28,7 +28,9 @@ export const CAMPAIGN_CONFIG = {
     { date: '2026-02-27', spots: 10 },
     { date: '2026-02-28', spots: 8 },
     { date: '2026-03-01', spots: 5 },
-    { date: '2026-03-02', spots: 3 },
+    { date: '2026-03-02', spots: 5 },
+    { date: '2026-03-03', spots: 3 },
+    { date: '2026-03-04', spots: 2 },
   ],
 
   // Display text for the banner
