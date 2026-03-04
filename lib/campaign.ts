@@ -3,7 +3,7 @@
 // Set CAMPAIGN_ACTIVE = true when a campaign is running
 // Update the dates and spot schedule for each campaign
 
-export const CAMPAIGN_ACTIVE = false
+export const CAMPAIGN_ACTIVE = true
 
 export const CAMPAIGN_CONFIG = {
   name: 'February 2026 21-Day Challenge',
@@ -11,7 +11,7 @@ export const CAMPAIGN_CONFIG = {
   // Enrollment window (ISO 8601 format)
   // Use 'Z' suffix for UTC or specify timezone offset
   enrollmentStart: '2026-02-22T00:00:00Z',
-  enrollmentEnd: '2026-03-04T10:00:00+00:00',   // Mar 4th 6:00 PM Bali time = 10:00 UTC
+  enrollmentEnd: '2026-03-05T10:00:00+00:00',   // Mar 5th 6:00 PM Bali time = 10:00 UTC
 
   totalSpots: 40,
 
