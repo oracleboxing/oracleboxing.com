@@ -35,7 +35,11 @@ const membershipFaqData: FAQItem[] = [
   },
   {
     question: "How do live calls work?",
-    answer: "Calls run daily on Zoom. You can:\n\n• Join live and get real-time feedback\n• Watch the replay in the Boxing Clinic category\n• Post clips or questions for review if you can't attend"
+    answer: "We run 13 live Boxing Clinic calls every week on Zoom with Oliver, Toni, and Charlie. You can:\n\n• Join live and get real-time coaching and feedback\n• Watch the recording in the Boxing Clinic category (posted within 24 hours)\n• Post clips or questions for review if you can't attend\n\nSee 'What time are the live classes?' for the full weekly schedule."
+  },
+  {
+    question: "What time are the live classes?",
+    answer: "We run 13 live calls every week with three coaches (Oliver, Toni, and Charlie), spread across time zones so there's always a session that works for you.\n\nWeekly schedule (all times UTC):\n\n• Monday 00:00 — Toni\n• Tuesday 00:00 — Oliver\n• Wednesday 20:00 — Charlie\n• Thursday 12:00 — Toni\n• Thursday 20:00 — Charlie\n• Friday 12:00 — Oliver\n• Friday 18:00 — Charlie\n• Saturday 00:00 — Oliver\n• Saturday 12:00 — Toni\n• Saturday 18:00 — Charlie\n• Sunday 00:00 — Toni\n• Sunday 12:00 — Oliver\n• Sunday 18:00 — Charlie\n\nQuick conversions from UTC:\n• US Eastern: subtract 4hrs (summer) or 5hrs (winter)\n• UK: same (winter) or add 1hr (summer)\n• Australia AEST: add 10hrs\n\nFor example, Thursday 12:00 UTC = 8am US Eastern (summer) / 1pm UK (summer).\n\nEvery session is recorded and posted to the community within 24 hours."
   },
   {
     question: "How does the leaderboard system work?",
