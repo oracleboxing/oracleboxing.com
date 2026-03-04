@@ -5,17 +5,19 @@ import { getClientSiteMode } from "@/lib/site-mode"
 
 // Schedule data with London times (24hr format for easy conversion)
 const schedule = [
-  { day: "Sunday", time: "20:00", coach: "Toni" },
-  { day: "Monday", time: "21:00", coach: "Toni" },
-  { day: "Tuesday", time: "09:00", coach: "Oliver" },
-  { day: "Tuesday", time: "23:00", coach: "Charlie" },
-  { day: "Wednesday", time: "09:00", coach: "Oliver" },
-  { day: "Thursday", time: "09:00", coach: "Oliver" },
-  { day: "Friday", time: "00:00", coach: "Charlie" },
-  { day: "Friday", time: "12:00", coach: "Toni" },
-  { day: "Friday", time: "19:00", coach: "Charlie" },
-  { day: "Saturday", time: "12:00", coach: "Toni" },
-  { day: "Saturday", time: "17:00", coach: "Charlie" },
+  { day: "Sunday", time: "02:00", coach: "Charlie" },
+  { day: "Sunday", time: "08:00", coach: "Toni" },
+  { day: "Sunday", time: "20:00", coach: "Oliver" },
+  { day: "Monday", time: "02:00", coach: "Charlie" },
+  { day: "Tuesday", time: "08:00", coach: "Toni" },
+  { day: "Wednesday", time: "08:00", coach: "Oliver" },
+  { day: "Thursday", time: "04:00", coach: "Charlie" },
+  { day: "Thursday", time: "20:00", coach: "Toni" },
+  { day: "Friday", time: "04:00", coach: "Charlie" },
+  { day: "Friday", time: "20:00", coach: "Oliver" },
+  { day: "Saturday", time: "02:00", coach: "Charlie" },
+  { day: "Saturday", time: "08:00", coach: "Oliver" },
+  { day: "Saturday", time: "20:00", coach: "Toni" },
 ]
 
 // Timezone options
@@ -258,7 +260,7 @@ export default function ChallengeFAQSection() {
                 >
                   <div className="space-y-3">
                     <p>
-                      Full access to all courses (Boxing Toolkit, Grades 1-3, and more as they're released), 11 live group coaching calls per week, personal video feedback from coaches, the private Skool community, and structured progression through the grading system.
+                      Full access to all courses (Boxing Toolkit, Grades 1-3, and more as they're released), 13 live group coaching calls per week, personal video feedback from coaches, the private Skool community, and structured progression through the grading system.
                     </p>
                     <p>
                       Annual members also get the Boxing First Principles course and a free 1-on-1 coaching call included.
@@ -307,7 +309,7 @@ export default function ChallengeFAQSection() {
             >
               <div className="space-y-3">
                 <p>
-                  We run <span className="text-[#37322F] font-medium">11 live classes per week</span> across multiple timezones, so there's usually a time that works for most schedules.
+                  We run <span className="text-[#37322F] font-medium">13 live classes per week</span> across multiple timezones, so there's usually a time that works for most schedules.
                 </p>
                 <p>
                   If you genuinely can't make any of the live sessions, you can still participate by submitting video of your training for feedback. The coaches review every submission personally.

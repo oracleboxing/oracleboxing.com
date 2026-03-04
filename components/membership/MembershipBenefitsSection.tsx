@@ -9,7 +9,7 @@ export default function MembershipBenefitsSection() {
         </svg>
       ),
       title: 'Daily Live Coaching',
-      description: '11 live sessions per week with world-class coaches Oliver and Toni. Master technique, tactics, and mindset.',
+      description: '13 live sessions per week with world-class coaches Oliver and Toni. Master technique, tactics, and mindset.',
     },
     {
       icon: (

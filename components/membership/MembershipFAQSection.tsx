@@ -32,7 +32,7 @@ export default function MembershipFAQSection() {
     },
     {
       question: 'When are the live coaching sessions?',
-      answer: 'We run 11 live sessions per week at various times to accommodate different time zones. All sessions are recorded and available within hours, so you never miss out. Our community spans 50+ countries, and we work hard to serve everyone.'
+      answer: 'We run 13 live sessions per week at various times to accommodate different time zones. All sessions are recorded and available within hours, so you never miss out. Our community spans 50+ countries, and we work hard to serve everyone.'
     },
     {
       question: 'Is there a money-back guarantee?',

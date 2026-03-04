@@ -49,7 +49,7 @@ export default function PricingPage() {
                     Live Coaching
                   </h3>
                   <ul className="space-y-2 text-[#605A57]">
-                    <li>• 11 live sessions per week</li>
+                    <li>• 13 live sessions per week</li>
                     <li>• Expert instruction from Oliver & Toni</li>
                     <li>• All sessions recorded for replay</li>
                     <li>• Q&A and technique breakdowns</li>
