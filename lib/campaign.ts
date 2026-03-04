@@ -11,7 +11,7 @@ export const CAMPAIGN_CONFIG = {
   // Enrollment window (ISO 8601 format)
   // Use 'Z' suffix for UTC or specify timezone offset
   enrollmentStart: '2026-02-22T00:00:00Z',
-  enrollmentEnd: '2026-03-05T10:00:00+00:00',   // Mar 5th 6:00 PM Bali time = 10:00 UTC
+  enrollmentEnd: '2026-03-07T10:00:00+00:00',   // Mar 7th 6:00 PM Bali time = 10:00 UTC
 
   totalSpots: 40,
 
