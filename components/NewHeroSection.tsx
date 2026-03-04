@@ -241,9 +241,10 @@ export default function NewHeroSection() {
 
   return (
     <section className="relative w-full min-h-[100svh] md:min-h-[100vh] md:h-auto overflow-x-clip overflow-y-visible flex items-center">
-      {/* Kinso-style gradient: gunmetal/silver left -> white center -> warm brown right */}
+      {/* Mobile: white bg. Desktop: Kinso-style gradient */}
+      <div className="absolute inset-0 bg-white md:bg-transparent" />
       <div
-        className="absolute inset-0"
+        className="absolute inset-0 hidden md:block"
         style={{
           background: `
             linear-gradient(135deg,
@@ -263,7 +264,7 @@ export default function NewHeroSection() {
 
       {/* Soft radial overlays for depth */}
       <div
-        className="absolute inset-0"
+        className="absolute inset-0 hidden md:block"
         style={{
           background: `
             radial-gradient(ellipse 50% 70% at 15% 50%, rgba(180, 175, 170, 0.3) 0%, transparent 70%),
@@ -276,7 +277,7 @@ export default function NewHeroSection() {
       {/* Noise texture removed for performance */}
 
       {/* Content */}
-      <div className="relative z-20 w-full max-w-[1400px] mx-auto px-6 md:px-12 lg:pl-16 lg:pr-0 pt-[max(7rem,calc(env(safe-area-inset-top)+5rem))] pb-16 md:py-0 overflow-visible">
+      <div className="relative z-20 w-full max-w-[1400px] mx-auto px-6 md:px-12 lg:pl-16 lg:pr-0 pt-[max(5rem,calc(env(safe-area-inset-top)+3.5rem))] pb-16 md:pt-[max(7rem,calc(env(safe-area-inset-top)+5rem))] md:pb-0 overflow-visible">
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20 overflow-visible">
 
           {/* Left - Text + CTA */}
