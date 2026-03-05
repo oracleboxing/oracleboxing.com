@@ -137,7 +137,7 @@ export default function FooterSection() {
         {/* Bottom */}
         <div className="text-center space-y-1.5">
           <p className="text-[#9a928d] text-xs">&copy; {currentYear} Oracle Boxing Ltd. All rights reserved.</p>
-          <p className="text-[#9a928d] text-[11px]">Unit 5 Artillery 88, Artillery Road, Yeovil, BA22 8RP, United Kingdom</p>
+          <p className="text-[#9a928d] text-[11px]">Office 1, Izabella House, 24-26 Regent Place, Birmingham, B1 3NJ, United Kingdom</p>
           <p className="text-[#9a928d] text-[11px]">team@oracleboxing.com</p>
         </div>
       </div>

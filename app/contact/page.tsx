@@ -99,7 +99,7 @@ export default function ContactPage() {
     {
       category: 'General',
       question: "Where are you located?",
-      answer: "Oracle Boxing Ltd is based in Yeovil, United Kingdom, but we serve members worldwide through our online platform."
+      answer: "Oracle Boxing Ltd is based in Birmingham, United Kingdom, but we serve members worldwide through our online platform."
     },
   ]
 
@@ -261,8 +261,8 @@ export default function ContactPage() {
         {/* Company Info */}
         <div className="mt-12 pt-8 border-t border-gray-100 text-center text-body text-gray-400">
           <p className="font-medium text-gray-500">Oracle Boxing Ltd</p>
-          <p>Unit 5 Artillery 88, Artillery Road</p>
-          <p>Yeovil, BA22 8RP, United Kingdom</p>
+          <p>Office 1, Izabella House, 24-26 Regent Place</p>
+          <p>Birmingham, B1 3NJ, United Kingdom</p>
         </div>
       </div>
     </div>

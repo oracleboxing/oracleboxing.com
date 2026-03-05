@@ -163,9 +163,9 @@ export default function RefundPage() {
         </p>
         <p style={{ lineHeight: '1.6', marginBottom: '16px' }}>
           <strong>Oracle Boxing Ltd</strong><br />
-          Unit 5 Artillery 88<br />
-          Artillery Road<br />
-          BA22 8RP<br />
+          Office 1, Izabella House<br />
+          24-26 Regent Place, City Centre<br />
+          Birmingham, B1 3NJ<br />
           United Kingdom<br />
           Email: team@oracleboxing.com<br />
           Response Time: Within 24 hours
