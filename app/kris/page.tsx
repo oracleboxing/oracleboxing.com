@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 import { createClient } from '@supabase/supabase-js'
-import HomepageHeader from '@/components/HomepageHeader'
 import FooterSection from '@/components/footer-section'
+import { SessionTimeline } from './SessionTimeline'
 
 export const dynamic = 'force-dynamic'
 
@@ -24,6 +24,22 @@ function formatSessionDate(value: string): string {
     month: 'long',
     year: 'numeric',
   }).format(new Date(value))
+}
+
+function extractTitle(html: string | null): string {
+  if (!html) return 'Coaching Session'
+  // Get the first <p> content after <h2>Session Summary</h2>
+  const match = html.match(/<h2>Session Summary<\/h2>\s*<p>(.*?)<\/p>/s)
+  if (match?.[1]) {
+    // Strip any HTML tags from the extracted text
+    return match[1].replace(/<[^>]*>/g, '').trim()
+  }
+  return 'Coaching Session'
+}
+
+function removeSessionSummary(html: string): string {
+  // Remove the "Session Summary" h2 and its following <p> since we use it as the title
+  return html.replace(/<h2>Session Summary<\/h2>\s*<p>.*?<\/p>/s, '').trim()
 }
 
 async function getKrisSessions(): Promise<CoachingSession[]> {
@@ -53,15 +69,28 @@ export default async function KrisJourneyPage() {
   const firstSession = sessions.at(0)
   const lastSession = sessions.at(-1)
 
+  const sessionData = sessions.map((session, index) => ({
+    number: index + 1,
+    date: formatSessionDate(session.sent_at),
+    title: extractTitle(session.summary_html),
+    contentHtml: session.summary_html ? removeSessionSummary(session.summary_html) : null,
+  }))
+
   return (
     <div className="min-h-screen bg-white flex flex-col overflow-x-hidden">
-      <HomepageHeader />
-      <div className="flex flex-1 pt-[72px]">
+      <div className="flex flex-1">
         <div className="hidden sm:block sm:w-4 md:w-8 lg:w-12 flex-shrink-0 border-r border-[rgba(55,50,47,0.12)]"></div>
 
         <main className="flex-1 min-w-0">
           <section className="w-full px-4 md:px-8 py-14 md:py-20 border-b border-[rgba(55,50,47,0.12)]">
             <div className="max-w-3xl mx-auto">
+              <a href="/" className="inline-block mb-8">
+                <img
+                  src="https://sb.oracleboxing.com/logo/long_dark.webp"
+                  alt="Oracle Boxing"
+                  className="h-5 w-auto"
+                />
+              </a>
               <h1 className="text-section font-normal text-[#37322F]">Kris&apos;s Journey</h1>
               <p className="mt-4 text-body text-[#605A57] leading-relaxed">
                 {sessions.length} sessions with Coach Toni
@@ -77,31 +106,10 @@ export default async function KrisJourneyPage() {
 
           <section className="w-full px-4 md:px-8 py-10 md:py-14">
             <div className="max-w-3xl mx-auto">
-              {sessions.length === 0 ? (
+              {sessionData.length === 0 ? (
                 <p className="text-body text-[#605A57]">No sessions found.</p>
               ) : (
-                <div>
-                  {sessions.map((session, index) => (
-                    <article
-                      key={`${session.sent_at}-${index}`}
-                      className="py-8 first:pt-0 border-b border-[rgba(55,50,47,0.12)] last:border-b-0"
-                    >
-                      <p className="text-body text-[#9CABA8] mb-2">Session {index + 1}</p>
-                      <h2 className="text-sub font-normal text-[#37322F] mb-6">
-                        {formatSessionDate(session.sent_at)}
-                      </h2>
-
-                      {session.summary_html ? (
-                        <div
-                          className="text-body text-[#605A57] leading-relaxed space-y-4 [&_h2]:text-title [&_h2]:font-semibold [&_h2]:text-[#37322F] [&_h2]:mt-6 [&_h2]:mb-3 [&_p]:mb-4 [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:mb-4 [&_li]:mb-2 [&_strong]:font-semibold [&_strong]:text-[#37322F]"
-                          dangerouslySetInnerHTML={{ __html: session.summary_html }}
-                        />
-                      ) : (
-                        <p className="text-body text-[#605A57]">Summary unavailable.</p>
-                      )}
-                    </article>
-                  ))}
-                </div>
+                <SessionTimeline sessions={sessionData} />
               )}
             </div>
           </section>
