@@ -4,7 +4,7 @@ import { useState, useEffect, useRef, useCallback, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import nextDynamic from 'next/dynamic'
 import { useCurrency } from '@/contexts/CurrencyContext'
-import { getTrackingParams, getCookie } from '@/lib/tracking-cookies'
+import { getTrackingParams, getCookie, getExperimentCookie } from '@/lib/tracking-cookies'
 import { CheckoutForm } from '@/components/checkout-v2/CheckoutForm'
 import { trackInitiateCheckout } from '@/lib/webhook-tracking'
 import { getProductPrice } from '@/lib/currency'
@@ -397,6 +397,30 @@ function CheckoutV2Content() {
             }
         }
         
+        // A/B test: check if this user is in the stripe-session variant
+        const experiments = getExperimentCookie()
+        const checkoutVariant = experiments['membership-checkout-flow'] || 'control'
+
+        if (checkoutVariant === 'stripe-session') {
+          const cookieData = getCookie('ob_track')
+          const stripeSessionResponse = await fetch('/api/checkout-v2/membership-stripe-session', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              customerInfo: info,
+              plan: membershipPlan,
+              trackingParams,
+              cookieData,
+            }),
+          })
+          const stripeSessionData = await stripeSessionResponse.json()
+          if (!stripeSessionResponse.ok || !stripeSessionData.url) {
+            throw new Error(stripeSessionData.error || 'Failed to create Stripe Checkout Session')
+          }
+          window.location.href = stripeSessionData.url
+          return
+        }
+
         const { clientSecret: secret, paymentIntentId: piId } = await createMembershipSession(info, membershipPlan, selectedAddOns);
         setClientSecret(secret);
         setPaymentIntentId(piId);

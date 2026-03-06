@@ -13,11 +13,73 @@ function MembershipSuccessContent() {
   const activated = useRef(false)
   const [activating, setActivating] = useState(true)
 
+  const fireTrackingEvents = (transactionId: string, amount: number, plan: string, productIds: string[]) => {
+    if (tracked.current) return
+    tracked.current = true
+
+    trackPurchase(transactionId, amount, 'USD', productIds, {})
+
+    const eventId = `${Date.now()}-${Math.random().toString(36).substring(2, 11)}`
+
+    fetch('/api/facebook-purchase', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        event_id: eventId,
+        value: amount,
+        currency: 'USD',
+        content_ids: productIds,
+        contents: [{ id: productIds[0], quantity: 1, item_price: amount }],
+        session_url: 'https://oracleboxing.com/membership-success',
+      }),
+      keepalive: true,
+    }).then(async res => {
+      if (!res.ok) console.error('❌ Membership CAPI Purchase failed:', res.status)
+    }).catch(err => console.error('❌ Membership CAPI fetch error:', err))
+
+    try {
+      import('@/lib/gtag').then(({ gtagPurchase }) => {
+        gtagPurchase({
+          value: amount,
+          currency: 'USD',
+          transaction_id: transactionId,
+          items: [{ item_id: `membership-${plan}`, item_name: `Oracle Membership (${plan})`, price: amount, quantity: 1 }],
+        })
+      }).catch(() => {})
+    } catch {}
+
+    if (typeof window !== 'undefined' && (window as any).fbq) {
+      (window as any).fbq('track', 'Purchase', {
+        value: amount,
+        currency: 'USD',
+        content_ids: productIds,
+        content_type: 'product',
+      }, { eventID: eventId })
+    }
+  }
+
   useEffect(() => {
     const paymentIntentId = searchParams.get('payment_intent')
+    const sessionId = searchParams.get('session_id')
 
-    // Activate membership and then fire tracking with real amount
-    if (!activated.current && paymentIntentId) {
+    if (!activated.current && sessionId) {
+      // Stripe Checkout Session variant — subscription already created by Stripe
+      activated.current = true
+      fetch(`/api/checkout-v2/session-details?session_id=${sessionId}`)
+        .then(res => res.json())
+        .then(data => {
+          setActivating(false)
+          const amount = data.amount ? data.amount / 100 : 97
+          const plan = data.plan || 'monthly'
+          const productIds = data.productIds || ['membership']
+          fireTrackingEvents(sessionId, amount, plan, productIds)
+        })
+        .catch(err => {
+          console.error('Session details retrieval error:', err)
+          setActivating(false)
+        })
+    } else if (!activated.current && paymentIntentId) {
+      // Control variant — activate membership via PaymentIntent
       activated.current = true
       fetch('/api/checkout-v2/activate-membership', {
         method: 'POST',
@@ -27,60 +89,10 @@ function MembershipSuccessContent() {
         .then(res => res.json())
         .then(data => {
           setActivating(false)
-
-          // Fire tracking with real amount from activation response
-          if (!tracked.current) {
-            tracked.current = true
-            const amount = data.amount ? data.amount / 100 : 97
-            const plan = data.plan || 'monthly'
-            const productIds = data.productIds || ['membership']
-
-            // Supabase tracking (runs client-side with anon key)
-            trackPurchase(paymentIntentId, amount, 'USD', productIds, {})
-
-            // Generate shared eventID for browser pixel + CAPI deduplication
-            const eventId = `${Date.now()}-${Math.random().toString(36).substring(2, 11)}`
-
-            // Send CAPI through server route (has FB_ACCESS_TOKEN)
-            fetch('/api/facebook-purchase', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                event_id: eventId,
-                value: amount,
-                currency: 'USD',
-                content_ids: productIds,
-                contents: [{ id: productIds[0], quantity: 1, item_price: amount }],
-                session_url: 'https://oracleboxing.com/membership-success',
-              }),
-              keepalive: true,
-            }).then(async res => {
-              if (res.ok) {
-              } else {
-                console.error('❌ Membership CAPI Purchase failed:', res.status)
-              }
-            }).catch(err => console.error('❌ Membership CAPI fetch error:', err))
-
-            try {
-              import('@/lib/gtag').then(({ gtagPurchase }) => {
-                gtagPurchase({
-                  value: amount,
-                  currency: 'USD',
-                  transaction_id: paymentIntentId,
-                  items: [{ item_id: `membership-${plan}`, item_name: `Oracle Membership (${plan})`, price: amount, quantity: 1 }],
-                })
-              }).catch(() => {})
-            } catch {}
-
-            if (typeof window !== 'undefined' && (window as any).fbq) {
-              (window as any).fbq('track', 'Purchase', {
-                value: amount,
-                currency: 'USD',
-                content_ids: productIds,
-                content_type: 'product',
-              }, { eventID: eventId })
-            }
-          }
+          const amount = data.amount ? data.amount / 100 : 97
+          const plan = data.plan || 'monthly'
+          const productIds = data.productIds || ['membership']
+          fireTrackingEvents(paymentIntentId, amount, plan, productIds)
         })
         .catch(err => {
           console.error('Membership activation error:', err)
