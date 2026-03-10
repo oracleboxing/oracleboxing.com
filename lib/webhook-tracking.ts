@@ -477,6 +477,19 @@ export async function trackPurchase(
     // Send to Supabase (non-blocking)
     // Use first-touch attribution from cookie (most valuable for ads attribution)
     // Fall back to last-touch if first-touch not available
+    // Dedup: check if this event_id + session_id combo already exists
+    const { data: existing } = await supabase
+      .from('purchases')
+      .select('id')
+      .eq('event_id', data.eventId)
+      .eq('session_id', data.sessionId)
+      .limit(1);
+
+    if (existing && existing.length > 0) {
+      console.log('Purchase already tracked (dedup), skipping Supabase insert:', data.eventId);
+      return;
+    }
+
     supabase
       .from('purchases')
       .insert({
