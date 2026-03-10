@@ -29,7 +29,7 @@ function formatSessionDate(value: string): string {
 function extractTitle(html: string | null): string {
   if (!html) return 'Coaching Session'
   // Get the first <p> content after <h2>Session Summary</h2>
-  const match = html.match(/<h2>Session Summary<\/h2>\s*<p>(.*?)<\/p>/s)
+  const match = html.match(/<h2>Session Summary<\/h2>[\s\S]*?<p>([\s\S]*?)<\/p>/)
   if (match?.[1]) {
     // Strip any HTML tags from the extracted text
     return match[1].replace(/<[^>]*>/g, '').trim()
@@ -39,7 +39,7 @@ function extractTitle(html: string | null): string {
 
 function removeSessionSummary(html: string): string {
   // Remove the "Session Summary" h2 and its following <p> since we use it as the title
-  return html.replace(/<h2>Session Summary<\/h2>\s*<p>.*?<\/p>/s, '').trim()
+  return html.replace(/<h2>Session Summary<\/h2>[\s\S]*?<p>[\s\S]*?<\/p>/, '').trim()
 }
 
 async function getKrisSessions(): Promise<CoachingSession[]> {
