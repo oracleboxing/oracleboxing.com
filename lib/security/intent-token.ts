@@ -23,7 +23,7 @@ interface VerifyIntentTokenParams {
   customerEmail?: string | null
 }
 
-const DEFAULT_TTL_SECONDS = 15 * 60
+const DEFAULT_TTL_SECONDS = 7 * 24 * 60 * 60 // 7 days - links are shared via DMs
 
 function getSigningSecret(): string {
   const secret =
