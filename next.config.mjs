@@ -46,6 +46,12 @@ const nextConfig = {
   },
   async redirects() {
     return [
+      // Main site pivot to Skool
+      {
+        source: '/',
+        destination: 'https://skool.com/boxing/about',
+        permanent: false,
+      },
       // UTM Tracking Short Links
       {
         source: '/yt-bio',
