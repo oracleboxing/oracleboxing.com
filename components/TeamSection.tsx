@@ -14,11 +14,6 @@ const team = [
     image: "https://sb.oracleboxing.com/Website/team_jordan.webp",
   },
   {
-    name: "Antonio Troni",
-    role: "Coach",
-    image: "https://sb.oracleboxing.com/Website/team_toni.webp",
-  },
-  {
     name: "Charlie Snider",
     role: "Coach",
     image: "https://sb.oracleboxing.com/Website/team_charlie.webp",
@@ -36,7 +31,7 @@ export default function TeamSection() {
       </div>
 
       {/* Full-width Team Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-4">
+      <div className="grid grid-cols-1 md:grid-cols-3">
         {team.map((member, index) => (
           <div
             key={index}
